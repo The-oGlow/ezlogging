@@ -1,0 +1,9 @@
+/tests/ export-ignore
+/.idea/ export-ignore
+/target/ export-ignore
+/old/ export-ignore
+/.* export-ignore
+/*.dist export-ignore
+/phpstan* export-ignore
+/phpunit.xml.dist export-ignore
+/.editorconfig export-ignore
