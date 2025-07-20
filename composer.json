@@ -66,6 +66,8 @@
         "classmap": [
         ],
         "psr-4": {
+            "Monolog\\": "tests/Monolog",
+            "PHPUnit\\": "tests/PHPUnit"
         }
     },
     "scripts": {
