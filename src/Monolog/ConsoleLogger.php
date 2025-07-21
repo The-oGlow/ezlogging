@@ -27,4 +27,3 @@ class ConsoleLogger extends AbstractEasyGoingLogger
         return new EasyGoingFormatter();
     }
 }
-

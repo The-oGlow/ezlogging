@@ -27,41 +27,72 @@ class PlainLogger extends AbstractEasyGoingLogger
         return new PlainFormatter();
     }
 
+    /**
+     * @param string|\Stringable $message
+     */
     public function out($message): void
     {
         parent::info($message);
     }
 
-    public function log($level, $message, array $context = []): void
+    /**
+     * @param mixed $level
+     * @param mixed[] $context
+     */
+    public function log(mixed $level, $message, array $context = []): void
     {
         $this->out($message);
     }
 
-    public function emergency($message, array $context = []): void
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
+    public function emergency( $message, array $context = []): void
     {
         $this->out($message);
     }
 
-    public function alert($message, array $context = []): void
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
+    public function alert( $message, array $context = []): void
     {
         $this->out($message);
     }
 
-    public function warning($message, array $context = []): void
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
+    public function warning( $message, array $context = []): void
     {
         $this->out($message);
     }
 
-    public function notice($message, array $context = []): void
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
+    public function notice( $message, array $context = []): void
     {
         $this->out($message);
     }
 
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
     public function info($message, array $context = []): void
     {
         $this->out($message);
     }
 
+    /**
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     */
     public function debug($message, array $context = []): void
     {
         $this->out($message);

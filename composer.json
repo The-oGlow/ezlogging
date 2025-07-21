@@ -1,94 +1,87 @@
 {
-    "name": "olliy/ezlogging",
-    "description": "Simplify the usage of logging with Monolog",
-    "type": "library",
-    "keywords": [
-        "php",
-        "logging",
-        "Monolog",
-        "log"
-    ],
-    "homepage": "https://github.com/ollily/ezlogging",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "ollily",
-            "email": "426229+ollily@users.noreply.github.com",
-            "homepage": "https://github.com/ollily"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/ollily/ezlogging/issues"
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "require": {
-        "php": ">=8.1",
-        "psr/log": "^1.0||^2.0||^3.0",
-        "monolog/monolog": "^2.10"
-    },
-    "provide": {
-        "psr/log-implementation": "^1.0||^2.0||^3.0"
-    },
-    "suggest": {
-        "bamarni/composer-bin-plugin": "Having compatible versions"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.6",
-        "phpstan/phpstan": "^2.1",
-        "vimeo/psalm": "^5.26",
-        "phpstan/extension-installer": "^1.4",
-        "friendsofphp/php-cs-fixer": "^3.0"
-    },
-    "config": {
-        "platform": {
-            "php": "8.1.0"
-        },
-        "optimize-autoloader": false,
-        "sort-packages": true,
-        "allow-plugins": {
-            "phpstan/extension-installer": true,
-            "php-http/discovery": true,
-            "bamarni/composer-bin-plugin": true
-        }
-    },
-    "autoload": {
-        "classmap": [
-        ],
-        "files": [
-        ],
-        "psr-4": {
-            "Monolog\\": "src/Monolog",
-            "PHPUnit\\": "src/PHPUnit"
-        }
-    },
-    "autoload-dev": {
-        "classmap": [
-        ],
-        "psr-4": {
-            "Monolog\\": "tests/Monolog",
-            "PHPUnit\\": "tests/PHPUnit"
-        }
-    },
-    "scripts": {
-        "c-exec": "@php ",
-        "c-test": "@php vendor/bin/phpunit",
-        "c-dryfix": [
-            "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
-            "@php vendor/bin/php-cs-fixer check"
-        ],
-        "c-fix": [
-            "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
-            "@php vendor/bin/php-cs-fixer fix"
-        ],
-        "c-phpstan": "@php vendor/bin/phpstan analyse",
-        "c-psalm": "@php vendor/bin/psalm"
-    },
-    "scripts-descriptions": {
-        "c-test": "CUSTOM: Execute all UNIT tests with PHPUnit",
-        "c-dryfix": "CUSTOM: Check code with PHP-CS-FIXER",
-        "c-fix": "CUSTOM: Fix code with PHP-CS-FIXER",
-        "c-phpstan": "CUSTOM: Check code with PHPStan",
-        "c-psalm": "CUSTOM: Check code wtih Psalm"
-    }
+	"name" : "olliy/ezlogging",
+	"description" : "Simplify the usage of logging with Monolog",
+	"type" : "library",
+	"keywords" : [
+		"php",
+		"logging",
+		"Monolog",
+		"log"
+	],
+	"homepage" : "https://github.com/ollily/ezlogging",
+	"license" : "Apache-2.0",
+	"authors" : [{
+			"name" : "ollily",
+			"email" : "426229+ollily@users.noreply.github.com",
+			"homepage" : "https://github.com/ollily"
+		}
+	],
+	"support" : {
+		"issues" : "https://github.com/ollily/ezlogging/issues"
+	},
+	"minimum-stability" : "stable",
+	"prefer-stable" : true,
+	"require" : {
+		"php" : ">=8.1",
+		"psr/log" : "^1.0||^2.0||^3.0",
+		"monolog/monolog" : "^2.10"
+	},
+	"provide" : {
+		"psr/log-implementation" : "^1.0||^2.0||^3.0"
+	},
+	"suggest" : {
+		"bamarni/composer-bin-plugin" : "Having compatible versions"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "^9.6",
+		"phpstan/phpstan" : "^2.1",
+		"vimeo/psalm" : "^5.26",
+		"phpstan/extension-installer" : "^1.4",
+		"friendsofphp/php-cs-fixer" : "^3.0"
+	},
+	"config" : {
+		"platform" : {
+			"php" : "8.1.0"
+		},
+		"optimize-autoloader" : false,
+		"sort-packages" : true,
+		"allow-plugins" : {
+			"phpstan/extension-installer" : true,
+			"php-http/discovery" : true,
+			"bamarni/composer-bin-plugin" : true
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Monolog\\" : "src/Monolog",
+			"PHPUnit\\" : "src/PHPUnit"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Monolog\\" : "tests/Monolog",
+			"PHPUnit\\" : "tests/PHPUnit"
+		}
+	},
+	"scripts" : {
+		"c-exec" : "@php ",
+		"c-test" : "@php vendor/bin/phpunit",
+		"c-dryfix" : [
+			"@putenv PHP_CS_FIXER_IGNORE_ENV=1",
+			"@php vendor/bin/php-cs-fixer check -v --format txt"
+		],
+		"c-fix" : [
+			"@putenv PHP_CS_FIXER_IGNORE_ENV=1",
+			"@php vendor/bin/php-cs-fixer fix"
+		],
+		"c-phpstan" : "@php vendor/bin/phpstan analyse",
+		"c-psalm" : "@php vendor/bin/psalm"
+	},
+	"scripts-descriptions" : {
+		"c-test" : "CUSTOM: Execute all UNIT tests with PHPUnit",
+		"c-dryfix" : "CUSTOM: Check code with PHP-CS-FIXER",
+		"c-fix" : "CUSTOM: Fix code with PHP-CS-FIXER",
+		"c-phpstan" : "CUSTOM: Check code with PHPStan",
+		"c-psalm" : "CUSTOM: Check code wtih Psalm"
+	}
 }

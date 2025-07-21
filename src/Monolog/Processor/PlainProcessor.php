@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
-class PlainProcessor implements ProcessorInterface
+use Monolog;
+
+class PlainProcessor implements ProcessorInterface 
 {
     /**
-     * @param array           $record
+     * @param mixed[]           $record
      *
-     * @return array The processed record
-     *
-     * @phpstan-param  Record $record
-     * @phpstan-return Record
+     * @return mixed[] The processed record
      */
     public function __invoke(array $record)
     {

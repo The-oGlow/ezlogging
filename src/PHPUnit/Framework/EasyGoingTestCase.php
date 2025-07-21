@@ -24,6 +24,7 @@ abstract class EasyGoingTestCase extends TestCase
 
     abstract protected function getCasto2t(): mixed;
 
+    /** @param mixed[] $constants */
     protected function verifyConstAllExists(array $constants = []): void
     {
         foreach ($constants as $constant)
@@ -32,6 +33,7 @@ abstract class EasyGoingTestCase extends TestCase
         }
     }
 
+    /** @param mixed[] $constants */
     protected function verifyConstArrayAllExists(array $constants = []): void
     {
         foreach ($constants as $constant => $expectedSize)
@@ -41,7 +43,7 @@ abstract class EasyGoingTestCase extends TestCase
         }
     }
 
-    protected function verifyConstArraySize($constantName, $expectedSize): void
+    protected function verifyConstArraySize(string $constantName, int $expectedSize): void
     {
         $constantValue = constant($constantName);
         $this::assertIsArray($constantValue);
@@ -77,9 +79,9 @@ abstract class EasyGoingTestCase extends TestCase
         return $primitive;
     }
 
-    public function testInit()
+    public function testInit(): void
     {
         $this::assertNotEmpty($this->o2t);
-        $this::assertInstanceOf(get_class($this->prepareO2t()), $this->o2t);
+        $this::assertInstanceOf($this->o2t, get_class($this->prepareO2t()));
     }
 }

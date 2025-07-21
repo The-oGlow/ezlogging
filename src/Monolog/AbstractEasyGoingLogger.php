@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
@@ -19,23 +20,23 @@ abstract class AbstractEasyGoingLogger extends Logger
     public const STANDARD_FILENAME = 'noFilename';
     public const STANDARD_FILEEXT  = '.log';
     public const HANDLER_STDOUT    = "php://stdout";
-    protected $targetFile;
+    protected string $targetFile;
 
     /**
      * AbstractEasyGoingLogger constructor.
      *
-     * @param string $name
-     * @param array  $handlers
-     * @param array  $processors
-     * @param null   $timezone
+     * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
+     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
+     * @param callable[]         $processors Optional array of processors
+     * @param DateTimeZone|null  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      */
-    public function __construct($name, $handlers = [], $processors = [], $timezone = null)
+    public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
         parent::__construct(
             $name,
             $handlers,
             $processors,
-            $timezone ?? new \DateTimeZone(date_default_timezone_get() ?? self::STANDARD_TIMEZONE)
+            $timezone ?? new \DateTimeZone(!empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE)
         );
         $this->pushProcessor($this->getDefaultProcessor());
         $this->pushHandler($this->getConsoleHandler());
@@ -50,7 +51,7 @@ abstract class AbstractEasyGoingLogger extends Logger
     /**
      * @return Handler\StreamHandler
      */
-    protected function getConsoleHandler()
+    protected function getConsoleHandler(): Handler\StreamHandler
     {
         $consoleHandler = new Handler\StreamHandler(self::HANDLER_STDOUT);
         $consoleHandler->setFormatter($this->getDefaultFormatter());
@@ -64,7 +65,7 @@ abstract class AbstractEasyGoingLogger extends Logger
      *
      * @return Handler\StreamHandler
      */
-    protected function getFileHandler(string $pathToFile, string $fileName = self::STANDARD_FILENAME)
+    protected function getFileHandler(string $pathToFile, string $fileName = self::STANDARD_FILENAME): Handler\StreamHandler
     {
         $this->targetFile = $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
         $fileHandler      = new Handler\StreamHandler($this->targetFile);
