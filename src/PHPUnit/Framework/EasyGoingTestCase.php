@@ -27,8 +27,7 @@ abstract class EasyGoingTestCase extends TestCase
     /** @param mixed[] $constants */
     protected function verifyConstAllExists(array $constants = []): void
     {
-        foreach ($constants as $constant)
-        {
+        foreach ($constants as $constant) {
             $this->verifyConstExists($constant);
         }
     }
@@ -36,8 +35,7 @@ abstract class EasyGoingTestCase extends TestCase
     /** @param mixed[] $constants */
     protected function verifyConstArrayAllExists(array $constants = []): void
     {
-        foreach ($constants as $constant => $expectedSize)
-        {
+        foreach ($constants as $constant => $expectedSize) {
             $this->verifyConstExists($constant);
             $this->verifyConstArraySize($constant, $expectedSize);
         }
@@ -52,16 +50,13 @@ abstract class EasyGoingTestCase extends TestCase
 
     protected function verifyConstExists(string $constantName): void
     {
-        if (defined($constantName))
-        {
+        if (defined($constantName)) {
             $constantValue = constant($constantName);
             $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
-            if (!self::is_primitive($constantValue))
-            {
+            if (!self::is_primitive($constantValue)) {
                 $this->assertNotEmpty($constantValue);
             }
-        } else
-        {
+        } else {
             $this->fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
     }
@@ -71,8 +66,7 @@ abstract class EasyGoingTestCase extends TestCase
     protected static function is_primitive(mixed $var): bool
     {
         $primitive = false;
-        if (isset($var) && strpos(self::LOP, gettype($var)) > 0)
-        {
+        if (isset($var) && strpos(self::LOP, gettype($var)) > 0) {
             $primitive = true;
         }
 

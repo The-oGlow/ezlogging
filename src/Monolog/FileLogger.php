@@ -22,9 +22,9 @@ class FileLogger extends ConsoleLogger
     public function __construct(string $name, string $pathToFile, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
         parent::__construct(
-            $name, 
-            (empty($handlers) ? [$this->getFileHandler($pathToFile, $name)] : $handlers), 
-            $processors, 
+            $name,
+            (empty($handlers) ? [$this->getFileHandler($pathToFile, $name)] : $handlers),
+            $processors,
             $timezone
         );
     }

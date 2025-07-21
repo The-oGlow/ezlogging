@@ -48,7 +48,7 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @param string|\Stringable $message
      * @param mixed[] $context
      */
-    public function emergency( $message, array $context = []): void
+    public function emergency($message, array $context = []): void
     {
         $this->out($message);
     }
@@ -57,7 +57,7 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @param string|\Stringable $message
      * @param mixed[] $context
      */
-    public function alert( $message, array $context = []): void
+    public function alert($message, array $context = []): void
     {
         $this->out($message);
     }
@@ -66,7 +66,7 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @param string|\Stringable $message
      * @param mixed[] $context
      */
-    public function warning( $message, array $context = []): void
+    public function warning($message, array $context = []): void
     {
         $this->out($message);
     }
@@ -75,7 +75,7 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @param string|\Stringable $message
      * @param mixed[] $context
      */
-    public function notice( $message, array $context = []): void
+    public function notice($message, array $context = []): void
     {
         $this->out($message);
     }

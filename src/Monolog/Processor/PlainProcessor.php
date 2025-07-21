@@ -6,7 +6,7 @@ namespace Monolog\Processor;
 
 use Monolog;
 
-class PlainProcessor implements ProcessorInterface 
+class PlainProcessor implements ProcessorInterface
 {
     /**
      * @param mixed[]           $record

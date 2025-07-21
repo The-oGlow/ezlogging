@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Monolog\Processor;
@@ -15,7 +16,6 @@ use Monolog\Logger;
  */
 class PaddingProcessor implements ProcessorInterface
 {
-
     /** @var int */
     private $level;
 
@@ -72,8 +72,7 @@ class PaddingProcessor implements ProcessorInterface
     private function __invokeIntrospection(array $record): array
     {
         // return if the level is not high enough
-        if ($record['level'] < $this->level)
-        {
+        if ($record['level'] < $this->level) {
             return $record;
         }
 
@@ -86,22 +85,17 @@ class PaddingProcessor implements ProcessorInterface
 
         $i = 0;
 
-        while ($this->isTraceClassOrSkippedFunction($trace, $i))
-        {
-            if (isset($trace[$i]['class']))
-            {
-                foreach ($this->skipClassesPartials as $part)
-                {
-                    if (strpos($trace[$i]['class'], $part) !== false)
-                    {
-                        $i ++;
+        while ($this->isTraceClassOrSkippedFunction($trace, $i)) {
+            if (isset($trace[$i]['class'])) {
+                foreach ($this->skipClassesPartials as $part) {
+                    if (strpos($trace[$i]['class'], $part) !== false) {
+                        $i++;
 
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions))
-            {
-                $i ++;
+            } elseif (in_array($trace[$i]['function'], $this->skipFunctions)) {
+                $i++;
 
                 continue;
             }
@@ -133,8 +127,7 @@ class PaddingProcessor implements ProcessorInterface
      */
     private function isTraceClassOrSkippedFunction(array $trace, int $index): bool
     {
-        if (! isset($trace[$index]))
-        {
+        if (! isset($trace[$index])) {
             return false;
         }
 
