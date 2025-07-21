@@ -4,8 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/Monolog" isTestSource="false" packagePrefix="Monolog\" />
       <sourceFolder url="file://$MODULE_DIR$/src/PHPUnit" isTestSource="false" packagePrefix="PHPUnit\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/Monolog" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/PHPUnit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/Monolog" isTestSource="true" packagePrefix="Monolog\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/PHPUnit" isTestSource="true" packagePrefix="PHPUnit\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/amp" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/clue/ndjson-react" />
@@ -82,6 +83,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
