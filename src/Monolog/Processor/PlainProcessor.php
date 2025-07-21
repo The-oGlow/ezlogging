@@ -9,7 +9,7 @@ use Monolog;
 class PlainProcessor implements ProcessorInterface
 {
     /**
-     * @param mixed[]           $record
+     * @param mixed[] $record
      *
      * @return mixed[] The processed record
      */

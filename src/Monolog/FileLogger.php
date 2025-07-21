@@ -11,13 +11,13 @@ class FileLogger extends ConsoleLogger
 {
     /**
      *
-     * @param string $name
-     * @param string $pathToFile
+     * @param string             $name
+     * @param string             $pathToFile
      * @param HandlerInterface[] $handlers
      *            Optional stack of handlers, the first one in the array is called first, etc.
-     * @param callable[] $processors
+     * @param callable[]         $processors
      *            Optional array of processors
-     * @param DateTimeZone|null $timezone
+     * @param DateTimeZone|null  $timezone
      */
     public function __construct(string $name, string $pathToFile, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {

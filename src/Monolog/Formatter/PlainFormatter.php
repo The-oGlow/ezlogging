@@ -7,13 +7,13 @@ namespace Monolog\Formatter;
 class PlainFormatter extends LineFormatter
 {
     /** @var string */
-    public const FORMATTER_OUTPUT     = "\n%message%";
+    public const FORMATTER_OUTPUT = "\n%message%";
     /** @var string */
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
-     * @param string $format
-     * @param string $dateFormat
+     * @param string  $format
+     * @param string  $dateFormat
      * @param boolean $allowInlineLineBreaks
      * @param boolean $ignoreEmptyContextAndExtra
      * @param boolean $includeStacktraces
