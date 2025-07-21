@@ -7,6 +7,7 @@ namespace Monolog;
 use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
 
 /**
@@ -36,7 +37,7 @@ abstract class AbstractEasyGoingLogger extends Logger
             $name,
             $handlers,
             $processors,
-            $timezone ?? new \DateTimeZone(!empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE)
+            $timezone ?? new DateTimeZone(!empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE)
         );
         $this->pushProcessor($this->getDefaultProcessor());
         $this->pushHandler($this->getConsoleHandler());
@@ -48,10 +49,7 @@ abstract class AbstractEasyGoingLogger extends Logger
 
     abstract protected function getDefaultFormatter(): FormatterInterface;
 
-    /**
-     * @return Handler\StreamHandler
-     */
-    protected function getConsoleHandler(): Handler\StreamHandler
+    protected function getConsoleHandler(): StreamHandler
     {
         $consoleHandler = new Handler\StreamHandler(self::HANDLER_STDOUT);
         $consoleHandler->setFormatter($this->getDefaultFormatter());
@@ -59,17 +57,10 @@ abstract class AbstractEasyGoingLogger extends Logger
         return $consoleHandler;
     }
 
-    /**
-     * @param string $pathToFile
-     * @param string $fileName
-     *
-     * @return Handler\StreamHandler
-     */
-    protected function getFileHandler(string $pathToFile, string $fileName = self::STANDARD_FILENAME): Handler\StreamHandler
+    protected function getFileHandler(string $pathToFile, string $fileName = self::STANDARD_FILENAME): StreamHandler
     {
         $this->targetFile = $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
-        $fileHandler      = new Handler\StreamHandler($this->targetFile);
 
-        return $fileHandler;
+        return new Handler\StreamHandler($this->targetFile);
     }
 }

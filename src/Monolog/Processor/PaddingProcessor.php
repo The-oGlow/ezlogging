@@ -103,14 +103,16 @@ class PaddingProcessor implements ProcessorInterface
         $i += $this->skipStackFramesCount;
 
         // we should have the call source now
-        $record = array_merge($record, [
+        if ($i > 0) {
+            $record = array_merge($record, [
 
-            'xFile'     => isset($trace[$i - 1]['file']) ? $trace[$i - 1]['file'] : null,
-            'xLine'     => isset($trace[$i - 1]['line']) ? $trace[$i - 1]['line'] : null,
-            'xClass'    => isset($trace[$i]['class']) ? $trace[$i]['class'] : null,
-            'xCallType' => isset($trace[$i]['type']) ? $trace[$i]['type'] : null,
-            'xFunction' => isset($trace[$i]['function']) ? $trace[$i]['function'] : null
-        ]);
+                'xFile'     => $trace[$i - 1]['file'] ?? null,
+                'xLine'     => $trace[$i - 1]['line'] ?? null,
+                'xClass'    => $trace[$i]['class'] ?? null,
+                'xCallType' => $trace[$i]['type'] ?? null,
+                'xFunction' => $trace[$i]['function'] ?? null
+            ]);
+        }
 
         return $record;
     }

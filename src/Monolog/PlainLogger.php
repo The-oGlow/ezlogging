@@ -9,6 +9,7 @@ use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
+use Stringable;
 
 class PlainLogger extends AbstractEasyGoingLogger
 {
@@ -28,7 +29,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
+     * @param string|Stringable $message
      */
     public function out($message): void
     {
@@ -45,8 +46,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function emergency($message, array $context = []): void
     {
@@ -54,8 +55,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function alert($message, array $context = []): void
     {
@@ -63,8 +64,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function warning($message, array $context = []): void
     {
@@ -72,8 +73,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function notice($message, array $context = []): void
     {
@@ -81,8 +82,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function info($message, array $context = []): void
     {
@@ -90,8 +91,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|\Stringable $message
-     * @param mixed[]            $context
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      */
     public function debug($message, array $context = []): void
     {
