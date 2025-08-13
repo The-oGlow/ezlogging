@@ -18,12 +18,20 @@
         </testsuite>
     </testsuites>
 
-    <!--
-    <source>
-        <include>
-            <directory suffix=".php">src/</directory>
-        </include>
-    </source>
--->
+    <coverage
+        includeUncoveredFiles="true"
+        ignoreDeprecatedCodeUnits="false"
+        pathCoverage="true"
+        disableCodeCoverageIgnore="false"
+    >
+        <report>
+            <cobertura outputFile="target/cobertura/cobertura.xml"/>
+            <!--<html outputDirectory="target/html" />-->
+            <text outputFile="target/text/coverage.txt" showUncoveredFiles="true" showOnlySummary="false" />
+        </report>
 
+        <include>
+            <directory>src</directory>
+        </include>
+    </coverage>
 </phpunit>

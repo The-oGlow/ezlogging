@@ -13,7 +13,7 @@ abstract class EasyGoingTestCase extends TestCase
     /** @var mixed */
     protected $o2t;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->logger = new ConsoleLogger(static::class);
