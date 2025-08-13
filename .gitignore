@@ -197,3 +197,4 @@ target/
 
 #/vendor/*
 /wpcs/*
+/nbproject/private/
