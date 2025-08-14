@@ -2,10 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Monolog;
 
 use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\ConsoleHandler;
+use Monolog\Handler\FileHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
@@ -18,9 +29,6 @@ use Monolog\Processor\ProcessorInterface;
 abstract class AbstractEasyGoingLogger extends Logger
 {
     public const STANDARD_TIMEZONE = "Europe/Berlin";
-    public const STANDARD_FILENAME = 'noFilename';
-    public const STANDARD_FILEEXT  = '.log';
-    public const HANDLER_STDOUT    = "php://stdout";
     protected string $targetFile;
 
     /**
@@ -51,16 +59,9 @@ abstract class AbstractEasyGoingLogger extends Logger
 
     protected function getConsoleHandler(): StreamHandler
     {
-        $consoleHandler = new Handler\StreamHandler(self::HANDLER_STDOUT);
+        $consoleHandler = new ConsoleHandler();
         $consoleHandler->setFormatter($this->getDefaultFormatter());
 
         return $consoleHandler;
-    }
-
-    protected function getFileHandler(string $pathToFile, string $fileName = self::STANDARD_FILENAME): StreamHandler
-    {
-        $this->targetFile = $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
-
-        return new Handler\StreamHandler($this->targetFile);
     }
 }

@@ -67,17 +67,15 @@
   },
   "scripts": {
     "c-exec": "@php ",
-    "c-test": "@php vendor/bin/phpunit",
+    "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit",
     "c-dryfix": [
-      "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
-      "@php vendor/bin/php-cs-fixer check -v --format txt"
+      "@php -d xdebug.mode=off vendor/bin/php-cs-fixer check --allow-unsupported-php-version=yes --allow-risky=yes --format txt"
     ],
     "c-fix": [
-      "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
-      "@php vendor/bin/php-cs-fixer fix"
+      "@php -d xdebug.mode=off vendor/bin/php-cs-fixer fix --allow-unsupported-php-version=yes --allow-risky=yes"
     ],
-    "c-phpstan": "@php vendor/bin/phpstan analyse",
-    "c-psalm": "@php vendor/bin/psalm"
+    "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
+    "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm"
   },
   "scripts-descriptions": {
     "c-test": "CUSTOM: Execute all UNIT tests with PHPUnit",

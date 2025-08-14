@@ -1,10 +1,14 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: GLO03
- * Date: 13.08.2025
- * Time: 17:18
+declare(strict_types=1);
+
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Monolog\Processor;
@@ -16,6 +20,8 @@ use PHPUnit\Framework\TestCase;
 class PaddingProcessorTest extends TestCase
 {
     use UnavailableFieldsTrait;
+
+    /** @var PaddingProcessor $o2t */
     private $o2t;
 
     public function setUp(): void
@@ -36,14 +42,14 @@ class PaddingProcessorTest extends TestCase
         $this::assertEquals(0, $this->getFieldFromO2t('skipStackFramesCount'));
     }
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $testArray = ['level' => Logger::INFO, 'level_name' => 'INFO'];
         $testArrayKeys = ['level','level_name', 'level_name_pad', 'xFile', 'xLine', 'xClass', 'xCallType', 'xFunction'];
 
         $arrayResult = $this->o2t->__invoke($testArray);
 
-        $this::assertIsArray($arrayResult);
+        $this::assertNotEmpty($arrayResult);
         $this::assertCount(8, $arrayResult);
         $this::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
         $this::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));

@@ -11,19 +11,16 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog\Processor;
+namespace Monolog\Handler;
 
-use Monolog;
+use Monolog\Logger;
 
-class PlainProcessor implements ProcessorInterface
+class ConsoleHandler extends StreamHandler
 {
-    /**
-     * @param mixed[] $record
-     *
-     * @return mixed[] The processed record
-     */
-    public function __invoke(array $record)
+    public const HANDLER_STDOUT    = "php://stdout";
+
+    public function __construct()
     {
-        return $record;
+        parent::__construct(self::HANDLER_STDOUT);
     }
 }

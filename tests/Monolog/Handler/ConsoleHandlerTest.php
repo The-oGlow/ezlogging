@@ -11,31 +11,24 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog\Processor;
+namespace Monolog\Handler;
 
 use PHPUnit\Framework\TestCase;
 
-class PlainProcessorTest extends TestCase
+class ConsoleHandlerTest extends TestCase
 {
-    /** @var PlainProcessor $o2t */
+    /** @var ConsoleHandler $o2t */
     private $o2t;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->o2t = new PlainProcessor();
+        $this->o2t = new ConsoleHandler();
     }
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(PlainProcessor::class, $this->o2t);
-    }
-
-    public function testInvoke(): void
-    {
-        $testArray = [1,2,'hello'];
-        $result = $this->o2t->__invoke($testArray);
-        $this::assertEquals($testArray, $result);
+        $this::assertInstanceOf(ConsoleHandler::class, $this->o2t);
     }
 }
