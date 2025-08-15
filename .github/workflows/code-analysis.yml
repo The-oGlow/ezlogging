@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkoutv5.0.0
+        uses: actions/checkout@v4.3.0
         with:
           fetch-depth: 0
 
