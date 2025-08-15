@@ -78,5 +78,4 @@ class FileHandlerTest extends TestCase
         $this::assertNotEmpty($result);
         $this::assertStringEndsWith($pathToFile.DIRECTORY_SEPARATOR. $fileName. FileHandler::STANDARD_FILEEXT, $result);
     }
-
 }

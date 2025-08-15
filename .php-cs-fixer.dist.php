@@ -20,6 +20,36 @@ return (new PhpCsFixer\Config())->setParallelConfig(PhpCsFixer\Runner\Parallel\P
         'no_trailing_comma_in_singleline' => true,
         'protected_to_private'            => false,
         'visibility_required'             => false,
+        'blank_line_before_statement'     => [
+            'statements' => [
+                'declare',
+                'exit',
+                'goto',
+                'include',
+                'include_once',
+                'require',
+                'require_once',
+                'return',
+                'try'
+            ]
+        ],
+        'no_extra_blank_lines'            => [
+            'tokens' => [
+                'attribute',
+                'break',
+                'case',
+                'comma',
+                'continue',
+                'curly_brace_block',
+                'default',
+                'extra',
+                'parenthesis_brace_block',
+                'return',
+                'square_brace_block',
+                'switch',
+                'throw'
+            ]
+        ],
         'header_comment'                  => ['header' => $header]
 
     ]

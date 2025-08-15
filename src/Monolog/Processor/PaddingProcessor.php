@@ -33,7 +33,6 @@ class PaddingProcessor implements ProcessorInterface
     private $skipStackFramesCount;
     /** @var string[] */
     private $skipFunctions = [
-
         'call_user_func',
         'call_user_func_array'
     ];
@@ -49,7 +48,6 @@ class PaddingProcessor implements ProcessorInterface
     {
         $this->level                = Logger::toMonologLevel($level);
         $this->skipClassesPartials  = array_merge([
-
             'Monolog\\'
         ], $skipClassesPartials);
         $this->skipStackFramesCount = $skipStackFramesCount;
@@ -114,7 +112,6 @@ class PaddingProcessor implements ProcessorInterface
         // we should have the call source now
         if ($i > 0) {
             $record = array_merge($record, [
-
                 'xFile'     => $trace[$i - 1]['file'] ?? null,
                 'xLine'     => $trace[$i - 1]['line'] ?? null,
                 'xClass'    => $trace[$i]['class'] ?? null,

@@ -54,7 +54,6 @@ class PaddingProcessorTest extends TestCase
         $this::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
         $this::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
         foreach ($testArrayKeys as $key) {
-
             $this::assertArrayHasKey($key, $arrayResult);
         }
     }

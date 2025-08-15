@@ -73,5 +73,4 @@ class EasyGoingTestCaseTest extends TestCase
         $this::assertEquals($expected, $actual);
         $this::assertSame($expected, $actual);
     }
-
 }

@@ -45,6 +45,7 @@ trait UnavailableMethodsTrait
         // @phpstan-ignore empty.property
         if (!empty($this->o2t)) {
             $_o2t = $this->o2t;
+
             return $this->callMethodByReflection($_o2t::class, $methodName, $_o2t);
         } else {
             return null;

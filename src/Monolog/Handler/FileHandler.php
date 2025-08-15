@@ -33,6 +33,7 @@ class FileHandler extends StreamHandler
         if (empty($fileName)) {
             $fileName = self::STANDARD_FILENAME;
         }
+
         return $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
     }
 

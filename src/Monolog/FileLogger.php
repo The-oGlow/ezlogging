@@ -53,6 +53,7 @@ class FileLogger extends ConsoleLogger
                 $fileName = $handler->getFileName();
             }
         }
+
         return $fileName;
     }
 }

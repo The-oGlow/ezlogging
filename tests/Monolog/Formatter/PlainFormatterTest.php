@@ -28,7 +28,6 @@ class PlainFormatterTest extends TestCase
         parent::setUp();
 
         $this->o2t = new PlainFormatter();
-
     }
 
     public function testConfiguration(): void
@@ -39,7 +38,5 @@ class PlainFormatterTest extends TestCase
         $this::assertEquals(true, $this->getFieldFromO2t('allowInlineLineBreaks'));
         $this::assertEquals(true, $this->getFieldFromO2t('ignoreEmptyContextAndExtra'));
         $this::assertEquals(false, $this->getFieldFromO2t('includeStacktraces'));
-
     }
-
 }

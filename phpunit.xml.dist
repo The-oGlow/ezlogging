@@ -30,7 +30,7 @@
         <report>
             <clover outputFile="target/clover/coverage.xml"/>
             <text outputFile="target/text/coverage.txt" showUncoveredFiles="true" showOnlySummary="false"/>
-            <html outputDirectory="target/html" />
+            <!--<html outputDirectory="target/html" />-->
         </report>
 
         <include>

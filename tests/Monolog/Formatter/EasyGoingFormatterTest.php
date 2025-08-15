@@ -28,7 +28,6 @@ class EasyGoingFormatterTest extends TestCase
         parent::setUp();
 
         $this->o2t = new EasyGoingFormatter();
-
     }
 
     public function testConfiguration(): void
@@ -39,6 +38,5 @@ class EasyGoingFormatterTest extends TestCase
         $this::assertEquals(true, $this->getFieldFromO2t('allowInlineLineBreaks'));
         $this::assertEquals(true, $this->getFieldFromO2t('ignoreEmptyContextAndExtra'));
         $this::assertEquals(false, $this->getFieldFromO2t('includeStacktraces'));
-
     }
 }
