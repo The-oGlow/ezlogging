@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-    failOnWarning="true"
-    colors="true"
-    bootstrap="tests/bootstrap.php">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+        failOnWarning="true"
+        colors="true"
+        bootstrap="tests/bootstrap.php">
 
     <php>
         <ini name="display_errors" value="1"/>
@@ -18,16 +18,19 @@
         </testsuite>
     </testsuites>
 
+    <logging>
+        <junit outputFile="target/phpunit/junit.xml"/>
+    </logging>
+
     <coverage
-        includeUncoveredFiles="true"
-        ignoreDeprecatedCodeUnits="false"
-        pathCoverage="true"
-        disableCodeCoverageIgnore="false"
-    >
+            includeUncoveredFiles="true"
+            ignoreDeprecatedCodeUnits="false"
+            pathCoverage="true"
+            disableCodeCoverageIgnore="false">
         <report>
-            <cobertura outputFile="target/cobertura/cobertura.xml"/>
-            <!--<html outputDirectory="target/html" />-->
-            <text outputFile="target/text/coverage.txt" showUncoveredFiles="true" showOnlySummary="false" />
+            <clover outputFile="target/clover/coverage.xml"/>
+            <text outputFile="target/text/coverage.txt" showUncoveredFiles="true" showOnlySummary="false"/>
+            <html outputDirectory="target/html" />
         </report>
 
         <include>

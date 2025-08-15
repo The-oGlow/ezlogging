@@ -1,0 +1,70 @@
+name: code-analysis
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - develop
+    paths-ignore:
+      - '.github/workflows/**'
+      - '.run/**'
+      - '.idea/**'
+
+env:
+  # PHP Configuration
+  PHP_VERSION: 8.1
+
+  # Github Additional Configuration
+  GITHUB_REPO_NAME: ${{ github.event.repository.name }}
+  GITHUB_ACTOR: ${{ github.actor }}
+  GITHUB_PROJECT_DIR: ${{ github.workspace }}
+  GITHUB_TARGET_DIR: ${{ github.workspace }}/target
+  GITHUB_BRANCH_NAME: ${{ github.ref_name }}
+  GITHUB_UPLOAD_DIR: ${{ github.workspace }}/target/staging
+  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}.zip
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Sonarcloud Configuration
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+  SONAR_CACHE_DIR: "${HOME}/.sonar/cache"
+  SONAR_HOST_URL: "https://sonarcloud.io"
+
+  # Codacy Configuration
+  CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+  CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+
+  # Coveralls Configuration
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+jobs:
+  sonarcloud:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        version: [ 17 ]
+        distribution: [ adopt ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkoutv5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: setup PHP
+        uses: shivammathur/setup-php@v2.35.3
+        with:
+          php-version: '${{ env.PHP_VERSION }}'
+          coverage: xdebug
+
+      - name: install dependencies
+        run: composer update --no-ansi --no-interaction --no-progress
+
+      - name: tests
+        run: composer c-test
+
+      - name: sonarcloud
+        uses: SonarSource/sonarqube-scan-action@v5.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
