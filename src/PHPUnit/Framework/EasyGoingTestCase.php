@@ -25,7 +25,7 @@ abstract class EasyGoingTestCase extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->logger = new ConsoleLogger(static::class);
+        $this->logger = new ConsoleLogger(self::class);
         $this->o2t    = $this->prepareO2t();
     }
 
@@ -53,8 +53,8 @@ abstract class EasyGoingTestCase extends TestCase
     protected function verifyConstArraySize(string $constantName, int $expectedSize): void
     {
         $constantValue = constant($constantName);
-        $this::assertIsArray($constantValue);
-        $this::assertCount($expectedSize, $constantValue);
+        static::assertIsArray($constantValue);
+        static::assertCount($expectedSize, $constantValue);
     }
 
     protected function verifyConstExists(string $constantName): void
@@ -62,7 +62,7 @@ abstract class EasyGoingTestCase extends TestCase
         if (defined($constantName)) {
             $constantValue = constant($constantName);
             $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
-            if (!self::is_primitive($constantValue)) {
+            if (!static::is_primitive($constantValue)) {
                 $this->assertNotEmpty($constantValue);
             }
         } else {
@@ -84,7 +84,7 @@ abstract class EasyGoingTestCase extends TestCase
 
     public function testInit(): void
     {
-        $this::assertNotEmpty($this->o2t);
-        $this::assertInstanceOf($this->o2t, get_class($this->prepareO2t()));
+        static::assertNotEmpty($this->o2t);
+        static::assertInstanceOf($this->o2t, get_class($this->prepareO2t()));
     }
 }

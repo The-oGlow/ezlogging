@@ -21,19 +21,28 @@ class PlainFormatter extends LineFormatter
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
-     * @param string  $format
-     * @param string  $dateFormat
-     * @param boolean $allowInlineLineBreaks
-     * @param boolean $ignoreEmptyContextAndExtra
-     * @param boolean $includeStacktraces
+     * PlainFormatter constructor.
+     *
+     * @param string $format
+     * @param string $dateFormat
+     * @param bool   $allowInlineLineBreaks
+     * @param bool   $ignoreEmptyContextAndExtra
+     * @param bool   $includeStacktraces
      */
-    public function __construct(// @phpstan-ignore constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter
+    // @phpstan-ignore constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter
+    public function __construct(
         $format = self::FORMATTER_OUTPUT,
         $dateFormat = self::FORMATTER_DATEFORMAT,
         $allowInlineLineBreaks = true,
         $ignoreEmptyContextAndExtra = true,
         $includeStacktraces = false
     ) {
-        parent::__construct(self::FORMATTER_OUTPUT, self::FORMATTER_DATEFORMAT, true, true, false);
+        parent::__construct(
+            self::FORMATTER_OUTPUT,
+            self::FORMATTER_DATEFORMAT,
+            true,
+            true,
+            false
+        );
     }
 }

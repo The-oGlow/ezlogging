@@ -16,15 +16,37 @@ namespace Monolog;
 use Monolog\FileLogger;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\FileHandler;
+use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
 
+class FileLoggerTestHandlerClazz implements HandlerInterface
+{
+    public function isHandling(array $record): bool
+    {
+        return true;
+    }
+    public function handle(array $record): bool
+    {
+        return true;
+    }
+
+    public function handleBatch(array $records): void
+    {
+        // nothing2do
+    }
+
+    public function close(): void
+    {
+        // nothing2do
+    }
+}
+
 class FileLoggerTest extends TestCase
 {
     use UnavailableFieldsTrait;
-
     /** @var FileLogger $o2t */
     private $o2t;
     /** @var string $fileName */
@@ -34,38 +56,46 @@ class FileLoggerTest extends TestCase
     {
         parent::setUp();
 
-        $this->o2t = new FileLogger(self::class, sys_get_temp_dir());
+        $this->o2t      = new FileLogger(self::class, sys_get_temp_dir());
         $this->fileName = $this->o2t->getFileName();
     }
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(FileLogger::class, $this->o2t);
+        static::assertInstanceOf(FileLogger::class, $this->o2t);
         $handlers = $this->o2t->getHandlers();
-        $this::assertNotEmpty($handlers);
-        $this::assertCount(2, $handlers);
-        $this::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
-        $this::assertInstanceOf(FileHandler::class, $handlers[1]);
+        static::assertNotEmpty($handlers);
+        static::assertCount(2, $handlers);
+        static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
+        static::assertInstanceOf(FileHandler::class, $handlers[1]);
     }
 
     public function testFileCreated(): void
     {
-        $this::assertNotEmpty($this->fileName);
-        $this::assertFileDoesNotExist($this->fileName);
+        static::assertNotEmpty($this->fileName);
+        static::assertFileDoesNotExist($this->fileName);
         $this->o2t->info('Write a log entry');
         $this->assertFileExists($this->fileName);
     }
 
-    public function testCreateWithHandler(): void
+    public function testCreateWithCustomHandler(): void
     {
-        $o2tB = new FileLogger(self::class, sys_get_temp_dir(), [new ConsoleHandler()]);
+        $o2tB = new FileLogger(self::class, sys_get_temp_dir(), [new FileLoggerTestHandlerClazz()]);
 
-        $this::assertInstanceOf(FileLogger::class, $o2tB);
+        static::assertInstanceOf(FileLogger::class, $o2tB);
         $handlers = $o2tB->getHandlers();
-        $this::assertNotEmpty($handlers);
-        $this::assertCount(2, $handlers);
-        $this::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
-        $this::assertInstanceOf(ConsoleHandler::class, $handlers[1]);
+        static::assertNotEmpty($handlers);
+        static::assertCount(2, $handlers);
+        static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
+        static::assertInstanceOf(FileLoggerTestHandlerClazz::class, $handlers[1]);
+    }
+
+    public function testGetFileNameEmpty(): void
+    {
+        $o2tc = new FileLogger(self::class, sys_get_temp_dir(), [new FileLoggerTestHandlerClazz()]);
+        static::assertInstanceOf(FileLogger::class, $o2tc);
+        $fileName = $o2tc->getFileName();
+        static::assertEmpty($fileName);
     }
 
     public function tearDown(): void

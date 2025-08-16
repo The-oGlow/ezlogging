@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 class EasyGoingTestCaseO2t
 {
 };
-class EasyGoingTestCaseClazz extends EasyGoingTestCase
+class EasyGoingTestCaseClazz extends EasyGoingTestCase //NOSONAR php:S3360
 {
     protected function prepareO2t(): mixed
     {
@@ -53,12 +53,12 @@ class EasyGoingTestCaseTest extends TestCase
         $expected = $this->getFieldFromO2t("o2t");
         $actual = $this->callMethodOnO2t('prepareO2t');
 
-        $this::assertNotEmpty($expected);
-        $this::assertNotEmpty($actual);
-        $this::assertInstanceOf(EasyGoingTestCaseO2t::class, $expected);
-        $this::assertInstanceOf(EasyGoingTestCaseO2t::class, $actual);
-        $this::assertNotSame($expected, $actual);
-        $this::assertEquals($expected, $actual);
+        static::assertNotEmpty($expected);
+        static::assertNotEmpty($actual);
+        static::assertInstanceOf(EasyGoingTestCaseO2t::class, $expected);
+        static::assertInstanceOf(EasyGoingTestCaseO2t::class, $actual);
+        static::assertNotSame($expected, $actual);
+        static::assertEquals($expected, $actual);
     }
 
     public function testGetCasto2t(): void
@@ -66,11 +66,11 @@ class EasyGoingTestCaseTest extends TestCase
         $expected = $this->getFieldFromO2t("o2t");
         $actual = $this->callMethodOnO2t('getCasto2t');
 
-        $this::assertNotEmpty($expected);
-        $this::assertNotEmpty($actual);
-        $this::assertInstanceOf(EasyGoingTestCaseO2t::class, $expected);
-        $this::assertInstanceOf(EasyGoingTestCaseO2t::class, $actual);
-        $this::assertEquals($expected, $actual);
-        $this::assertSame($expected, $actual);
+        static::assertNotEmpty($expected);
+        static::assertNotEmpty($actual);
+        static::assertInstanceOf(EasyGoingTestCaseO2t::class, $expected);
+        static::assertInstanceOf(EasyGoingTestCaseO2t::class, $actual);
+        static::assertEquals($expected, $actual);
+        static::assertSame($expected, $actual);
     }
 }

@@ -172,6 +172,7 @@ composer.phar
 
 target/
 .idea/sonarlint/
+.idea/sonarlint-state.xml
 
 ### PHP-CS-Fixer template
 # Covers PHP CS Fixer

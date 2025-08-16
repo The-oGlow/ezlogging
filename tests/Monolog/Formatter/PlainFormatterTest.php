@@ -32,11 +32,11 @@ class PlainFormatterTest extends TestCase
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(PlainFormatter::class, $this->o2t);
-        $this::assertEquals($this->o2t::FORMATTER_OUTPUT, $this->getFieldFromO2t('format'));
-        $this::assertEquals($this->o2t::FORMATTER_DATEFORMAT, $this->o2t->getDateFormat());
-        $this::assertEquals(true, $this->getFieldFromO2t('allowInlineLineBreaks'));
-        $this::assertEquals(true, $this->getFieldFromO2t('ignoreEmptyContextAndExtra'));
-        $this::assertEquals(false, $this->getFieldFromO2t('includeStacktraces'));
+        static::assertInstanceOf(PlainFormatter::class, $this->o2t);
+        static::assertEquals($this->o2t::FORMATTER_OUTPUT, $this->getFieldFromO2t('format'));
+        static::assertEquals($this->o2t::FORMATTER_DATEFORMAT, $this->o2t->getDateFormat());
+        static::assertTrue($this->getFieldFromO2t('allowInlineLineBreaks'));
+        static::assertTrue($this->getFieldFromO2t('ignoreEmptyContextAndExtra'));
+        static::assertFalse($this->getFieldFromO2t('includeStacktraces'));
     }
 }

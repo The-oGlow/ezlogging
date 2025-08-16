@@ -66,6 +66,12 @@
     }
   },
   "scripts": {
+    "c-all": [
+      "composer c-fix",
+      "composer c-phpstan",
+      "composer c-psalm",
+      "composer c-test"
+    ],
     "c-exec": "@php ",
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit",
     "c-dryfix": [
@@ -78,6 +84,7 @@
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm"
   },
   "scripts-descriptions": {
+    "c-all": "CUSTOM: Run composer c-fix, c-phpstan, c-psalm, c-test",
     "c-test": "CUSTOM: Execute all UNIT tests with PHPUnit",
     "c-dryfix": "CUSTOM: Check code with PHP-CS-FIXER",
     "c-fix": "CUSTOM: Fix code with PHP-CS-FIXER",

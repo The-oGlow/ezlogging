@@ -29,6 +29,9 @@ env:
   SONAR_CACHE_DIR: "${HOME}/.sonar/cache"
   SONAR_HOST_URL: "https://sonarcloud.io"
 
+  # Composer Configuration
+  COMPOSER_VENDOR_DIR: ${{ github.workspace }}/vendor
+
   # Codacy Configuration
   CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
   CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
@@ -57,6 +60,24 @@ jobs:
           php-version: '${{ env.PHP_VERSION }}'
           coverage: xdebug
 
+      - name: cache composer packages
+        uses: actions/cache@v4.2.3
+        with:
+          path: ${{ env.COMPOSER_VENDOR_DIR }}
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
+          restore-keys: |
+            ${{ matrix.os }}-analyze-composer
+            ${{ matrix.os }}-analyze
+
+      - name: cache sonarcloud packages
+        uses: actions/cache@v4.2.3
+        with:
+          path: ${{ env.SONAR_CACHE_DIR }}
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-sonar
+          restore-keys: |
+            ${{ matrix.os }}-analyze-sonar
+            ${{ matrix.os }}-analyze
+
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
 
@@ -67,4 +88,4 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5.3.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}

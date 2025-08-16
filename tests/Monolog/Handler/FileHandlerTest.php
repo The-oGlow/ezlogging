@@ -29,23 +29,23 @@ class FileHandlerTest extends TestCase
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(FileHandler::class, $this->o2t);
+        static::assertInstanceOf(FileHandler::class, $this->o2t);
     }
 
     public function testGetFileNameDefault(): void
     {
         $result = $this->o2t->getFileName();
 
-        $this::assertNotEmpty($result);
-        $this::assertStringEndsWith(DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME.FileHandler::STANDARD_FILEEXT, $result);
+        static::assertNotEmpty($result);
+        static::assertStringEndsWith(DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME.FileHandler::STANDARD_FILEEXT, $result);
     }
 
     public function testPrepareFileNameDefault(): void
     {
         $result = $this->o2t::prepareFileName();
 
-        $this::assertNotEmpty($result);
-        $this::assertStringEndsWith(DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME.FileHandler::STANDARD_FILEEXT, $result);
+        static::assertNotEmpty($result);
+        static::assertStringEndsWith(DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME.FileHandler::STANDARD_FILEEXT, $result);
     }
 
     public function testPrepareFileNameWithFileName(): void
@@ -54,8 +54,8 @@ class FileHandlerTest extends TestCase
 
         $result = $this->o2t::prepareFileName(null, $fileName);
 
-        $this::assertNotEmpty($result);
-        $this::assertStringEndsWith(DIRECTORY_SEPARATOR. $fileName.FileHandler::STANDARD_FILEEXT, $result);
+        static::assertNotEmpty($result);
+        static::assertStringEndsWith(DIRECTORY_SEPARATOR. $fileName.FileHandler::STANDARD_FILEEXT, $result);
     }
 
     public function testPrepareFileNameWithPath(): void
@@ -64,8 +64,8 @@ class FileHandlerTest extends TestCase
 
         $result = $this->o2t::prepareFileName($pathToFile);
 
-        $this::assertNotEmpty($result);
-        $this::assertStringEndsWith($pathToFile.DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME. FileHandler::STANDARD_FILEEXT, $result);
+        static::assertNotEmpty($result);
+        static::assertStringEndsWith($pathToFile.DIRECTORY_SEPARATOR. FileHandler::STANDARD_FILENAME. FileHandler::STANDARD_FILEEXT, $result);
     }
 
     public function testPrepareFileNameWithPathAndFileName(): void
@@ -75,7 +75,7 @@ class FileHandlerTest extends TestCase
 
         $result = $this->o2t::prepareFileName($pathToFile, $fileName);
 
-        $this::assertNotEmpty($result);
-        $this::assertStringEndsWith($pathToFile.DIRECTORY_SEPARATOR. $fileName. FileHandler::STANDARD_FILEEXT, $result);
+        static::assertNotEmpty($result);
+        static::assertStringEndsWith($pathToFile.DIRECTORY_SEPARATOR. $fileName. FileHandler::STANDARD_FILEEXT, $result);
     }
 }
