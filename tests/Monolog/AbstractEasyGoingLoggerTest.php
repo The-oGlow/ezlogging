@@ -102,4 +102,13 @@ class AbstractEasyGoingLoggerTest extends TestCase
         static::assertInstanceOf(ConsoleHandler::class, $result);
         static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterClazz::class, $result->getFormatter());
     }
+
+    public function testCreateWithDifferentTimezone(): void
+    {
+        $customDTZ = new \DateTimeZone("America/Los_Angeles");
+        $o2tb = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
+
+        static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);
+        static::assertEquals($customDTZ, $o2tb->getTimezone());
+    }
 }

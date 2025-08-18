@@ -13,13 +13,12 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use Monolog\FileLogger;
+require_once __DIR__ . '/../bootstrap.php';
+
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\FileHandler;
 use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\StreamHandler;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
-use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
 
 class FileLoggerTestHandlerClazz implements HandlerInterface
@@ -28,6 +27,7 @@ class FileLoggerTestHandlerClazz implements HandlerInterface
     {
         return true;
     }
+
     public function handle(array $record): bool
     {
         return true;

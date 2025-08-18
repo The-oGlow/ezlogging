@@ -196,6 +196,7 @@ target/
 # CodeSniffer
 /phpcs.xml
 
+### Custom
 #/vendor/*
 /wpcs/*
 /nbproject/private/

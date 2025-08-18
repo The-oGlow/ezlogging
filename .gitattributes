@@ -21,10 +21,15 @@
 *.cmd text eol=crlf
 #
 # Export Definitions
+/vendor/ export-ignore
 /old/ export-ignore
 /tests/ export-ignore
 /target/ export-ignore
 /.idea/ export-ignore
+/nbproject/ export-ignore
+#
+# Files
+/composer.lock export-ignore
 /.* export-ignore
 #
 # Code Quality
@@ -33,3 +38,4 @@
 /phpstan* export-ignore
 /phpunit.xml.dist export-ignore
 /.editorconfig export-ignore
+sonar-project.properties export-ignore
