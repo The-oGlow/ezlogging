@@ -69,7 +69,6 @@
   },
   "scripts": {
     "c-all": [
-      "composer c-da",
       "composer c-fix",
       "composer c-phpstan",
       "composer c-psalm",
