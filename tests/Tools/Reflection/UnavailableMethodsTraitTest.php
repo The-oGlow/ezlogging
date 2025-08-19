@@ -1,9 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: GLO03
- * Date: 18.08.2025
- * Time: 20:04
+
+declare(strict_types=1);
+
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace ollily\Tools\Reflection;
@@ -80,16 +85,14 @@ class UnavailableMethodsTraitTest extends TestCase
 
     public function testCallMethodByReflection()
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodByReflection($methodName));
         }
     }
 
     public function testCallMethodOnO2t()
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodOnO2t($methodName));
         }
     }
@@ -97,8 +100,7 @@ class UnavailableMethodsTraitTest extends TestCase
     public function testCallMethodOnO2tReturnNull()
     {
         $o2tb = new UnavailableMethodsTraitTestWrongO2tClazz();
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertNull($o2tb->publicCallMethodOnO2t($methodName));
         }
     }

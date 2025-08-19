@@ -19,9 +19,9 @@ use PHPUnit\Framework\TestCase;
 
 class UnavailableFieldsTraitTestHolderClazz
 {
-    public    $publicField    = 'publicFieldValue';
+    public $publicField    = 'publicFieldValue';
     protected $protectedField = 'protectedFieldValue';
-    private   $privateField   = 'privateFieldValue';
+    private $privateField   = 'privateFieldValue';
 }
 
 class UnavailableFieldsTraitTestO2tClazz
@@ -73,16 +73,14 @@ class UnavailableFieldsTraitTest extends TestCase
 
     public function testGetFieldByReflection()
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldByReflection($fieldName));
         }
     }
 
     public function testGetFieldFromO2t()
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldFromO2t($fieldName));
         }
     }
@@ -90,8 +88,7 @@ class UnavailableFieldsTraitTest extends TestCase
     public function testGetFieldFromO2tReturnNull()
     {
         $o2tb = new UnavailableFieldsTraitTestWrongO2tClazz();
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertNull($o2tb->publicGetFieldFromO2t($fieldName));
         }
     }
