@@ -102,8 +102,9 @@ class PaddingProcessor implements ProcessorInterface
                 $i++;
 
                 continue;
+            } else {
+                break;
             }
-
             break;
         }
 

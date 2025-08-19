@@ -29,13 +29,13 @@ class PlainProcessorTest extends TestCase
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(PlainProcessor::class, $this->o2t);
+        static::assertInstanceOf(PlainProcessor::class, $this->o2t);
     }
 
     public function testInvoke(): void
     {
         $testArray = [1,2,'hello'];
         $result = $this->o2t->__invoke($testArray);
-        $this::assertEquals($testArray, $result);
+        static::assertEquals($testArray, $result);
     }
 }

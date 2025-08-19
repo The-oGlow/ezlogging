@@ -29,6 +29,6 @@ class ConsoleHandlerTest extends TestCase
 
     public function testConfiguration(): void
     {
-        $this::assertInstanceOf(ConsoleHandler::class, $this->o2t);
+        static::assertInstanceOf(ConsoleHandler::class, $this->o2t);
     }
 }

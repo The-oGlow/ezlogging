@@ -40,7 +40,7 @@ class FileHandler extends StreamHandler
     public function __construct(?string $pathToFile = null, ?string $fileName = null)
     {
         self::$tmpDir = sys_get_temp_dir();
-        $this->fileName = $this::prepareFileName($pathToFile, $fileName);
+        $this->fileName = self::prepareFileName($pathToFile, $fileName);
         parent::__construct($this->fileName);
     }
 

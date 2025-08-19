@@ -44,36 +44,36 @@ class PlainLoggerTest extends TestCase
 
         try {
             $this->o2t->out($msg);
-            $this::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
+            static::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
         } catch (\Exception $e) {
-            $this::fail($e->getMessage());
+            static::fail($e->getMessage());
         }
     }
 
     public function testLog(): void
     {
-        $this::assertTrue(
+        static::assertTrue(
             $this->log($this->logMethods)
         );
     }
 
     public function testLogWithContext(): void
     {
-        $this::assertTrue(
+        static::assertTrue(
             $this->log($this->logMethods, $this->context)
         );
     }
 
     public function testLogMethods(): void
     {
-        $this::assertTrue(
+        static::assertTrue(
             $this->logMethods($this->logMethods)
         );
     }
 
     public function testLogMethodsWithContext(): void
     {
-        $this::assertTrue(
+        static::assertTrue(
             $this->logMethods($this->logMethods, $this->context)
         );
     }
