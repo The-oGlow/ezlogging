@@ -84,7 +84,7 @@
     ],
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm",
-    "c-package" : "@composer archive --format=zip --dir=target"
+    "c-package" : "@composer archive --format=zip --dir=target/staging"
   },
   "scripts-descriptions": {
     "c-da": "CUSTOM: alias for dump-autoload",
