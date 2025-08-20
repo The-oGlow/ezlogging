@@ -32,13 +32,6 @@
 :pj_gh_account: {orga_user}
 :pj_gh_repo: ezlogging
 
-
-
-
-
-
-
-
 // :pj_id_org: {acc_user_orga}/{pj_gh_repo}
 // :pj_gav: {pj_group}/{pj_gh_repo}
 

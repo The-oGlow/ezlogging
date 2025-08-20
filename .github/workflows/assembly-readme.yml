@@ -24,10 +24,19 @@ jobs:
       - name: install asciidoctor-reducer
         run: sudo gem install asciidoctor-reducer
 
-      - name: assembly readme.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o readme.adoc site/resources/project-readme.adoc
+      - name: assembly README.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o README.adoc site/resources/pj-readme.adoc
+
+      - name: assembly config.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o config.adoc site/resources/pj-config.adoc
+
+      - name: assembly analysis.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o analysis.adoc site/resources/pj-analysis.adoc
+
+      - name: assembly composer.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o composer.adoc site/resources/pj-composer.adoc
 
       - name: commit and push readme.adoc
         uses: EndBug/add-and-commit@v9.1.4
         with:
-          add: readme.adoc
+          add: ["README.adoc","config.adoc","analysis.adoc","composer.adoc"]
