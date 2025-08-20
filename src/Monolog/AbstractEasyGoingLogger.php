@@ -29,7 +29,10 @@ use Monolog\Processor\ProcessorInterface;
 abstract class AbstractEasyGoingLogger extends Logger
 {
     public const STANDARD_TIMEZONE = "Europe/Berlin";
-    /** @var string $targetFile */
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor
+     * @var string $targetFile
+     */
     protected $targetFile;
 
     /**

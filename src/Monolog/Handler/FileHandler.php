@@ -19,7 +19,6 @@ class FileHandler extends StreamHandler
 {
     public const STANDARD_FILENAME = 'noFilename';
     public const STANDARD_FILEEXT  = '.log';
-
     /** @var string $tmpDir */
     private static $tmpDir;
     /** @var string $fileName */
@@ -27,10 +26,14 @@ class FileHandler extends StreamHandler
 
     public static function prepareFileName(?string $pathToFile = null, ?string $fileName = ''): string
     {
-        if (empty($pathToFile)) {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
+        if (empty($pathToFile))
+        {
             $pathToFile = self::$tmpDir;
         }
-        if (empty($fileName)) {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
+        if (empty($fileName))
+        {
             $fileName = self::STANDARD_FILENAME;
         }
 
@@ -39,7 +42,7 @@ class FileHandler extends StreamHandler
 
     public function __construct(?string $pathToFile = null, ?string $fileName = null)
     {
-        self::$tmpDir = sys_get_temp_dir();
+        self::$tmpDir   = sys_get_temp_dir();
         $this->fileName = self::prepareFileName($pathToFile, $fileName);
         parent::__construct($this->fileName);
     }

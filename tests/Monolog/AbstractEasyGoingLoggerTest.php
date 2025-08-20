@@ -96,7 +96,6 @@ class AbstractEasyGoingLoggerTest extends TestCase
 
     public function testGetConsoleHandler(): void
     {
-        /** @var StreamHandler $result */
         $result = $this->callMethodOnO2t("getConsoleHandler");
 
         static::assertInstanceOf(ConsoleHandler::class, $result);

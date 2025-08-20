@@ -75,7 +75,7 @@ class FileLoggerTest extends TestCase
         static::assertNotEmpty($this->fileName);
         static::assertFileDoesNotExist($this->fileName);
         $this->o2t->info('Write a log entry');
-        $this->assertFileExists($this->fileName);
+        static::assertFileExists($this->fileName);
     }
 
     public function testCreateWithCustomHandler(): void
@@ -100,7 +100,8 @@ class FileLoggerTest extends TestCase
 
     public function tearDown(): void
     {
-        if (file_exists($this->fileName)) {
+        if (file_exists($this->fileName))
+        {
             unlink($this->fileName);
         }
         parent::tearDown();

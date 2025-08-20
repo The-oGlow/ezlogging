@@ -18,18 +18,24 @@ trait UnavailableMethodsTrait
     /**
      * Calls hidden method (private, protected, package) without parameters by reflection.
      *
-     * @param string $clazzName
+     * @param mixed $clazzName
      * @param string $methodName
      * @param mixed  $instance
      *
-     * @return mixed
+     * @return mixed|null
      */
-    protected function callMethodByReflection(string $clazzName, string $methodName, mixed $instance): mixed
+    protected function callMethodByReflection($clazzName, string $methodName, $instance)
     {
-        $refObject = new \ReflectionMethod($clazzName, $methodName);
-        $refObject->setAccessible(true);
+        if (!empty($clazzName))
+        {
+            $refObject = new \ReflectionMethod($clazzName, $methodName);
+            $refObject->setAccessible(true);
 
-        return $refObject->invoke($instance);
+            return $refObject->invoke($instance);
+        } else
+        {
+            return null;
+        }
     }
 
     /**
@@ -37,16 +43,19 @@ trait UnavailableMethodsTrait
      *
      * @param string $methodName
      *
-     * @return mixed
+     * @return mixed|null
      */
-    protected function callMethodOnO2t(string $methodName): mixed
+    protected function callMethodOnO2t(string $methodName)
     {
-        // @phpstan-ignore empty.property
-        if (!empty($this->o2t)) {
-            $locO2t = $this->o2t;
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (!empty($this->o2t)) // @phpstan-ignore empty.property,property.notFound
+        {$locO2t = $this->o2t;
+            /** @psalm-suppress TypeDoesNotContainType */
+            $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
-            return $this->callMethodByReflection(get_class($locO2t), $methodName, $locO2t);
-        } else {
+            return $this->callMethodByReflection($clazzName, $methodName, $locO2t);
+        } else
+        {
             return null;
         }
     }

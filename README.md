@@ -1,69 +1,89 @@
-# Yet Another Confluence REST API
+# ezLogging
 
-![Latest Version](https://img.shields.io/badge/release-latest-blue?logo=github&style=plastic "Latest Version")
-![Software License](https://img.shields.io/github/license/ollily/ezlogging?logo=github&style=plastic "Software License")
-![GitHub Release](https://img.shields.io/github/v/release/ollily/ezlogging?logo=github&style=plastic "GitHub Release")
+![Software License](https://img.shields.io/github/license/The-oGlow/ezlogging?logo=github "Software License")
+![GitHub Release](https://img.shields.io/github/v/release/The-oGlow/ezlogging?logo=github&include_prereleases&display_name=tag "GitHub Release")
+![Language Count](https://img.shields.io/github/languages/count/The-oGlow/ezlogging?logo=github "Language Count")
+![Language Top](https://img.shields.io/github/languages/top/The-oGlow/ezlogging?logo=github "Language Top")
 
-![Language Count](https://img.shields.io/github/languages/count/ollily/ezlogging?logo=github&style=plastic "Language Count")
-![Language Top](https://img.shields.io/github/languages/top/ollily/ezlogging?logo=github&style=plastic "Language Top")
-![Commit Status Master](https://img.shields.io/github/checks-status/ollily/ezlogging/master?logo=github&label=checks%20master&style=plastic "Commit Status Master")
-![Commit Status Develop](https://img.shields.io/github/checks-status/ollily/ezlogging/develop?logo=github&label=checks%20develop&style=plastic "Commit Status Develop")
+![PHP CS Fixer](https://img.shields.io/badge/php%20cs%20fixer-PSR%2012-orange?logo=php "PHP CS Fixer")
+![PHPUnit](https://img.shields.io/badge/phpunit-UNIT%20Tests-orange?logo=php "PHPUnit")
+![PHPStan](https://img.shields.io/badge/phpstan-Level%208%20Strict-orange?logo=php "PHPStan")
+![PSalm](https://img.shields.io/badge/psalm-Level%202-orange?logo=php "Psalm") 
+![Sonarcloud](https://img.shields.io/badge/sonarcloud-oGlow_way-orange?logo=sonar "Sonarcloud") \
+[![Sonarcloud.io](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg "Sonarcloud")](https://sonarcloud.io/summary/dashboard?id=The-oGlow_ezlogging)
 
-![PHP CS Fixer](https://img.shields.io/badge/PHP%20CS%20Fixer-PSR%2012-orange?logo=phpunit&style=plastic "PHP CS Fixer")
-![PHPUnit](https://img.shields.io/badge/PHPUnit-Tests-orange?logo=phpunit&style=plastic "PHPUnit")
-![Sonarcloud](https://img.shields.io/badge/Sonarcloud-oGlow_way-orange?logo=phpunit&style=plastic "Sonarcloud")
-![PHPStan](https://img.shields.io/badge/PHPStan-Level%208-orange?logo=phpunit&style=plastic "PHPStan")
-![PSalm](https://img.shields.io/badge/PSalm-Level%204-orange?logo=phpunit&style=plastic "Psalm")
-
-(c) 2025 Oliver Glowa, coding.glowa.com
-
-# Description
+## Description
 
 Simplify the usage of
-- logging with [Monolog](https://seldaek.github.io/monolog/)
-- testing with [PHPUnit](https://phpunit.de/)
-- [Reflection](https://www.php.net/manual/en/book.reflection.php)
+- Logging with [Monolog](https://seldaek.github.io/monolog/)
+- Testing with [PHPUnit](https://phpunit.de/)
+- [Reflection](https://www.php.net/manual/en/book.reflection.php) with PHP
+- Developer shortkeys for composer
 
-# Requirements
+## Requirements
 
-- Commandline
-    - Linux / Unix Shell or
-    - Windows Shell
 - [PHP](https://www.php.net)
 - [Composer](https://getcomposer.org/) (optional)
+- Commandline (opt.)
+    - Linux / Unix Shell or
+    - Windows Shell
 
-# Configuration
+## Configuration
 
-## Unix / Linux
+### Unix / Linux
 
-- There is nothing to configure, you can use this library ootb
+There is nothing to configure, you can use this library ootb.
 
-## Windows
+### Windows
 
-- There is nothing to configure, you can use this library ootb
+There is nothing to configure, you can use this library ootb.
 
-# How to use it
+## How to use it
 
-## Monolog
+### Monolog
 
 - [ConsoleLogger](src/Monolog/ConsoleLogger.php) - Logging to console
 - [FileLogger](src/Monolog/FileLogger.php) - Logging to a file
 - [PlainLogger](src/Monolog/PlainLogger.php) - Logging "as it is" to console (raw)
 
-## PHPUnit
+### PHPUnit
 
 - [EasyGoingTestCase](src/PHPUnit/Framework/EasyGoingTestCase.php) - All you need is already prepared, so concentrate on unit tests
 
-## Reflection
+### Reflection
 
 - [UnavailableFieldsTrait](src/Tools/Reflection/UnavailableFieldsTrait.php) - Get value from unaccessable class fields (aka properties)
 - [UnavailableMethodsTrait](src/Tools/Reflection/UnavailableMethodsTrait.php) - Call unaccessable class methods
 
-# Development
+## Quality Analysis
+
+### Build 
+
+| **Build**               | **Master** | **Develop** |
+|:------------------------|:----------:|:-----------:|
+| [Github.com](https://github.com/The-oGlow/ezLogging) | ![Commit Status Master](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/master?logo=github "Commit Status Master") | ![Commit Status Develop](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/develop?logo=github "Commit Status Develop") |                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
+### Quality Information
+
+| **Quality Information** | **Master** | **Develop** |
+|:------------------------|:----------:|:-----------:|
+| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging) | ![Quality Gate Master](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/master?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Master") | ![Quality Gate Develop](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/develop?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Develop") |
+
+### Test Information
+
+| **Test Information**    | **Master** | **Develop** |
+|:------------------------|:----------:|:-----------:|
+| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging) |
+| Test % | ![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
+| Tests Count | ![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
+| Coverage % | ![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
+| Violations | ![Sonarcloud](https://img.shields.io/sonar/violations/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/violations/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
+
+## Development
 
 Some infos, in case you want to fork and extend this library,
 
-## Structure
+### Structure
 
 Relevant files and folders
 
@@ -91,33 +111,40 @@ Relevant files and folders
     |-README.md
     |-sonar-project.properties
 
-## Build
+### Build & Test
 
 Start the whole build (run composer with c-fix, c-phpstan, c-psalm, c-test)
 
     composer c-all
 
-## UNIT Tests
+### UNIT Tests
 
-Starting the unit tests (PHP Unit)
+Starting the unit tests with PHPUnit
 
     composer c-test
     or
     composer c-test tests/Monolog/ConsoleLoggerTest.php
 
-## Quality Analysis
+## Composer Commands
 
-|                         |                                                                                                                                                                                                                                                                                                                                                                                                                                       Branch 'master'                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                        Branch 'develop'
-|:------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:
-| **Build**
-| Github.com              |                                                                                                                                                                                                                                                                                                                                                                                                                                              -                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                -
-| **Quality Information**
-| Sonarcloud.io           |                                                                                                                                                                                                                                                                                                                                                                                                                                              -                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                      [![Sonarcloud](https://sonarcloud.io/api/project_badges/quality_gate?project=The-oGlow_ezlogging)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)
-| **Test Information**
-| Sonarcloud.io           | [![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/violations/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/> | [![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>[![Sonarcloud](https://img.shields.io/sonar/violations/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&compact_message&style=plastic&logo=sonar)](https://sonarcloud.io/dashboard?id=The-oGlow_ezlogging)<br/>
+There are severall shortkeys, which are useful for your development.
 
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=The-oGlow_ezlogging)
+| Command   | Description |
+|-----------|-------------|
+| c-all     | Run composer with c-fix, c-phpstan, c-psalm, c-test |
+| c-da      | Alias for dump-autoload |
+| c-dryfix  | Check code with PHP-CS-FIXER |
+| c-fix     | Fix code with PHP-CS-FIXER |
+| c-package | Create deployable package |
+| c-phpstan | Check code with PHPStan |
+| c-psalm   | Check code wtih Psalm |
+| c-test    | Execute all or a single unit tests with PHPUnit |
 
-# Notice
+See section 'scripts' & 'scripts-description'.
+Copy them to you [composer.json](composer.json) if you like them! \
 
-- Nothing to notice
+## Notice
+
+Nothing to notice so far.
+
+_(c) 2025 Oliver Glowa, coding.glowa.com_

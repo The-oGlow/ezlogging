@@ -44,12 +44,15 @@ class PaddingProcessor implements ProcessorInterface
      * @param string[] $skipClassesPartials
      * @param int      $skipStackFramesCount
      */
-    public function __construct(mixed $level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
+    public function __construct($level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
         $this->level                = Logger::toMonologLevel($level);
-        $this->skipClassesPartials  = array_merge([
-            'Monolog\\'
-        ], $skipClassesPartials);
+        $this->skipClassesPartials  = array_merge(
+            [
+                'Monolog\\'
+            ],
+            $skipClassesPartials
+        );
         $this->skipStackFramesCount = $skipStackFramesCount;
     }
 
@@ -76,7 +79,8 @@ class PaddingProcessor implements ProcessorInterface
     private function __invokeIntrospection(array $record): array
     {
         // return if the level is not high enough
-        if ($record['level'] < $this->level) {
+        if ($record['level'] < $this->level)
+        {
             return $record;
         }
 
@@ -89,20 +93,26 @@ class PaddingProcessor implements ProcessorInterface
 
         $i = 0;
 
-        while ($this->isTraceClassOrSkippedFunction($trace, $i)) {
-            if (isset($trace[$i]['class'])) {
-                foreach ($this->skipClassesPartials as $part) {
-                    if (strpos($trace[$i]['class'], $part) !== false) {
+        while ($this->isTraceClassOrSkippedFunction($trace, $i))
+        {
+            if (isset($trace[$i]['class']))
+            {
+                foreach ($this->skipClassesPartials as $part)
+                {
+                    if (strpos($trace[$i]['class'], $part) !== false)
+                    {
                         $i++;
 
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions)) {
+            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true))
+            {
                 $i++;
 
                 continue;
-            } else {
+            } else
+            {
                 break;
             }
             break;
@@ -111,14 +121,18 @@ class PaddingProcessor implements ProcessorInterface
         $i += $this->skipStackFramesCount;
 
         // we should have the call source now
-        if ($i > 0) {
-            $record = array_merge($record, [
-                'xFile'     => $trace[$i - 1]['file'] ?? null,
-                'xLine'     => $trace[$i - 1]['line'] ?? null,
-                'xClass'    => $trace[$i]['class'] ?? null,
-                'xCallType' => $trace[$i]['type'] ?? null,
-                'xFunction' => $trace[$i]['function'] ?? null
-            ]);
+        if ($i > 0 && $i < count($trace))
+        {
+            $curTrace  = $trace[$i];
+            $prevTrace = $trace[$i - 1];
+            $xDetails  = [
+                'xFile'     => $prevTrace['file'] ?? null,
+                'xLine'     => $prevTrace['line'] ?? null,
+                'xClass'    => $curTrace['class'] ?? null,
+                'xCallType' => $curTrace['type'] ?? null,
+                'xFunction' => $curTrace['function']
+            ];
+            $record    = array_merge($record, $xDetails);
         }
 
         return $record;
@@ -133,10 +147,11 @@ class PaddingProcessor implements ProcessorInterface
      */
     private function isTraceClassOrSkippedFunction(array $trace, int $index): bool
     {
-        if (!isset($trace[$index])) {
+        if (!isset($trace[$index]))
+        {
             return false;
         }
 
-        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], $this->skipFunctions);
+        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], $this->skipFunctions, true);
     }
 }

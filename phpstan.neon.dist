@@ -5,3 +5,22 @@ parameters:
         - src/
         - tests/
 
+    ignoreErrors:
+        -
+            identifier: empty.notAllowed
+            paths:
+                - src/Monolog/AbstractEasyGoingLogger.php
+                - src/Monolog/FileLogger.php
+                - src/Monolog/Handler/FileHandler.php
+                - src/Tools/Reflection/UnavailableFieldsTrait.php
+                - src/Tools/Reflection/UnavailableMethodsTrait.php
+                - tests/Monolog/PlainLoggerTest.php
+        -
+            identifier: method.childReturnType
+            paths:
+                - src\Monolog\Processor\PaddingProcessor.php
+                - src\Monolog\Processor\PlainProcessor.php
+        - identifier: switch.type
+
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon

@@ -22,7 +22,7 @@ env:
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_BRANCH_NAME: ${{ github.ref_name }}
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/target/staging
-  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}.zip
+  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}*.zip
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Sonarcloud Configuration

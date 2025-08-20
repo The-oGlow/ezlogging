@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/Monolog" isTestSource="true" packagePrefix="Monolog\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/PHPUnit" isTestSource="true" packagePrefix="PHPUnit\" />
       <sourceFolder url="file://$MODULE_DIR$/src/PHPUnit" isTestSource="false" packagePrefix="PHPUnit\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/Tools" isTestSource="true" packagePrefix="ollily\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/Tools" isTestSource="true" packagePrefix="ollily\Tools\" />
       <sourceFolder url="file://$MODULE_DIR$/src/Monolog" isTestSource="false" packagePrefix="Monolog\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/amp" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
@@ -29,7 +29,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/extension-installer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpdoc-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan-strict-rules" />
@@ -39,6 +38,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psalm/plugin-phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
@@ -77,6 +77,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-normalizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
@@ -113,7 +114,6 @@
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
-          <root url="file://$MODULE_DIR$/vendor/phpstan/extension-installer" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpdoc-parser" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpstan-strict-rules" />
@@ -123,6 +123,7 @@
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
           <root url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+          <root url="file://$MODULE_DIR$/vendor/psalm/plugin-phpunit" />
           <root url="file://$MODULE_DIR$/vendor/psr/container" />
           <root url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
@@ -161,6 +162,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-grapheme" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-normalizer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />
@@ -193,7 +195,6 @@
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
-          <root url="file://$MODULE_DIR$/vendor/phpstan/extension-installer" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpdoc-parser" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
           <root url="file://$MODULE_DIR$/vendor/phpstan/phpstan-strict-rules" />
@@ -203,6 +204,7 @@
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
           <root url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
           <root url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+          <root url="file://$MODULE_DIR$/vendor/psalm/plugin-phpunit" />
           <root url="file://$MODULE_DIR$/vendor/psr/container" />
           <root url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
@@ -241,6 +243,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-grapheme" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-normalizer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />

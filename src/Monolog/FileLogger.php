@@ -48,8 +48,10 @@ class FileLogger extends ConsoleLogger
     public function getFileName(): string
     {
         $fileName = '';
-        foreach ($this->getHandlers() as $handler) {
-            if ($handler instanceof FileHandler) {
+        foreach ($this->getHandlers() as $handler)
+        {
+            if ($handler instanceof FileHandler)
+            {
                 $fileName = $handler->getFileName();
             }
         }
