@@ -39,7 +39,7 @@ jobs:
       - name: commit and push readme.adoc
         uses: EndBug/add-and-commit@v9.1.4
         with:
-          add:
+          add: |
             - README.adoc
             - config.adoc
             - analysis.adoc
