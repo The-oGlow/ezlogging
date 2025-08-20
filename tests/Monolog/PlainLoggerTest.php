@@ -41,10 +41,12 @@ class PlainLoggerTest extends TestCase
     {
         $msg = "logging with 'out'";
 
-        try {
+        try
+        {
             $this->o2t->out($msg);
             static::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
-        } catch (\Exception $e) {
+        } catch (\Exception $e)
+        {
             static::fail($e->getMessage());
         }
     }
@@ -87,13 +89,16 @@ class PlainLoggerTest extends TestCase
     {
         $result = false;
 
-        try {
-            foreach ($levels as $level) {
+        try
+        {
+            foreach ($levels as $level)
+            {
                 $msg = "logging with log & '$level'" . (empty($context) ? '' : ' & a context');
                 $this->o2t->log($level, $msg, $context);
                 $result = true;
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $e)
+        {
             print_r($e);
         }
 
@@ -110,13 +115,16 @@ class PlainLoggerTest extends TestCase
     {
         $result = false;
 
-        try {
-            foreach ($logMethods as $logMethod) {
+        try
+        {
+            foreach ($logMethods as $logMethod)
+            {
                 $msg = "logging with '$logMethod'" . (empty($context) ? '' : ' & a context');
                 $this->o2t->$logMethod($msg, $context); // @phpstan-ignore method.dynamicName
                 $result = true;
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $e)
+        {
             print_r($e);
         }
 

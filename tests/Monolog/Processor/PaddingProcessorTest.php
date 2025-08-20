@@ -53,7 +53,8 @@ class PaddingProcessorTest extends TestCase
         static::assertCount(8, $arrayResult);
         static::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
         static::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
-        foreach ($testArrayKeys as $key) {
+        foreach ($testArrayKeys as $key)
+        {
             static::assertArrayHasKey($key, $arrayResult);
         }
     }

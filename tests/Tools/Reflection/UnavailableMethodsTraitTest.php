@@ -38,7 +38,7 @@ class UnavailableMethodsTraitTestHolderClazz
 class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
-    /** @var object $o2t */
+    /** @var mixed $o2t */
     private $o2t;
 
     public function __construct()
@@ -46,12 +46,22 @@ class UnavailableMethodsTraitTestO2tClazz
         $this->o2t = new UnavailableMethodsTraitTestHolderClazz();
     }
 
-    public function publicCallMethodOnO2t(string $methodName): mixed
+    /**
+     * @param string $methodName
+     *
+     * @return mixed|null
+     */
+    public function publicCallMethodOnO2t(string $methodName)
     {
         return $this->callMethodOnO2t($methodName);
     }
 
-    public function publicCallMethodByReflection(string $methodName): mixed
+    /**
+     * @param string $methodName
+     *
+     * @return mixed|null
+     */
+    public function publicCallMethodByReflection(string $methodName)
     {
         return $this->callMethodByReflection(UnavailableMethodsTraitTestHolderClazz::class, $methodName, $this->o2t);
     }
@@ -60,7 +70,7 @@ class UnavailableMethodsTraitTestO2tClazz
 class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
-    /** @var object $wrongO2t */
+    /** @var mixed $wrongO2t */
     private $wrongO2t; // @phpstan-ignore property.onlyWritten
 
     public function __construct()
@@ -68,7 +78,12 @@ class UnavailableMethodsTraitTestWrongO2tClazz
         $this->wrongO2t = new UnavailableMethodsTraitTestHolderClazz();
     }
 
-    public function publicCallMethodOnO2t(string $methodName): mixed
+    /**
+     * @param string $methodName
+     *
+     * @return mixed|null
+     */
+    public function publicCallMethodOnO2t(string $methodName)
     {
         return $this->callMethodOnO2t($methodName);
     }
@@ -89,14 +104,16 @@ class UnavailableMethodsTraitTest extends TestCase
 
     public function testCallMethodByReflection(): void
     {
-        foreach ($this->methodNames as $methodName) {
+        foreach ($this->methodNames as $methodName)
+        {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodByReflection($methodName));
         }
     }
 
     public function testCallMethodOnO2t(): void
     {
-        foreach ($this->methodNames as $methodName) {
+        foreach ($this->methodNames as $methodName)
+        {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodOnO2t($methodName));
         }
     }
@@ -105,7 +122,8 @@ class UnavailableMethodsTraitTest extends TestCase
     {
         /** @var UnavailableMethodsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableMethodsTraitTestWrongO2tClazz();
-        foreach ($this->methodNames as $methodName) {
+        foreach ($this->methodNames as $methodName)
+        {
             static::assertNull($o2tb->publicCallMethodOnO2t($methodName));
         }
     }

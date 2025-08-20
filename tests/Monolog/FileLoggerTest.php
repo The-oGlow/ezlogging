@@ -100,7 +100,8 @@ class FileLoggerTest extends TestCase
 
     public function tearDown(): void
     {
-        if (file_exists($this->fileName)) {
+        if (file_exists($this->fileName))
+        {
             unlink($this->fileName);
         }
         parent::tearDown();

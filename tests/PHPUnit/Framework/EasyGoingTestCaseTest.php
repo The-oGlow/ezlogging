@@ -22,7 +22,7 @@ class EasyGoingTestCaseO2t
 };
 class EasyGoingTestCaseClazz extends EasyGoingTestCase //NOSONAR php:S3360
 {
-    protected function prepareO2t(): mixed
+    protected function prepareO2t()
     {
         return new EasyGoingTestCaseO2t();
     }

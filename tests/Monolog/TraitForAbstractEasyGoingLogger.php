@@ -27,7 +27,8 @@ trait TraitForAbstractEasyGoingLogger
     /** @psalm-suppress TypeDoesNotContainType */
     public function testConfiguration(): void
     {
-        switch (true) {
+        switch (true)
+        {
             case (PlainLogger::class === get_class($this->o2t)):// @phpstan-ignore identical.alwaysFalse
                 {
                     static::assertInstanceOf(PlainLogger::class, $this->o2t);
@@ -40,6 +41,7 @@ trait TraitForAbstractEasyGoingLogger
                 }
             default:
                 {
+                    /** @psalm-suppress DocblockTypeContradiction */
                     static::assertInstanceOf(ConsoleLogger::class, $this->o2t);
                 }
         }
@@ -54,7 +56,8 @@ trait TraitForAbstractEasyGoingLogger
     {
         $result = $this->callMethodOnO2t('getDefaultHandler');
         static::assertNotNull($result);
-        switch (true) {
+        switch (true)
+        {
             case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) :// @phpstan-ignore identical.alwaysFalse
                 {
                     static::assertInstanceOf(AbstractEasyGoingLoggerTestHandlerClazz::class, $result);
@@ -72,7 +75,8 @@ trait TraitForAbstractEasyGoingLogger
     {
         $result = $this->callMethodOnO2t('getDefaultProcessor');
         static::assertNotNull($result);
-        switch (true) {
+        switch (true)
+        {
             case (PlainLogger::class === get_class($this->o2t)):// @phpstan-ignore identical.alwaysFalse
                 {
                     static::assertInstanceOf(PlainProcessor::class, $result);
@@ -95,7 +99,8 @@ trait TraitForAbstractEasyGoingLogger
     {
         $result = $this->callMethodOnO2t('getDefaultFormatter');
         static::assertNotNull($result);
-        switch (true) {
+        switch (true)
+        {
             case (PlainLogger::class === get_class($this->o2t)):// @phpstan-ignore identical.alwaysFalse
                 {
                     static::assertInstanceOf(PlainFormatter::class, $result);

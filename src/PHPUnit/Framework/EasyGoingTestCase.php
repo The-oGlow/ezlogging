@@ -29,14 +29,21 @@ abstract class EasyGoingTestCase extends TestCase
         $this->o2t    = $this->prepareO2t();
     }
 
-    abstract protected function prepareO2t(): mixed;
+    /**
+     * @return mixed
+     */
+    abstract protected function prepareO2t();
 
-    abstract protected function getCasto2t(): mixed;
+    /**
+     * @return mixed
+     */
+    abstract protected function getCasto2t();
 
     /** @param mixed[] $constants */
     protected function verifyConstAllExists(array $constants = []): void
     {
-        foreach ($constants as $constant) {
+        foreach ($constants as $constant)
+        {
             $this->verifyConstExists($constant);
         }
     }
@@ -44,7 +51,8 @@ abstract class EasyGoingTestCase extends TestCase
     /** @param mixed[] $constants */
     protected function verifyConstArrayAllExists(array $constants = []): void
     {
-        foreach ($constants as $constant => $expectedSize) {
+        foreach ($constants as $constant => $expectedSize)
+        {
             $this->verifyConstExists($constant);
             $this->verifyConstArraySize($constant, $expectedSize);
         }
@@ -59,23 +67,32 @@ abstract class EasyGoingTestCase extends TestCase
 
     protected function verifyConstExists(string $constantName): void
     {
-        if (defined($constantName)) {
+        if (defined($constantName))
+        {
             $constantValue = constant($constantName);
             $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
-            if (!static::is_primitive($constantValue)) {
+            if (!static::is_primitive($constantValue))
+            {
                 static::assertNotEmpty($constantValue);
             }
-        } else {
+        } else
+        {
             static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
     }
 
     public const LOP = 'int|integer|bool|boolean|float';
 
-    protected static function is_primitive(mixed $var): bool
+    /**
+     * @param mixed $var
+     *
+     * @return bool
+     */
+    protected static function is_primitive($var): bool
     {
         $primitive = false;
-        if (isset($var) && strpos(self::LOP, gettype($var)) > 0) {
+        if (isset($var) && strpos(self::LOP, gettype($var)) > 0)
+        {
             $primitive = true;
         }
 

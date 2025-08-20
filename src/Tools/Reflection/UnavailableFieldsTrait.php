@@ -17,22 +17,44 @@ use ReflectionProperty;
 
 trait UnavailableFieldsTrait
 {
-    protected function getFieldByReflection(string $clazzName, string $fieldName, mixed $instance): mixed
+    /**
+     * @param mixed  $clazzName
+     * @param string $fieldName
+     * @param mixed  $instance
+     *
+     * @return mixed|null
+     */
+    protected function getFieldByReflection($clazzName, string $fieldName, $instance)
     {
-        $refObject = new ReflectionProperty($clazzName, $fieldName);
+        if (!empty($clazzName))
+        {
+            $refObject = new ReflectionProperty($clazzName, $fieldName);
+            $refObject->setAccessible(true);
 
-        return $refObject->getValue($instance);
+            return $refObject->getValue($instance);
+        } else
+        {
+            return null;
+        }
     }
 
-    protected function getFieldFromO2t(string $fieldName): mixed
+    /**
+     * @param string $fieldName
+     *
+     * @return mixed|null
+     */
+    protected function getFieldFromO2t(string $fieldName)
     {
-        if (!empty($this->o2t)) { // @phpstan-ignore empty.property,property.notFound
-            $locO2t    = $this->o2t;
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (!empty($this->o2t)) // @phpstan-ignore empty.property,property.notFound
+        {
+            $locO2t = $this->o2t;
             /** @psalm-suppress TypeDoesNotContainType */
             $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
             return $this->getFieldByReflection($clazzName, $fieldName, $locO2t);
-        } else {
+        } else
+        {
             return null;
         }
     }

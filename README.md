@@ -6,9 +6,9 @@
 ![Language Top](https://img.shields.io/github/languages/top/The-oGlow/ezlogging?logo=github "Language Top")
 
 ![PHP CS Fixer](https://img.shields.io/badge/php%20cs%20fixer-PSR%2012-orange?logo=php "PHP CS Fixer")
-![PHPUnit](https://img.shields.io/badge/phpunit-Tests-orange?logo=php "PHPUnit")
-![PHPStan](https://img.shields.io/badge/phpstan-Level%208-orange?logo=php "PHPStan")
-![PSalm](https://img.shields.io/badge/psalm-Level%204-orange?logo=php "Psalm") 
+![PHPUnit](https://img.shields.io/badge/phpunit-UNIT%20Tests-orange?logo=php "PHPUnit")
+![PHPStan](https://img.shields.io/badge/phpstan-Level%208%20Strict-orange?logo=php "PHPStan")
+![PSalm](https://img.shields.io/badge/psalm-Level%202-orange?logo=php "Psalm") 
 ![Sonarcloud](https://img.shields.io/badge/sonarcloud-oGlow_way-orange?logo=sonar "Sonarcloud") \
 [![Sonarcloud.io](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg "Sonarcloud")](https://sonarcloud.io/summary/dashboard?id=The-oGlow_ezlogging)
 

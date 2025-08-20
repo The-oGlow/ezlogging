@@ -26,10 +26,14 @@ class FileHandler extends StreamHandler
 
     public static function prepareFileName(?string $pathToFile = null, ?string $fileName = ''): string
     {
-        if (empty($pathToFile)) {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
+        if (empty($pathToFile))
+        {
             $pathToFile = self::$tmpDir;
         }
-        if (empty($fileName)) {
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
+        if (empty($fileName))
+        {
             $fileName = self::STANDARD_FILENAME;
         }
 

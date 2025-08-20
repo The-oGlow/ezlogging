@@ -27,7 +27,7 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=8.1",
+    "php": ">=7.4",
     "psr/log": "^1.0||^2.0||^3.0",
     "monolog/monolog": "^2.10"
   },
@@ -43,12 +43,11 @@
     "phpstan/phpstan-strict-rules": "^2.0",
     "vimeo/psalm": "^5.26",
     "psalm/plugin-phpunit": "^0.19",
-    "phpstan/extension-installer": "^1.4",
     "friendsofphp/php-cs-fixer": "^3.0"
   },
   "config": {
     "platform": {
-      "php": "8.1.0"
+      "php": "7.4.0"
     },
     "optimize-autoloader": false,
     "sort-packages": true,
@@ -60,14 +59,14 @@
   },
   "autoload": {
     "psr-4": {
-      "ollily\\": "src/Tools",
+      "ollily\\Tools\\": "src/Tools",
       "Monolog\\": "src/Monolog",
       "PHPUnit\\": "src/PHPUnit"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ollily\\": "tests/Tools",
+      "ollily\\Tools\\": "tests/Tools",
       "Monolog\\": "tests/Monolog",
       "PHPUnit\\": "tests/PHPUnit"
     }
