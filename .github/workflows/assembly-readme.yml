@@ -39,4 +39,8 @@ jobs:
       - name: commit and push readme.adoc
         uses: EndBug/add-and-commit@v9.1.4
         with:
-          add: ["README.adoc","config.adoc","analysis.adoc","composer.adoc"]
+          add:
+            - README.adoc
+            - config.adoc
+            - analysis.adoc
+            - composer.adoc

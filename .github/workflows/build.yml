@@ -14,7 +14,7 @@ on:
 
 env:
   # PHP Configuration
-  PHP_VERSION: 7.4-
+  PHP_VERSION:
 
   # Github Additional Configuration
   GITHUB_REPO_NAME: ${{ github.event.repository.name }}
@@ -81,7 +81,6 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: ${{ env.GITHUB_UPLOAD_NAME }}
-          path: ${{ env.GITHUB_UPLOAD_DIR }}
+          path: ${{ env.GITHUB_UPLOAD_DIR }}/${{ env.GITHUB_UPLOAD_NAME }}
           if-no-files-found: warn
           retention-days: 3
