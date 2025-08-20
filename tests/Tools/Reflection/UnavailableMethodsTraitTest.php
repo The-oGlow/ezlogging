@@ -29,7 +29,7 @@ class UnavailableMethodsTraitTestHolderClazz
         return 'protectedFuncValue';
     }
 
-    private function privateFunc(): string
+    private function privateFunc(): string // @phpstan-ignore method.unused
     {
         return 'privateFuncValue';
     }
@@ -38,6 +38,7 @@ class UnavailableMethodsTraitTestHolderClazz
 class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
+    /** @var object $o2t */
     private $o2t;
 
     public function __construct()
@@ -59,11 +60,12 @@ class UnavailableMethodsTraitTestO2tClazz
 class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
-    private $WrongO2t;
+    /** @var object $wrongO2t */
+    private $wrongO2t; // @phpstan-ignore property.onlyWritten
 
     public function __construct()
     {
-        $this->WrongO2t = new UnavailableMethodsTraitTestHolderClazz();
+        $this->wrongO2t = new UnavailableMethodsTraitTestHolderClazz();
     }
 
     public function publicCallMethodOnO2t(string $methodName): mixed
@@ -74,7 +76,9 @@ class UnavailableMethodsTraitTestWrongO2tClazz
 
 class UnavailableMethodsTraitTest extends TestCase
 {
+    /** @var UnavailableMethodsTraitTestO2tClazz $o2t */
     private $o2t;
+    /** @var string[] */
     private $methodNames = ['publicFunc', 'protectedFunc', 'privateFunc'];
 
     public function setUp(): void
@@ -83,22 +87,23 @@ class UnavailableMethodsTraitTest extends TestCase
         $this->o2t = new UnavailableMethodsTraitTestO2tClazz();
     }
 
-    public function testCallMethodByReflection()
+    public function testCallMethodByReflection(): void
     {
         foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodByReflection($methodName));
         }
     }
 
-    public function testCallMethodOnO2t()
+    public function testCallMethodOnO2t(): void
     {
         foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodOnO2t($methodName));
         }
     }
 
-    public function testCallMethodOnO2tReturnNull()
+    public function testCallMethodOnO2tReturnNull(): void
     {
+        /** @var UnavailableMethodsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableMethodsTraitTestWrongO2tClazz();
         foreach ($this->methodNames as $methodName) {
             static::assertNull($o2tb->publicCallMethodOnO2t($methodName));

@@ -41,11 +41,12 @@ trait UnavailableMethodsTrait
      */
     protected function callMethodOnO2t(string $methodName): mixed
     {
-        // @phpstan-ignore empty.property
-        if (!empty($this->o2t)) {
-            $locO2t = $this->o2t;
+        if (!empty($this->o2t)) { // @phpstan-ignore empty.property,property.notFound
+            $locO2t    = $this->o2t;
+            /** @psalm-suppress TypeDoesNotContainType */
+            $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
-            return $this->callMethodByReflection(get_class($locO2t), $methodName, $locO2t);
+            return $this->callMethodByReflection($clazzName, $methodName, $locO2t);
         } else {
             return null;
         }

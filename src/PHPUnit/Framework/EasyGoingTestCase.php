@@ -63,10 +63,10 @@ abstract class EasyGoingTestCase extends TestCase
             $constantValue = constant($constantName);
             $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
             if (!static::is_primitive($constantValue)) {
-                $this->assertNotEmpty($constantValue);
+                static::assertNotEmpty($constantValue);
             }
         } else {
-            $this->fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
+            static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
     }
 

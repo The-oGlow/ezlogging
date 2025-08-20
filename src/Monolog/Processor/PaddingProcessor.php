@@ -98,7 +98,7 @@ class PaddingProcessor implements ProcessorInterface
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions)) {
+            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true)) {
                 $i++;
 
                 continue;
@@ -137,6 +137,6 @@ class PaddingProcessor implements ProcessorInterface
             return false;
         }
 
-        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], $this->skipFunctions);
+        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], $this->skipFunctions, true);
     }
 }

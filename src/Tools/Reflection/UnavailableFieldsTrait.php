@@ -26,11 +26,12 @@ trait UnavailableFieldsTrait
 
     protected function getFieldFromO2t(string $fieldName): mixed
     {
-        // @phpstan-ignore empty.property
-        if (!empty($this->o2t)) {
-            $locO2t = $this->o2t;
+        if (!empty($this->o2t)) { // @phpstan-ignore empty.property,property.notFound
+            $locO2t    = $this->o2t;
+            /** @psalm-suppress TypeDoesNotContainType */
+            $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
-            return $this->getFieldByReflection(get_class($locO2t), $fieldName, $locO2t);
+            return $this->getFieldByReflection($clazzName, $fieldName, $locO2t);
         } else {
             return null;
         }

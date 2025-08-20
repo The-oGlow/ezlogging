@@ -19,18 +19,17 @@ use Monolog\Processor\PaddingProcessor;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__.  '/../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 class PlainLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
-
     /** @var PlainLogger $o2t */
     private $o2t;
     /** @var string[] $logMethods */
-    private $logMethods = ['debug','info','notice','warning','alert','emergency'];
+    private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
     /** @var mixed[] $context */
-    private $context =  ['value 1', 2 => 'value 2', 3];
+    private $context = ['value 1', 2 => 'value 2', 3];
 
     public function setUp(): void
     {
@@ -80,7 +79,7 @@ class PlainLoggerTest extends TestCase
 
     /**
      * @param string[] $levels
-     * @param mixed[] $context
+     * @param mixed[]  $context
      *
      * @return bool
      */
@@ -103,7 +102,7 @@ class PlainLoggerTest extends TestCase
 
     /**
      * @param string[] $logMethods
-     * @param mixed[] $context
+     * @param mixed[]  $context
      *
      * @return bool
      */
@@ -113,8 +112,8 @@ class PlainLoggerTest extends TestCase
 
         try {
             foreach ($logMethods as $logMethod) {
-                $msg = "logging with '$logMethod'". (empty($context) ? '' : ' & a context');
-                $this->o2t->$logMethod($msg, $context);
+                $msg = "logging with '$logMethod'" . (empty($context) ? '' : ' & a context');
+                $this->o2t->$logMethod($msg, $context); // @phpstan-ignore method.dynamicName
                 $result = true;
             }
         } catch (\Exception $e) {

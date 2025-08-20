@@ -19,14 +19,18 @@ use PHPUnit\Framework\TestCase;
 
 class UnavailableFieldsTraitTestHolderClazz
 {
-    public $publicField    = 'publicFieldValue';
+    /** @var string $publicField */
+    public $publicField = 'publicFieldValue';
+    /** @var string $protectedField */
     protected $protectedField = 'protectedFieldValue';
-    private $privateField   = 'privateFieldValue';
+    /** @var string $privateField */
+    private $privateField = 'privateFieldValue'; // @phpstan-ignore property.onlyWritten
 }
 
 class UnavailableFieldsTraitTestO2tClazz
 {
     use UnavailableFieldsTrait;
+    /** @var object $o2t */
     private $o2t;
 
     public function __construct()
@@ -48,11 +52,12 @@ class UnavailableFieldsTraitTestO2tClazz
 class UnavailableFieldsTraitTestWrongO2tClazz
 {
     use UnavailableFieldsTrait;
-    private $WrongO2t;
+    /** @var object $wrongO2t */
+    private $wrongO2t; // @phpstan-ignore property.onlyWritten
 
     public function __construct()
     {
-        $this->WrongO2t = new UnavailableFieldsTraitTestHolderClazz();
+        $this->wrongO2t = new UnavailableFieldsTraitTestHolderClazz();
     }
 
     public function publicGetFieldFromO2t(string $fieldName): mixed
@@ -60,9 +65,12 @@ class UnavailableFieldsTraitTestWrongO2tClazz
         return $this->getFieldFromO2t($fieldName);
     }
 }
+
 class UnavailableFieldsTraitTest extends TestCase
 {
+    /** @var UnavailableFieldsTraitTestO2tClazz $o2t */
     private $o2t;
+    /** @var string[] */
     private $fieldNames = ['publicField', 'protectedField', 'privateField'];
 
     public function setUp(): void
@@ -71,22 +79,23 @@ class UnavailableFieldsTraitTest extends TestCase
         $this->o2t = new UnavailableFieldsTraitTestO2tClazz();
     }
 
-    public function testGetFieldByReflection()
+    public function testGetFieldByReflection(): void
     {
         foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldByReflection($fieldName));
         }
     }
 
-    public function testGetFieldFromO2t()
+    public function testGetFieldFromO2t(): void
     {
         foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldFromO2t($fieldName));
         }
     }
 
-    public function testGetFieldFromO2tReturnNull()
+    public function testGetFieldFromO2tReturnNull(): void
     {
+        /** @var UnavailableFieldsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableFieldsTraitTestWrongO2tClazz();
         foreach ($this->fieldNames as $fieldName) {
             static::assertNull($o2tb->publicGetFieldFromO2t($fieldName));
