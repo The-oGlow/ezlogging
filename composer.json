@@ -1,6 +1,6 @@
 {
   "name": "ollily/ezlogging",
-  "description": "Simplify the usage of logging with Monolog",
+  "description": "Simplify the usage of - Logging with Monolog - Testing with PHPUnit - Reflection with PHP - Developer shortkeys for composer",
   "type": "library",
   "keywords": [
     "php",
