@@ -39,6 +39,7 @@ jobs:
       - name: commit and push readme.adoc
         uses: EndBug/add-and-commit@v9.1.4
         with:
+          default_author: github_actor
           add: |
             - README.adoc
             - config.adoc
