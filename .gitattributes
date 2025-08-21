@@ -29,7 +29,6 @@
 /nbproject/ export-ignore
 #
 # Files
-/composer.lock export-ignore
 /.* export-ignore
 #
 # Code Quality
