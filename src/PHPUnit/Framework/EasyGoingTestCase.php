@@ -102,6 +102,6 @@ abstract class EasyGoingTestCase extends TestCase
     public function testInit(): void
     {
         static::assertNotEmpty($this->o2t);
-        static::assertInstanceOf($this->o2t, get_class($this->prepareO2t()));
+        static::assertInstanceOf(get_class($this->o2t),$this->prepareO2t());
     }
 }

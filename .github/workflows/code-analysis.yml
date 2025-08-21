@@ -51,6 +51,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: set current timestamp
+        id: TS_NOW
+        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+
+      - name: echo current timestamp
+        run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
+
       - name: checkout
         uses: actions/checkout@v4.3.0
         with:
@@ -61,24 +68,22 @@ jobs:
         with:
           php-version: '${{ env.PHP_VERSION }}'
           coverage: xdebug
-          tools: php-cs-fixer,phpstan,psalm,phpstan/extension-installer
+          tools: php-cs-fixer,phpstan,psalm
+
+      - name: identify composer cache
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
         uses: actions/cache@v4.2.3
         with:
-          path: ${{ env.COMPOSER_VENDOR_DIR }}
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            ${{ env.COMPOSER_VENDOR_DIR }}
           key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
           restore-keys: |
             ${{ matrix.os }}-analyze-composer
-            ${{ matrix.os }}-analyze
-
-      - name: cache sonarcloud packages
-        uses: actions/cache@v4.2.3
-        with:
-          path: ${{ env.SONAR_CACHE_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-sonar
-          restore-keys: |
-            ${{ matrix.os }}-analyze-sonar
             ${{ matrix.os }}-analyze
 
       - name: install dependencies
