@@ -1,0 +1,133 @@
+// common settings
+:brnch1: master
+:brnch2: develop
+:cm_shlds_url: https://img.shields.io
+:cm_shlds_badge_url: {cm_shlds_url}/badge
+:cm_shlds_img_style: &style=plastic
+
+// github
+:cm_gh_wrkflw_link: actions/workflows
+
+// shields for github
+:cm_shlds_gh_url: {cm_shlds_url}/github
+:cm_shlds_gh_logo: logo=github
+:cm_shlds_gh_style: &{cm_shlds_gh_logo}{cm_shlds_img_style}
+:cm_shlds_gh_status_url: {cm_shlds_gh_url}/actions/workflow/status
+:cm_shlds_gh_issues_url: {cm_shlds_gh_url}/issues
+// :cm_shlds_gh_pulls_url: {cm_shlds_gh_url}/pulls
+:cm_shlds_gh_license_url: {cm_shlds_gh_url}/license
+:cm_shlds_gh_release_url: {cm_shlds_gh_url}/v/release
+:cm_shlds_gh_langtop_url: {cm_shlds_gh_url}/languages/count
+:cm_shlds_gh_langcount_url: {cm_shlds_gh_url}/languages/top
+:cm_shlds_gh_checkruns_url: {cm_shlds_gh_url}/check-runs
+
+// sonar
+:cm_snr_url: https://sonarcloud.io
+:cm_snr_badge_url: {cm_snr_url}/images/project_badges
+:cm_snr_dash_url: {cm_snr_url}/dashboard?id=
+:cm_snr_api_url: {cm_snr_url}/api
+:cm_snr_qgate_url: {cm_snr_api_url}/project_badges/quality_gate?project=
+:cm_snr_mes_tsd: component_measures?metric=test_success_density&view=list
+:cm_snr_mes_test: component_measures?metric=tests&view=list
+:cm_snr_mes_cov: component_measures?metric=coverage&view=list
+:cm_snr_logo_url: {cm_snr_badge_url}/sonarcloud-black.svg
+:cm_snr_logo_url2: {cm_snr_badge_url}/sonarcloud-light.svg
+
+// shields for sonar
+:cm_shlds_snr_url: {cm_shlds_url}/sonar
+:cm_shlds_snr_logo: logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+:cm_shlds_snr_style: &{cm_shlds_snr_logo}{cm_shlds_img_style}
+:cm_shlds_snr_qgate_url: {cm_shlds_snr_url}/quality_gate
+:cm_shlds_snr_tsd_url: {cm_shlds_snr_url}/test_success_density
+:cm_shlds_snr_tests_url: {cm_shlds_snr_url}/tests
+:cm_shlds_snr_coverage_url: {cm_shlds_snr_url}/coverage
+:cm_shlds_snr_violations_url: {cm_shlds_snr_url}/violations
+
+:cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php%20cs%20fixer-PSR%2012-orange?logo=php
+:cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT%20Tests-orange?logo=php
+:cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level%208%20Strict-orange?logo=php
+:cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level%202-orange?logo=php
+:cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way-orange?logo=sonar
+:cm_snr_tool_sonarcloud_url: {cm_snr_logo_url2}
+
+// project settings (generated)
+// module data generated
+:pj_cright_author: (c) {pj_year} by {acc_user_url}
+:pj_cright_orga: (c) {pj_year} by {orga_user_url}
+:pj_gh_vcsid: {pj_gh_account}/{pj_gh_repo}
+:pj_gh_vcsid_url: {pj_gh_vcs_url}/{pj_gh_vcsid}
+:pj_gh_wflow_url: {pj_gh_vcsid_url}/{cm_gh_wrkflw_link}
+:pj_snr_projid: {pj_gh_account}_{pj_gh_repo}
+:pj_snr_component: {pj_gh_account}:{pj_gh_repo}
+:pj_snr_dash_url: {cm_snr_dash_url}{pj_snr_projid}
+
+// project status
+:pj_ps_release_url: {cm_shlds_gh_release_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}}&sort=semver
+:pj_ps_license_url: {cm_shlds_gh_license_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
+:pj_ps_langtop_url: {cm_shlds_gh_langtop_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
+:pj_ps_langcount_url: {cm_shlds_gh_langcount_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
+:pj_ps_issues_url: {cm_shlds_gh_issues_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
+
+// quality information
+// qi shields
+:pj_qi_qgate_url: {cm_shlds_snr_qgate_url}/{pj_snr_projid}?{cm_shlds_snr_style}
+:pj_qi_tsd_url: {cm_shlds_snr_tsd_url_url}/{pj_snr_projid}?{cm_shlds_snr_style}
+:pj_qi_tests_url: {cm_shlds_snr_tests_url}/{pj_snr_projid}?{cm_shlds_snr_style}
+:pj_qi_coverage_url: {cm_shlds_snr_coverage_url}/{pj_snr_projid}?{cm_shlds_snr_style}
+:pj_qi_violations_url: {cm_shlds_snr_violations_url}/{pj_snr_projid}?{cm_shlds_snr_style}
+
+// qi sonar
+:pj_qi_snr_brnch1_qgate_url: {cm_shlds_snr_qgate_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
+:pj_qi_snr_brnch2_qgate_url: {cm_shlds_snr_qgate_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
+:pj_qi_snr_qgate_url: {cm_snr_qgate_url}{pj_snr_projid}
+:pj_qi_snr_logo_url: {cm_snr_logo_url}
+
+// build status
+:pj_bs_brnch1_status_url: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?{cm_shlds_gh_style}&branch={brnch1}&label={brnch1}
+:pj_bs_brnch2_status_url: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?{cm_shlds_gh_style}&branch={brnch2}&label={brnch2}
+:pj_bs_brnch1_checkruns_url: {cm_shlds_gh_checkruns_url}/{pj_gh_vcsid}/{brnch1}?{cm_shlds_snr_style}
+:pj_bs_brnch2_checkruns_url: {cm_shlds_gh_checkruns_url}/{pj_gh_vcsid}/{brnch2}?{cm_shlds_snr_style}
+
+// test information
+// ti sonar
+:pj_ti_snr_brnch1_tsd_url: {cm_shlds_snr_tsd_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch2_tsd_url: {cm_shlds_snr_tsd_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch1_tests_url: {cm_shlds_snr_tests_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch2_tests_url: {cm_shlds_snr_tests_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch1_coverage_url: {cm_shlds_snr_coverage_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch2_coverage_url: {cm_shlds_snr_coverage_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch1_violations_url: {cm_shlds_snr_violations_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
+:pj_ti_snr_brnch2_violations_url: {cm_shlds_snr_violations_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
+
+// -- legacy
+// project status
+:pj_ps_github_latest_link: {pj_gh_vcsid_url}/releases[image:{cm_shlds_gh_url}/v/release/{pj_gh_vcsid}?sort=semver{cm_shlds_gh_style}[title="Latest Release"]]
+:pj_ps_github_license_link: LICENSE[image:{cm_shlds_gh_url}/license/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Software License"]]
+:pj_ps_issues_link: {pj_gh_vcsid_url}/issues[image:{cm_shlds_gh_issues_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Open Issues"]]
+:pj_ps_pulls_link: {pj_gh_vcsid_url}/pulls[image:{cm_shlds_gh_pulls_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Open Pull Requests"]]
+:pj_ps_maven_latest_link: [image:{cm_shlds_badge_url}/maven%20central-no%20releases-red?{cm_img_maven_style}[title="Maven Repository"]]
+ifeval::["{pj_id_gavid}" != "-1"]
+:pj_ps_maven_latest_link: {cm_maven_url}/{pj_id_gavid}[image:{cm_badge_maven_url}/v/{pj_id_gavid}?{cm_img_maven_style}[title="Maven Repository"]]
+endif::[]
+
+// quality information
+:pj_qi_sonar_qg_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_snr_api_url}/project_badges/quality_gate?project={pj_snr_projid}[title="Quality Gate"]]
+:pj_qi_sonar_status_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_snr_badge_url}/sonarcloud-black.svg[title="SonarCloud"]]
+
+// build status
+:pj_bs_brnch1_img: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?branch={brnch1}&label={brnch1}{cm_shlds_gh_style}[title="Pipeline status on {brnch1} branch"]
+:pj_bs_brnch2_img: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?branch={brnch2}&label={brnch2}{cm_shlds_gh_style}[title="Pipeline status on {brnch2} branch"]
+:pj_bs_brnch1_link: {pj_gh_wflow_url}/build.yml?query=branch%3A{brnch1}[image:{pj_bs_brnch1_img}]
+:pj_bs_brnch2_link: {pj_gh_wflow_url}/build.yml?query=branch%3A{brnch2}[image:{pj_bs_brnch2_img}]
+
+// test information
+// ti sonarqube
+:pj_ti_sonar_brnch1_tsd_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/test_success_density/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Test Status {brnch1}"]]
+:pj_ti_sonar_brnch2_tsd_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/test_success_density/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Test Status {brnch2}"]]
+:pj_ti_sonar_brnch1_test_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/tests/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Test Count {brnch1}"]]
+:pj_ti_sonar_brnch2_test_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/tests/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Test Count {brnch2}"]]
+:pj_ti_sonar_brnch1_coverage_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/coverage/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Overall Coverage {brnch1}"]]
+:pj_ti_sonar_brnch2_coverage_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/coverage/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Overall Coverage {brnch2}"]]
+:pj_ti_sonar_brnch1_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch1}?format=long{cm_shlds_snr_style}[title="Violations {brnch1}"]]
+:pj_ti_sonar_brnch2_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch2}?format=long{cm_shlds_snr_style}[title="Violations {brnch2}"]]
+

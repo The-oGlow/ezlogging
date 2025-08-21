@@ -1,0 +1,48 @@
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+include::{site_resource}/adoc-project.adoc[opts=optional]
+include::{site_resource}/adoc-common.adoc[opts=optional]
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo}
+:toc: preamble
+:toclevels: 2
+
+image:{pj_ps_license_url}[title="Shields Badge"]
+image:{pj_ps_release_url}[title="Shields Badge"]
+image:{pj_ps_langtop_url}[title="Shields Badge"]
+image:{pj_ps_langcount_url}[title="Shields Badge"]
+image:{pj_ps_issues_url}[title="Shields Badge"]
+
+image:{cm_shlds_tool_phpcsfixer_url}[]
+image:{cm_shlds_tool_phpunit_url}[]
+image:{cm_shlds_tool_phpstan_url}[]
+image:{cm_shlds_tool_psalm_url}[]
+image:{cm_shlds_tool_sonarcloud_url}[]
+
+image:{cm_snr_tool_sonarcloud_url}[]
+
+== Description
+
+Simplify the usage of
+
+* Logging with https://seldaek.github.io/monolog[Monolog]
+* Testing with https://phpunit.de/[PHPUnit]
+* https://www.php.net/manual/en/book.reflection.php[Reflection] with PHP
+* Developer shortkeys for composer
+
+== Additional Information
+
+* link:config.adoc[Configuration] - How to configure
+* link:composer.adoc[Composer Commands] - New commands for composer
+* link:analysis.adoc[Analysis] - Project Status
+
+
+== Notice
+
+Nothing to notice so far.
+
+_{pj_cright_author}_

@@ -1,0 +1,46 @@
+name: assembly-readme
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'site/resources/*.adoc'
+
+jobs:
+  assembly-adoc:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        version: [22]
+        distribution: [adopt]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4.3.0
+
+      - name: install asciidoctor-reducer
+        run: sudo gem install asciidoctor-reducer
+
+      - name: assembly README.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o README.adoc site/resources/pj-readme.adoc
+
+      - name: assembly config.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o config.adoc site/resources/pj-config.adoc
+
+      - name: assembly analysis.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o analysis.adoc site/resources/pj-analysis.adoc
+
+      - name: assembly composer.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o composer.adoc site/resources/pj-composer.adoc
+
+      - name: commit and push readme.adoc
+        uses: EndBug/add-and-commit@v9.1.4
+        with:
+          add: |
+            - README.adoc
+            - config.adoc
+            - analysis.adoc
+            - composer.adoc

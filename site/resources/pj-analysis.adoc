@@ -1,0 +1,48 @@
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+include::{site_resource}/adoc-project.adoc[opts=optional]
+include::{site_resource}/adoc-common.adoc[opts=optional]
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo} - Analysis
+:toc:
+:toclevels: 2
+
+== Quality Analysis
+
+.Project Status
+[%header%autowidth,frame=ends,valign=top,halign=center]
+|===
+^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
+3+|*Build* - link:{pj_gh_vcsid_url}[Github.com]
+|Checks
+^|image:{pj_bs_brnch1_checkruns_url}[]
+^|image:{pj_bs_brnch2_checkruns_url}[]
+|Status
+^|image:{pj_bs_brnch1_status_url}[]
+^|image:{pj_bs_brnch2_status_url}[]
+3+|*Quality Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+|Quality Gate
+2+^|image:{pj_qi_snr_qgate_url}[]
+|Details
+^|image:{pj_qi_snr_brnch1_qgate_url}[]
+^|image:{pj_qi_snr_brnch2_qgate_url}[]
+3+|*Test Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+|Tests %
+^|image:{pj_ti_snr_brnch1_tsd_url}[]
+^|image:{pj_ti_snr_brnch2_tsd_url}[]
+|Tests Count
+^|image:{pj_ti_snr_brnch1_tests_url}[]
+^|image:{pj_ti_snr_brnch2_tests_url}[]
+|Coverage
+^|image:{pj_ti_snr_brnch1_coverage_url}[]
+^|image:{pj_ti_snr_brnch2_coverage_url}[]
+|Violations
+^|image:{pj_ti_snr_brnch1_violations_url}[]
+^|image:{pj_ti_snr_brnch2_violations_url}[]
+|===
+
+_{pj_cright_author}_

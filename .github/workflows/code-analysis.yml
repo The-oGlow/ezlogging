@@ -10,10 +10,11 @@ on:
       - '.github/workflows/**'
       - '.run/**'
       - '.idea/**'
+      - 'site/**'
 
 env:
   # PHP Configuration
-  PHP_VERSION: 8.1
+  PHP_VERSION: 7.4
 
   # Github Additional Configuration
   GITHUB_REPO_NAME: ${{ github.event.repository.name }}

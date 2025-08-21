@@ -59,21 +59,20 @@ There is nothing to configure, you can use this library ootb.
 
 ### Build 
 
-| **Build**               | **Master** | **Develop** |
-|:------------------------|:----------:|:-----------:|
-| [Github.com](https://github.com/The-oGlow/ezLogging) | ![Commit Status Master](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/master?logo=github "Commit Status Master") | ![Commit Status Develop](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/develop?logo=github "Commit Status Develop") |                                                                                                                                                                                                                                                                                                                                                                                                                                                
+| [Github.com](https://github.com/The-oGlow/ezLogging)               | **Master** | **Develop** |
+|:-------------------------------------------------------------------|:----------:|:-----------:|
+| Commit Status  | ![Commit Status Master](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/master?logo=github "Commit Status Master") | ![Commit Status Develop](https://img.shields.io/github/check-runs/The-oGlow/ezlogging/develop?logo=github "Commit Status Develop") |                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
 ### Quality Information
 
-| **Quality Information** | **Master** | **Develop** |
-|:------------------------|:----------:|:-----------:|
-| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging) | ![Quality Gate Master](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/master?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Master") | ![Quality Gate Develop](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/develop?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Develop") |
+| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging) | **Master** | **Develop** |
+|:--------------------------------------------------------------------------------|:----------:|:-----------:|
+| Quality Gate  | ![Quality Gate Master](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/master?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Master") | ![Quality Gate Develop](https://img.shields.io/sonar/quality_gate/The-oGlow_ezlogging/develop?logo=sonar&server=https%3A%2F%2Fsonarcloud.io "Status Quality Gate Develop") |
 
 ### Test Information
 
-| **Test Information**    | **Master** | **Develop** |
-|:------------------------|:----------:|:-----------:|
-| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging) |
+| [Sonarcloud.io](https://sonarcloud.io/project/dashboard?id=The-oGlow_ezlogging)    | **Master** | **Develop** |
+|:-----------------------------------------------------------------------------------|:----------:|:-----------:|
 | Test % | ![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/test_success_density/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
 | Tests Count | ![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/tests/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
 | Coverage % | ![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/master?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) | ![Sonarcloud](https://img.shields.io/sonar/coverage/The-oGlow_ezlogging/develop?server=https%3A%2F%2Fsonarcloud.io&logo=sonar) |
