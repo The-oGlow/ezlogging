@@ -1,3 +1,53 @@
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+// project settings (from pom-file)
+// user data
+:acc_vcs_url: https://github.com
+:acc_user: ollily
+:acc_user_orga: The-oGlow
+:acc_user_name: Oliver Glowa
+:acc_user_email: coding at glowa-net dot com
+:acc_user_hp: http://coding.glowa-net.com
+:acc_user_url: {acc_vcs_url}/{acc_user}[{acc_user_name}]
+
+// organization
+:orga_vcs_url: {acc_vcs_url}
+:orga_user: The-oGlow
+:orga_user_name: The oGlow
+:orga_user_email: {acc_user_email}
+:orga_user_hp: {acc_user_hp}
+:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}
+
+// organization team
+:orga_team_user: oteam
+:orga_team_user_name: The oTeam
+:orga_team_email: {orga_user_email}
+:orga_team_hp: {orga_user_hp}
+:orga_team_url: {orga_vcs_url}/orgs/{orga_user}/teams/{orga_team_user}[{orga_team_user_name}]
+
+// module data
+:pj_author: {acc_user_name}
+:pj_version: [latest version]
+:pj_year: 2025
+:pj_description: Simplify the usage of - Logging with Monolog - Testing with PHPUnit - Reflection with PHP - Developer shortkeys for composer
+:pj_gh_vcs_url: {orga_vcs_url}
+:pj_gh_account: {orga_user}
+:pj_gh_repo: ezlogging
+
+// :pj_id_org: {acc_user_orga}/{pj_gh_repo}
+// :pj_gav: {pj_group}/{pj_gh_repo}
+
+
+// :pj_group: com.glowa-net.maven.tools
+// :pj_mvn_type: jar
+// :pj_id_gavid: -1
+// {pj_group}/{pj_gh_repo}
+// :pj_id_codacy: dba747d3491447a5a0ccb938af70e6c1
+// :pj_id_coverity: -1
+// :pj_id_openssf: -1
+// :pj_id_coveralls: {pj_gh_account}/{pj_gh_repo}
 // common settings
 :brnch1: master
 :brnch2: develop
@@ -135,3 +185,45 @@ endif::[]
 :pj_ti_sonar_brnch1_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch1}?format=long{cm_shlds_snr_style}[title="Violations {brnch1}"]]
 :pj_ti_sonar_brnch2_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch2}?format=long{cm_shlds_snr_style}[title="Violations {brnch2}"]]
 
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo} - Analysis
+:toc:
+:toclevels: 2
+
+== Quality Analysis
+
+.Project Status
+[%header%autowidth,frame=ends,valign=top,halign=center]
+|===
+^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
+3+|*Build* - link:{pj_gh_vcsid_url}[Github.com]
+|Checks
+^|image:{pj_bs_brnch1_checkruns_url}[]
+^|image:{pj_bs_brnch2_checkruns_url}[]
+|Status
+^|image:{pj_bs_brnch1_status_url}[]
+^|image:{pj_bs_brnch2_status_url}[]
+3+|*Quality Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+|Quality Gate
+2+^|image:{pj_qi_snr_qgate_url}[]
+|Details
+^|image:{pj_qi_snr_brnch1_qgate_url}[]
+^|image:{pj_qi_snr_brnch2_qgate_url}[]
+3+|*Test Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+|Tests %
+^|image:{pj_ti_snr_brnch1_tsd_url}[]
+^|image:{pj_ti_snr_brnch2_tsd_url}[]
+|Tests Count
+^|image:{pj_ti_snr_brnch1_tests_url}[]
+^|image:{pj_ti_snr_brnch2_tests_url}[]
+|Coverage
+^|image:{pj_ti_snr_brnch1_coverage_url}[]
+^|image:{pj_ti_snr_brnch2_coverage_url}[]
+|Violations
+^|image:{pj_ti_snr_brnch1_violations_url}[]
+^|image:{pj_ti_snr_brnch2_violations_url}[]
+|===
+
+_{pj_cright_author}_

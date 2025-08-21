@@ -1,3 +1,53 @@
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+// project settings (from pom-file)
+// user data
+:acc_vcs_url: https://github.com
+:acc_user: ollily
+:acc_user_orga: The-oGlow
+:acc_user_name: Oliver Glowa
+:acc_user_email: coding at glowa-net dot com
+:acc_user_hp: http://coding.glowa-net.com
+:acc_user_url: {acc_vcs_url}/{acc_user}[{acc_user_name}]
+
+// organization
+:orga_vcs_url: {acc_vcs_url}
+:orga_user: The-oGlow
+:orga_user_name: The oGlow
+:orga_user_email: {acc_user_email}
+:orga_user_hp: {acc_user_hp}
+:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}
+
+// organization team
+:orga_team_user: oteam
+:orga_team_user_name: The oTeam
+:orga_team_email: {orga_user_email}
+:orga_team_hp: {orga_user_hp}
+:orga_team_url: {orga_vcs_url}/orgs/{orga_user}/teams/{orga_team_user}[{orga_team_user_name}]
+
+// module data
+:pj_author: {acc_user_name}
+:pj_version: [latest version]
+:pj_year: 2025
+:pj_description: Simplify the usage of - Logging with Monolog - Testing with PHPUnit - Reflection with PHP - Developer shortkeys for composer
+:pj_gh_vcs_url: {orga_vcs_url}
+:pj_gh_account: {orga_user}
+:pj_gh_repo: ezlogging
+
+// :pj_id_org: {acc_user_orga}/{pj_gh_repo}
+// :pj_gav: {pj_group}/{pj_gh_repo}
+
+
+// :pj_group: com.glowa-net.maven.tools
+// :pj_mvn_type: jar
+// :pj_id_gavid: -1
+// {pj_group}/{pj_gh_repo}
+// :pj_id_codacy: dba747d3491447a5a0ccb938af70e6c1
+// :pj_id_coverity: -1
+// :pj_id_openssf: -1
+// :pj_id_coveralls: {pj_gh_account}/{pj_gh_repo}
 // common settings
 :brnch1: master
 :brnch2: develop
@@ -135,3 +185,225 @@ endif::[]
 :pj_ti_sonar_brnch1_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch1}?format=long{cm_shlds_snr_style}[title="Violations {brnch1}"]]
 :pj_ti_sonar_brnch2_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch2}?format=long{cm_shlds_snr_style}[title="Violations {brnch2}"]]
 
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo}
+:toc: preamble
+:toclevels: 2
+
+image:{pj_ps_license_url}[title="License"]
+image:{pj_ps_release_url}[title="Latest Release"]
+image:{pj_ps_langtop_url}[title="Main Language"]
+image:{pj_ps_langcount_url}[title="No of Languages"]
+image:{pj_ps_issues_url}[title="Open Issues"]
+
+image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
+image:{cm_shlds_tool_phpunit_url}[title="PHPUnit Tests"]
+image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
+image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
+image:{cm_shlds_tool_sonarcloud_url}[title="Sonarcloud Quality Gateway"]
+
+link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
+
+== Description
+
+Simplify the usage of
+
+* Logging with Monolog
+* Testing with PHPUnit
+* Reflection with PHP
+* Developer shortkeys for composer
+
+== Usage
+
+=== Monolog
+
+* link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger] - Logging to console
+** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
+* link:src/Monolog/FileLogger.php[Monolog/FileLogger] - Logging to a file
+* link:src/Monolog/PlainLogger.php[Monolog/PlainLogger] - Sending the output "as it is" to the console (raw)
+
+=== PHPUnit
+
+* link:src/PHPUnit/Framework/EasyGoingTestCase.php[EasyGoingTestCase] - All you need is already prepared, so concentrate on unit tests
+
+=== Reflection
+
+* link:src/Tools/Reflection/UnavailableFieldsTrait.php[UnavailableFieldsTrait] - Get value from unaccessable class fields (aka properties)
+* link:src/Tools/Reflection/UnavailableMethodsTrait.php[UnavailableMethodsTrait] - Call unaccessable class methods
+
+== Examples
+
+=== PHPUnit
+
+.Business Class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    public function isValid(): bool
+    {
+        return true; // not very complex, i know ;-)
+    }
+}
+----
+
+.Related test class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testFoo(): void
+    {
+        $this->logger->debug('testFoo() - Start');
+
+        // test code
+        static::assertTrue($this->getCasto2t()->isValid());
+        // or
+        static::assertTrue($this->o2t->isValid());
+
+        $this->logger->info('testFoo() - End');
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.609 [DEBUG   ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - Start
+20250821-162846.611 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - End
+..
+----
+
+=== Reflection
+
+.Extended class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    private $privateFoo = 'privateFooValue';
+
+    protected function protectedFoo(): string
+    {
+        return 'protectedFooMethod';
+    }
+}
+----
+
+.Related extended test class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use ollily\Tools\Reflection\UnavailableFieldsTrait;
+use ollily\Tools\Reflection\UnavailableMethodsTrait;
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    use UnavailableFieldsTrait;
+    use UnavailableMethodsTrait;
+
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testPrivateField(): void
+    {
+        $result = $this->getFieldFromO2t('privateFoo');
+        // or
+        $result2 = $this->getFieldByReflection(FooClazz::class, 'privateFoo', $this->o2t);
+        $this->logger->info("privateFoo is '${result}' or '${result2}'");
+
+        static::assertEquals('privateFooValue', $result);
+        static::assertEquals($result, $result2);
+    }
+
+    public function testProtectedMethod(): void
+    {
+        $result = $this->callMethodOnO2t('protectedFoo');
+        // or
+        $result2 = $this->callMethodByReflection(FooClazz::class, 'protectedFoo', $this->o2t);
+        $this->logger->info("protectedFoo returns '${result}' or '${result2}'");
+
+        static::assertEquals('protectedFooMethod', $result);
+        static::assertEquals($result, $result2);
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.588 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testPrivateField() - privateFoo is 'privateFooValue' or 'privateFooValue'
+20250821-162846.608 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testProtectedMethod() - protectedFoo returns 'protectedFooMethod' or 'protectedFooMethod'
+..
+----
+
+== Additional Information
+
+* link:config.adoc[Configuration] - How to configure
+* link:composer.adoc[Composer Commands] - New commands for composer
+* link:analysis.adoc[Analysis] - Project Status
+
+== Notice
+
+Nothing to notice so far.
+
+== Reference
+* link:https://seldaek.github.io/monolog[Monolog]
+* link:https://phpunit.de/[PHPUnit]
+* link:https://www.php.net/manual/en/book.reflection.php[Reflection with PHP]
+* link:https://getcomposer.org/[Composer]
+
+_{pj_cright_author}_

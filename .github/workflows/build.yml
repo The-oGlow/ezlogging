@@ -14,7 +14,7 @@ on:
 
 env:
   # PHP Configuration
-  PHP_VERSION:
+  PHP_VERSION: 7.4
 
   # Github Additional Configuration
   GITHUB_REPO_NAME: ${{ github.event.repository.name }}
@@ -23,7 +23,7 @@ env:
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_BRANCH_NAME: ${{ github.ref_name }}
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/target/staging
-  GITHUB_UPLOAD_NAME: ${{ github.actor }}-${{ github.event.repository.name }}*.zip
+  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}.zip
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Sonarcloud Configuration
@@ -51,6 +51,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: set current timestamp
+        id: TS_NOW
+        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+
+      - name: echo current timestamp
+        run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
+
       - name: checkout
         uses: actions/checkout@v4.3.0
         with:
@@ -61,12 +68,19 @@ jobs:
         with:
           php-version: '${{ env.PHP_VERSION }}'
           coverage: xdebug
-          tools: php-cs-fixer,phpstan,psalm,phpstan/extension-installer
+          tools: php-cs-fixer,phpstan,psalm
+
+      - name: identify composer cache
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
         uses: actions/cache@v4.2.3
         with:
-          path: ${{ env.COMPOSER_VENDOR_DIR }}
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            ${{ env.COMPOSER_VENDOR_DIR }}
           key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
           restore-keys: |
             ${{ matrix.os }}-analyze-composer
@@ -81,6 +95,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          path: ${{ env.GITHUB_UPLOAD_DIR }}/${{ env.GITHUB_UPLOAD_NAME }}
+          name: ${{ env.GITHUB_UPLOAD_NAME }}.zip
+          path: ${{ env.GITHUB_UPLOAD_DIR }}/*-${{ env.GITHUB_UPLOAD_NAME }}*.zip
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 7

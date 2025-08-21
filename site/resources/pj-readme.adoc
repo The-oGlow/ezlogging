@@ -11,28 +11,203 @@ include::{site_resource}/adoc-common.adoc[opts=optional]
 :toc: preamble
 :toclevels: 2
 
-image:{pj_ps_license_url}[title="Shields Badge"]
-image:{pj_ps_release_url}[title="Shields Badge"]
-image:{pj_ps_langtop_url}[title="Shields Badge"]
-image:{pj_ps_langcount_url}[title="Shields Badge"]
-image:{pj_ps_issues_url}[title="Shields Badge"]
+image:{pj_ps_license_url}[title="License"]
+image:{pj_ps_release_url}[title="Latest Release"]
+image:{pj_ps_langtop_url}[title="Main Language"]
+image:{pj_ps_langcount_url}[title="No of Languages"]
+image:{pj_ps_issues_url}[title="Open Issues"]
 
-image:{cm_shlds_tool_phpcsfixer_url}[]
-image:{cm_shlds_tool_phpunit_url}[]
-image:{cm_shlds_tool_phpstan_url}[]
-image:{cm_shlds_tool_psalm_url}[]
-image:{cm_shlds_tool_sonarcloud_url}[]
+image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
+image:{cm_shlds_tool_phpunit_url}[title="PHPUnit Tests"]
+image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
+image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
+image:{cm_shlds_tool_sonarcloud_url}[title="Sonarcloud Quality Gateway"]
 
-image:{cm_snr_tool_sonarcloud_url}[]
+link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
 
 == Description
 
 Simplify the usage of
 
-* Logging with https://seldaek.github.io/monolog[Monolog]
-* Testing with https://phpunit.de/[PHPUnit]
-* https://www.php.net/manual/en/book.reflection.php[Reflection] with PHP
+* Logging with Monolog
+* Testing with PHPUnit
+* Reflection with PHP
 * Developer shortkeys for composer
+
+== Usage
+
+=== Monolog
+
+* link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger] - Logging to console
+** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
+* link:src/Monolog/FileLogger.php[Monolog/FileLogger] - Logging to a file
+* link:src/Monolog/PlainLogger.php[Monolog/PlainLogger] - Sending the output "as it is" to the console (raw)
+
+=== PHPUnit
+
+* link:src/PHPUnit/Framework/EasyGoingTestCase.php[EasyGoingTestCase] - All you need is already prepared, so concentrate on unit tests
+
+=== Reflection
+
+* link:src/Tools/Reflection/UnavailableFieldsTrait.php[UnavailableFieldsTrait] - Get value from unaccessable class fields (aka properties)
+* link:src/Tools/Reflection/UnavailableMethodsTrait.php[UnavailableMethodsTrait] - Call unaccessable class methods
+
+== Examples
+
+=== PHPUnit
+
+.Business Class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    public function isValid(): bool
+    {
+        return true; // not very complex, i know ;-)
+    }
+}
+----
+
+.Related test class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testFoo(): void
+    {
+        $this->logger->debug('testFoo() - Start');
+
+        // test code
+        static::assertTrue($this->getCasto2t()->isValid());
+        // or
+        static::assertTrue($this->o2t->isValid());
+
+        $this->logger->info('testFoo() - End');
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.609 [DEBUG   ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - Start
+20250821-162846.611 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - End
+..
+----
+
+=== Reflection
+
+.Extended class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    private $privateFoo = 'privateFooValue';
+
+    protected function protectedFoo(): string
+    {
+        return 'protectedFooMethod';
+    }
+}
+----
+
+.Related extended test class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use ollily\Tools\Reflection\UnavailableFieldsTrait;
+use ollily\Tools\Reflection\UnavailableMethodsTrait;
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    use UnavailableFieldsTrait;
+    use UnavailableMethodsTrait;
+
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testPrivateField(): void
+    {
+        $result = $this->getFieldFromO2t('privateFoo');
+        // or
+        $result2 = $this->getFieldByReflection(FooClazz::class, 'privateFoo', $this->o2t);
+        $this->logger->info("privateFoo is '${result}' or '${result2}'");
+
+        static::assertEquals('privateFooValue', $result);
+        static::assertEquals($result, $result2);
+    }
+
+    public function testProtectedMethod(): void
+    {
+        $result = $this->callMethodOnO2t('protectedFoo');
+        // or
+        $result2 = $this->callMethodByReflection(FooClazz::class, 'protectedFoo', $this->o2t);
+        $this->logger->info("protectedFoo returns '${result}' or '${result2}'");
+
+        static::assertEquals('protectedFooMethod', $result);
+        static::assertEquals($result, $result2);
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.588 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testPrivateField() - privateFoo is 'privateFooValue' or 'privateFooValue'
+20250821-162846.608 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testProtectedMethod() - protectedFoo returns 'protectedFooMethod' or 'protectedFooMethod'
+..
+----
 
 == Additional Information
 
@@ -40,9 +215,14 @@ Simplify the usage of
 * link:composer.adoc[Composer Commands] - New commands for composer
 * link:analysis.adoc[Analysis] - Project Status
 
-
 == Notice
 
 Nothing to notice so far.
+
+== Reference
+* link:https://seldaek.github.io/monolog[Monolog]
+* link:https://phpunit.de/[PHPUnit]
+* link:https://www.php.net/manual/en/book.reflection.php[Reflection with PHP]
+* link:https://getcomposer.org/[Composer]
 
 _{pj_cright_author}_
