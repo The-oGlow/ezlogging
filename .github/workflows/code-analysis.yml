@@ -27,7 +27,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Sonarcloud Configuration
-  SONAR_TOKEN: ${{ secrets.FROMGITHUBTOKEN}}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_GH}}
   SONAR_CACHE_DIR: "${HOME}/.sonar/cache"
   SONAR_HOST_URL: "https://sonarcloud.io"
 

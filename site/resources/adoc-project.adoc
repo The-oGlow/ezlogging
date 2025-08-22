@@ -1,4 +1,4 @@
-// project settings (from pom-file)
+// project settings - START
 // user data
 :acc_vcs_url: https://github.com
 :acc_user: ollily
@@ -14,7 +14,7 @@
 :orga_user_name: The oGlow
 :orga_user_email: {acc_user_email}
 :orga_user_hp: {acc_user_hp}
-:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}
+:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}]
 
 // organization team
 :orga_team_user: oteam
@@ -31,16 +31,10 @@
 :pj_gh_vcs_url: {orga_vcs_url}
 :pj_gh_account: {orga_user}
 :pj_gh_repo: ezlogging
+:pj_cdcy_id: -1
+:pj_cvrlls_id: -1
+//{pj_gh_account}/{pj_gh_repo}
+:pj_opnssf_id: -1
+:pj_cvrty_id: -1
 
-// :pj_id_org: {acc_user_orga}/{pj_gh_repo}
-// :pj_gav: {pj_group}/{pj_gh_repo}
-
-
-// :pj_group: com.glowa-net.maven.tools
-// :pj_mvn_type: jar
-// :pj_id_gavid: -1
-// {pj_group}/{pj_gh_repo}
-// :pj_id_codacy: dba747d3491447a5a0ccb938af70e6c1
-// :pj_id_coverity: -1
-// :pj_id_openssf: -1
-// :pj_id_coveralls: {pj_gh_account}/{pj_gh_repo}
+// project settings - END
