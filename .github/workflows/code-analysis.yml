@@ -75,7 +75,8 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
-        uses: actions/cache@v4.2.3
+        uses: actions/cache/restore@v4.2.3
+        id: restore-cache
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
@@ -91,17 +92,28 @@ jobs:
       - name: tests
         run: composer c-test
 
-      - name: sonarcloud
-        uses: SonarSource/sonarqube-scan-action@v5.3.0
-        env:
-          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
-
-      - name: codacy scan
-        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+      - uses: actions/cache/save@v4.2.3
+        id: save-cache
+        if: always()
         with:
-          api-token: ${{ env.CODACY_API_TOKEN }}
-          coverage-reports: target/clover/coverage.xml
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            ${{ env.COMPOSER_VENDOR_DIR }}
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
+
+      # using automatic from sonarcloud
+      #- name: sonarcloud
+      #  uses: SonarSource/sonarqube-scan-action@v5.3.0
+      #  env:
+      #    SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+      #    SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+
+      # using automatic from codacy
+      #- name: codacy scan
+      #  uses: codacy/codacy-coverage-reporter-action@v1.3.0
+      #  with:
+      #    api-token: ${{ env.CODACY_API_TOKEN }}
+      #    coverage-reports: target/clover/coverage.xml
 
       - name: coveralls scan
         uses: coverallsapp/github-action@v2.3.6
