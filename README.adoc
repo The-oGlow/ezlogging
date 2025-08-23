@@ -189,6 +189,8 @@ endif::[]
 :source-highlighter: highlight.js
 
 = {pj_gh_repo}
+
+image:https://api.codacy.com/project/badge/Grade/fd62917cfe1c4b62bc3df43d18a2c0ce[link="https://app.codacy.com/gh/The-oGlow/ezlogging?utm_source=github.com&utm_medium=referral&utm_content=The-oGlow/ezlogging&utm_campaign=Badge_Grade"]
 :toc: preamble
 :toclevels: 2
 
