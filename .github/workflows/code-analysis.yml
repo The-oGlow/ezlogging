@@ -99,12 +99,12 @@ jobs:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
-      # using automatic from codacy
-      #- name: codacy scan
-      #  uses: codacy/codacy-coverage-reporter-action@v1.3.0
-      #  with:
-      #    api-token: ${{ env.CODACY_API_TOKEN }}
-      #    coverage-reports: target/clover/coverage.xml
+      # not using automatic from codacy
+      - name: codacy scan
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          api-token: ${{ env.CODACY_API_TOKEN }}
+          coverage-reports: target/clover/coverage.xml
 
       - name: coveralls scan
         uses: coverallsapp/github-action@v2.3.6
