@@ -101,12 +101,12 @@ jobs:
             ${{ env.COMPOSER_VENDOR_DIR }}
           key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
 
-      # using automatic from sonarcloud
-      #- name: sonarcloud
-      #  uses: SonarSource/sonarqube-scan-action@v5.3.0
-      #  env:
-      #    SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
-      #    SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+      # not using automatic from sonarcloud
+      - name: sonarcloud
+        uses: SonarSource/sonarqube-scan-action@v5.3.0
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
       # using automatic from codacy
       #- name: codacy scan
