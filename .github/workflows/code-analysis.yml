@@ -30,6 +30,7 @@ env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_GH}}
   SONAR_CACHE_DIR: "${HOME}/.sonar/cache"
   SONAR_HOST_URL: "https://sonarcloud.io"
+  SONAR_BRANCH: ${{ github.ref_name }}
 
   # Composer Configuration
   COMPOSER_VENDOR_DIR: ${{ github.workspace }}/vendor
@@ -52,7 +53,7 @@ jobs:
     steps:
       - name: set current timestamp
         id: TS_NOW
-        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_OUTPUT
 
       - name: echo current timestamp
         run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
@@ -75,16 +76,15 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
-        uses: actions/cache/restore@v4.2.3
-        id: restore-cache
+        uses: actions/cache@v4.2.3
+        id: cache
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
             ${{ env.COMPOSER_VENDOR_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-analyze-composer
-            ${{ matrix.os }}-analyze
+            ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-
 
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
@@ -92,28 +92,19 @@ jobs:
       - name: tests
         run: composer c-test
 
-      - uses: actions/cache/save@v4.2.3
-        id: save-cache
-        if: always()
+      # not using automatic from sonarcloud
+      - name: sonarcloud
+        uses: SonarSource/sonarqube-scan-action@v5.3.0
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+
+      # not using automatic from codacy
+      - name: codacy scan
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
-          path: |
-            ${{ steps.composer-cache.outputs.dir }}
-            ${{ env.COMPOSER_VENDOR_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
-
-      # using automatic from sonarcloud
-      #- name: sonarcloud
-      #  uses: SonarSource/sonarqube-scan-action@v5.3.0
-      #  env:
-      #    SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
-      #    SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
-
-      # using automatic from codacy
-      #- name: codacy scan
-      #  uses: codacy/codacy-coverage-reporter-action@v1.3.0
-      #  with:
-      #    api-token: ${{ env.CODACY_API_TOKEN }}
-      #    coverage-reports: target/clover/coverage.xml
+          api-token: ${{ env.CODACY_API_TOKEN }}
+          coverage-reports: target/clover/coverage.xml
 
       - name: coveralls scan
         uses: coverallsapp/github-action@v2.3.6
