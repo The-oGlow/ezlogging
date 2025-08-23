@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: set current timestamp
         id: TS_NOW
-        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+        run: echo "TS_NOW=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_OUTPUT
 
       - name: echo current timestamp
         run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
@@ -76,31 +76,21 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
-        uses: actions/cache/restore@v4.2.3
-        id: restore-cache
+        uses: actions/cache@v4.2.3
+        id: cache
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
             ${{ env.COMPOSER_VENDOR_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-analyze-composer
-            ${{ matrix.os }}-analyze
+            ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-
 
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
 
       - name: tests
         run: composer c-test
-
-      - uses: actions/cache/save@v4.2.3
-        id: save-cache
-        if: always()
-        with:
-          path: |
-            ${{ steps.composer-cache.outputs.dir }}
-            ${{ env.COMPOSER_VENDOR_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
 
       # not using automatic from sonarcloud
       - name: sonarcloud
