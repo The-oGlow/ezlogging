@@ -35,9 +35,8 @@
 :pj_gh_vcs_url: {orga_vcs_url}
 :pj_gh_account: {orga_user}
 :pj_gh_repo: ezlogging
-:pj_cdcy_id: -1
-:pj_cvrlls_id: -1
-//{pj_gh_account}/{pj_gh_repo}
+:pj_cdcy_id: 7a8ae6e4ac2348c58b2ffb59f992e4e7
+:pj_cvrlls_id: {pj_gh_account}/{pj_gh_repo}
 :pj_opnssf_id: -1
 :pj_cvrty_id: -1
 
