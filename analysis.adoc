@@ -2,7 +2,7 @@
 :doctype: book
 
 :site_resource: .
-// project settings (from pom-file)
+// project settings - START
 // user data
 :acc_vcs_url: https://github.com
 :acc_user: ollily
@@ -18,7 +18,7 @@
 :orga_user_name: The oGlow
 :orga_user_email: {acc_user_email}
 :orga_user_hp: {acc_user_hp}
-:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}
+:orga_user_url: {orga_vcs_url}/{orga_user}[{orga_user_name}]
 
 // organization team
 :orga_team_user: oteam
@@ -35,25 +35,20 @@
 :pj_gh_vcs_url: {orga_vcs_url}
 :pj_gh_account: {orga_user}
 :pj_gh_repo: ezlogging
+:pj_cdcy_id: 7a8ae6e4ac2348c58b2ffb59f992e4e7
+:pj_cvrlls_id: {pj_gh_account}/{pj_gh_repo}
+:pj_opnssf_id: -1
+:pj_cvrty_id: -1
 
-// :pj_id_org: {acc_user_orga}/{pj_gh_repo}
-// :pj_gav: {pj_group}/{pj_gh_repo}
-
-
-// :pj_group: com.glowa-net.maven.tools
-// :pj_mvn_type: jar
-// :pj_id_gavid: -1
-// {pj_group}/{pj_gh_repo}
-// :pj_id_codacy: dba747d3491447a5a0ccb938af70e6c1
-// :pj_id_coverity: -1
-// :pj_id_openssf: -1
-// :pj_id_coveralls: {pj_gh_account}/{pj_gh_repo}
-// common settings
+// project settings - END
+// common settings - START
 :brnch1: master
 :brnch2: develop
 :cm_shlds_url: https://img.shields.io
 :cm_shlds_badge_url: {cm_shlds_url}/badge
 :cm_shlds_img_style: &style=plastic
+:cm_shlds_notsupp_url: {cm_shlds_badge_url}/info-not%20supported-lightgrey?{cm_shlds_img_style}
+:cm_shlds_notneed_url: {cm_shlds_badge_url}/info-not%20needed-lightgrey?{cm_shlds_img_style}
 
 // github
 :cm_gh_wrkflw_link: actions/workflows
@@ -93,13 +88,41 @@
 :cm_shlds_snr_tests_url: {cm_shlds_snr_url}/tests
 :cm_shlds_snr_coverage_url: {cm_shlds_snr_url}/coverage
 :cm_shlds_snr_violations_url: {cm_shlds_snr_url}/violations
-
 :cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php%20cs%20fixer-PSR%2012-orange?logo=php
 :cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT%20Tests-orange?logo=php
 :cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level%208%20Strict-orange?logo=php
 :cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level%202-orange?logo=php
 :cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way-orange?logo=sonar
 :cm_snr_tool_sonarcloud_url: {cm_snr_logo_url2}
+
+// codacy
+:cm_cdcy_url: https://www.codacy.com
+:cm_cdcy_app: https://app.codacy.com
+:cm_cdcy_badge_grade_url: {cm_cdcy_app}/project/badge/Grade
+:cm_cdcy_badge_coverage_url: {cm_cdcy_app}/project/badge/Coverage
+:cm_cdcy_dash_gh_url: {cm_cdcy_app}/gh
+
+// shields for codacy
+:cm_shlds_cdcy_url: {cm_shlds_url}/codacy
+:cm_shlds_cdcy_logo: logo=codacy
+:cm_shlds_cdcy_style: &{cm_shlds_cdcy_logo}{cm_shlds_img_style}
+:cm_shlds_cdcy_grade_url: {cm_shlds_cdcy_url}/grade
+:cm_shlds_cdcy_coverage_url: {cm_shlds_cdcy_url}/coverage
+
+// coveralls
+:cm_cvrlls_url: https://coveralls.io
+:cm_cvrlls_dash_gh_url: {cm_cvrlls_url}/github
+:cm_cvrlls_repos_gh_url: {cm_cvrlls_url}/repos/github
+
+// shields for coveralls
+:cm_shlds_cvrlls_url: {cm_shlds_url}/coveralls/github
+:cm_shlds_cvrlls_logo: logo=coveralls
+:cm_shlds_cvrlls_style: &{cm_shlds_cvrlls_logo}{cm_shlds_img_style}
+
+// openssf
+:cm_opnssf_url: https://www.bestpractices.dev
+:cm_opnssf_badge_url: {cm_opnssf_url}/projects
+:cm_opnssf_dash_url: {cm_opnssf_url}/projects
 
 // project settings (generated)
 // module data generated
@@ -114,6 +137,9 @@
 :pj_snr_brnch_main_url: {cm_snr_brnch_url}{pj_snr_projid}
 :pj_snr_brnch1_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch1}
 :pj_snr_brnch2_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch2}
+:pj_cdcy_vcsid: {pj_gh_vcsid}
+:pj_cvrlls_vcsid: {pj_cvrlls_id}
+:pj_opnssf_vcsid: {pj_opnssf_id}
 
 // project status
 :pj_ps_release_url: {cm_shlds_gh_release_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}}&sort=semver
@@ -153,38 +179,61 @@
 :pj_ti_snr_brnch1_violations_url: {cm_shlds_snr_violations_url}/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}
 :pj_ti_snr_brnch2_violations_url: {cm_shlds_snr_violations_url}/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}
 
-// -- legacy
-// project status
-:pj_ps_github_latest_link: {pj_gh_vcsid_url}/releases[image:{cm_shlds_gh_url}/v/release/{pj_gh_vcsid}?sort=semver{cm_shlds_gh_style}[title="Latest Release"]]
-:pj_ps_github_license_link: LICENSE[image:{cm_shlds_gh_url}/license/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Software License"]]
-:pj_ps_issues_link: {pj_gh_vcsid_url}/issues[image:{cm_shlds_gh_issues_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Open Issues"]]
-:pj_ps_pulls_link: {pj_gh_vcsid_url}/pulls[image:{cm_shlds_gh_pulls_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}[title="Open Pull Requests"]]
-:pj_ps_maven_latest_link: [image:{cm_shlds_badge_url}/maven%20central-no%20releases-red?{cm_img_maven_style}[title="Maven Repository"]]
-ifeval::["{pj_id_gavid}" != "-1"]
-:pj_ps_maven_latest_link: {cm_maven_url}/{pj_id_gavid}[image:{cm_badge_maven_url}/v/{pj_id_gavid}?{cm_img_maven_style}[title="Maven Repository"]]
+// qi openssf
+ifeval::["{pj_opnssf_id}" == "-1"]
+:pj_opnssf_dash_url: {cm_shlds_notsupp_url}
+:pj_qi_opnssf_status_url: {cm_shlds_notsupp_url}
+endif::[]
+ifeval::["{pj_opnssf_id}" != "-1"]
+:pj_opnssf_dash_url: {cm_opnssf_dash_url}/{pj_opnssf_vcsid}
+:pj_qi_opnssf_status_url: {cm_opnssf_badge_url}/{pj_opnssf_vcsid}/badge
 endif::[]
 
-// quality information
-:pj_qi_sonar_qg_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_snr_api_url}/project_badges/quality_gate?project={pj_snr_projid}[title="Quality Gate"]]
-:pj_qi_sonar_status_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_snr_badge_url}/sonarcloud-black.svg[title="SonarCloud"]]
+// qi codacy
+ifeval::["{pj_cdcy_id}" == "-1"]
+:pj_cdcy_vcsid_url: {cm_shlds_notsupp_url}
+:pj_cdcy_branch1_url: {cm_shlds_notsupp_url}
+:pj_cdcy_branch2_url: {cm_shlds_notsupp_url}
+:pj_qi_cdcy_badge_grade_url: {cm_shlds_notsupp_url}
+:pj_qi_cdcy_brnch1_grade_url: {cm_shlds_notsupp_url}
+:pj_qi_cdcy_brnch2_grade_url: {cm_shlds_notsupp_url}
+:pj_ti_cdcy_badge_coverage_url: {cm_shlds_notsupp_url}
+:pj_ti_cdcy_brnch1_coverage_url: {cm_shlds_notsupp_url}
+:pj_ti_cdcy_brnch2_coverage_url: {cm_shlds_notsupp_url}
+endif::[]
+ifeval::["{pj_cdcy_id}" != "-1"]
+:pj_cdcy_vcsid_url: {cm_cdcy_dash_gh_url}/{pj_cdcy_vcsid}/dashboard
+:pj_cdcy_branch1_url: {pj_cdcy_vcsid_url}?branch={brnch1}
+:pj_cdcy_branch2_url: {pj_cdcy_vcsid_url}?branch={brnch2}
+:pj_qi_cdcy_badge_grade_url: {cm_cdcy_badge_grade_url}/{pj_cdcy_id}
+:pj_qi_cdcy_brnch1_grade_url: {cm_shlds_cdcy_grade_url}/{pj_cdcy_id}/{brnch1}?{cm_shlds_cdcy_style}
+:pj_qi_cdcy_brnch2_grade_url: {cm_shlds_cdcy_grade_url}/{pj_cdcy_id}/{brnch2}?{cm_shlds_cdcy_style}
+:pj_ti_cdcy_badge_coverage_url: {cm_cdcy_badge_coverage_url}/{pj_cdcy_id}
+:pj_ti_cdcy_brnch1_coverage_url: {cm_shlds_cdcy_coverage_url}/{pj_cdcy_id}/{brnch1}?{cm_shlds_cdcy_style}
+:pj_ti_cdcy_brnch2_coverage_url: {cm_shlds_cdcy_coverage_url}/{pj_cdcy_id}/{brnch2}?{cm_shlds_cdcy_style}
+endif::[]
 
-// build status
-:pj_bs_brnch1_img: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?branch={brnch1}&label={brnch1}{cm_shlds_gh_style}[title="Pipeline status on {brnch1} branch"]
-:pj_bs_brnch2_img: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?branch={brnch2}&label={brnch2}{cm_shlds_gh_style}[title="Pipeline status on {brnch2} branch"]
-:pj_bs_brnch1_link: {pj_gh_wflow_url}/build.yml?query=branch%3A{brnch1}[image:{pj_bs_brnch1_img}]
-:pj_bs_brnch2_link: {pj_gh_wflow_url}/build.yml?query=branch%3A{brnch2}[image:{pj_bs_brnch2_img}]
+// ti coveralls
+ifeval::["{pj_cvrlls_id}" == "-1"]
+:pj_cvrlls_dash_gh_url: {cm_shlds_notsupp_url}
+:pj_cvrlls_brnch1_dash_gh_url: {cm_shlds_notsupp_url}
+:pj_cvrlls_brnch2_dash_gh_url: {cm_shlds_notsupp_url}
+:pj_ti_cvrlls_brnch1_coverage_url: {cm_shlds_notsupp_url}
+:pj_ti_cvrlls_brnch2_coverage_url: {cm_shlds_notsupp_url}
+:pj_ti_cvrlls_brnch1_status_url: {cm_shlds_notsupp_url}
+:pj_ti_cvrlls_brnch2_status_url: {cm_shlds_notsupp_url}
+endif::[]
+ifeval::["{pj_cvrlls_id}" != "-1"]
+:pj_cvrlls_dash_gh_url: {cm_cvrlls_dash_gh_url}/{pj_cvrlls_vcsid}
+:pj_cvrlls_brnch1_dash_gh_url: {cm_cvrlls_dash_gh_url}/{pj_cvrlls_vcsid}?branch={brnch1}
+:pj_cvrlls_brnch2_dash_gh_url: {cm_cvrlls_dash_gh_url}/{pj_cvrlls_vcsid}?branch={brnch2}
+:pj_ti_cvrlls_brnch1_coverage_url: {cm_cvrlls_repos_gh_url}/{pj_cvrlls_vcsid}/badge.svg?branch={brnch1}
+:pj_ti_cvrlls_brnch2_coverage_url: {cm_cvrlls_repos_gh_url}/{pj_cvrlls_vcsid}/badge.svg?branch={brnch2}
+:pj_ti_cvrlls_brnch1_status_url: {cm_shlds_cvrlls_url}/{pj_cvrlls_vcsid}/{brnch1}?{cm_shlds_cvrlls_style}
+:pj_ti_cvrlls_brnch2_status_url: {cm_shlds_cvrlls_url}/{pj_cvrlls_vcsid}/{brnch2}?{cm_shlds_cvrlls_style}
+endif::[]
 
-// test information
-// ti sonarqube
-:pj_ti_sonar_brnch1_tsd_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/test_success_density/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Test Status {brnch1}"]]
-:pj_ti_sonar_brnch2_tsd_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/test_success_density/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Test Status {brnch2}"]]
-:pj_ti_sonar_brnch1_test_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/tests/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Test Count {brnch1}"]]
-:pj_ti_sonar_brnch2_test_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/tests/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Test Count {brnch2}"]]
-:pj_ti_sonar_brnch1_coverage_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/coverage/{pj_snr_projid}/{brnch1}?{cm_shlds_snr_style}[title="Overall Coverage {brnch1}"]]
-:pj_ti_sonar_brnch2_coverage_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/coverage/{pj_snr_projid}/{brnch2}?{cm_shlds_snr_style}[title="Overall Coverage {brnch2}"]]
-:pj_ti_sonar_brnch1_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch1}?format=long{cm_shlds_snr_style}[title="Violations {brnch1}"]]
-:pj_ti_sonar_brnch2_violations_link: {cm_snr_dash_url}?id={pj_snr_projid}[image:{cm_shlds_snr_url}/violations/{pj_snr_projid}/{brnch2}?format=long{cm_shlds_snr_style}[title="Violations {brnch2}"]]
-
+// common settings - END
 
 :source-highlighter: highlight.js
 
@@ -198,20 +247,26 @@ endif::[]
 [%header%autowidth,frame=ends,valign=top,halign=center]
 |===
 ^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
-3+|*Build* - link:{pj_gh_vcsid_url}[Github.com]
+3+|*Build* - link:{pj_gh_vcsid_url}[Github]
 |Checks
 ^|image:{pj_bs_brnch1_checkruns_url}[]
 ^|image:{pj_bs_brnch2_checkruns_url}[]
 |Status
 ^|image:{pj_bs_brnch1_status_url}[]
 ^|image:{pj_bs_brnch2_status_url}[]
-3+|*Quality Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+3+|*Quality Information* - link:{pj_snr_dash_url}[Sonarcloud]
 |Quality Gate
 2+^|image:{pj_qi_snr_qgate_url}[]
 |Details
 ^|image:{pj_qi_snr_brnch1_qgate_url}[]
 ^|image:{pj_qi_snr_brnch2_qgate_url}[]
-3+|*Test Information* - link:{pj_snr_dash_url}[Sonarcloud.io]
+3+|*Quality Information* - link:{pj_cdcy_vcsid_url}[Codacy]
+|Code Quality
+2+^|image:{pj_qi_cdcy_badge_grade_url}[]
+3+|*Quality Information* - link:{pj_opnssf_dash_url}[Open SSF]
+|Status
+2+^|image:{pj_qi_opnssf_status_url}[]
+3+|*Test Information* - link:{pj_snr_dash_url}[Sonarcloud]
 |Tests %
 ^|image:{pj_ti_snr_brnch1_tsd_url}[]
 ^|image:{pj_ti_snr_brnch2_tsd_url}[]
@@ -224,6 +279,19 @@ endif::[]
 |Violations
 ^|image:{pj_ti_snr_brnch1_violations_url}[]
 ^|image:{pj_ti_snr_brnch2_violations_url}[]
+3+|*Test Information* - link:{pj_cdcy_vcsid_url}[Codacy]
+|Coverage
+2+^|image:{pj_ti_cdcy_badge_coverage_url}[]
+|Details
+^|image:{pj_ti_cdcy_brnch1_coverage_url}[]
+^|image:{pj_ti_cdcy_brnch2_coverage_url}[]
+3+|*Test Information* - link:{pj_cvrlls_dash_gh_url}[Coveralls]
+|Coverage
+^|image:{pj_ti_cvrlls_brnch1_coverage_url}[]
+^|image:{pj_ti_cvrlls_brnch2_coverage_url}[]
+|Details
+^|image:{pj_ti_cvrlls_brnch1_status_url}[]
+^|image:{pj_ti_cvrlls_brnch2_status_url}[]
 |===
 
 _{pj_cright_author}_
