@@ -35,8 +35,7 @@ env:
   COMPOSER_VENDOR_DIR: ${{ github.workspace }}/vendor
 
   # Codacy Configuration
-  CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-  CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+  CODACY_API_TOKEN: ${{ secrets.CODACY_TOKEN_GH }}
 
   # Coveralls Configuration
   COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
@@ -77,19 +76,19 @@ jobs:
 
       - name: cache composer packages
         uses: actions/cache@v4.2.3
+        id: restore-cache
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
             ${{ env.COMPOSER_VENDOR_DIR }}
-          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-analyze-composer
+          key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-analyze-composer
-            ${{ matrix.os }}-analyze
+            ${{ runner.os }}-${{env.GITHUB_REPO_NAME}}-composer-
 
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
 
-      - name: composer build
+      - name: build
         run: composer c-package
 
       - name: upload artifact

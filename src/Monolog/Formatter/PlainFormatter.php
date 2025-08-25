@@ -29,8 +29,7 @@ class PlainFormatter extends LineFormatter
      * @param bool   $ignoreEmptyContextAndExtra
      * @param bool   $includeStacktraces
      */
-    // @phpstan-ignore constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter,constructor.unusedParameter
-    public function __construct(
+    public function __construct(// @phpstan-ignore-line constructor.unusedParameter
         $format = self::FORMATTER_OUTPUT,
         $dateFormat = self::FORMATTER_DATEFORMAT,
         $allowInlineLineBreaks = true,

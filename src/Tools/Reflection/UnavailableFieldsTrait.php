@@ -29,9 +29,9 @@ trait UnavailableFieldsTrait
         if (!empty($clazzName))
         {
             $refObject = new ReflectionProperty($clazzName, $fieldName);
-            $refObject->setAccessible(true);
+            $refObject->setAccessible(true); // NOSONAR: php:S3011
 
-            return $refObject->getValue($instance);
+            return $refObject->getValue($instance);  // NOSONAR: php:S3011
         } else
         {
             return null;

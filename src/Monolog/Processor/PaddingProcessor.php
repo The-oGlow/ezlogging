@@ -76,7 +76,7 @@ class PaddingProcessor implements ProcessorInterface
      *
      * @return mixed[]
      */
-    private function __invokeIntrospection(array $record): array
+    private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
         // return if the level is not high enough
         if ($record['level'] < $this->level)
