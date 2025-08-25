@@ -30,8 +30,13 @@ class FileLogger extends ConsoleLogger
      *            Optional array of processors
      * @param DateTimeZone|null  $timezone
      */
-    public function __construct(string $name, string $pathToFile, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
-    {
+    public function __construct(
+        string $name,
+        string $pathToFile,
+        array $handlers = [],
+        array $processors = [],
+        ?DateTimeZone $timezone = null
+    ) {
         parent::__construct(
             $name,
             (empty($handlers) ? [$this->getFileHandler($pathToFile, $name)] : $handlers),
@@ -48,10 +53,8 @@ class FileLogger extends ConsoleLogger
     public function getFileName(): string
     {
         $fileName = '';
-        foreach ($this->getHandlers() as $handler)
-        {
-            if ($handler instanceof FileHandler)
-            {
+        foreach ($this->getHandlers() as $handler) {
+            if ($handler instanceof FileHandler) {
                 $fileName = $handler->getFileName();
             }
         }

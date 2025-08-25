@@ -49,9 +49,9 @@ abstract class AbstractEasyGoingLogger extends Logger
             $name,
             $handlers,
             $processors,
-            $timezone ?? new DateTimeZone(
+            $timezone ?? new DateTimeZone( // NOSONAR:  php:S2830
                 !empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE
-            ) // NOSONAR:  php:S2830
+            )
         );
         $this->pushProcessor($this->getDefaultProcessor());
         $this->pushHandler($this->getConsoleHandler());

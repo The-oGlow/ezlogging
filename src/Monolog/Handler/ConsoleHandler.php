@@ -17,7 +17,7 @@ use Monolog\Logger;
 
 class ConsoleHandler extends StreamHandler
 {
-    public const HANDLER_STDOUT    = "php://stdout";
+    public const HANDLER_STDOUT = "php://stdout";
 
     public function __construct()
     {

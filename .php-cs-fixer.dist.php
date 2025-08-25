@@ -20,11 +20,6 @@ return (new PhpCsFixer\Config())->setParallelConfig(PhpCsFixer\Runner\Parallel\P
         'no_trailing_comma_in_singleline' => true,
         'protected_to_private'            => false,
         'visibility_required'             => false,
-        'braces_position'                 => [
-            'classes_opening_brace'            => 'next_line_unless_newline_at_signature_end',
-            'control_structures_opening_brace' => 'next_line_unless_newline_at_signature_end',
-            'functions_opening_brace'          => 'next_line_unless_newline_at_signature_end'
-        ],
         'blank_line_before_statement'     => [
             'statements' => [
                 'declare',

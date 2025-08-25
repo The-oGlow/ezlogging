@@ -96,16 +96,14 @@ class UnavailableFieldsTraitTest extends TestCase
 
     public function testGetFieldByReflection(): void
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldByReflection($fieldName));
         }
     }
 
     public function testGetFieldFromO2t(): void
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldFromO2t($fieldName));
         }
     }
@@ -114,8 +112,7 @@ class UnavailableFieldsTraitTest extends TestCase
     {
         /** @var UnavailableFieldsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableFieldsTraitTestWrongO2tClazz();
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertNull($o2tb->publicGetFieldFromO2t($fieldName));
         }
     }

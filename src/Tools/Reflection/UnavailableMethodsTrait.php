@@ -26,14 +26,12 @@ trait UnavailableMethodsTrait
      */
     protected function callMethodByReflection($clazzName, string $methodName, $instance)
     {
-        if (!empty($clazzName))
-        {
+        if (!empty($clazzName)) {
             $refObject = new \ReflectionMethod($clazzName, $methodName);
             $refObject->setAccessible(true); // NOSONAR: php:S3011
 
             return $refObject->invoke($instance);
-        } else
-        {
+        } else {
             return null;
         }
     }
@@ -48,15 +46,13 @@ trait UnavailableMethodsTrait
     protected function callMethodOnO2t(string $methodName)
     {
         /** @psalm-suppress RedundantConditionGivenDocblockType */
-        if (!empty($this->o2t)) // @phpstan-ignore empty.property,property.notFound
-        {
+        if (!empty($this->o2t)) { // @phpstan-ignore empty.property,property.notFound
             $locO2t = $this->o2t;
             /** @psalm-suppress TypeDoesNotContainType */
             $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
             return $this->callMethodByReflection($clazzName, $methodName, $locO2t);
-        } else
-        {
+        } else {
             return null;
         }
     }

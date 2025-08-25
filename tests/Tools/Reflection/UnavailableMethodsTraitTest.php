@@ -104,16 +104,14 @@ class UnavailableMethodsTraitTest extends TestCase
 
     public function testCallMethodByReflection(): void
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodByReflection($methodName));
         }
     }
 
     public function testCallMethodOnO2t(): void
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodOnO2t($methodName));
         }
     }
@@ -122,8 +120,7 @@ class UnavailableMethodsTraitTest extends TestCase
     {
         /** @var UnavailableMethodsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableMethodsTraitTestWrongO2tClazz();
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertNull($o2tb->publicCallMethodOnO2t($methodName));
         }
     }

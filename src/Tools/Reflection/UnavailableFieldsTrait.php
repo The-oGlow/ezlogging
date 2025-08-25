@@ -26,14 +26,12 @@ trait UnavailableFieldsTrait
      */
     protected function getFieldByReflection($clazzName, string $fieldName, $instance)
     {
-        if (!empty($clazzName))
-        {
+        if (!empty($clazzName)) {
             $refObject = new ReflectionProperty($clazzName, $fieldName);
             $refObject->setAccessible(true); // NOSONAR: php:S3011
 
             return $refObject->getValue($instance);  // NOSONAR: php:S3011
-        } else
-        {
+        } else {
             return null;
         }
     }
@@ -46,15 +44,13 @@ trait UnavailableFieldsTrait
     protected function getFieldFromO2t(string $fieldName)
     {
         /** @psalm-suppress RedundantConditionGivenDocblockType */
-        if (!empty($this->o2t)) // @phpstan-ignore empty.property,property.notFound
-        {
+        if (!empty($this->o2t)) { // @phpstan-ignore empty.property,property.notFound
             $locO2t = $this->o2t;
             /** @psalm-suppress TypeDoesNotContainType */
             $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
 
             return $this->getFieldByReflection($clazzName, $fieldName, $locO2t);
-        } else
-        {
+        } else {
             return null;
         }
     }

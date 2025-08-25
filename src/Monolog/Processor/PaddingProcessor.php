@@ -79,8 +79,7 @@ class PaddingProcessor implements ProcessorInterface
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
         // return if the level is not high enough
-        if ($record['level'] < $this->level)
-        {
+        if ($record['level'] < $this->level) {
             return $record;
         }
 
@@ -93,26 +92,20 @@ class PaddingProcessor implements ProcessorInterface
 
         $i = 0;
 
-        while ($this->isTraceClassOrSkippedFunction($trace, $i))
-        {
-            if (isset($trace[$i]['class']))
-            {
-                foreach ($this->skipClassesPartials as $part)
-                {
-                    if (strpos($trace[$i]['class'], $part) !== false)
-                    {
+        while ($this->isTraceClassOrSkippedFunction($trace, $i)) {
+            if (isset($trace[$i]['class'])) {
+                foreach ($this->skipClassesPartials as $part) {
+                    if (strpos($trace[$i]['class'], $part) !== false) {
                         $i++;
 
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true))
-            {
+            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true)) {
                 $i++;
 
                 continue;
-            } else
-            {
+            } else {
                 break;
             }
             break;
@@ -121,8 +114,7 @@ class PaddingProcessor implements ProcessorInterface
         $i += $this->skipStackFramesCount;
 
         // we should have the call source now
-        if ($i > 0 && $i < count($trace))
-        {
+        if ($i > 0 && $i < count($trace)) {
             $curTrace  = $trace[$i];
             $prevTrace = $trace[$i - 1];
             $xDetails  = [
@@ -147,8 +139,7 @@ class PaddingProcessor implements ProcessorInterface
      */
     private function isTraceClassOrSkippedFunction(array $trace, int $index): bool
     {
-        if (!isset($trace[$index]))
-        {
+        if (!isset($trace[$index])) {
             return false;
         }
 
