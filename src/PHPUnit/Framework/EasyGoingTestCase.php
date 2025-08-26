@@ -68,7 +68,7 @@ abstract class EasyGoingTestCase extends TestCase
         if (defined($constantName)) {
             $constantValue = constant($constantName);
             $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
-            if (!static::is_primitive($constantValue)) {
+            if (!static::isPrimitive($constantValue)) {
                 static::assertNotEmpty($constantValue);
             }
         } else {
@@ -83,7 +83,7 @@ abstract class EasyGoingTestCase extends TestCase
      *
      * @return bool
      */
-    protected static function is_primitive($var): bool
+    protected static function isPrimitive($var): bool
     {
         $primitive = false;
         if (isset($var) && strpos(self::LOP, gettype($var)) > 0) {

@@ -28,6 +28,10 @@ class PlainFormatter extends LineFormatter
      * @param bool   $allowInlineLineBreaks
      * @param bool   $ignoreEmptyContextAndExtra
      * @param bool   $includeStacktraces
+     *
+     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     * @SuppressWarnings("PHPMD.LongVariable")
      */
     public function __construct(// @phpstan-ignore-line constructor.unusedParameter
         $format = self::FORMATTER_OUTPUT,

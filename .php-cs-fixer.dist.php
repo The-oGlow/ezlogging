@@ -50,6 +50,7 @@ return (new PhpCsFixer\Config())->setParallelConfig(PhpCsFixer\Runner\Parallel\P
                 'throw'
             ]
         ],
+        'statement_indentation'           => ['stick_comment_to_next_continuous_control_statement' => true],
         'header_comment'                  => ['header' => $header]
 
     ]

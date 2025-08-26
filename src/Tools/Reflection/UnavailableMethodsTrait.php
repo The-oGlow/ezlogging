@@ -18,11 +18,13 @@ trait UnavailableMethodsTrait
     /**
      * Calls hidden method (private, protected, package) without parameters by reflection.
      *
-     * @param mixed $clazzName
+     * @param mixed  $clazzName
      * @param string $methodName
      * @param mixed  $instance
      *
      * @return mixed|null
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
      */
     protected function callMethodByReflection($clazzName, string $methodName, $instance)
     {
@@ -42,6 +44,8 @@ trait UnavailableMethodsTrait
      * @param string $methodName
      *
      * @return mixed|null
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
      */
     protected function callMethodOnO2t(string $methodName)
     {

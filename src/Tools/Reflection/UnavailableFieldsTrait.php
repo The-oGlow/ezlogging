@@ -23,6 +23,8 @@ trait UnavailableFieldsTrait
      * @param mixed  $instance
      *
      * @return mixed|null
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
      */
     protected function getFieldByReflection($clazzName, string $fieldName, $instance)
     {
@@ -40,6 +42,8 @@ trait UnavailableFieldsTrait
      * @param string $fieldName
      *
      * @return mixed|null
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
      */
     protected function getFieldFromO2t(string $fieldName)
     {

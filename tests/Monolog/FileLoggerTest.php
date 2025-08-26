@@ -23,16 +23,19 @@ use PHPUnit\Framework\TestCase;
 
 class FileLoggerTestHandlerClazz implements HandlerInterface
 {
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function isHandling(array $record): bool
     {
         return true;
     }
 
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function handle(array $record): bool
     {
         return true;
     }
 
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function handleBatch(array $records): void
     {
         // nothing2do

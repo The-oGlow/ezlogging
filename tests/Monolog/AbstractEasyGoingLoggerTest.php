@@ -24,16 +24,19 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSONAR php:S3360
 {
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function isHandling(array $record): bool
     {
         return true;
     }
 
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function handle(array $record): bool
     {
         return true;
     }
 
+    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
     public function handleBatch(array $records): void
     {
         // nothing2do

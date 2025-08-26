@@ -75,6 +75,9 @@ class PaddingProcessor implements ProcessorInterface
      * @param mixed[] $record
      *
      * @return mixed[]
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     *
      */
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
