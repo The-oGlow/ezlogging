@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c35477b98dc4b9c0a4ca30f14f30e363",
+    "content-hash": "d12cade1daaf40ef7bf45c496296316b",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -538,16 +538,16 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.4.3",
+            "version": "3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "4313d26ada5e0c4edfbd1dc481a92ff7bff91f12"
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/4313d26ada5e0c4edfbd1dc481a92ff7bff91f12",
-                "reference": "4313d26ada5e0c4edfbd1dc481a92ff7bff91f12",
+                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
                 "shasum": ""
             },
             "require": {
@@ -599,7 +599,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.3"
+                "source": "https://github.com/composer/semver/tree/3.4.4"
             },
             "funding": [
                 {
@@ -609,13 +609,9 @@
                 {
                     "url": "https://github.com/composer",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2024-09-19T14:15:21+00:00"
+            "time": "2025-08-20T19:15:30+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -682,6 +678,140 @@
                 }
             ],
             "time": "2024-05-06T16:37:16+00:00"
+        },
+        {
+            "name": "crysalead/dir",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crysalead/dir.git",
+                "reference": "0390ac74a8f1634b1ec1adffdd118125f1271976"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crysalead/dir/zipball/0390ac74a8f1634b1ec1adffdd118125f1271976",
+                "reference": "0390ac74a8f1634b1ec1adffdd118125f1271976",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "kahlan/kahlan": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lead\\Dir\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Recursive directory scanner to locate directories and/or files in a file system",
+            "keywords": [
+                "Directory Scanner",
+                "directory",
+                "file",
+                "file system"
+            ],
+            "support": {
+                "issues": "https://github.com/crysalead/dir/issues",
+                "source": "https://github.com/crysalead/dir/tree/2.0.4"
+            },
+            "time": "2022-05-17T17:12:17+00:00"
+        },
+        {
+            "name": "danieljharvey/file-wrapper",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danieljharvey/file-wrapper.git",
+                "reference": "8e3cc2455d180590bd59a4a2d78ecd97edeed1e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danieljharvey/file-wrapper/zipball/8e3cc2455d180590bd59a4a2d78ecd97edeed1e8",
+                "reference": "8e3cc2455d180590bd59a4a2d78ecd97edeed1e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DanielJHarvey\\FileWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Harvey",
+                    "email": "danieljamesharvey@gmail.com"
+                }
+            ],
+            "description": "A simple file system function wrapper that can be easily mocked or stubbed for testing",
+            "keywords": [
+                "file",
+                "testing",
+                "wrapper"
+            ],
+            "support": {
+                "issues": "https://github.com/danieljharvey/file-wrapper/issues",
+                "source": "https://github.com/danieljharvey/file-wrapper/tree/master"
+            },
+            "time": "2017-09-11T10:00:31+00:00"
+        },
+        {
+            "name": "danieljharvey/php-git-branch",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danieljharvey/php-git-branch.git",
+                "reference": "72aeb3367a0293d893828f264cd684aa79dcee96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danieljharvey/php-git-branch/zipball/72aeb3367a0293d893828f264cd684aa79dcee96",
+                "reference": "72aeb3367a0293d893828f264cd684aa79dcee96",
+                "shasum": ""
+            },
+            "require": {
+                "danieljharvey/file-wrapper": ">=2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DanielJHarvey\\PHPGitBranch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Harvey",
+                    "email": "danieljamesharvey@gmail.com"
+                }
+            ],
+            "description": "Library for working out which git branch you are on in PHP",
+            "support": {
+                "issues": "https://github.com/danieljharvey/php-git-branch/issues",
+                "source": "https://github.com/danieljharvey/php-git-branch/tree/master"
+            },
+            "time": "2017-08-08T10:38:23+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2086,16 +2216,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.24",
+            "version": "9.6.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ea49afa29aeea25ea7bf9de9fdd7cab163cc0701"
+                "reference": "049c011e01be805202d8eebedef49f769a8ec7b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ea49afa29aeea25ea7bf9de9fdd7cab163cc0701",
-                "reference": "ea49afa29aeea25ea7bf9de9fdd7cab163cc0701",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/049c011e01be805202d8eebedef49f769a8ec7b7",
+                "reference": "049c011e01be805202d8eebedef49f769a8ec7b7",
                 "shasum": ""
             },
             "require": {
@@ -2169,7 +2299,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.24"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.25"
             },
             "funding": [
                 {
@@ -2193,7 +2323,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-10T08:32:42+00:00"
+            "time": "2025-08-20T14:38:31+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
@@ -2878,6 +3008,61 @@
                 }
             ],
             "time": "2024-06-11T12:45:25+00:00"
+        },
+        {
+            "name": "rogervila/php-sonarqube-scanner",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rogervila/php-sonarqube-scanner.git",
+                "reference": "262a79012b1fc94c2814c9e9a76c1e533577b18e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rogervila/php-sonarqube-scanner/zipball/262a79012b1fc94c2814c9e9a76c1e533577b18e",
+                "reference": "262a79012b1fc94c2814c9e9a76c1e533577b18e",
+                "shasum": ""
+            },
+            "require": {
+                "crysalead/dir": "^2.0",
+                "danieljharvey/php-git-branch": "^1.1",
+                "ext-zip": "*",
+                "tivie/php-os-detector": "^1.1"
+            },
+            "require-dev": {
+                "creativestyle/app-http-server-mock": "^1.0",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "symfony/process": "^4.1 || ^5.0"
+            },
+            "bin": [
+                "sonar-scanner"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sonar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roger Vilà",
+                    "email": "rogervila@me.com"
+                }
+            ],
+            "description": "Run SonarQube Scanner with composer",
+            "keywords": [
+                "sonar scanner php",
+                "sonarqube scanner php"
+            ],
+            "support": {
+                "issues": "https://github.com/rogervila/php-sonarqube-scanner/issues",
+                "source": "https://github.com/rogervila/php-sonarqube-scanner/tree/1.1.0"
+            },
+            "time": "2020-12-09T07:46:28+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -5392,6 +5577,58 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "tivie/php-os-detector",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tivie/php-os-detector.git",
+                "reference": "9461dcd85c00e03842264f2fc8ccdc8d46867321"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tivie/php-os-detector/zipball/9461dcd85c00e03842264f2fc8ccdc8d46867321",
+                "reference": "9461dcd85c00e03842264f2fc8ccdc8d46867321",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tivie\\OS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "APACHE 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Estevão Soares dos Santos",
+                    "email": "estevao@soares-dos-santos.com"
+                }
+            ],
+            "description": "A small utility library that detects the OS the server is running on",
+            "homepage": "http://tivie.github.com/php-os-detector/",
+            "keywords": [
+                "detection",
+                "detector",
+                "identification",
+                "operating system",
+                "os",
+                "os detection"
+            ],
+            "support": {
+                "issues": "https://github.com/tivie/php-os-detector/issues",
+                "source": "https://github.com/tivie/php-os-detector/tree/master"
+            },
+            "time": "2017-10-21T03:33:59+00:00"
         },
         {
             "name": "vimeo/psalm",

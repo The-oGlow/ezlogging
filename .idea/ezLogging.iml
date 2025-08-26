@@ -12,6 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/clue/ndjson-react" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/crysalead/dir" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/danieljharvey/file-wrapper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/danieljharvey/php-git-branch" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
@@ -49,6 +52,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/socket" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -85,6 +89,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/string" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tivie/php-os-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
     </content>
@@ -97,6 +102,9 @@
           <root url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
           <root url="file://$MODULE_DIR$/vendor/clue/ndjson-react" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/crysalead/dir" />
+          <root url="file://$MODULE_DIR$/vendor/danieljharvey/file-wrapper" />
+          <root url="file://$MODULE_DIR$/vendor/danieljharvey/php-git-branch" />
           <root url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
@@ -134,6 +142,7 @@
           <root url="file://$MODULE_DIR$/vendor/react/promise" />
           <root url="file://$MODULE_DIR$/vendor/react/socket" />
           <root url="file://$MODULE_DIR$/vendor/react/stream" />
+          <root url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -170,6 +179,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
           <root url="file://$MODULE_DIR$/vendor/symfony/string" />
           <root url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
+          <root url="file://$MODULE_DIR$/vendor/tivie/php-os-detector" />
           <root url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
           <root url="file://$MODULE_DIR$/vendor/webmozart/assert" />
         </CLASSES>
@@ -178,6 +188,9 @@
           <root url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
           <root url="file://$MODULE_DIR$/vendor/clue/ndjson-react" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/crysalead/dir" />
+          <root url="file://$MODULE_DIR$/vendor/danieljharvey/file-wrapper" />
+          <root url="file://$MODULE_DIR$/vendor/danieljharvey/php-git-branch" />
           <root url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
@@ -215,6 +228,7 @@
           <root url="file://$MODULE_DIR$/vendor/react/promise" />
           <root url="file://$MODULE_DIR$/vendor/react/socket" />
           <root url="file://$MODULE_DIR$/vendor/react/stream" />
+          <root url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -251,6 +265,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
           <root url="file://$MODULE_DIR$/vendor/symfony/string" />
           <root url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
+          <root url="file://$MODULE_DIR$/vendor/tivie/php-os-detector" />
           <root url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
           <root url="file://$MODULE_DIR$/vendor/webmozart/assert" />
         </SOURCES>

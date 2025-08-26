@@ -43,7 +43,8 @@
     "phpstan/phpstan-strict-rules": "^2.0",
     "vimeo/psalm": "^5.26",
     "psalm/plugin-phpunit": "^0.19",
-    "friendsofphp/php-cs-fixer": "^3.0"
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "rogervila/php-sonarqube-scanner": "^1.0"
   },
   "config": {
     "platform": {

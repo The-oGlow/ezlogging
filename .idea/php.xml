@@ -102,6 +102,11 @@
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-strict-rules" />
       <path value="$PROJECT_DIR$/vendor/psalm/plugin-phpunit" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/tivie/php-os-detector" />
+      <path value="$PROJECT_DIR$/vendor/danieljharvey/php-git-branch" />
+      <path value="$PROJECT_DIR$/vendor/danieljharvey/file-wrapper" />
+      <path value="$PROJECT_DIR$/vendor/rogervila/php-sonarqube-scanner" />
+      <path value="$PROJECT_DIR$/vendor/crysalead/dir" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
