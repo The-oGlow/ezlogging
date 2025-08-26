@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <psalm
-        errorLevel="2"
+        errorLevel="1"
         resolveFromConfigFile="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
@@ -17,6 +17,12 @@
     </projectFiles>
     <issueHandlers>
         <LessSpecificImplementedReturnType errorLevel="suppress"/>
+        <MixedArgument errorLevel="info" />
+        <MixedReturnStatement errorLevel="info" />
+        <MixedArrayAccess errorLevel="info" />
+        <MixedAssignment errorLevel="info" />
+        <MixedArgumentTypeCoercion errorLevel="info" />
+        <MixedInferredReturnType errorLevel="info" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
