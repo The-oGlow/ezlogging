@@ -1,0 +1,13 @@
+// coveralls
+:cm_cvrlls_url: https://coveralls.io
+:cm_cvrlls_dash_gh_url: {cm_cvrlls_url}/github
+:cm_cvrlls_repos_gh_url: {cm_cvrlls_url}/repos/github
+
+// shields for coveralls
+:cm_shlds_cvrlls_url: {cm_shlds_url}/coveralls/github
+:cm_shlds_cvrlls_logo: logo=coveralls
+:cm_shlds_cvrlls_style: &{cm_shlds_cvrlls_logo}{cm_shlds_img_style}
+
+// project settings (generated)
+// module data generated
+:pj_cvrlls_vcsid: {pj_cvrlls_id}

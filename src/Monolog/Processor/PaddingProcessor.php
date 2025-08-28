@@ -46,6 +46,8 @@ class PaddingProcessor implements ProcessorInterface
      *            The minimum logging level at which this Processor will be triggered
      * @param string[] $skipClassesPartials
      * @param int      $skipStackFramesCount
+     *
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function __construct($level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {

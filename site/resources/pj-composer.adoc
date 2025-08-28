@@ -2,8 +2,8 @@
 :doctype: book
 
 :site_resource: .
-include::{site_resource}/adoc-project.adoc[opts=optional]
-include::{site_resource}/adoc-common.adoc[opts=optional]
+include::{site_resource}/pj-settings.adoc[opts=optional]
+include::{site_resource}/adoc-cmmn-all.adoc[opts=optional]
 
 :source-highlighter: highlight.js
 
@@ -18,16 +18,25 @@ There are severall shortkeys, which are useful for your development.
 .Additional Composer Commands
 [%header%autowidth,frame=ends,valign=top,halign=center]
 |===
-^|*Command* ^|*Description*
-| c-all     | Run composer with c-fix, c-phpstan, c-psalm, c-test
-| c-da      | Alias for dump-autoload
-| c-dryfix  | Check code with PHP-CS-FIXER
-| c-fix     | Fix code with PHP-CS-FIXER
-| c-package | Create deployable package
-| c-phpstan | Check code with PHPStan
-| c-psalm   | Check code wtih Psalm
-| c-test    | Execute all or a single unit tests with PHPUnit
+^|*Command*           ^|*Description*
+| c-all                | Run composer with c-fix, c-phpstan, c-psalm, c-phpcs, c-phpmd, c-test
+| c-da                 | Alias for dump-autoload
+| c-dry-fix            | See what PHP CS Fixer will fix (dry run)
+| c-dry-psalter        | See what Psalter will fix (dry run)
+| c-fix                | PHP CS Fixer fixes your code
+| c-package            | Create deployable package
+| c-phpbf              | PHP Code Sniffer fixes your code
+| c-phpcs              | PHP Code Sniffer verifies your code
+| c-phpmd              | PHP Mess Detector verifies your code
+| c-phpstan            | PHPStan verifies your code
+| c-psalm              | Psalm verifies your code
+| c-psalter            | Psalter fixes your code
+| c-test               | PHPUnit executes all unit tests
 |===
+
+Call:
+
+ $ composer list
 
 See section `scripts` & `scripts-description` in link:composer.json[composer.json]. +
 Copy them to your `composer.json`, if you like them!

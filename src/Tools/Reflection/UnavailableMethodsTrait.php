@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Reflection;
 
+use ReflectionMethod;
+
 trait UnavailableMethodsTrait
 {
     /**
@@ -28,7 +30,7 @@ trait UnavailableMethodsTrait
     {
         $result = null;
         if (!empty($clazzName)) {
-            $refObject = new \ReflectionMethod($clazzName, $methodName);
+            $refObject = new ReflectionMethod($clazzName, $methodName);
             $refObject->setAccessible(true); // NOSONAR: php:S3011
 
             $result = $refObject->invoke($instance);

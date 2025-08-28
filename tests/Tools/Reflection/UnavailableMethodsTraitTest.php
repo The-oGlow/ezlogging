@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
  */
 class UnavailableMethodsTraitTestHolderClazz
 {

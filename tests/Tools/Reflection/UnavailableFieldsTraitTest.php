@@ -19,16 +19,17 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * @SuppressWarnings("PHPMD.UnusedPrivateField")
  */
 class UnavailableFieldsTraitTestHolderClazz
 {
-    /** @var string $publicField */
+    /** @var string $publicField     */
     public $publicField = 'publicFieldValue';
 
     /** @var string $protectedField */
     protected $protectedField = 'protectedFieldValue';
 
-    /** @var string $privateField */
+    /**      @var string $privateField     */
     private $privateField = 'privateFieldValue';
 }
 

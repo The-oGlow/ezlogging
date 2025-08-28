@@ -15,6 +15,7 @@ namespace Monolog;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\HandlerInterface;
@@ -111,7 +112,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
 
     public function testCreateWithDifferentTimezone(): void
     {
-        $customDTZ = new \DateTimeZone("America/Los_Angeles");
+        $customDTZ = new DateTimeZone("America/Los_Angeles");
         $o2tb      = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
 
         static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);

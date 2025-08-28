@@ -1,0 +1,21 @@
+// github
+:cm_gh_wrkflw_link: actions/workflows
+
+// shields for github
+:cm_shlds_gh_url: {cm_shlds_url}/github
+:cm_shlds_gh_logo: logo=github
+:cm_shlds_gh_style: &{cm_shlds_gh_logo}{cm_shlds_img_style}
+:cm_shlds_gh_status_url: {cm_shlds_gh_url}/actions/workflow/status
+:cm_shlds_gh_issues_url: {cm_shlds_gh_url}/issues
+// :cm_shlds_gh_pulls_url: {cm_shlds_gh_url}/pulls
+:cm_shlds_gh_license_url: {cm_shlds_gh_url}/license
+:cm_shlds_gh_release_url: {cm_shlds_gh_url}/v/release
+:cm_shlds_gh_langtop_url: {cm_shlds_gh_url}/languages/count
+:cm_shlds_gh_langcount_url: {cm_shlds_gh_url}/languages/top
+:cm_shlds_gh_checkruns_url: {cm_shlds_gh_url}/check-runs
+
+// project settings (generated)
+// module data generated
+:pj_gh_vcsid: {pj_gh_account}/{pj_gh_repo}
+:pj_gh_vcsid_url: {pj_gh_vcs_url}/{pj_gh_vcsid}
+:pj_gh_wflow_url: {pj_gh_vcsid_url}/{cm_gh_wrkflw_link}

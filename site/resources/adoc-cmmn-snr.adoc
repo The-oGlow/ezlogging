@@ -1,0 +1,32 @@
+// sonar
+:cm_snr_url: https://sonarcloud.io
+:cm_snr_badge_url: {cm_snr_url}/images/project_badges
+:cm_snr_dash_url: {cm_snr_url}/dashboard?id=
+:cm_snr_api_url: {cm_snr_url}/api
+:cm_snr_qgate_url: {cm_snr_api_url}/project_badges/quality_gate?project=
+:cm_snr_brnch_url: {cm_snr_url}/summary/new_code?id=
+:cm_snr_mes_tsd: component_measures?metric=test_success_density&view=list
+:cm_snr_mes_test: component_measures?metric=tests&view=list
+:cm_snr_mes_cov: component_measures?metric=coverage&view=list
+:cm_snr_logo_url: {cm_snr_badge_url}/sonarcloud-black.svg
+:cm_snr_logo_url2: {cm_snr_badge_url}/sonarcloud-light.svg
+
+// shields for sonar
+:cm_shlds_snr_url: {cm_shlds_url}/sonar
+:cm_shlds_snr_logo: logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+:cm_shlds_snr_style: &{cm_shlds_snr_logo}{cm_shlds_img_style}
+:cm_shlds_snr_qgate_url: {cm_shlds_snr_url}/quality_gate
+:cm_shlds_snr_tsd_url: {cm_shlds_snr_url}/test_success_density
+:cm_shlds_snr_tests_url: {cm_shlds_snr_url}/tests
+:cm_shlds_snr_coverage_url: {cm_shlds_snr_url}/coverage
+:cm_shlds_snr_violations_url: {cm_shlds_snr_url}/violations
+:cm_snr_tool_sonarcloud_url: {cm_snr_logo_url2}
+
+// project settings (generated)
+// module data generated
+:pj_snr_projid: {pj_gh_account}_{pj_gh_repo}
+:pj_snr_component: {pj_gh_account}:{pj_gh_repo}
+:pj_snr_dash_url: {cm_snr_dash_url}{pj_snr_projid}
+:pj_snr_brnch_main_url: {cm_snr_brnch_url}{pj_snr_projid}
+:pj_snr_brnch1_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch1}
+:pj_snr_brnch2_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch2}
