@@ -19,6 +19,7 @@ abstract class EasyGoingTestCase extends TestCase
 {
     /** @var \Monolog\Logger */
     protected $logger;
+
     /** @var mixed */
     protected $o2t;
 
@@ -63,6 +64,11 @@ abstract class EasyGoingTestCase extends TestCase
         static::assertCount($expectedSize, $constantValue);
     }
 
+    /**
+     * @param string $constantName
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
+     */
     protected function verifyConstExists(string $constantName): void
     {
         if (defined($constantName)) {
@@ -75,7 +81,6 @@ abstract class EasyGoingTestCase extends TestCase
             static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
     }
-
     public const LOP = 'int|integer|bool|boolean|float';
 
     /**

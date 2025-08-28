@@ -21,6 +21,9 @@ use Monolog\Handler\HandlerInterface;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ */
 class FileLoggerTestHandlerClazz implements HandlerInterface
 {
     /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
@@ -50,8 +53,10 @@ class FileLoggerTestHandlerClazz implements HandlerInterface
 class FileLoggerTest extends TestCase
 {
     use UnavailableFieldsTrait;
+
     /** @var FileLogger $o2t */
     private $o2t;
+
     /** @var string $fileName */
     private $fileName;
 

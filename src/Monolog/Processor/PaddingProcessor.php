@@ -25,12 +25,15 @@ use Monolog\Logger;
  */
 class PaddingProcessor implements ProcessorInterface
 {
-    /** @var int */
+    /** @var integer */
     private $level;
+
     /** @var string[] */
     private $skipClassesPartials;
+
     /** @var int */
     private $skipStackFramesCount;
+
     /** @var string[] */
     private $skipFunctions = [
         'call_user_func',
@@ -77,6 +80,7 @@ class PaddingProcessor implements ProcessorInterface
      * @return mixed[]
      *
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ElseExpression")
      *
      */
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
@@ -93,19 +97,19 @@ class PaddingProcessor implements ProcessorInterface
         // the call_user_func call is also skipped
         array_shift($trace);
 
-        $i = 0;
+        $index = 0;
 
-        while ($this->isTraceClassOrSkippedFunction($trace, $i)) {
-            if (isset($trace[$i]['class'])) {
+        while ($this->isTraceClassOrSkippedFunction($trace, $index)) {
+            if (isset($trace[$index]['class'])) {
                 foreach ($this->skipClassesPartials as $part) {
-                    if (strpos($trace[$i]['class'], $part) !== false) {
-                        $i++;
+                    if (strpos($trace[$index]['class'], $part) !== false) {
+                        $index++;
 
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true)) {
-                $i++;
+            } elseif (in_array($trace[$index]['function'], $this->skipFunctions, true)) {
+                $index++;
 
                 continue;
             } else {
@@ -114,12 +118,12 @@ class PaddingProcessor implements ProcessorInterface
             break;
         }
 
-        $i += $this->skipStackFramesCount;
+        $index += $this->skipStackFramesCount;
 
         // we should have the call source now
-        if ($i > 0 && $i < count($trace)) {
-            $curTrace  = $trace[$i];
-            $prevTrace = $trace[$i - 1];
+        if ($index > 0 && $index < count($trace)) {
+            $curTrace  = $trace[$index];
+            $prevTrace = $trace[$index - 1];
             $xDetails  = [
                 'xFile'     => $prevTrace['file'] ?? null,
                 'xLine'     => $prevTrace['line'] ?? null,

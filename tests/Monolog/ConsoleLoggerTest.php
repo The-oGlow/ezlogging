@@ -20,8 +20,15 @@ use Monolog\Processor\PaddingProcessor;
 use PHPUnit\Framework\TestCase;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
-require_once __DIR__.  '/../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
+/**
+ * Class ConsoleLoggerTest
+ *
+ * @package Monolog
+ *
+ * phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+ */
 class ConsoleLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
@@ -38,7 +45,7 @@ class ConsoleLoggerTest extends TestCase
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new \DateTimeZone("America/Los_Angeles");
-        $o2tb = new ConsoleLogger(self::class, [], [], $customDTZ);
+        $o2tb      = new ConsoleLogger(self::class, [], [], $customDTZ);
 
         static::assertInstanceOf(ConsoleLogger::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

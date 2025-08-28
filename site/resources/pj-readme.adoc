@@ -18,10 +18,11 @@ image:{pj_ps_langcount_url}[title="No of Languages"]
 image:{pj_ps_issues_url}[title="Open Issues"]
 
 image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
-image:{cm_shlds_tool_phpunit_url}[title="PHPUnit Tests"]
+image:{cm_shlds_tool_phpcs_url}[title="PHP CodeSniffer Ruleset""]
 image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
 image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
 image:{cm_shlds_tool_sonarcloud_url}[title="Sonarcloud Quality Gateway"]
+image:{cm_shlds_tool_phpunit_url}[title="PHPUnit Tests"]
 
 link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
 

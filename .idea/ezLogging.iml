@@ -70,6 +70,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/array-to-xml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -160,6 +161,7 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/type" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
           <root url="file://$MODULE_DIR$/vendor/spatie/array-to-xml" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -246,6 +248,7 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/type" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
           <root url="file://$MODULE_DIR$/vendor/spatie/array-to-xml" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />

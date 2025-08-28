@@ -24,22 +24,22 @@ trait TraitForAbstractEasyGoingLogger
 {
     use UnavailableMethodsTrait;
 
-    /** @psalm-suppress TypeDoesNotContainType */
+    /**
+     * @psalm-suppress TypeDoesNotContainType
+    * @psalm-suppress DocblockTypeContradiction
+     */
     public function testConfiguration(): void
     {
         switch (true) {
-            /* @phpstan-ignore identical.alwaysFalse */
-            case (PlainLogger::class === get_class($this->o2t)): {
+            case (PlainLogger::class === get_class($this->o2t)) : {
                 static::assertInstanceOf(PlainLogger::class, $this->o2t);
                 break;
             }
-                /* @phpstan-ignore identical.alwaysFalse */
             case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $this->o2t);
                 break;
             }
             default: {
-                /** @psalm-suppress DocblockTypeContradiction */
                 static::assertInstanceOf(ConsoleLogger::class, $this->o2t);
             }
         }
@@ -55,7 +55,6 @@ trait TraitForAbstractEasyGoingLogger
         $result = $this->callMethodOnO2t('getDefaultHandler');
         static::assertNotNull($result);
         switch (true) {
-            /* @phpstan-ignore identical.alwaysFalse */
             case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestHandlerClazz::class, $result);
                 break;
@@ -66,18 +65,18 @@ trait TraitForAbstractEasyGoingLogger
         }
     }
 
-    /** @psalm-suppress TypeDoesNotContainType */
+    /**
+     * @psalm-suppress TypeDoesNotContainType
+     */
     public function testGetDefaultProcessor(): void
     {
         $result = $this->callMethodOnO2t('getDefaultProcessor');
         static::assertNotNull($result);
         switch (true) {
-            /* @phpstan-ignore identical.alwaysFalse */
             case (PlainLogger::class === get_class($this->o2t)): {
                 static::assertInstanceOf(PlainProcessor::class, $result);
                 break;
             }
-                /* @phpstan-ignore identical.alwaysFalse */
             case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestProcessorClazz::class, $result);
                 break;
@@ -88,18 +87,18 @@ trait TraitForAbstractEasyGoingLogger
         }
     }
 
-    /** @psalm-suppress TypeDoesNotContainType */
+    /**
+     * @psalm-suppress TypeDoesNotContainType
+     */
     public function testGetDefaultFormatter(): void
     {
         $result = $this->callMethodOnO2t('getDefaultFormatter');
         static::assertNotNull($result);
         switch (true) {
-            /* @phpstan-ignore identical.alwaysFalse */
             case (PlainLogger::class === get_class($this->o2t)): {
                 static::assertInstanceOf(PlainFormatter::class, $result);
                 break;
             }
-                /* @phpstan-ignore identical.alwaysFalse */
             case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterClazz::class, $result);
                 break;

@@ -17,6 +17,7 @@ class PlainFormatter extends LineFormatter
 {
     /** @var string */
     public const FORMATTER_OUTPUT = "\n%message%";
+
     /** @var string */
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
@@ -32,8 +33,10 @@ class PlainFormatter extends LineFormatter
      * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      * @SuppressWarnings("PHPMD.LongVariable")
+     *
+     * @phpstan-ignore-next-line constructor.unusedParameter
      */
-    public function __construct(// @phpstan-ignore-line constructor.unusedParameter
+    public function __construct(
         $format = self::FORMATTER_OUTPUT,
         $dateFormat = self::FORMATTER_DATEFORMAT,
         $allowInlineLineBreaks = true,

@@ -44,6 +44,7 @@
     "vimeo/psalm": "^5.26",
     "psalm/plugin-phpunit": "^0.19",
     "friendsofphp/php-cs-fixer": "^3.0",
+    "squizlabs/php_codesniffer": "^3.13",
     "rogervila/php-sonarqube-scanner": "^1.0"
   },
   "config": {
@@ -77,22 +78,25 @@
       "composer c-fix",
       "composer c-phpstan",
       "composer c-psalm",
+      "composer c-phpcs",
       "composer c-test"
     ],
     "c-da": "@composer dump-autoload",
     "c-dryfix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer check --allow-unsupported-php-version=yes --allow-risky=yes --format txt",
     "c-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer fix --allow-unsupported-php-version=yes --allow-risky=yes",
     "c-package": "@composer archive --format=zip --dir=target/staging",
+    "c-phpcs": "@php -d xdebug.mode=off vendor/bin/phpcs",
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm",
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit"
   },
   "scripts-descriptions": {
-    "c-all": "CUSTOM: Run composer with c-fix, c-phpstan, c-psalm, c-test",
+    "c-all": "CUSTOM: Run composer with c-fix, c-phpstan, c-psalm, c-phpcs, c-test",
     "c-da": "CUSTOM: Alias for dump-autoload",
     "c-dryfix": "CUSTOM: Check code with PHP-CS-FIXER",
     "c-fix": "CUSTOM: Fix code with PHP-CS-FIXER",
     "c-package": "CUSTOM: Create deployable package",
+    "c-phpcs": "CUSTOM: Check code with PHP Code Sniffer",
     "c-phpstan": "CUSTOM: Check code with PHPStan",
     "c-psalm": "CUSTOM: Check code wtih Psalm",
     "c-test": "CUSTOM: Execute all or one unit tests with PHPUnit"

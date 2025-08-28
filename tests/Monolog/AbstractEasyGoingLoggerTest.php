@@ -22,6 +22,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
 use PHPUnit\Framework\TestCase;
 
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Files.SideEffects.FoundWithSymbols
 class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSONAR php:S3360
 {
     /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
@@ -47,14 +48,15 @@ class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSO
         // nothing2do
     }
 }
+
 class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface //NOSONAR php:S3360
 {
-    /** @psalm-suppress InvalidReturnType,InvalidReturnStatement */
     public function __invoke(array $record)
     {
-        return []; // @phpstan-ignore return.type
+        return $record;
     }
 }
+
 class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //NOSONAR php:S3360
 {
     public function format(array $record)
@@ -67,6 +69,7 @@ class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //
         return $records;
     }
 }
+
 class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger //NOSONAR php:S3360
 {
     protected function getDefaultHandler(): HandlerInterface
@@ -88,6 +91,7 @@ class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger //NOSONAR
 class AbstractEasyGoingLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
+
     /** @var AbstractEasyGoingLoggerTestClazz $o2t */
     private $o2t;
 
@@ -108,7 +112,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new \DateTimeZone("America/Los_Angeles");
-        $o2tb = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
+        $o2tb      = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
 
         static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

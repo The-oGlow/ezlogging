@@ -21,13 +21,23 @@ use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+/**
+ * Class PlainLoggerTest
+ *
+ * @package Monolog
+ *
+ * phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+ */
 class PlainLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
+
     /** @var PlainLogger $o2t */
     private $o2t;
+
     /** @var string[] $logMethods */
     private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
+
     /** @var mixed[] $context */
     private $context = ['value 1', 2 => 'value 2', 3];
 
@@ -39,14 +49,16 @@ class PlainLoggerTest extends TestCase
 
     public function testOut(): void
     {
+        $valid = false;
         $msg = "logging with 'out'";
 
         try {
             $this->o2t->out($msg);
-            static::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
+            $valid = true;
         } catch (\Exception $e) {
-            static::fail($e->getMessage());
+            echo $e->getMessage();
         }
+        static::assertTrue($valid);
     }
 
     public function testLog(): void
@@ -113,7 +125,8 @@ class PlainLoggerTest extends TestCase
         try {
             foreach ($logMethods as $logMethod) {
                 $msg = "logging with '$logMethod'" . (empty($context) ? '' : ' & a context');
-                $this->o2t->$logMethod($msg, $context); // @phpstan-ignore method.dynamicName
+                // @phpstan-ignore method.dynamicName
+                $this->o2t->$logMethod($msg, $context);
                 $result = true;
             }
         } catch (\Exception $e) {

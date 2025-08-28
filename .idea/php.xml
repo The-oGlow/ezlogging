@@ -107,6 +107,7 @@
       <path value="$PROJECT_DIR$/vendor/danieljharvey/file-wrapper" />
       <path value="$PROJECT_DIR$/vendor/rogervila/php-sonarqube-scanner" />
       <path value="$PROJECT_DIR$/vendor/crysalead/dir" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

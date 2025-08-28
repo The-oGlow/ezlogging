@@ -17,19 +17,25 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ */
 class UnavailableFieldsTraitTestHolderClazz
 {
     /** @var string $publicField */
     public $publicField = 'publicFieldValue';
+
     /** @var string $protectedField */
     protected $protectedField = 'protectedFieldValue';
+
     /** @var string $privateField */
-    private $privateField = 'privateFieldValue'; // @phpstan-ignore property.onlyWritten
+    private $privateField = 'privateFieldValue';
 }
 
 class UnavailableFieldsTraitTestO2tClazz
 {
     use UnavailableFieldsTrait;
+
     /** @var mixed $o2t */
     private $o2t;
 
@@ -62,8 +68,9 @@ class UnavailableFieldsTraitTestO2tClazz
 class UnavailableFieldsTraitTestWrongO2tClazz
 {
     use UnavailableFieldsTrait;
+
     /** @var mixed $wrongO2t */
-    private $wrongO2t; // @phpstan-ignore property.onlyWritten
+    private $wrongO2t;
 
     public function __construct()
     {
@@ -85,6 +92,7 @@ class UnavailableFieldsTraitTest extends TestCase
 {
     /** @var UnavailableFieldsTraitTestO2tClazz $o2t */
     private $o2t;
+
     /** @var string[] */
     private $fieldNames = ['publicField', 'protectedField', 'privateField'];
 

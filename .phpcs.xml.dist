@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="The-oGlow_CodeSniffer"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <description>Standard Configuration for PHP Code Sniffer</description>
+
+    <file>src</file>
+    <file>tests</file>
+    <file>site</file>
+
+    <exclude-pattern>*/data/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <arg name="extensions" value="php,inc"/>
+    <arg name="parallel" value="75"/>
+    <arg value="vsp"/>
+
+    <arg name="report-width" value="160"/>
+    <arg name="report-summary" value="target\phpcsniffer-summary.txt"/>
+    <arg name="report-full" value="target\phpcsniffer-report.txt"/>
+
+    <autoload>/vendor/autoload.php</autoload>
+
+    <!--<rule ref="PEAR">-->
+    <!--&lt;!&ndash; Deactivated &ndash;&gt;-->
+    <!--<exclude name="PEAR.Commenting.FileComment"/>-->
+    <!--<exclude name="PEAR.Commenting.FunctionComment"/>-->
+    <!--<exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>-->
+
+    <!--</rule>-->
+    <!--<rule ref="Squiz">-->
+    <!--&lt;!&ndash; Deprecated &ndash;&gt;-->
+    <!--<exclude name="Squiz.CSS"/>-->
+    <!--<exclude name="Squiz.Classes.DuplicateProperty"/>-->
+    <!--<exclude name="Squiz.Debug.JavaScriptLint"/>-->
+    <!--<exclude name="Squiz.Debug.JSLint"/>-->
+    <!--<exclude name="Squiz.Objects.DisallowObjectStringIndex"/>-->
+    <!--<exclude name="Squiz.Objects.ObjectMemberComma"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.LanguageConstructSpacing"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.PropertyLabelSpacing"/>-->
+    <!--&lt;!&ndash; Deactivated &ndash;&gt;-->
+    <!--<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>-->
+    <!--<exclude name="Squiz.Commenting.FileComment"/>-->
+    <!--<exclude name="Squiz.Files.FileExtension.ClassFound"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.FunctionSpacing.BeforeFirst"/>-->
+    <!--<exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.FunctionSpacing.AfterLast"/>-->
+    <!--<exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>-->
+    <!--<exclude name="Squiz.WhiteSpace.MemberVarSpacing.Incorrect"/>-->
+    <!--<exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>-->
+    <!--<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>-->
+    <!--<exclude name="Squiz.ControlStructures.ElseIfDeclaration.NotAllowed"/>-->
+    <!--<exclude name="Squiz.Arrays.ArrayDeclaration.NoComma"/>-->
+    <!--</rule>-->
+    <!--<rule ref="Generic">-->
+    <!--&lt;!&ndash; Deprecated &ndash;&gt;-->
+    <!--<exclude name="Generic.Debug.ClosureLinter"/>-->
+    <!--<exclude name="Generic.Debug.CSSLint"/>-->
+    <!--<exclude name="Generic.Debug.ESLint"/>-->
+    <!--<exclude name="Generic.Debug.JSHint"/>-->
+    <!--<exclude name="Generic.Formatting.NoSpaceAfterCast"/>-->
+    <!--<exclude name="Generic.Functions.CallTimePassByReference"/>-->
+    <!--&lt;!&ndash; Deactivated &ndash;&gt;-->
+    <!--<exclude name="Generic.PHP.ClosingPHPTag.NotFound"/>-->
+    <!--<exclude name="Generic.Files.EndFileNoNewline.Found"/>-->
+    <!--<exclude name="Generic.Files.LowercasedFilename.NotFound"/>-->
+    <!--<exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine"/>-->
+    <!--<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>-->
+    <!--<exclude name="Generic.Commenting.DocComment.MissingShort"/>-->
+    <!--<exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine"/>-->
+    <!--<exclude name="Generic.Commenting.DocComment.ContentAfterOpen"/>-->
+    <!--<exclude name="Generic.Commenting.DocComment.ContentBeforeClose"/>-->
+    <!--<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>-->
+    <!--<exclude name="Generic.PHP.UpperCaseConstant.Found"/>-->
+    <!--</rule>-->
+    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
+
+    <!-- Overrides -->
+    <rule ref="PSR2.ControlStructures.SwitchDeclaration">
+        <exclude name="PSR2.ControlStructures.SwitchDeclaration.WrongOpenercase"/>
+        <exclude name="PSR2.ControlStructures.SwitchDeclaration.WrongOpenerdefault"/>
+    </rule>
+    <!-- Default line length in my projects -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="160"/>
+            <property name="absoluteLineLimit" value="170"/>
+            <property name="ignoreComments" value="true"/>
+        </properties>
+    </rule>
+
+    <!--
+       There is a special internal error message produced by PHP_CodeSniffer
+       when it is unable to detect code in a file, possible due to
+       the use of short open tags even though php.ini disables them.
+       You can disable this message in the same way as sniff messages.
+
+       Again, the code here will be displayed in the PHP_CodeSniffer
+       output when using the -s command line argument while checking a file.
+    -->
+    <rule ref="Internal.NoCodeFound">
+        <severity>0</severity>
+    </rule>
+
+</ruleset>

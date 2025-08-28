@@ -20,6 +20,7 @@ use PHPUnit\Framework\TestCase;
 class EasyGoingFormatterTest extends TestCase
 {
     use UnavailableFieldsTrait;
+
     /** @var EasyGoingFormatter $o2t */
     private $o2t;
 

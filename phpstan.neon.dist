@@ -18,9 +18,27 @@ parameters:
         -
             identifier: method.childReturnType
             paths:
-                - src\Monolog\Processor\PaddingProcessor.php
-                - src\Monolog\Processor\PlainProcessor.php
-        - identifier: switch.type
+                - src/Monolog/Processor/PaddingProcessor.php
+                - src/Monolog/Processor/PlainProcessor.php
+        -
+            identifier: switch.type
+            paths:
+                - tests/Monolog/TraitForAbstractEasyGoingLogger.php
+        -
+            identifier: identical.alwaysFalse
+            paths:
+                - tests/Monolog/TraitForAbstractEasyGoingLogger.php
+                - src/Tools/Reflection/UnavailableFieldsTrait.php
+                - src/Tools/Reflection/UnavailableMethodsTrait.php
+        -
+            identifier: property.onlyWritten
+            paths:
+                - tests/Tools/Reflection/UnavailableFieldsTraitTest.php
+                - tests/Tools/Reflection/UnavailableMethodsTraitTest.php
+        -
+            identifier: method.unused
+            paths:
+                - tests/Tools/Reflection/UnavailableMethodsTraitTest.php
 
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon

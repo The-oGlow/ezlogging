@@ -17,6 +17,9 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ */
 class UnavailableMethodsTraitTestHolderClazz
 {
     public function publicFunc(): string
@@ -29,7 +32,7 @@ class UnavailableMethodsTraitTestHolderClazz
         return 'protectedFuncValue';
     }
 
-    private function privateFunc(): string // @phpstan-ignore method.unused
+    private function privateFunc(): string
     {
         return 'privateFuncValue';
     }
@@ -38,6 +41,7 @@ class UnavailableMethodsTraitTestHolderClazz
 class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
+
     /** @var mixed $o2t */
     private $o2t;
 
@@ -70,8 +74,9 @@ class UnavailableMethodsTraitTestO2tClazz
 class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
+
     /** @var mixed $wrongO2t */
-    private $wrongO2t; // @phpstan-ignore property.onlyWritten
+    private $wrongO2t;
 
     public function __construct()
     {
@@ -93,6 +98,7 @@ class UnavailableMethodsTraitTest extends TestCase
 {
     /** @var UnavailableMethodsTraitTestO2tClazz $o2t */
     private $o2t;
+
     /** @var string[] */
     private $methodNames = ['publicFunc', 'protectedFunc', 'privateFunc'];
 
