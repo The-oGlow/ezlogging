@@ -88,11 +88,13 @@
 :cm_shlds_snr_tests_url: {cm_shlds_snr_url}/tests
 :cm_shlds_snr_coverage_url: {cm_shlds_snr_url}/coverage
 :cm_shlds_snr_violations_url: {cm_shlds_snr_url}/violations
-:cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php%20cs%20fixer-PSR%2012-orange?logo=php
-:cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT%20Tests-orange?logo=php
-:cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level%208%20Strict-orange?logo=php
-:cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level%202-orange?logo=php
-:cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way-orange?logo=sonar
+:cm_shlds_tool_style: -violet?{cm_shlds_img_style}
+:cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php_cs_fixer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT_Tests{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level_8_Strict{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level_2{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way{cm_shlds_tool_style}&logo=sonar
+:cm_shlds_tool_phpcs_url: {cm_shlds_badge_url}/php_codesniffer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
 :cm_snr_tool_sonarcloud_url: {cm_snr_logo_url2}
 
 // codacy
@@ -108,6 +110,14 @@
 :cm_shlds_cdcy_style: &{cm_shlds_cdcy_logo}{cm_shlds_img_style}
 :cm_shlds_cdcy_grade_url: {cm_shlds_cdcy_url}/grade
 :cm_shlds_cdcy_coverage_url: {cm_shlds_cdcy_url}/coverage
+
+// phpcodesniffer
+:cm_phpcs_url: https://github.com/PHPCSStandards/PHP_CodeSniffer
+
+// shields for phpcodesniffer
+:cm_shlds_phpcs_url: {cm_shlds_url}/phpcodesniffer
+:cm_shlds_cdcy_logo: logo=php
+:cm_shlds_cdcy_style: &{cm_shlds_cdcy_logo}{cm_shlds_img_style}
 
 // coveralls
 :cm_cvrlls_url: https://coveralls.io
@@ -142,7 +152,7 @@
 :pj_opnssf_vcsid: {pj_opnssf_id}
 
 // project status
-:pj_ps_release_url: {cm_shlds_gh_release_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}}&sort=semver
+:pj_ps_release_url: {cm_shlds_gh_release_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}&sort=semver
 :pj_ps_license_url: {cm_shlds_gh_license_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
 :pj_ps_langtop_url: {cm_shlds_gh_langtop_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
 :pj_ps_langcount_url: {cm_shlds_gh_langcount_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
