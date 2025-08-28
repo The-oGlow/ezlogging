@@ -41,15 +41,34 @@
 :pj_cvrty_id: -1
 
 // project settings - END
+:site_resource: .
+
 // common settings - START
 :brnch1: master
 :brnch2: develop
+
+// project settings (generated)
+// module data generated
+:pj_cright_author: (c) {pj_year} by {acc_user_url}
+:pj_cright_orga: (c) {pj_year} by {orga_user_url}
+
+// Shields
 :cm_shlds_url: https://img.shields.io
 :cm_shlds_badge_url: {cm_shlds_url}/badge
 :cm_shlds_img_style: &style=plastic
 :cm_shlds_notsupp_url: {cm_shlds_badge_url}/info-not%20supported-lightgrey?{cm_shlds_img_style}
 :cm_shlds_notneed_url: {cm_shlds_badge_url}/info-not%20needed-lightgrey?{cm_shlds_img_style}
 
+:cm_shlds_tool_style: -violet?{cm_shlds_img_style}
+:cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php_cs_fixer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT_Tests{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level_8_Strict{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level_2{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way{cm_shlds_tool_style}&logo=sonar
+:cm_shlds_tool_phpcs_url: {cm_shlds_badge_url}/php_codesniffer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_phpmd_url: {cm_shlds_badge_url}/php_mess_detector-codesize_&amp;_cleancode_&amp;_controversial_&amp;_design_&amp;_naming_&amp;_unusedcode{cm_shlds_tool_style}&logo=php
+:cm_shlds_tool_cdcy_url: {cm_shlds_badge_url}/codacy-oGlow_Rulset{cm_shlds_tool_style}&logo=codacy
+:cm_shlds_tool_cvrlls_url: {cm_shlds_badge_url}/coveralls-Coverage{cm_shlds_tool_style}&logo=coveralls
 // github
 :cm_gh_wrkflw_link: actions/workflows
 
@@ -66,6 +85,11 @@
 :cm_shlds_gh_langcount_url: {cm_shlds_gh_url}/languages/top
 :cm_shlds_gh_checkruns_url: {cm_shlds_gh_url}/check-runs
 
+// project settings (generated)
+// module data generated
+:pj_gh_vcsid: {pj_gh_account}/{pj_gh_repo}
+:pj_gh_vcsid_url: {pj_gh_vcs_url}/{pj_gh_vcsid}
+:pj_gh_wflow_url: {pj_gh_vcsid_url}/{cm_gh_wrkflw_link}
 // sonar
 :cm_snr_url: https://sonarcloud.io
 :cm_snr_badge_url: {cm_snr_url}/images/project_badges
@@ -88,15 +112,16 @@
 :cm_shlds_snr_tests_url: {cm_shlds_snr_url}/tests
 :cm_shlds_snr_coverage_url: {cm_shlds_snr_url}/coverage
 :cm_shlds_snr_violations_url: {cm_shlds_snr_url}/violations
-:cm_shlds_tool_style: -violet?{cm_shlds_img_style}
-:cm_shlds_tool_phpcsfixer_url: {cm_shlds_badge_url}/php_cs_fixer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
-:cm_shlds_tool_phpunit_url: {cm_shlds_badge_url}/phpunit-UNIT_Tests{cm_shlds_tool_style}&logo=php
-:cm_shlds_tool_phpstan_url: {cm_shlds_badge_url}/phpstan-Level_8_Strict{cm_shlds_tool_style}&logo=php
-:cm_shlds_tool_psalm_url: {cm_shlds_badge_url}/psalm-Level_2{cm_shlds_tool_style}&logo=php
-:cm_shlds_tool_sonarcloud_url: {cm_shlds_badge_url}/sonarcloud-oGlow_way{cm_shlds_tool_style}&logo=sonar
-:cm_shlds_tool_phpcs_url: {cm_shlds_badge_url}/php_codesniffer-PSR2_&amp;_PSR12{cm_shlds_tool_style}&logo=php
 :cm_snr_tool_sonarcloud_url: {cm_snr_logo_url2}
 
+// project settings (generated)
+// module data generated
+:pj_snr_projid: {pj_gh_account}_{pj_gh_repo}
+:pj_snr_component: {pj_gh_account}:{pj_gh_repo}
+:pj_snr_dash_url: {cm_snr_dash_url}{pj_snr_projid}
+:pj_snr_brnch_main_url: {cm_snr_brnch_url}{pj_snr_projid}
+:pj_snr_brnch1_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch1}
+:pj_snr_brnch2_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch2}
 // codacy
 :cm_cdcy_url: https://www.codacy.com
 :cm_cdcy_app: https://app.codacy.com
@@ -111,14 +136,9 @@
 :cm_shlds_cdcy_grade_url: {cm_shlds_cdcy_url}/grade
 :cm_shlds_cdcy_coverage_url: {cm_shlds_cdcy_url}/coverage
 
-// phpcodesniffer
-:cm_phpcs_url: https://github.com/PHPCSStandards/PHP_CodeSniffer
-
-// shields for phpcodesniffer
-:cm_shlds_phpcs_url: {cm_shlds_url}/phpcodesniffer
-:cm_shlds_cdcy_logo: logo=php
-:cm_shlds_cdcy_style: &{cm_shlds_cdcy_logo}{cm_shlds_img_style}
-
+// project settings (generated)
+// module data generated
+:pj_cdcy_vcsid: {pj_gh_vcsid}
 // coveralls
 :cm_cvrlls_url: https://coveralls.io
 :cm_cvrlls_dash_gh_url: {cm_cvrlls_url}/github
@@ -129,6 +149,16 @@
 :cm_shlds_cvrlls_logo: logo=coveralls
 :cm_shlds_cvrlls_style: &{cm_shlds_cvrlls_logo}{cm_shlds_img_style}
 
+// project settings (generated)
+// module data generated
+:pj_cvrlls_vcsid: {pj_cvrlls_id}
+// phpcodesniffer
+:cm_phpcs_url: https://github.com/PHPCSStandards/PHP_CodeSniffer
+
+// shields for phpcodesniffer
+:cm_shlds_phpcs_url: {cm_shlds_url}/phpcodesniffer
+:cm_shlds_cdcy_logo: logo=php
+:cm_shlds_cdcy_style: &{cm_shlds_cdcy_logo}{cm_shlds_img_style}
 // openssf
 :cm_opnssf_url: https://www.bestpractices.dev
 :cm_opnssf_badge_url: {cm_opnssf_url}/projects
@@ -136,22 +166,11 @@
 
 // project settings (generated)
 // module data generated
-:pj_cright_author: (c) {pj_year} by {acc_user_url}
-:pj_cright_orga: (c) {pj_year} by {orga_user_url}
-:pj_gh_vcsid: {pj_gh_account}/{pj_gh_repo}
-:pj_gh_vcsid_url: {pj_gh_vcs_url}/{pj_gh_vcsid}
-:pj_gh_wflow_url: {pj_gh_vcsid_url}/{cm_gh_wrkflw_link}
-:pj_snr_projid: {pj_gh_account}_{pj_gh_repo}
-:pj_snr_component: {pj_gh_account}:{pj_gh_repo}
-:pj_snr_dash_url: {cm_snr_dash_url}{pj_snr_projid}
-:pj_snr_brnch_main_url: {cm_snr_brnch_url}{pj_snr_projid}
-:pj_snr_brnch1_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch1}
-:pj_snr_brnch2_url: {cm_snr_brnch_url}{pj_snr_projid}&branch={brnch2}
-:pj_cdcy_vcsid: {pj_gh_vcsid}
-:pj_cvrlls_vcsid: {pj_cvrlls_id}
 :pj_opnssf_vcsid: {pj_opnssf_id}
 
+
 // project status
+// ps github
 :pj_ps_release_url: {cm_shlds_gh_release_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}&sort=semver
 :pj_ps_license_url: {cm_shlds_gh_license_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
 :pj_ps_langtop_url: {cm_shlds_gh_langtop_url}/{pj_gh_vcsid}?{cm_shlds_gh_style}
@@ -173,6 +192,7 @@
 :pj_qi_snr_logo_url: {cm_snr_logo_url}
 
 // build status
+// bs github
 :pj_bs_brnch1_status_url: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?{cm_shlds_gh_style}&branch={brnch1}&label={brnch1}
 :pj_bs_brnch2_status_url: {cm_shlds_gh_status_url}/{pj_gh_vcsid}/build.yml?{cm_shlds_gh_style}&branch={brnch2}&label={brnch2}
 :pj_bs_brnch1_checkruns_url: {cm_shlds_gh_checkruns_url}/{pj_gh_vcsid}/{brnch1}?{cm_shlds_snr_style}
@@ -258,16 +278,25 @@ There are severall shortkeys, which are useful for your development.
 .Additional Composer Commands
 [%header%autowidth,frame=ends,valign=top,halign=center]
 |===
-^|*Command* ^|*Description*
-| c-all     | Run composer with c-fix, c-phpstan, c-psalm, c-test
-| c-da      | Alias for dump-autoload
-| c-dryfix  | Check code with PHP-CS-FIXER
-| c-fix     | Fix code with PHP-CS-FIXER
-| c-package | Create deployable package
-| c-phpstan | Check code with PHPStan
-| c-psalm   | Check code wtih Psalm
-| c-test    | Execute all or a single unit tests with PHPUnit
+^|*Command*           ^|*Description*
+| c-all                | Run composer with c-fix, c-phpstan, c-psalm, c-phpcs, c-phpmd, c-test
+| c-da                 | Alias for dump-autoload
+| c-dry-fix            | See what PHP CS Fixer will fix (dry run)
+| c-dry-psalter        | See what Psalter will fix (dry run)
+| c-fix                | PHP CS Fixer fixes your code
+| c-package            | Create deployable package
+| c-phpbf              | PHP Code Sniffer fixes your code
+| c-phpcs              | PHP Code Sniffer verifies your code
+| c-phpmd              | PHP Mess Detector verifies your code
+| c-phpstan            | PHPStan verifies your code
+| c-psalm              | Psalm verifies your code
+| c-psalter            | Psalter fixes your code
+| c-test               | PHPUnit executes all unit tests
 |===
+
+Call:
+
+ $ composer list
 
 See section `scripts` & `scripts-description` in link:composer.json[composer.json]. +
 Copy them to your `composer.json`, if you like them!
