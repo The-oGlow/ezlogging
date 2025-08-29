@@ -1,8 +1,6 @@
 :hide-uri-scheme:
 :doctype: book
 
-
-
 :site_resource: .
 // project settings - START
 // user data
