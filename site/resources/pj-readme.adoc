@@ -11,22 +11,22 @@ include::{site_resource}/adoc-cmmn-all.adoc[opts=optional]
 :toc: preamble
 :toclevels: 2
 
-image:{pj_ps_license_url}[title="License"]
-image:{pj_ps_release_url}[title="Latest Release"]
-image:{pj_ps_langtop_url}[title="Main Language"]
-image:{pj_ps_langcount_url}[title="No of Languages"]
-image:{pj_ps_issues_url}[title="Open Issues"]
+{pj_ps_license_img}
+{pj_ps_release_img}
+{pj_ps_langtop_img}
+{pj_ps_langcount_img}
+{pj_ps_issues_img}
+
+{cm_shlds_tool_phpunit_img}
+{cm_shlds_tool_sonarcloud_img}
+{cm_shlds_tool_cdcy_img}
+{cm_shlds_tool_cvrlls_img}
 
 image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
 image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
 image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
 image:{cm_shlds_tool_phpcs_url}[title="PHP CodeSniffer Ruleset""]
 image:{cm_shlds_tool_phpmd_url}[title="PHP Mess Detector Ruleset"]
-
-image:{cm_shlds_tool_phpunit_url}[title="PHPUnit Tests"]
-image:{cm_shlds_tool_sonarcloud_url}[title="Sonarcloud Quality Gateway"]
-image:{cm_shlds_tool_cdcy_url}[title="Codacy Quality Gateway"]
-image:{cm_shlds_tool_cvrlls_url}[title="Coveralls Coverage"]
 
 == Description
 
