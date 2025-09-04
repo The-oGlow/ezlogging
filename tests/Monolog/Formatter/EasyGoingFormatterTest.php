@@ -21,7 +21,7 @@ class EasyGoingFormatterTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var EasyGoingFormatter $o2t */
+    /** @var EasyGoingFormatter */
     private $o2t;
 
     public function setUp(): void

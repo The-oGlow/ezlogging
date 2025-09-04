@@ -16,16 +16,15 @@ namespace Monolog\Processor;
 use Monolog\Logger;
 
 /**
- * Class PaddingProcessor
+ * Class PaddingProcessor.
  *
- * Use Introspection from @link IntrospectionProcessor.
+ * Use Introspection from @see IntrospectionProcessor.
  *
- * @package Monolog\Processor
  * @see     IntrospectionProcessor
  */
 class PaddingProcessor implements ProcessorInterface
 {
-    /** @var integer */
+    /** @var int */
     private $level;
 
     /** @var string[] */
@@ -41,9 +40,8 @@ class PaddingProcessor implements ProcessorInterface
     ];
 
     /**
-     *
      * @param mixed    $level
-     *            The minimum logging level at which this Processor will be triggered
+     *                                       The minimum logging level at which this Processor will be triggered
      * @param string[] $skipClassesPartials
      * @param int      $skipStackFramesCount
      *
@@ -62,7 +60,6 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $record
      *
      * @return mixed[]
@@ -76,14 +73,12 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $record
      *
      * @return mixed[]
      *
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      * @SuppressWarnings("PHPMD.ElseExpression")
-     *
      */
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
@@ -140,7 +135,6 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $trace
      * @param int     $index
      *

@@ -20,10 +20,10 @@ class FileHandler extends StreamHandler
     public const STANDARD_FILENAME = 'noFilename';
     public const STANDARD_FILEEXT  = '.log';
 
-    /** @var string $tmpDir */
+    /** @var string */
     private static $tmpDir;
 
-    /** @var string $fileName */
+    /** @var string */
     private $fileName;
 
     public static function prepareFileName(?string $pathToFile = null, ?string $fileName = ''): string

@@ -21,14 +21,13 @@ use Monolog\Handler\StreamHandler;
 class FileLogger extends ConsoleLogger
 {
     /**
-     *
      * @param string             $name
      * @param string             $pathToFile
-     * @param HandlerInterface[] $handlers
-     *            Optional stack of handlers, the first one in the array is called first, etc.
+     * @param handlerInterface[] $handlers
+     *                                       Optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors
-     *            Optional array of processors
-     * @param DateTimeZone|null  $timezone
+     *                                       Optional array of processors
+     * @param null|DateTimeZone  $timezone
      */
     public function __construct(
         string $name,

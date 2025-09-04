@@ -18,7 +18,8 @@ require_once __DIR__ . '/../../bootstrap.php';
 use PHPUnit\Framework\TestCase;
 
 /**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ *
  * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
  */
 class UnavailableMethodsTraitTestHolderClazz
@@ -43,7 +44,7 @@ class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
 
-    /** @var mixed $o2t */
+    /** @var mixed */
     private $o2t;
 
     public function __construct()
@@ -54,7 +55,7 @@ class UnavailableMethodsTraitTestO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodOnO2t(string $methodName)
     {
@@ -64,7 +65,7 @@ class UnavailableMethodsTraitTestO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodByReflection(string $methodName)
     {
@@ -76,7 +77,7 @@ class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
 
-    /** @var mixed $wrongO2t */
+    /** @var mixed */
     private $wrongO2t;
 
     public function __construct()
@@ -87,7 +88,7 @@ class UnavailableMethodsTraitTestWrongO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodOnO2t(string $methodName)
     {
@@ -97,7 +98,7 @@ class UnavailableMethodsTraitTestWrongO2tClazz
 
 class UnavailableMethodsTraitTest extends TestCase
 {
-    /** @var UnavailableMethodsTraitTestO2tClazz $o2t */
+    /** @var UnavailableMethodsTraitTestO2tClazz */
     private $o2t;
 
     /** @var string[] */

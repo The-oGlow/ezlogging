@@ -20,7 +20,7 @@ class PlainFormatterTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var PlainFormatter $o2t */
+    /** @var PlainFormatter */
     private $o2t;
 
     public function setUp(): void

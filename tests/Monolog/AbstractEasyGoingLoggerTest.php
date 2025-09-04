@@ -24,21 +24,27 @@ use Monolog\Processor\ProcessorInterface;
 use PHPUnit\Framework\TestCase;
 
 // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Files.SideEffects.FoundWithSymbols
-class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSONAR php:S3360
+class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface // NOSONAR php:S3360
 {
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function isHandling(array $record): bool
     {
         return true;
     }
 
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handle(array $record): bool
     {
         return true;
     }
 
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handleBatch(array $records): void
     {
         // nothing2do
@@ -50,7 +56,7 @@ class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSO
     }
 }
 
-class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface //NOSONAR php:S3360
+class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface // NOSONAR php:S3360
 {
     public function __invoke(array $record)
     {
@@ -58,7 +64,7 @@ class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface //
     }
 }
 
-class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //NOSONAR php:S3360
+class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface // NOSONAR php:S3360
 {
     public function format(array $record)
     {
@@ -71,7 +77,7 @@ class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //
     }
 }
 
-class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger //NOSONAR php:S3360
+class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger // NOSONAR php:S3360
 {
     protected function getDefaultHandler(): HandlerInterface
     {
@@ -93,7 +99,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
 
-    /** @var AbstractEasyGoingLoggerTestClazz $o2t */
+    /** @var AbstractEasyGoingLoggerTestClazz */
     private $o2t;
 
     public function setUp(): void

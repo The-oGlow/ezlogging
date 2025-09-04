@@ -18,13 +18,13 @@ use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
  */
 class EasyGoingTestCaseO2t
 {
 }
 
-class EasyGoingTestCaseClazz extends EasyGoingTestCase //NOSONAR php:S3360
+class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR php:S3360
 {
     protected function prepareO2t()
     {
@@ -42,7 +42,7 @@ class EasyGoingTestCaseTest extends TestCase
     use UnavailableMethodsTrait;
     use UnavailableFieldsTrait;
 
-    /** @var EasyGoingTestCaseClazz $o2t */
+    /** @var EasyGoingTestCaseClazz */
     private $o2t;
 
     public function setUp(): void

@@ -26,7 +26,7 @@ trait TraitForAbstractEasyGoingLogger
 
     /**
      * @psalm-suppress TypeDoesNotContainType
-    * @psalm-suppress DocblockTypeContradiction
+     * @psalm-suppress DocblockTypeContradiction
      */
     public function testConfiguration(): void
     {

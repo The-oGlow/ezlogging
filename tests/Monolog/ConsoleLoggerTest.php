@@ -19,17 +19,13 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../bootstrap.php';
 
 /**
- * Class ConsoleLoggerTest
- *
- * @package Monolog
- *
- * phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+ * Class ConsoleLoggerTest.
  */
 class ConsoleLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
 
-    /** @var ConsoleLogger $o2t */
+    /** @var ConsoleLogger */
     private $o2t;
 
     public function setUp(): void

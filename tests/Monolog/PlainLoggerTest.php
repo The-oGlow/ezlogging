@@ -22,23 +22,19 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../bootstrap.php';
 
 /**
- * Class PlainLoggerTest
- *
- * @package Monolog
- *
- * phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+ * Class PlainLoggerTest.
  */
 class PlainLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
 
-    /** @var PlainLogger $o2t */
+    /** @var PlainLogger */
     private $o2t;
 
-    /** @var string[] $logMethods */
+    /** @var string[] */
     private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
 
-    /** @var mixed[] $context */
+    /** @var mixed[] */
     private $context = ['value 1', 2 => 'value 2', 3];
 
     public function setUp(): void

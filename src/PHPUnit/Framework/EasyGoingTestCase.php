@@ -40,7 +40,9 @@ abstract class EasyGoingTestCase extends TestCase
      */
     abstract protected function getCasto2t();
 
-    /** @param mixed[] $constants */
+    /**
+     * @param mixed[] $constants
+     */
     protected function verifyConstAllExists(array $constants = []): void
     {
         foreach ($constants as $constant) {
@@ -48,7 +50,9 @@ abstract class EasyGoingTestCase extends TestCase
         }
     }
 
-    /** @param mixed[] $constants */
+    /**
+     * @param mixed[] $constants
+     */
     protected function verifyConstArrayAllExists(array $constants = []): void
     {
         foreach ($constants as $constant => $expectedSize) {

@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConsoleHandlerTest extends TestCase
 {
-    /** @var ConsoleHandler $o2t */
+    /** @var ConsoleHandler */
     private $o2t;
 
     public function setUp(): void

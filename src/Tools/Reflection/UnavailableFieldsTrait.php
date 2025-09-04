@@ -22,7 +22,7 @@ trait UnavailableFieldsTrait
      * @param string $fieldName
      * @param mixed  $instance
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     protected function getFieldByReflection($clazzName, string $fieldName, $instance)
     {
@@ -40,7 +40,7 @@ trait UnavailableFieldsTrait
     /**
      * @param string $fieldName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     protected function getFieldFromO2t(string $fieldName)
     {

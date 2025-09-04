@@ -22,23 +22,29 @@ use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
  */
 class FileLoggerTestHandlerClazz implements HandlerInterface
 {
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function isHandling(array $record): bool
     {
         return true;
     }
 
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handle(array $record): bool
     {
         return true;
     }
 
-    /** @SuppressWarnings("PHPMD.UnusedFormalParameter") */
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handleBatch(array $records): void
     {
         // nothing2do
@@ -54,10 +60,10 @@ class FileLoggerTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var FileLogger $o2t */
+    /** @var FileLogger */
     private $o2t;
 
-    /** @var string $fileName */
+    /** @var string */
     private $fileName;
 
     public function setUp(): void
