@@ -16,8 +16,8 @@
     <arg value="vsp"/>
 
     <arg name="report-width" value="160"/>
-    <arg name="report-summary" value="target\phpcsniffer-summary.txt"/>
-    <arg name="report-full" value="target\phpcsniffer-report.txt"/>
+    <arg name="report-summary" value="target\phpcs\phpcsniffer-summary.txt"/>
+    <arg name="report-full" value="target\phpcs\phpcsniffer-report.txt"/>
 
     <autoload>/vendor/autoload.php</autoload>
 
@@ -90,7 +90,10 @@
             <property name="ignoreComments" value="true"/>
         </properties>
     </rule>
-
+    <!-- Ignore bootstrap file in test classes -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>tests/**/*Test\.php</exclude-pattern>
+    </rule>
     <!--
        There is a special internal error message produced by PHP_CodeSniffer
        when it is unable to detect code in a file, possible due to

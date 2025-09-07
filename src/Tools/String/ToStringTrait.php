@@ -19,7 +19,10 @@ trait ToStringTrait
 {
     use ImplodeTrait;
 
-    abstract function __toStringValues(): array;
+    /**
+     * @return mixed[]
+     */
+    abstract protected function __toStringValues(): array;
 
     /**
      * @inheritdoc

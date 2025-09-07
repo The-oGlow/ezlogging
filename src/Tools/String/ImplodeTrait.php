@@ -20,21 +20,21 @@ trait ImplodeTrait
      *
      * Example of $include_keys output: key, value, key, value, key, value
      *
-     * @param string $separator    value that glues elements together
-     * @param mixed  $anyData      multi-dimensional array to recursively implode
-     * @param bool   $display_keys include keys before their values
+     * @param string $separator   value that glues elements together
+     * @param mixed  $anyData     multi-dimensional array to recursively implode
+     * @param bool   $displayKeys include keys before their values
      *
      * @return string imploded array
      */
-    function arrayRecImplode(string $separator, $anyData, bool $display_keys = false): string
+    protected function arrayRecImplode(string $separator, $anyData, bool $displayKeys = false): string
     {
         $output      = '';
         $value_index = 0;
         if (is_array($anyData) || is_object($anyData)) {
             foreach ($anyData as $key => $value) {
-                $output .= ($value_index ? $separator : '') . ($display_keys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
+                $output .= ($value_index ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
-                    $array_ouput = $this->arrayRecImplode($separator, $value, $display_keys);
+                    $array_ouput = $this->arrayRecImplode($separator, $value, $displayKeys);
                     if ($array_ouput) {
                         $output .= '[' . $array_ouput . ']';
                     } else {
@@ -42,7 +42,7 @@ trait ImplodeTrait
                     }
                 } else {
                     if (is_object($value)) {
-                        $object_output = $this->arrayRecImplode($separator, $value, $display_keys);
+                        $object_output = $this->arrayRecImplode($separator, $value, $displayKeys);
                         if ($object_output) {
                             $output .= '{' . $object_output . '}';
                         } else {
