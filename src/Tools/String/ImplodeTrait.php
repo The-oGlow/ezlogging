@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace oglowa\tools\Yacorapi\Helper;
+namespace ollily\Tools\String;
 
 trait ImplodeTrait
 {
