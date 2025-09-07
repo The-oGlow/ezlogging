@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String;
 
-use oglowa\tools\Yacorapi\Helper\ImplodeTrait;
 
 trait ToStringTrait
 {
