@@ -28,4 +28,19 @@ trait ToStringTrait
     {
         return sprintf('[{%s}:{%s}]', get_class($this), $this->arrayRecImplode(',', $this->__toStringValues(), true));
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function __wakeup()
+    {
+        throw new \BadMethodCallException("Cannot unserialize singleton");
+    }
+
+    /**
+     * @inheritdoc
+     */
+    private function __clone()
+    {
+    }
 }
