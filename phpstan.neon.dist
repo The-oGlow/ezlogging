@@ -6,6 +6,7 @@ parameters:
         - tests/
 
     ignoreErrors:
+        -   identifier: trait.unused
         -
             identifier: empty.notAllowed
             paths:
