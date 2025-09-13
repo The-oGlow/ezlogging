@@ -41,5 +41,10 @@ parameters:
             paths:
                 - tests/Tools/Reflection/UnavailableMethodsTraitTest.php
 
+        -
+            identifier: throws.unusedType
+            paths:
+                - src/Monolog/DoNothingLogger.php
+
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
