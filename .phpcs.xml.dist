@@ -6,14 +6,18 @@
 
     <file>src</file>
     <file>tests</file>
+    <file>example</file>
     <file>site</file>
 
     <exclude-pattern>*/data/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>src/Yacorapi/Impl/DummyResponse.php</exclude-pattern>
 
     <arg name="extensions" value="php,inc"/>
     <arg name="parallel" value="75"/>
     <arg value="vsp"/>
+    <!-- Disable Warnings -->
+    <arg value="n"/>
 
     <arg name="report-width" value="160"/>
     <arg name="report-summary" value="target\phpcs\phpcsniffer-summary.txt"/>
@@ -40,7 +44,9 @@
     <!-- Ignore bootstrap file in test classes -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>tests/**/*Test\.php</exclude-pattern>
+        <exclude-pattern>example/**/*Example\.php</exclude-pattern>
     </rule>
+
     <!--
        There is a special internal error message produced by PHP_CodeSniffer
        when it is unable to detect code in a file, possible due to

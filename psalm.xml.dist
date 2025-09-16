@@ -18,12 +18,12 @@
     <issueHandlers>
         <!-- too strict -->
         <LessSpecificImplementedReturnType errorLevel="suppress"/>
-        <MixedArgument errorLevel="info" />
-        <MixedReturnStatement errorLevel="info" />
-        <MixedArrayAccess errorLevel="info" />
-        <MixedAssignment errorLevel="info" />
-        <MixedArgumentTypeCoercion errorLevel="info" />
-        <MixedInferredReturnType errorLevel="info" />
+        <MixedArgument errorLevel="info"/>
+        <MixedReturnStatement errorLevel="info"/>
+        <MixedArrayAccess errorLevel="info"/>
+        <MixedAssignment errorLevel="info"/>
+        <MixedArgumentTypeCoercion errorLevel="info"/>
+        <MixedInferredReturnType errorLevel="info"/>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
