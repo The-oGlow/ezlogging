@@ -29,22 +29,22 @@ trait ImplodeTrait
     protected function arrayRecImplode(string $separator, $anyData, bool $displayKeys = false): string
     {
         $output      = '';
-        $value_index = 0;
+        $valueIdx = 0;
         if (is_array($anyData) || is_object($anyData)) {
             foreach ($anyData as $key => $value) {
-                $output .= ($value_index ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
+                $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
-                    $array_ouput = $this->arrayRecImplode($separator, $value, $displayKeys);
-                    if ($array_ouput) {
-                        $output .= '[' . $array_ouput . ']';
+                    $arrOutput = $this->arrayRecImplode($separator, $value, $displayKeys);
+                    if ($arrOutput) {
+                        $output .= '[' . $arrOutput . ']';
                     } else {
                         $output .= '[]';
                     }
                 } else {
                     if (is_object($value)) {
-                        $object_output = $this->arrayRecImplode($separator, $value, $displayKeys);
-                        if ($object_output) {
-                            $output .= '{' . $object_output . '}';
+                        $objOutput = $this->arrayRecImplode($separator, $value, $displayKeys);
+                        if ($objOutput) {
+                            $output .= '{' . $objOutput . '}';
                         } else {
                             $output .= '{}';
                         }
@@ -52,7 +52,7 @@ trait ImplodeTrait
                         $output .= '"' . $value . '"';
                     }
                 }
-                $value_index++;
+                $valueIdx++;
             }
         } else {
             $output = $anyData;

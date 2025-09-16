@@ -30,6 +30,8 @@ class DoNothingLogger extends Logger
      * @param callable[]         $processors Optional array of processors
      * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
      * @phpstan-ignore constructor.unusedParameter,constructor.unusedParameter
      */
     public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)

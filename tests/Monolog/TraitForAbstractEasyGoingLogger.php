@@ -31,11 +31,11 @@ trait TraitForAbstractEasyGoingLogger
     public function testConfiguration(): void
     {
         switch (true) {
-            case (PlainLogger::class === get_class($this->o2t)) : {
+            case (PlainLogger::class == get_class($this->o2t)) : {
                 static::assertInstanceOf(PlainLogger::class, $this->o2t);
                 break;
             }
-            case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
+            case (AbstractEasyGoingLoggerTestClazz::class == get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $this->o2t);
                 break;
             }
@@ -55,7 +55,7 @@ trait TraitForAbstractEasyGoingLogger
         $result = $this->callMethodOnO2t('getDefaultHandler');
         static::assertNotNull($result);
         switch (true) {
-            case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
+            case (AbstractEasyGoingLoggerTestClazz::class == get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestHandlerClazz::class, $result);
                 break;
             }
@@ -73,11 +73,11 @@ trait TraitForAbstractEasyGoingLogger
         $result = $this->callMethodOnO2t('getDefaultProcessor');
         static::assertNotNull($result);
         switch (true) {
-            case (PlainLogger::class === get_class($this->o2t)): {
+            case (PlainLogger::class == get_class($this->o2t)): {
                 static::assertInstanceOf(PlainProcessor::class, $result);
                 break;
             }
-            case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
+            case (AbstractEasyGoingLoggerTestClazz::class == get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestProcessorClazz::class, $result);
                 break;
             }
@@ -95,11 +95,11 @@ trait TraitForAbstractEasyGoingLogger
         $result = $this->callMethodOnO2t('getDefaultFormatter');
         static::assertNotNull($result);
         switch (true) {
-            case (PlainLogger::class === get_class($this->o2t)): {
+            case (PlainLogger::class == get_class($this->o2t)): {
                 static::assertInstanceOf(PlainFormatter::class, $result);
                 break;
             }
-            case (AbstractEasyGoingLoggerTestClazz::class === get_class($this->o2t)) : {
+            case (AbstractEasyGoingLoggerTestClazz::class == get_class($this->o2t)) : {
                 static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterClazz::class, $result);
                 break;
             }

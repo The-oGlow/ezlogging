@@ -19,6 +19,8 @@ trait ToStringTrait
 
     /**
      * @return mixed[]
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     abstract protected function __toStringValues(): array;
 

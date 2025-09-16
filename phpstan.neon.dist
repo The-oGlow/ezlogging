@@ -5,32 +5,18 @@ parameters:
         - src/
         - tests/
 
+    strictRules:
+        # too strict
+        disallowedEmpty: false
+        disallowedLooseComparison: false
+
     ignoreErrors:
         -   identifier: trait.unused
-        -
-            identifier: empty.notAllowed
-            paths:
-                - src/Monolog/AbstractEasyGoingLogger.php
-                - src/Monolog/FileLogger.php
-                - src/Monolog/Handler/FileHandler.php
-                - src/Tools/Reflection/UnavailableFieldsTrait.php
-                - src/Tools/Reflection/UnavailableMethodsTrait.php
-                - tests/Monolog/PlainLoggerTest.php
         -
             identifier: method.childReturnType
             paths:
                 - src/Monolog/Processor/PaddingProcessor.php
                 - src/Monolog/Processor/PlainProcessor.php
-        -
-            identifier: switch.type
-            paths:
-                - tests/Monolog/TraitForAbstractEasyGoingLogger.php
-        -
-            identifier: identical.alwaysFalse
-            paths:
-                - tests/Monolog/TraitForAbstractEasyGoingLogger.php
-                - src/Tools/Reflection/UnavailableFieldsTrait.php
-                - src/Tools/Reflection/UnavailableMethodsTrait.php
         -
             identifier: property.onlyWritten
             paths:

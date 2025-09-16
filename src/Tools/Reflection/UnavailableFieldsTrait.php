@@ -47,17 +47,15 @@ trait UnavailableFieldsTrait
         $result = null;
 
         /**
-         * @psalm-suppress RedundantConditionGivenDocblockType
-         * @phpstan-ignore empty.property,property.notFound
+         * @psalm-suppress RedundantPropertyInitializationCheck
+         * @phpstan-ignore isset.property,property.notFound
          */
-        if (!empty($this->o2t)) {
-            $locO2t = $this->o2t;
-            /**
-             * @psalm-suppress TypeDoesNotContainType
-             */
-            $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t);
-
-            $result = $this->getFieldByReflection($clazzName, $fieldName, $locO2t);
+        if (isset($this->o2t)) {
+            $clazzName = get_class($this->o2t);
+            /** @psalm-suppress RedundantCondition */
+            if (!empty($clazzName)) {
+                $result = $this->getFieldByReflection($clazzName, $fieldName, $this->o2t);
+            }
         }
 
         return $result;
