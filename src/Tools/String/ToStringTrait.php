@@ -29,7 +29,13 @@ trait ToStringTrait
      */
     public function __toString()
     {
-        return sprintf('[{%s}:{%s}]', get_class($this), $this->arrayRecImplode(',', $this->__toStringValues(), true));
+        if (method_exists($this, '__toStringValues')) {
+            $toString = sprintf('[%s:{%s}]', get_class($this), $this->arrayRecImplode(',', $this->__toStringValues(), false, true));
+        } else {
+            $toString = sprintf('[%s:{%s}]', get_class($this), '');
+        }
+
+        return $toString;
     }
 
     /**

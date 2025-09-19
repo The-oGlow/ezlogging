@@ -6,7 +6,6 @@
 
     <file>src</file>
     <file>tests</file>
-    <file>example</file>
     <file>site</file>
 
     <exclude-pattern>*/data/*</exclude-pattern>

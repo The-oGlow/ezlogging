@@ -22,19 +22,23 @@ trait ImplodeTrait
      *
      * @param string $separator   value that glues elements together
      * @param mixed  $anyData     multi-dimensional array to recursively implode
-     * @param bool   $displayKeys include keys before their values
+     * @param bool   $textSep     add a text seperator (") around each value of a scalar type (default: false)
+     * @param bool   $displayKeys include keys before their values (default: false)
      *
      * @return string imploded array
+     *
+     * @see https://www.php.net/manual/en/language.types.type-system.php
      */
-    protected function arrayRecImplode(string $separator, $anyData, bool $displayKeys = false): string
+    protected function arrayRecImplode(string $separator, $anyData, bool $textSep = false, bool $displayKeys = false): string
     {
-        $output      = '';
+        $sepChar = $textSep ? '"' : '';
+        $output   = '';
         $valueIdx = 0;
         if (is_array($anyData) || is_object($anyData)) {
             foreach ($anyData as $key => $value) {
                 $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
-                    $arrOutput = $this->arrayRecImplode($separator, $value, $displayKeys);
+                    $arrOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
                     if ($arrOutput) {
                         $output .= '[' . $arrOutput . ']';
                     } else {
@@ -42,14 +46,14 @@ trait ImplodeTrait
                     }
                 } else {
                     if (is_object($value)) {
-                        $objOutput = $this->arrayRecImplode($separator, $value, $displayKeys);
+                        $objOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
                         if ($objOutput) {
                             $output .= '{' . $objOutput . '}';
                         } else {
                             $output .= '{}';
                         }
                     } else {
-                        $output .= '"' . $value . '"';
+                        $output .= $sepChar . $value . $sepChar;
                     }
                 }
                 $valueIdx++;
