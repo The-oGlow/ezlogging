@@ -2,8 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Monolog\Handler;
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+namespace Monolog\Handler;
 
 use Monolog\FileLogger;
 use Monolog\Formatter\FormatterInterface;
@@ -12,7 +20,7 @@ use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\StreamHandler;
 
 /**
- * Stores to a csv file
+ * Stores to a csv file.
  *
  * Can be used to store big loads to physical files and import them later into another system that can handle CSV
  *
@@ -20,9 +28,9 @@ use Monolog\Handler\StreamHandler;
  */
 class CsvHandler extends FileHandler
 {
-    const DELIMITER = ';';
-    const ENCLOSURE = '\'';
-    const ESCAPE_CHAR = '\\';
+    public const DELIMITER = ';';
+    public const ENCLOSURE = '\'';
+    public const ESCAPE_CHAR = '\\';
 
     /**
      * @inheritdoc
@@ -39,6 +47,7 @@ class CsvHandler extends FileHandler
         $formatted = (array)$record['formatted'];
         if (version_compare(PHP_VERSION, '5.5.4', '>=') && !defined('HHVM_VERSION')) {
             fputcsv($stream, $formatted, static::DELIMITER, static::ENCLOSURE, static::ESCAPE_CHAR);
+
             return;
         }
         fputcsv($stream, $formatted, static::DELIMITER, static::ENCLOSURE);
