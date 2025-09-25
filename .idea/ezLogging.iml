@@ -22,7 +22,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fidry/cpu-core-counter" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
@@ -89,6 +88,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
@@ -117,7 +117,6 @@
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
           <root url="file://$MODULE_DIR$/vendor/fidry/cpu-core-counter" />
-          <root url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
           <root url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
@@ -184,6 +183,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />
           <root url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
@@ -208,7 +208,6 @@
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
           <root url="file://$MODULE_DIR$/vendor/fidry/cpu-core-counter" />
-          <root url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
           <root url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
@@ -275,6 +274,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />
           <root url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />

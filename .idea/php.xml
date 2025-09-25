@@ -98,7 +98,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/friendsofphp/php-cs-fixer" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-strict-rules" />
       <path value="$PROJECT_DIR$/vendor/psalm/plugin-phpunit" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
@@ -112,6 +111,7 @@
       <path value="$PROJECT_DIR$/vendor/phpmd/phpmd" />
       <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

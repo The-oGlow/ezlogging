@@ -23,7 +23,7 @@ trait ImplodeTrait
      * @param string $separator   value that glues elements together
      * @param mixed  $anyData     multi-dimensional array to recursively implode
      * @param bool   $textSep     add a text seperator (") around each value of a scalar type (default: false)
-     * @param bool   $displayKeys include keys before their values (default: false)
+     * @param bool   $displayKeys include keysForValue before their values (default: false)
      *
      * @return string imploded array
      *
@@ -39,7 +39,7 @@ trait ImplodeTrait
                 $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
                     $arrOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
-                    if ($arrOutput) {
+                    if (!empty($arrOutput)) {
                         $output .= '[' . $arrOutput . ']';
                     } else {
                         $output .= '[]';
@@ -47,7 +47,7 @@ trait ImplodeTrait
                 } else {
                     if (is_object($value)) {
                         $objOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
-                        if ($objOutput) {
+                        if (!empty($objOutput)) {
                             $output .= '{' . $objOutput . '}';
                         } else {
                             $output .= '{}';
