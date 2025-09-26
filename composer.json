@@ -77,9 +77,9 @@
   "scripts": {
     "c-all": [
       "composer c-fix",
+      "composer c-phpcs",
       "composer c-phpstan",
       "composer c-psalm",
-      "composer c-phpcs",
       "composer c-phpmd",
       "composer c-test"
     ],
@@ -88,7 +88,7 @@
     "c-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer fix --allow-unsupported-php-version=yes --allow-risky=yes",
     "c-package": "@composer archive --format=zip --dir=target/staging",
     "c-phpcs": "@php -d xdebug.mode=off vendor/bin/phpcs -v",
-    "c-phpbf": "@php -d xdebug.mode=off vendor/bin/phpbf",
+    "c-phpcbf": "@php -d xdebug.mode=off vendor/bin/phpcbf",
     "c-phpmd": "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/phpmd/phpmd-report.txt",
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm --report=target/psalm/psalm-report.txt",
@@ -97,13 +97,13 @@
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit"
   },
   "scripts-descriptions": {
-    "c-all": "CUSTOM: Run composer with c-fix, c-phpstan, c-psalm, c-phpcs, c-phpmd, c-test",
+    "c-all": "CUSTOM: Run composer with c-fix, c-phpcs, c-phpstan, c-psalm, c-phpmd, c-test",
     "c-da": "CUSTOM: shortkey for 'dump-autoload'",
     "c-dry-fix": "CUSTOM: See what PHP CS Fixer will fix (dry run)",
     "c-fix": "CUSTOM: PHP CS Fixer fixes your code",
     "c-package": "CUSTOM: Create deployable package",
     "c-phpcs": "CUSTOM: PHP Code Sniffer verifies your code",
-    "c-phpbf": "CUSTOM: PHP Code Sniffer fixes your code",
+    "c-phpcbf": "CUSTOM: PHP Code Sniffer fixes your code",
     "c-phpmd": "CUSTOM: PHP Mess Detector verifies your code",
     "c-phpstan": "CUSTOM: PHPStan verifies your code",
     "c-psalm": "CUSTOM: Psalm verifies your code",

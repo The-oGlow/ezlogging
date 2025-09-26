@@ -14,33 +14,40 @@ declare(strict_types=1);
 namespace Monolog;
 
 use DateTimeZone;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\NoopHandler;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Processor\PlainProcessor;
+use Monolog\Processor\ProcessorInterface;
 
 /**
  * This logger does exactly: <strong>nothing</strong>!
  */
-class DoNothingLogger extends Logger
+class DoNothingLogger extends AbstractEasyGoingLogger
 {
-    /**
-     * DoNothingLogger constructor.
-     *
-     * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
-     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc
-     * @param callable[]         $processors Optional array of processors
-     * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     *
-     * @phpstan-ignore constructor.unusedParameter,constructor.unusedParameter
-     */
-    public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
+    public function __construct()
     {
         parent::__construct(
-            $name,
-            [new NoopHandler()],
+            self::class,
             [],
-            $timezone
+            [],
+            null
         );
+    }
+
+    protected function getDefaultHandler(): HandlerInterface
+    {
+        return new NoopHandler();
+    }
+
+    protected function getDefaultProcessor(): ProcessorInterface
+    {
+        return new PlainProcessor();
+    }
+
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new PlainFormatter();
     }
 }

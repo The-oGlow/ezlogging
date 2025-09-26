@@ -47,7 +47,7 @@ abstract class AbstractEasyGoingLogger extends Logger
             )
         );
         $this->pushProcessor($this->getDefaultProcessor());
-        $this->pushHandler($this->getConsoleHandler());
+        $this->pushHandler($this->getDefaultHandler());
     }
 
     abstract protected function getDefaultHandler(): HandlerInterface;

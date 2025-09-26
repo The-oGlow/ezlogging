@@ -85,6 +85,7 @@ abstract class EasyGoingTestCase extends TestCase
             static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
     }
+
     public const LOP = 'int|integer|bool|boolean|float';
 
     /**

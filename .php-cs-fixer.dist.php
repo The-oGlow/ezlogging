@@ -27,9 +27,11 @@ $projRules = [
     // Blank lines / spacing
     'class_attributes_separation'                   => [
         'elements' => [
-            'const'        => 'only_if_meta',
+            'const'        => 'one',
+            'method'       => 'one',
+            'property'     => 'one',
             'trait_import' => 'none',
-            'property'     => 'only_if_meta'
+            'case'         => 'none'
         ]
     ],
     'blank_line_before_statement'                   => [

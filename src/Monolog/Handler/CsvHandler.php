@@ -29,7 +29,9 @@ use Monolog\Handler\StreamHandler;
 class CsvHandler extends FileHandler
 {
     public const DELIMITER = ';';
+
     public const ENCLOSURE = '\'';
+
     public const ESCAPE_CHAR = '\\';
 
     /**

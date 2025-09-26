@@ -18,6 +18,7 @@ use Monolog\Logger;
 class FileHandler extends StreamHandler
 {
     public const STANDARD_FILENAME = 'noFilename';
+
     public const STANDARD_FILEEXT  = '.log';
 
     /** @var string */

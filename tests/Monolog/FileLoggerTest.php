@@ -21,44 +21,9 @@ use Monolog\Handler\HandlerInterface;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
-/**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class FileLoggerTestHandlerClazz implements HandlerInterface
-{
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function isHandling(array $record): bool
-    {
-        return true;
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function handle(array $record): bool
-    {
-        return true;
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function handleBatch(array $records): void
-    {
-        // nothing2do
-    }
-
-    public function close(): void
-    {
-        // nothing2do
-    }
-}
-
 class FileLoggerTest extends TestCase
 {
-    use UnavailableFieldsTrait;
+    use TraitForAbstractEasyGoingLogger;
 
     /** @var FileLogger */
     private $o2t;
@@ -118,5 +83,40 @@ class FileLoggerTest extends TestCase
             unlink($this->fileName);
         }
         parent::tearDown();
+    }
+}
+
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ */
+class FileLoggerTestHandlerClazz implements HandlerInterface
+{
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function isHandling(array $record): bool
+    {
+        return true;
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function handle(array $record): bool
+    {
+        return true;
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function handleBatch(array $records): void
+    {
+        // nothing2do
+    }
+
+    public function close(): void
+    {
+        // nothing2do
     }
 }
