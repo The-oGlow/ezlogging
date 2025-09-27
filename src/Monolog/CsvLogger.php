@@ -25,35 +25,47 @@ use Stringable;
 
 class CsvLogger extends FileLogger
 {
-    /** @var string  */
+    /** @var string */
     private $itemSeparator;
 
-    /** @var string  */
+    /** @var string */
     private $itemEnclosure;
-    /** @var array<mixed>
+
+    /** @var array<string>
      * @phpstan-ignore property.onlyWritten */
     private $header;
 
     /**
      * CsvLogger constructor.
      *
-     * @param string $name
-     * @param string $pathToFile
-     * @param array<mixed>  $header
-     * @param string $itemSeparator
-     * @param string $itemEnclosure
+     * @param string       $name
+     * @param string       $pathToFile
+     * @param array<mixed> $header
+     * @param string       $itemSeparator
+     * @param string       $itemEnclosure
      */
     public function __construct(
         string $name,
         string $pathToFile,
         array $header = [],
-        string $itemSeparator = CsvHandler::ITEM_SEP,
-        string $itemEnclosure = CsvHandler::TEXT_SEP
+        string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
+        string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
         $this->header = $header;
         parent::__construct($name, $pathToFile, [], [], null);
+        $this->writeHeader($this->header);
+    }
+
+    /**
+     * @param array<string> $header
+     */
+    protected function writeHeader(array $header): void
+    {
+        if (!empty($header) && is_array($header)) {
+            $this->out('', $header);
+        }
     }
 
     /**
@@ -84,11 +96,12 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string $message
+     * @param array  $context
      */
-    public function out($message): void
+    public function out(string $message, ...$context): void
     {
-        parent::info($message);
+        parent::info($message, $context);
     }
 
     /**
@@ -100,7 +113,7 @@ class CsvLogger extends FileLogger
      */
     public function log($level, $message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -111,7 +124,7 @@ class CsvLogger extends FileLogger
      */
     public function emergency($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -122,7 +135,7 @@ class CsvLogger extends FileLogger
      */
     public function alert($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -133,7 +146,7 @@ class CsvLogger extends FileLogger
      */
     public function warning($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -144,7 +157,7 @@ class CsvLogger extends FileLogger
      */
     public function notice($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -155,7 +168,7 @@ class CsvLogger extends FileLogger
      */
     public function info($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 
     /**
@@ -166,6 +179,6 @@ class CsvLogger extends FileLogger
      */
     public function debug($message, array $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $context);
     }
 }

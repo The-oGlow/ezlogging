@@ -26,27 +26,27 @@ class ImplodeTraitTest extends TestCase
         $this->o2t = new ImplodeTraitTestClazz();
     }
 
-    public function testImplodeDefault():void
+    public function testImplodeDefault(): void
     {
         $actual = $this->o2t->implodeDefault();
         static::assertNotEmpty($actual);
-        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
+        // @phpstan-ignore staticMethod.alreadyNarrowedType
         static::assertIsString($actual);
     }
 
-    public function testImplodeCustom():void
+    public function testImplodeCustom(): void
     {
         $actual = $this->o2t->implodeCustom();
         static::assertNotEmpty($actual);
-        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
+        // @phpstan-ignore staticMethod.alreadyNarrowedType
         static::assertIsString($actual);
     }
 
-    public function testImplodeObjectCustom():void
+    public function testImplodeObjectCustom(): void
     {
         $actual = $this->o2t->implodeObjectCustom();
         static::assertNotEmpty($actual);
-        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
+        // @phpstan-ignore staticMethod.alreadyNarrowedType
         static::assertIsString($actual);
     }
 }
@@ -85,16 +85,16 @@ class ImplodeTraitTestClazz
 
     public function implodeDefault(): ?string
     {
-        return $this->arrayRecImplode(self::SEP, $this->anydata);
+        return $this->implodeRecursive(self::SEP, $this->anydata);
     }
 
     public function implodeCustom(): ?string
     {
-        return $this->arrayRecImplode(self::SEP, $this->anydata, true, true);
+        return $this->implodeRecursive(self::SEP, $this->anydata, true, true);
     }
 
     public function implodeObjectCustom(): ?string
     {
-        return $this->arrayRecImplode(self::SEP, $this->anydata2, true, true);
+        return $this->implodeRecursive(self::SEP, $this->anydata2, true, true);
     }
 }

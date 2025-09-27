@@ -28,11 +28,17 @@ class ToStringTraitTest extends TestCase
         $this->o2t = new ToStringTraitTestClazz();
     }
 
-    public function testToString():void
+    public function testToString(): void
     {
         $result = $this->o2t->__toString();
         static::assertNotEmpty($result);
         static::assertStringContainsString(get_class($this->o2t), $result);
+    }
+
+    public function testWakeup(): void
+    {
+        static::expectException(\BadMethodCallException::class);
+        $this->o2t->__wakeup();
     }
 }
 

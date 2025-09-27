@@ -21,6 +21,10 @@ class FileHandler extends StreamHandler
 
     public const STANDARD_FILEEXT  = '.log';
 
+    protected const KEY_MESSAGE = 'message';
+
+    protected const KEY_CONTEXT = 'context';
+
     /** @var string */
     private static $tmpDir;
 

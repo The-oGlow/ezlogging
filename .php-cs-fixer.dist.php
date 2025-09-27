@@ -22,7 +22,7 @@ $projRules = [
     'declare_strict_types'                          => true,
     'no_trailing_comma_in_singleline'               => true,
     'protected_to_private'                          => false,
-    'visibility_required'                           => false,
+    'modifier_keywords' => true,
     'return_assignment'                             => true,
     // Blank lines / spacing
     'class_attributes_separation'                   => [

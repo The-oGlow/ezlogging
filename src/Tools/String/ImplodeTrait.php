@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\String;
 
 use ArrayAccess;
-use iterable;
+use Stringable;
 
 trait ImplodeTrait
 {
@@ -32,16 +32,16 @@ trait ImplodeTrait
      *
      * @see https://www.php.net/manual/en/language.types.type-system.php
      */
-    protected function arrayRecImplode(string $separator, $anyData, bool $textSep = false, bool $displayKeys = false): string
+    protected function implodeRecursive(string $separator, $anyData, bool $textSep = false, bool $displayKeys = false): string
     {
-        $sepChar = $textSep ? '"' : '';
+        $sepChar  = $textSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
         if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
             foreach ($anyData as $key => $value) {
                 $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
-                    $arrOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
+                    $arrOutput = $this->implodeRecursive($separator, $value, $textSep, $displayKeys);
                     if (!empty($arrOutput)) {
                         $output .= '[' . $arrOutput . ']';
                     } else {
@@ -49,7 +49,7 @@ trait ImplodeTrait
                     }
                 } else {
                     if (is_object($value)) {
-                        $objOutput = $this->arrayRecImplode($separator, $value, $textSep, $displayKeys);
+                        $objOutput = $this->implodeRecursive($separator, $value, $textSep, $displayKeys);
                         if (!empty($objOutput)) {
                             $output .= '{' . $objOutput . '}';
                         } else {
@@ -62,9 +62,44 @@ trait ImplodeTrait
                 $valueIdx++;
             }
         } else {
-            $output = $anyData;
+            if (is_object($anyData)) {
+                if ($anyData instanceof Stringable) {
+                    $output = $anyData->__toString();
+                } else {
+                    $output = get_class($anyData);
+                }
+            } else {
+                $output = $anyData;
+            }
         }
 
         return $output;
+    }
+
+    /**
+     *          Flatten a multidimensional array to one dimension, optionally preserving keys.
+     * Original found on {@link https://stackoverflow.com/a/526633}.
+     *
+     * @param array          <mixed,mixed> $array         the array to flatten
+     * @param int                          $preserve_keys 0 (default) to not preserve keys, 1 to preserve string keys only, 2 to preserve all keys
+     * @param array          <mixed,mixed> $out           internal use argument for recursion
+     *
+     * @return array<mixed,mixed>
+     *
+     * @see https://stackoverflow.com/a/526633
+     */
+    public function array_flatten(array $array, int $preserve_keys = 0, array &$out = []): array // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    {
+        foreach ($array as $key => $child) {
+            if (is_array($child)) {
+                $out = $this->array_flatten($child, $preserve_keys, $out);
+            } elseif ($preserve_keys + is_string($key) > 1) {
+                $out[$key] = $child;
+            } else {
+                $out[] = $child;
+            }
+        }
+
+        return $out;
     }
 }

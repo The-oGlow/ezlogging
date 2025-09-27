@@ -24,19 +24,17 @@ use PHPUnit\Framework\TestCase;
 class FileLoggerTest extends TestCase
 {
     use TraitForAbstractEasyGoingLogger;
+    use TraitForStreamHandler;
 
     /** @var FileLogger */
     private $o2t;
-
-    /** @var string */
-    private $fileName;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->o2t      = new FileLogger(self::class, sys_get_temp_dir());
-        $this->fileName = $this->o2t->getFileName();
+        self::$fileName = $this->o2t->getFileName();
     }
 
     public function testConfiguration(): void
@@ -51,10 +49,10 @@ class FileLoggerTest extends TestCase
 
     public function testFileCreated(): void
     {
-        static::assertNotEmpty($this->fileName);
-        static::assertFileDoesNotExist($this->fileName);
+        static::assertNotEmpty(self::$fileName);
+        static::assertFileDoesNotExist(self::$fileName);
         $this->o2t->info('Write a log entry');
-        static::assertFileExists($this->fileName);
+        static::assertFileExists(self::$fileName);
     }
 
     public function testCreateWithCustomHandler(): void
@@ -75,14 +73,6 @@ class FileLoggerTest extends TestCase
         static::assertInstanceOf(FileLogger::class, $o2tc);
         $fileName = $o2tc->getFileName();
         static::assertEmpty($fileName);
-    }
-
-    public function tearDown(): void
-    {
-        if (file_exists($this->fileName)) {
-            unlink($this->fileName);
-        }
-        parent::tearDown();
     }
 }
 

@@ -19,6 +19,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\StreamHandler;
 use ollily\Tools\PhpVersionTrait;
+use ollily\Tools\String\ImplodeTrait;
 
 /**
  * Stores any data (given as array) to a csv file.
@@ -29,23 +30,24 @@ use ollily\Tools\PhpVersionTrait;
 class CsvHandler extends FileHandler
 {
     use PhpVersionTrait;
+    use ImplodeTrait;
 
     public const    STANDARD_FILENAME = 'noCSVName';
 
-    public const    STANDARD_FILEEXT  = '.csv';
+    public const    STANDARD_FILEEXT = '.csv';
 
-    public const    ITEM_SEP          = ';';
+    public const    STANDARD_ITEM_SEP = ';';
 
-    public const    TEXT_SEP          = '"';
+    public const    STANDARD_TEXT_SEP = '"';
 
-    public const    ESCAPE_CHAR       = '\\';
+    public const    STANDARD_ESCAPE_CHAR = '\\';
 
-    protected const KEY_FORMATTED     = 'formatted';
+    protected const KEY_FORMATTED = 'formatted';
 
-    /** @var string  */
+    /** @var string */
     private $itemSeparator;
 
-    /** @var string  */
+    /** @var string */
     private $itemEnclosure;
 
     /**
@@ -59,8 +61,8 @@ class CsvHandler extends FileHandler
     public function __construct(
         ?string $pathToFile = null,
         ?string $fileName = null,
-        string $itemSeparator = self::ITEM_SEP,
-        string $itemEnclosure = self::TEXT_SEP
+        string $itemSeparator = self::STANDARD_ITEM_SEP,
+        string $itemEnclosure = self::STANDARD_TEXT_SEP
     ) {
         parent::__construct(
             $pathToFile,
@@ -75,18 +77,28 @@ class CsvHandler extends FileHandler
      */
     protected function streamWrite($stream, array $record): void
     {
-        if (is_array($record[self::KEY_FORMATTED])) {
-            foreach ($record[self::KEY_FORMATTED] as $key => $info) {
-                if (is_array($info)) {
-                    $record[self::KEY_FORMATTED][$key] = json_encode($info);
-                }
-            }
+        $output = [];
+        if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
+            array_push($output, $record[self::KEY_MESSAGE]);
         }
-        $formatted = (array)$record[self::KEY_FORMATTED];
+
+        if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
+            //            echo "\ncontext\n";
+            //            var_dump( $record['context']);
+            $implodeContext = $record[self::KEY_CONTEXT];
+            if (is_array($record[self::KEY_CONTEXT])) {
+                $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
+            }
+            //            echo "\nimplode\n";
+            //            var_dump($implodeContext);
+            $output = array_merge($output, $implodeContext);
+        }
+        //        echo "\nformatted\n";
+        //        var_dump(($output));
         if ($this->isPhpGreater('5.5.4')) {
-            fputcsv($stream, $formatted, $this->itemSeparator, $this->itemEnclosure, static::ESCAPE_CHAR);
+            fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure, static::STANDARD_ESCAPE_CHAR);
         } else {
-            fputcsv($stream, $formatted, $this->itemSeparator, $this->itemEnclosure);
+            fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure);
         }
     }
 }

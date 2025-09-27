@@ -34,7 +34,7 @@ class DoNothingLoggerTest extends TestCase
     public function testNothingHappens(): void
     {
         $this->o2t->info('Write a log entry');
-        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
+        // @phpstan-ignore staticMethod.alreadyNarrowedType
         static::assertTrue(true);
     }
 }

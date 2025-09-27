@@ -19,7 +19,7 @@ class PhpVersionTraitTest extends TestCase
 {
     use PhpVersionTrait;
 
-    private function validateResult(string $checkVersion, bool $expected):void
+    private function validateResult(string $checkVersion, bool $expected): void
     {
         $actual = $this->isPhpGreater($checkVersion);
         static::assertEquals($expected, $actual);

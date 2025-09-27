@@ -29,9 +29,9 @@ trait ToStringTrait
      */
     public function __toString()
     {
-        /* @phpstan-ignore function.alreadyNarrowedType */
+        // @phpstan-ignore function.alreadyNarrowedType
         if (method_exists($this, '__toStringValues')) {
-            $toString = sprintf('[%s:{%s}]', get_class($this), $this->arrayRecImplode(',', $this->__toStringValues(), false, true));
+            $toString = sprintf('[%s:{%s}]', get_class($this), $this->implodeRecursive(',', $this->__toStringValues(), false, true));
         } else {
             $toString = sprintf('[%s:{%s}]', get_class($this), '');
         }
@@ -45,12 +45,5 @@ trait ToStringTrait
     public function __wakeup()
     {
         throw new \BadMethodCallException("Cannot unserialize singleton");
-    }
-
-    /**
-     * @inheritdoc
-     */
-    private function __clone()
-    {
     }
 }
