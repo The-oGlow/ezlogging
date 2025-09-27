@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImplodeTraitTest extends TestCase
 {
+    /** @var ImplodeTraitTestClazz */
     private $o2t;
 
     protected function setUp(): void
@@ -25,24 +26,27 @@ class ImplodeTraitTest extends TestCase
         $this->o2t = new ImplodeTraitTestClazz();
     }
 
-    public function testImplodeDefault()
+    public function testImplodeDefault():void
     {
         $actual = $this->o2t->implodeDefault();
         static::assertNotEmpty($actual);
+        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
         static::assertIsString($actual);
     }
 
-    public function testImplodeCustom()
+    public function testImplodeCustom():void
     {
         $actual = $this->o2t->implodeCustom();
         static::assertNotEmpty($actual);
+        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
         static::assertIsString($actual);
     }
 
-    public function testImplodeObjectCustom()
+    public function testImplodeObjectCustom():void
     {
         $actual = $this->o2t->implodeObjectCustom();
         static::assertNotEmpty($actual);
+        /* @phpstan-ignore staticMethod.alreadyNarrowedType */
         static::assertIsString($actual);
     }
 }
@@ -67,8 +71,10 @@ class ImplodeTraitTestClazz
 
     public const SEP = '#';
 
+    /** @var array<mixed,mixed> */
     public $anydata = ['first' => 'a', 'second' => [1, 2]];
 
+    /** @var array<mixed,mixed> */
     public $anydata2 = [];
 
     public function __construct()
@@ -77,17 +83,17 @@ class ImplodeTraitTestClazz
         $this->anydata2[] = [10 => new ImplodeTraitTestObject(),20 => new ImplodeTraitTestObject()];
     }
 
-    public function implodeDefault(): string
+    public function implodeDefault(): ?string
     {
         return $this->arrayRecImplode(self::SEP, $this->anydata);
     }
 
-    public function implodeCustom(): string
+    public function implodeCustom(): ?string
     {
         return $this->arrayRecImplode(self::SEP, $this->anydata, true, true);
     }
 
-    public function implodeObjectCustom(): string
+    public function implodeObjectCustom(): ?string
     {
         return $this->arrayRecImplode(self::SEP, $this->anydata2, true, true);
     }

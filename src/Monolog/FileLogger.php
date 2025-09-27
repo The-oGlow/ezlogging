@@ -44,11 +44,20 @@ class FileLogger extends ConsoleLogger
         );
     }
 
+    /**
+     * @param string $pathToFile
+     * @param string $fileName
+     *
+     * @return StreamHandler
+     */
     protected function getFileHandler(string $pathToFile, string $fileName): StreamHandler
     {
         return new FileHandler($pathToFile, $fileName);
     }
 
+    /**
+     * @return string
+     */
     public function getFileName(): string
     {
         $fileName = '';

@@ -48,7 +48,8 @@ trait TraitForAbstractEasyGoingLogger
         $handlers = $this->callMethodOnO2t('getHandlers');
         static::assertNotEmpty($handlers);
         static::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
-        if ($this->o2t instanceof ConsoleLogger) {
+        /** @phpstan-ignore  instanceof.alwaysTrue, instanceof.alwaysFalse,isset.property,booleanAnd.alwaysFalse,booleanAnd.alwaysTrue */
+        if (isset($this->o2t) && $this->o2t instanceof ConsoleLogger) {
             static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
         }
     }

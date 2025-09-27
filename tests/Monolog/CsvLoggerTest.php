@@ -39,7 +39,9 @@ class CsvLoggerTest extends TestCase
     public function tearDown(): void
     {
         if (file_exists($this->fileName)) {
+            echo "\n\nContent of '$this->fileName'\n";
             echo file_get_contents($this->fileName);
+            echo "\n";
             unlink($this->fileName);
         }
         parent::tearDown();

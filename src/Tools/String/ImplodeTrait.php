@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String;
 
+use ArrayAccess;
+use iterable;
+
 trait ImplodeTrait
 {
     /**
@@ -34,7 +37,7 @@ trait ImplodeTrait
         $sepChar = $textSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
-        if (is_array($anyData) || is_object($anyData)) {
+        if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
             foreach ($anyData as $key => $value) {
                 $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {

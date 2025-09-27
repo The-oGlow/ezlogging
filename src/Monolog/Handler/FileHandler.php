@@ -33,16 +33,16 @@ class FileHandler extends StreamHandler
             $pathToFile = self::$tmpDir;
         }
         if (is_null($fileName) || empty($fileName)) {
-            $fileName = self::STANDARD_FILENAME;
+            $fileName = static::STANDARD_FILENAME;
         }
 
-        return $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
+        return $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . static::STANDARD_FILEEXT);
     }
 
     public function __construct(?string $pathToFile = null, ?string $fileName = null)
     {
         self::$tmpDir   = sys_get_temp_dir();
-        $this->fileName = static::prepareFileName($pathToFile, $fileName);
+        $this->fileName = self::prepareFileName($pathToFile, $fileName);
         parent::__construct($this->fileName);
     }
 
