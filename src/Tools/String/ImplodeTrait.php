@@ -85,20 +85,23 @@ trait ImplodeTrait
      *          Flatten a multidimensional array to one dimension, optionally preserving keys.
      * Original found on {@link https://stackoverflow.com/a/526633}.
      *
-     * @param array          <mixed,mixed> $array         the array to flatten
-     * @param int                          $preserve_keys 0 (default) to not preserve keys, 1 to preserve string keys only, 2 to preserve all keys
-     * @param array          <mixed,mixed> $out           internal use argument for recursion
+     * @param array<mixed,mixed> $array        the array to flatten
+     * @param int                $preserveKeys 0 (default) to not preserve keys, 1 to preserve string keys only, 2 to preserve all keys
+     * @param array<mixed,mixed> $out          internal use argument for recursion
      *
      * @return array<mixed,mixed>
      *
      * @see https://stackoverflow.com/a/526633
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseParameterName")
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    public function array_flatten(array $array, int $preserve_keys = 0, array &$out = []): array // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function array_flatten(array $array, int $preserveKeys = 0, array &$out = []): array // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     {
         foreach ($array as $key => $child) {
             if (is_array($child)) {
-                $out = $this->array_flatten($child, $preserve_keys, $out);
-            } elseif ($preserve_keys + (int)is_string($key) > 1) {
+                $out = $this->array_flatten($child, $preserveKeys, $out);
+            } elseif ($preserveKeys + (int)is_string($key) > 1) {
                 $out[$key] = $child;
             } else {
                 $out[] = $child;
