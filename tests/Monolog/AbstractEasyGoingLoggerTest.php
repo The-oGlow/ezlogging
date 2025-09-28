@@ -97,7 +97,7 @@ class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger // NOSONA
 
 class AbstractEasyGoingLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
+    use TraitTestAbstractEasyGoingLogger;
 
     /** @var AbstractEasyGoingLoggerTestClazz */
     private $o2t;

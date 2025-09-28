@@ -23,8 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 class FileLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
-    use TraitForStreamHandler;
+    use TraitTestAbstractEasyGoingLogger;
+    use TraitTestFileLogger;
 
     /** @var FileLogger */
     private $o2t;

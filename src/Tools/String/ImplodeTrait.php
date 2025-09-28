@@ -38,7 +38,12 @@ trait ImplodeTrait
         $output   = '';
         $valueIdx = 0;
         if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
+            /**
+             * @psalm-suppress PossibleRawObjectIteration,PossiblyInvalidIterator
+             * @phpstan-ignore foreach.nonIterable
+             */
             foreach ($anyData as $key => $value) {
+                // @phpstan-ignore ternary.condNotBoolean
                 $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
                 if (is_array($value)) {
                     $arrOutput = $this->implodeRecursive($separator, $value, $textSep, $displayKeys);
@@ -56,7 +61,7 @@ trait ImplodeTrait
                             $output .= '{}';
                         }
                     } else {
-                        $output .= $sepChar . $value . $sepChar;
+                        $output .= $sepChar . ((string) $value) . $sepChar;
                     }
                 }
                 $valueIdx++;
@@ -93,7 +98,7 @@ trait ImplodeTrait
         foreach ($array as $key => $child) {
             if (is_array($child)) {
                 $out = $this->array_flatten($child, $preserve_keys, $out);
-            } elseif ($preserve_keys + is_string($key) > 1) {
+            } elseif ($preserve_keys + (int)is_string($key) > 1) {
                 $out[$key] = $child;
             } else {
                 $out[] = $child;

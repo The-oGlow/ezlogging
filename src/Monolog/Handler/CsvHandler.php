@@ -32,17 +32,19 @@ class CsvHandler extends FileHandler
     use PhpVersionTrait;
     use ImplodeTrait;
 
+    /** @var string */
     public const    STANDARD_FILENAME = 'noCSVName';
 
-    public const    STANDARD_FILEEXT = '.csv';
+    /** @var string */
+    public const    STANDARD_FILEEXT     = '.csv';
 
-    public const    STANDARD_ITEM_SEP = ';';
+    public const    STANDARD_ITEM_SEP    = ';';
 
-    public const    STANDARD_TEXT_SEP = '"';
+    public const    STANDARD_TEXT_SEP    = '"';
 
     public const    STANDARD_ESCAPE_CHAR = '\\';
 
-    protected const KEY_FORMATTED = 'formatted';
+    protected const KEY_FORMATTED        = 'formatted';
 
     /** @var string */
     private $itemSeparator;
@@ -78,23 +80,29 @@ class CsvHandler extends FileHandler
     protected function streamWrite($stream, array $record): void
     {
         $output = [];
+        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
             array_push($output, $record[self::KEY_MESSAGE]);
         }
 
+        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
-            //            echo "\ncontext\n";
-            //            var_dump( $record['context']);
+            //                        echo "\ncontext\n";
+            //                        var_dump( $record['context']);
             $implodeContext = $record[self::KEY_CONTEXT];
+            /**
+             * @psalm-suppress RedundantCondition
+             * @phpstan-ignore if.alwaysTrue
+             */
             if (is_array($record[self::KEY_CONTEXT])) {
                 $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
             }
-            //            echo "\nimplode\n";
-            //            var_dump($implodeContext);
+            //                        echo "\nimplode\n";
+            //                        var_dump($implodeContext);
             $output = array_merge($output, $implodeContext);
         }
-        //        echo "\nformatted\n";
-        //        var_dump(($output));
+        //                echo "\nformatted\n";
+        //                var_dump(($output));
         if ($this->isPhpGreater('5.5.4')) {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure, static::STANDARD_ESCAPE_CHAR);
         } else {

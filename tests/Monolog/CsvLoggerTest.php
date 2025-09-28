@@ -21,8 +21,8 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class CsvLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
-    use TraitForStreamHandler;
+    use TraitTestAbstractEasyGoingLogger;
+    use TraitTestFileLogger;
 
     /** @var CsvLogger */
     private $o2t;
@@ -30,7 +30,7 @@ class CsvLoggerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->o2t      = new CsvLogger(self::class, sys_get_temp_dir());
+        $this->o2t = new CsvLogger(self::class, sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
     }
 
@@ -42,5 +42,23 @@ class CsvLoggerTest extends TestCase
         static::assertCount(2, $handlers);
         static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
         static::assertInstanceOf(CsvHandler::class, $handlers[1]);
+    }
+
+    public function testWriteHeader(): void
+    {
+        $expectedHeader = ['col1', 'col2', 'col3'];
+
+        $csvLogger         = new CsvLogger('LoggerWithHeader', sys_get_temp_dir(), $expectedHeader);
+        $csvLoggerFileName = $csvLogger->getFileName();
+
+        if (file_exists($csvLoggerFileName)) {
+            $csvLoggerContent = str_replace("\n", '', file_get_contents($csvLoggerFileName)); // @phpstan-ignore argument.type
+            /** @psalm-suppress ArgumentTypeCoercion */
+            $actualHeader = explode($csvLogger->getItemSeparator(), $csvLoggerContent);
+            unlink($csvLoggerFileName);
+            static::assertEquals($expectedHeader, $actualHeader);
+        } else {
+            static::fail('File not created: ' . $csvLoggerFileName);
+        }
     }
 }

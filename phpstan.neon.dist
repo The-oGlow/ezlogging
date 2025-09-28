@@ -12,6 +12,14 @@ parameters:
 
     ignoreErrors:
         -
+            identifier: method.notFound
+            paths:
+                - tests/Monolog/TraitTestFileLogger.php
+        -
+            identifier: staticMethod.alreadyNarrowedType
+            paths:
+                - tests/Monolog/TraitTestFileLogger.php
+        -
             identifier: method.childReturnType
             paths:
                 - src/Monolog/Processor/PaddingProcessor.php

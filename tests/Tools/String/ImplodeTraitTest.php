@@ -30,7 +30,11 @@ class ImplodeTraitTest extends TestCase
     {
         $actual = $this->o2t->implodeDefault();
         static::assertNotEmpty($actual);
-        // @phpstan-ignore staticMethod.alreadyNarrowedType
+
+        /**
+         * @psalm-suppress RedundantConditionGivenDocblockType
+         * @phpstan-ignore staticMethod.alreadyNarrowedType
+         */
         static::assertIsString($actual);
     }
 
@@ -38,7 +42,10 @@ class ImplodeTraitTest extends TestCase
     {
         $actual = $this->o2t->implodeCustom();
         static::assertNotEmpty($actual);
-        // @phpstan-ignore staticMethod.alreadyNarrowedType
+        /**
+         * @psalm-suppress RedundantConditionGivenDocblockType
+         * @phpstan-ignore staticMethod.alreadyNarrowedType
+         */
         static::assertIsString($actual);
     }
 
@@ -46,7 +53,10 @@ class ImplodeTraitTest extends TestCase
     {
         $actual = $this->o2t->implodeObjectCustom();
         static::assertNotEmpty($actual);
-        // @phpstan-ignore staticMethod.alreadyNarrowedType
+        /**
+         * @psalm-suppress RedundantConditionGivenDocblockType
+         * @phpstan-ignore staticMethod.alreadyNarrowedType
+         */
         static::assertIsString($actual);
     }
 }
@@ -80,7 +90,7 @@ class ImplodeTraitTestClazz
     public function __construct()
     {
         $this->anydata2[] = new ImplodeTraitTestObject();
-        $this->anydata2[] = [10 => new ImplodeTraitTestObject(),20 => new ImplodeTraitTestObject()];
+        $this->anydata2[] = [10 => new ImplodeTraitTestObject(), 20 => new ImplodeTraitTestObject()];
     }
 
     public function implodeDefault(): ?string

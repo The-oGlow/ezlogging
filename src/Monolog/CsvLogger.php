@@ -23,6 +23,11 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
 use Stringable;
 
+/**
+ * Class CsvLogger.
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class CsvLogger extends FileLogger
 {
     /** @var string */
@@ -31,18 +36,17 @@ class CsvLogger extends FileLogger
     /** @var string */
     private $itemEnclosure;
 
-    /** @var array<string>
-     * @phpstan-ignore property.onlyWritten */
+    /** @var array<string> */
     private $header;
 
     /**
      * CsvLogger constructor.
      *
-     * @param string       $name
-     * @param string       $pathToFile
-     * @param array<mixed> $header
-     * @param string       $itemSeparator
-     * @param string       $itemEnclosure
+     * @param string        $name
+     * @param string        $pathToFile
+     * @param array<string> $header
+     * @param string        $itemSeparator
+     * @param string        $itemEnclosure
      */
     public function __construct(
         string $name,
@@ -53,7 +57,7 @@ class CsvLogger extends FileLogger
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
-        $this->header = $header;
+        $this->header        = $header;
         parent::__construct($name, $pathToFile, [], [], null);
         $this->writeHeader($this->header);
     }
@@ -63,9 +67,25 @@ class CsvLogger extends FileLogger
      */
     protected function writeHeader(array $header): void
     {
-        if (!empty($header) && is_array($header)) {
+        if (!empty($header)) {
             $this->out('', $header);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getItemSeparator(): string
+    {
+        return $this->itemSeparator;
+    }
+
+    /**
+     * @return string
+     */
+    public function getItemEnclosure(): string
+    {
+        return $this->itemEnclosure;
     }
 
     /**
@@ -96,89 +116,19 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @param string $message
-     * @param array  $context
+     * @param string             $message
+     * @param array<mixed>|mixed ...$context
      */
     public function out(string $message, ...$context): void
     {
-        parent::info($message, $context);
-    }
-
-    /**
-     * @param mixed             $level
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function log($level, $message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function emergency($message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function alert($message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function warning($message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function notice($message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function info($message, array $context = []): void
-    {
-        $this->out($message, $context);
-    }
-
-    /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function debug($message, array $context = []): void
-    {
-        $this->out($message, $context);
+        /**
+         * @psalm-suppress TypeDoesNotContainType
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
+        if (!is_array($context)) {
+            parent::info($message, [$context]);
+        } else {
+            parent::info($message, $context);
+        }
     }
 }

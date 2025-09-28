@@ -20,7 +20,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class DoNothingLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
+    use TraitTestAbstractEasyGoingLogger;
 
     /** @var DoNothingLogger */
     private $o2t;

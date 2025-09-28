@@ -21,7 +21,7 @@ use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\PlainProcessor;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
-trait TraitForAbstractEasyGoingLogger
+trait TraitTestAbstractEasyGoingLogger
 {
     use UnavailableMethodsTrait;
 
@@ -42,13 +42,17 @@ trait TraitForAbstractEasyGoingLogger
 
         $actualClazz = get_class($this->o2t);
 
+        /** @psalm-suppress RedundantCondition */
         static::assertNotFalse($actualClazz);
         static::assertContains($actualClazz, $expectedClazz);
 
         $handlers = $this->callMethodOnO2t('getHandlers');
         static::assertNotEmpty($handlers);
         static::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
-        /** @phpstan-ignore  instanceof.alwaysTrue, instanceof.alwaysFalse,isset.property,booleanAnd.alwaysFalse,booleanAnd.alwaysTrue */
+        /**
+         * @psalm-suppress RedundantConditionGivenDocblockType,RedundantPropertyInitializationCheck
+         * @phpstan-ignore instanceof.alwaysTrue, instanceof.alwaysFalse,isset.property,booleanAnd.alwaysFalse,booleanAnd.alwaysTrue
+         */
         if (isset($this->o2t) && $this->o2t instanceof ConsoleLogger) {
             static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
         }
