@@ -53,6 +53,9 @@ trait TraitTestFileLogger
         parent::tearDown();
     }
 
+    /**
+     * var FL $this->o2t
+     */
     public function testFileCreated(): void
     {
         tCase::assertNotEmpty(self::$fileName);
@@ -169,7 +172,6 @@ trait TraitTestFileLogger
 
         foreach ($loggerMethods as $loggerMethod) {
             if ($this->isExists($loggerMethod)) {
-                // @phpstan-ignore method.dynamicName
                 $this->o2t->$loggerMethod($this->currentTestMethod() . $this->MESSAGE_1 . '-' . $loggerMethod, $this->COMPLEX_CONTEXT);
             }
         }

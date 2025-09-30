@@ -5,34 +5,86 @@ parameters:
         - src/
         - tests/
 
+    checkStrictPrintfPlaceholderTypes: false
+
     strictRules:
-        # too strict
+        # Too strict -> disabled
         disallowedEmpty: false
         disallowedLooseComparison: false
 
     ignoreErrors:
+        # Too strict -> disabled
+        -
+            identifier: booleanAnd.alwaysFalse
+            paths:
+                - tests/*/Trait*.php
+        -
+            identifier: booleanAnd.alwaysTrue
+            paths:
+                - tests/*/Trait*.php
+        -
+            identifier: function.alreadyNarrowedType
+            paths:
+                - src/*/*Trait.php
+        -
+            identifier: instanceof.alwaysFalse
+            paths:
+                - tests/*/Trait*.php
+        -
+            identifier: instanceof.alwaysTrue
+            paths:
+                - tests/*/Trait*.php
+        -
+            identifier: isset.property
+            paths:
+                - src/*/*Trait.php
+                - tests/*/Trait*.php
+        -
+            identifier: method.dynamicName
+            paths:
+                - tests/*/Trait*.php
+                - tests/*/*Test.php
         -
             identifier: method.notFound
             paths:
-                - tests/Monolog/TraitTestFileLogger.php
+                - tests/*/Trait*.php
+        -
+            identifier: method.unused
+            paths:
+                - tests/*/*Test.php
+        -
+            identifier: property.notFound
+            paths:
+                - src/*/*Trait.php
+        -
+            identifier: property.onlyWritten
+            paths:
+                - tests/*/*Test.php
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:
-                - tests/Monolog/TraitTestFileLogger.php
+                - tests/*/Trait*.php
+                - tests/*/*Test.php
+
+        # Custom
+        -
+            identifier: constructor.unusedParameter
+            paths:
+                - src\Monolog\Formatter\EasyGoingFormatter.php
+                - src\Monolog\Formatter\PlainFormatter.php
+        -
+            identifier: if.alwaysTrue
+            paths:
+                - src\Monolog\Handler\CsvHandler.php
+        -
+            identifier: isset.offset
+            paths:
+                - src\Monolog\Handler\CsvHandler.php
         -
             identifier: method.childReturnType
             paths:
                 - src/Monolog/Processor/PaddingProcessor.php
                 - src/Monolog/Processor/PlainProcessor.php
-        -
-            identifier: property.onlyWritten
-            paths:
-                - tests/Tools/Reflection/UnavailableFieldsTraitTest.php
-                - tests/Tools/Reflection/UnavailableMethodsTraitTest.php
-        -
-            identifier: method.unused
-            paths:
-                - tests/Tools/Reflection/UnavailableMethodsTraitTest.php
 
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon

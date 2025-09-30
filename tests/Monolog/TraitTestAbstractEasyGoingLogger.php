@@ -51,7 +51,6 @@ trait TraitTestAbstractEasyGoingLogger
         static::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType,RedundantPropertyInitializationCheck
-         * @phpstan-ignore instanceof.alwaysTrue, instanceof.alwaysFalse,isset.property,booleanAnd.alwaysFalse,booleanAnd.alwaysTrue
          */
         if (isset($this->o2t) && $this->o2t instanceof ConsoleLogger) {
             static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);

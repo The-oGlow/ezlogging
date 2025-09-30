@@ -121,7 +121,6 @@ class PlainLoggerTest extends TestCase
         try {
             foreach ($logMethods as $logMethod) {
                 $msg = "logging with '$logMethod'" . (empty($context) ? '' : ' & a context');
-                // @phpstan-ignore method.dynamicName
                 $this->o2t->$logMethod($msg, $context);
                 $result = true;
             }

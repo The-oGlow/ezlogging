@@ -34,7 +34,6 @@ class EasyGoingFormatter extends LineFormatter
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      * @SuppressWarnings("PHPMD.LongVariable")
      *
-     * @phpstan-ignore-next-line constructor.unusedParameter
      */
     public function __construct(
         $format = self::FORMATTER_OUTPUT,

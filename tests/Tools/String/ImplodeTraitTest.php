@@ -33,7 +33,6 @@ class ImplodeTraitTest extends TestCase
 
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType
-         * @phpstan-ignore staticMethod.alreadyNarrowedType
          */
         static::assertIsString($actual);
     }
@@ -44,7 +43,6 @@ class ImplodeTraitTest extends TestCase
         static::assertNotEmpty($actual);
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType
-         * @phpstan-ignore staticMethod.alreadyNarrowedType
          */
         static::assertIsString($actual);
     }
@@ -55,7 +53,6 @@ class ImplodeTraitTest extends TestCase
         static::assertNotEmpty($actual);
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType
-         * @phpstan-ignore staticMethod.alreadyNarrowedType
          */
         static::assertIsString($actual);
     }
