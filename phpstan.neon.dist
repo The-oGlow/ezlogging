@@ -26,6 +26,11 @@ parameters:
             identifier: function.alreadyNarrowedType
             paths:
                 - src/*/*Trait.php
+                - tests/*/Trait*.php
+        -
+            identifier: function.impossibleType
+            paths:
+                - tests/*/Trait*.php
         -
             identifier: instanceof.alwaysFalse
             paths:
@@ -56,6 +61,7 @@ parameters:
             identifier: property.notFound
             paths:
                 - src/*/*Trait.php
+                - tests/*/Trait*.php
         -
             identifier: property.onlyWritten
             paths:

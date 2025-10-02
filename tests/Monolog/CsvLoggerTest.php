@@ -24,13 +24,19 @@ class CsvLoggerTest extends TestCase
     use TraitTestAbstractEasyGoingLogger;
     use TraitTestFileLogger;
 
+    public const TEST_MSG = 'Message';
+
+    public const TEST_CONTEXT_STRING = 'ContextString';
+
+    public const TEST_CONTEXT_ARRAY = ['Context01', 'Context02'];
+
     /** @var CsvLogger */
     private $o2t;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->o2t = new CsvLogger(self::class, sys_get_temp_dir());
+        $this->o2t      = new CsvLogger(uniqid(self::class, true) . '-', sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
     }
 
@@ -60,5 +66,49 @@ class CsvLoggerTest extends TestCase
         } else {
             static::fail('File not created: ' . $csvLoggerFileName);
         }
+    }
+
+    public function testGetItemEnclosure(): void
+    {
+        $actual = $this->o2t->getItemEnclosure();
+        static::assertEquals(CsvHandler::STANDARD_TEXT_SEP, $actual);
+    }
+
+    public function testGetItemSeparator(): void
+    {
+        $actual = $this->o2t->getItemSeparator();
+        static::assertEquals(CsvHandler::STANDARD_ITEM_SEP, $actual);
+    }
+
+    public function testOutWithMessageOnly(): void
+    {
+        $message  = self::TEST_MSG;
+        $expected = '/.*^' . self::TEST_MSG . '$.*/m';
+
+        $this->o2t->out($message);
+
+        static::expectOutputRegex($expected);
+    }
+
+    public function testOutWithMessageAndContextString(): void
+    {
+        $message  = self::TEST_MSG;
+        $context  = self::TEST_CONTEXT_STRING;
+        $expected = '/.*^' . self::TEST_MSG . ';' . self::TEST_CONTEXT_STRING . '$.*/m';
+
+        $this->o2t->out($message, $context);
+
+        static::expectOutputRegex($expected);
+    }
+
+    public function testOutWithMessageAndContextArray(): void
+    {
+        $message  = self::TEST_MSG;
+        $context  = self::TEST_CONTEXT_ARRAY;
+        $expected = '/.*^' . self::TEST_MSG . ';' . implode(';', self::TEST_CONTEXT_ARRAY) . '$.*/m';
+
+        $this->o2t->out($message, $context);
+
+        static::expectOutputRegex($expected);
     }
 }

@@ -85,8 +85,6 @@ class CsvHandler extends FileHandler
         }
 
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
-            //                        echo "\ncontext\n";
-            //                        var_dump( $record['context']);
             $implodeContext = $record[self::KEY_CONTEXT];
             /**
              * @psalm-suppress RedundantCondition
@@ -94,12 +92,8 @@ class CsvHandler extends FileHandler
             if (is_array($record[self::KEY_CONTEXT])) {
                 $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
             }
-            //                        echo "\nimplode\n";
-            //                        var_dump($implodeContext);
             $output = array_merge($output, $implodeContext);
         }
-        //                echo "\nformatted\n";
-        //                var_dump(($output));
         if ($this->isPhpGreater('5.5.4')) {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure, static::STANDARD_ESCAPE_CHAR);
         } else {

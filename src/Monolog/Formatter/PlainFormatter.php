@@ -33,7 +33,6 @@ class PlainFormatter extends LineFormatter
      * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      * @SuppressWarnings("PHPMD.LongVariable")
-     *
      */
     public function __construct(
         $format = self::FORMATTER_OUTPUT,

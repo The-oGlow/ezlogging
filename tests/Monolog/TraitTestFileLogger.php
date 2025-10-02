@@ -14,23 +14,44 @@ declare(strict_types=1);
 namespace Monolog;
 
 use Monolog\Test\TestCase as tCase;
+use ollily\Tools\String\ImplodeTrait;
 
 trait TraitTestFileLogger
 {
-    /** @var string */
-    private $MESSAGE_1       = '-message 1';
+    use ImplodeTrait;
 
     /** @var string */
-    private $MESSAGE_2       = 'message 2';
+    private $MESSAGE_1 = '-message 1';
 
     /** @var string */
-    private $MESSAGE_3       = 'message 3';
+    private $MESSAGE_2 = 'message 2';
+
+    /** @var string */
+    private $MESSAGE_3 = 'message 3';
 
     /** @var array<mixed,mixed> */
-    private $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub 401']]];
+    private $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
 
     /** @var string */
-    private $methodName      = 'out';
+    private $STANDARD_ITEM_SEP = ';';
+
+    /** @var string */
+    private $IMPLODE_SEP = '";"';
+
+    /** @var string */
+    private $PH_CNTX = '#CNTX#';
+
+    /** @var string */
+    private $PH_MSG = '#MSG#';
+
+    /** @var string */
+    private $REGEX_MSG = '/.*^"#MSG#"$.*/m';
+
+    /** @var string */
+    private $REGEX_MSG_N_CNTX = '/.*^("|)#MSG#("|);("|)#CNTX#("|)$.*/m';
+
+    /** @var string */
+    private $methodName = 'out';
 
     /** @var string */
     private static $fileName;
@@ -50,11 +71,12 @@ trait TraitTestFileLogger
             echo file_get_contents(self::$fileName);
             echo "\n";
         }
+        static::tearDownAfterClass();
         parent::tearDown();
     }
 
     /**
-     * var FL $this->o2t
+     * var FL $this->o2t.
      */
     public function testFileCreated(): void
     {
@@ -79,8 +101,15 @@ trait TraitTestFileLogger
     private function isExists(?string $methodName = null): bool
     {
         $methodName = $methodName ?? $this->methodName;
+        $exists     = method_exists($this->o2t, $methodName);
+        if (!$exists) {
+            if (isset($this->logger)) {
+                $this->logger->warning('Method not exists: ', [$this->methodName]);
+            }
+            static::fail('Method not exists: ' . $this->methodName);
+        }
 
-        return method_exists($this->o2t, $methodName);
+        return $exists;
     }
 
     /**
@@ -88,24 +117,32 @@ trait TraitTestFileLogger
      */
     public function testWriteMessage(): void
     {
+        $message = $this->MESSAGE_1;
         if ($this->isExists()) {
-            $this->o2t->out($this->currentTestMethod() . $this->MESSAGE_1);
-            echo "1";
+            $renderMessage = $this->currentTestMethod() . $message;
+            $this->o2t->out($renderMessage);
+            $this->expectOutputRegex(str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG));
         }
-        echo "2";
-
-        tCase::assertTrue(true);
     }
 
     /**
-     * @psalm-suppress UndefinedMethod
+     * @psalm-suppress UndefinedMethod,DocblockTypeContradiction,NoValue,RedundantConditionGivenDocblockType
      */
     public function testWriteTwoMessages(): void
     {
+        $message = $this->MESSAGE_1;
+        $context = $this->MESSAGE_2;
         if ($this->isExists()) {
-            $this->o2t->out($this->currentTestMethod() . $this->MESSAGE_1, $this->MESSAGE_2);
+            $renderMessage = $this->currentTestMethod() . $message;
+            $this->o2t->out($renderMessage, $context);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_CNTX,
+                    (is_array($context) ? implode($this->STANDARD_ITEM_SEP, $context) : $context),
+                    str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX)
+                )
+            );
         }
-        tCase::assertTrue(true);
     }
 
     /**
@@ -113,54 +150,102 @@ trait TraitTestFileLogger
      */
     public function testWriteThreeMessages(): void
     {
+        $message  = $this->MESSAGE_1;
+        $context  = $this->MESSAGE_2;
+        $context2 = $this->MESSAGE_3;
         if ($this->isExists()) {
-            $this->o2t->out($this->currentTestMethod() . $this->MESSAGE_1, $this->MESSAGE_2, $this->MESSAGE_3);
+            $renderMessage = $this->currentTestMethod() . $message;
+            $this->o2t->out($renderMessage, $context, $context2);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_CNTX,
+                    implode($this->IMPLODE_SEP, [$context, $context2]),
+                    str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX)
+                )
+            );
         }
-        tCase::assertTrue(true);
+    }
+
+    /**
+     * @psalm-suppress UndefinedMethod,TypeDoesNotContainType,NoValue,RedundantCondition
+     */
+    public function testWriteSimpleContextEmptyMessage(): void
+    {
+        $message = '';
+        $context = $this->MESSAGE_1;
+        if ($this->isExists()) {
+            $renderContext = $this->currentTestMethod() . $context;
+            $this->o2t->out($message, $renderContext);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_MSG,
+                    (is_array($renderContext) ? implode($this->STANDARD_ITEM_SEP, $renderContext) : $renderContext),
+                    $this->REGEX_MSG
+                )
+            );
+        }
     }
 
     /**
      * @psalm-suppress UndefinedMethod
      */
-    public function testWriteSimpleContext(): void
+    public function testWriteContextEmptyMessage(): void
     {
+        $message  = '';
+        $context  = $this->MESSAGE_1;
+        $context2 = $this->MESSAGE_2;
+        $context3 = $this->MESSAGE_3;
         if ($this->isExists()) {
-            $this->o2t->out('', $this->currentTestMethod() . $this->MESSAGE_1);
+            $renderContext = $this->currentTestMethod() . $context;
+            $this->o2t->out($message, $renderContext, $context2, $context3);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_MSG,
+                    implode($this->IMPLODE_SEP, [$renderContext, $context2, $context3]),
+                    $this->REGEX_MSG
+                )
+            );
         }
-        tCase::assertTrue(true);
     }
 
     /**
-     * @psalm-suppress UndefinedMethod
-     */
-    public function testWriteContext(): void
-    {
-        if ($this->isExists()) {
-            $this->o2t->out('', $this->currentTestMethod() . $this->MESSAGE_1, $this->MESSAGE_2, $this->MESSAGE_3);
-        }
-        tCase::assertTrue(true);
-    }
-
-    /**
-     * @psalm-suppress UndefinedMethod
+     * @psalm-suppress UndefinedMethod,RedundantConditionGivenDocblockType,DocblockTypeContradiction,RedundantCondition
      */
     public function testWriteComplexContext(): void
     {
+        $message = $this->MESSAGE_1;
+        $context = $this->COMPLEX_CONTEXT;
         if ($this->isExists()) {
-            $this->o2t->out($this->currentTestMethod() . $this->MESSAGE_1, $this->COMPLEX_CONTEXT);
+            $renderMessage = $this->currentTestMethod() . $message;
+            $this->o2t->out($renderMessage, $context);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_CNTX,
+                    (is_array($context) ? implode($this->STANDARD_ITEM_SEP, $this->array_flatten($context)) : $context),
+                    str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX)
+                )
+            );
         }
-        tCase::assertTrue(true);
     }
 
     /**
-     * @psalm-suppress UndefinedMethod
+     * @psalm-suppress UndefinedMethod,RedundantCondition,TypeDoesNotContainType
      */
     public function testWriteMessageAndContext(): void
     {
+        $message = $this->MESSAGE_1;
+        $context = [$this->MESSAGE_2, $this->MESSAGE_3];
         if ($this->isExists()) {
-            $this->o2t->out($this->currentTestMethod() . $this->MESSAGE_1, [$this->MESSAGE_2, $this->MESSAGE_3]);
+            $renderMessage = $this->currentTestMethod() . $message;
+            $this->o2t->out($renderMessage, $context);
+            $this->expectOutputRegex(
+                str_replace(
+                    $this->PH_CNTX,
+                    (is_array($context) ? implode($this->IMPLODE_SEP, $context) : $context),
+                    str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX)
+                )
+            );
         }
-        tCase::assertTrue(true);
     }
 
     /**

@@ -63,6 +63,23 @@ class CsvLogger extends FileLogger
     }
 
     /**
+     * @param string             $message
+     * @param array<mixed>|mixed ...$context
+     */
+    public function out(string $message, ...$context): void
+    {
+        /**
+         * @psalm-suppress TypeDoesNotContainType
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
+        if (!is_array($context)) {
+            parent::info($message, [$context]);
+        } else {
+            parent::info($message, $context);
+        }
+    }
+
+    /**
      * @param array<string> $header
      */
     protected function writeHeader(array $header): void
@@ -113,22 +130,5 @@ class CsvLogger extends FileLogger
         $handler->setFormatter($this->getDefaultFormatter());
 
         return $handler;
-    }
-
-    /**
-     * @param string             $message
-     * @param array<mixed>|mixed ...$context
-     */
-    public function out(string $message, ...$context): void
-    {
-        /**
-         * @psalm-suppress TypeDoesNotContainType
-         * @phpstan-ignore function.alreadyNarrowedType
-         */
-        if (!is_array($context)) {
-            parent::info($message, [$context]);
-        } else {
-            parent::info($message, $context);
-        }
     }
 }
