@@ -1,6 +1,11 @@
 parameters:
     level: 8
 
+    parallel:
+        jobSize: 10
+        maximumNumberOfProcesses: 32
+        minimumNumberOfJobsPerProcess: 4
+
     paths:
         - src/
         - tests/
@@ -17,42 +22,40 @@ parameters:
         -
             identifier: booleanAnd.alwaysFalse
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: booleanAnd.alwaysTrue
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: function.alreadyNarrowedType
             paths:
-                - src/*/*Trait.php
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: function.impossibleType
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: instanceof.alwaysFalse
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: instanceof.alwaysTrue
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: isset.property
             paths:
-                - src/*/*Trait.php
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: method.dynamicName
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
                 - tests/*/*Test.php
         -
             identifier: method.notFound
             paths:
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: method.unused
             paths:
@@ -60,8 +63,7 @@ parameters:
         -
             identifier: property.notFound
             paths:
-                - src/*/*Trait.php
-                - tests/*/Trait*.php
+                - tests/*/*TestTrait.php
         -
             identifier: property.onlyWritten
             paths:
@@ -69,8 +71,7 @@ parameters:
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:
-                - tests/*/Trait*.php
-                - tests/*/*Test.php
+                - tests/*/*TestTrait.php
 
         # Custom
         -
@@ -78,19 +79,6 @@ parameters:
             paths:
                 - src\Monolog\Formatter\EasyGoingFormatter.php
                 - src\Monolog\Formatter\PlainFormatter.php
-        -
-            identifier: if.alwaysTrue
-            paths:
-                - src\Monolog\Handler\CsvHandler.php
-        -
-            identifier: isset.offset
-            paths:
-                - src\Monolog\Handler\CsvHandler.php
-        -
-            identifier: method.childReturnType
-            paths:
-                - src/Monolog/Processor/PaddingProcessor.php
-                - src/Monolog/Processor/PlainProcessor.php
 
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon

@@ -80,14 +80,17 @@ class CsvHandler extends FileHandler
     protected function streamWrite($stream, array $record): void
     {
         $output = [];
+        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
             array_push($output, $record[self::KEY_MESSAGE]);
         }
 
+        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
             $implodeContext = $record[self::KEY_CONTEXT];
             /**
              * @psalm-suppress RedundantCondition
+             * @phpstan-ignore if.alwaysTrue
              */
             if (is_array($record[self::KEY_CONTEXT])) {
                 $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);

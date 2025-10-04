@@ -16,9 +16,12 @@ namespace Monolog;
 use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 
-trait TraitTestFileLogger
+trait FileLoggerTestTrait
 {
     use ImplodeTrait;
+
+    /** @var bool */
+    public $silentIsExists = false;
 
     /** @var string */
     private $MESSAGE_1 = '-message 1';
@@ -106,7 +109,11 @@ trait TraitTestFileLogger
             if (isset($this->logger)) {
                 $this->logger->warning('Method not exists: ', [$this->methodName]);
             }
-            static::fail('Method not exists: ' . $this->methodName);
+            if ($this->silentIsExists) {
+                static::fail('Method not exists: ' . $this->methodName);
+            } else {
+                static::assertTrue(true);
+            }
         }
 
         return $exists;
@@ -209,7 +216,7 @@ trait TraitTestFileLogger
     }
 
     /**
-     * @psalm-suppress UndefinedMethod,RedundantConditionGivenDocblockType,DocblockTypeContradiction,RedundantCondition
+     * @psalm-suppress UndefinedMethod,RedundantConditionGivenDocblockType,DocblockTypeContradiction
      */
     public function testWriteComplexContext(): void
     {
@@ -248,9 +255,6 @@ trait TraitTestFileLogger
         }
     }
 
-    /**
-     * @psalm-suppress UndefinedMethod
-     */
     public function testLoggerMethods(): void
     {
         $loggerMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];

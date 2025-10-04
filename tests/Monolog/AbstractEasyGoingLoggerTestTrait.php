@@ -21,12 +21,11 @@ use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\PlainProcessor;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
-trait TraitTestAbstractEasyGoingLogger
+trait AbstractEasyGoingLoggerTestTrait
 {
     use UnavailableMethodsTrait;
 
     /**
-     * @psalm-suppress TypeDoesNotContainType
      * @psalm-suppress DocblockTypeContradiction
      */
     public function testConfiguration(): void
@@ -67,9 +66,6 @@ trait TraitTestAbstractEasyGoingLogger
         static::assertContains(get_class($actualResult), $expectedResult);
     }
 
-    /**
-     * @psalm-suppress TypeDoesNotContainType
-     */
     public function testGetDefaultProcessor(): void
     {
         $expectedResult = [
@@ -84,9 +80,6 @@ trait TraitTestAbstractEasyGoingLogger
         static::assertContains(get_class($actualResult), $expectedResult);
     }
 
-    /**
-     * @psalm-suppress TypeDoesNotContainType
-     */
     public function testGetDefaultFormatter(): void
     {
         $expectedResult = [

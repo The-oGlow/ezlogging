@@ -48,6 +48,7 @@ trait UnavailableFieldsTrait
 
         /**
          * @psalm-suppress RedundantPropertyInitializationCheck
+         * @phpstan-ignore isset.property,property.notFound
          */
         if (isset($this->o2t)) {
             $clazzName = get_class($this->o2t);

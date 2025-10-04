@@ -23,6 +23,12 @@ class FileHandler extends StreamHandler
     /** @var string */
     public const STANDARD_FILEEXT  = '.log';
 
+    /** @var string */
+    protected const C_NS_SEP  = "\\";
+
+    /** @var string */
+    protected const        C_NS_REPL = '_';
+
     protected const KEY_MESSAGE = 'message';
 
     protected const KEY_CONTEXT = 'context';
@@ -42,7 +48,7 @@ class FileHandler extends StreamHandler
             $fileName = static::STANDARD_FILENAME;
         }
 
-        return $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . static::STANDARD_FILEEXT);
+        return $pathToFile . DIRECTORY_SEPARATOR . str_replace(self::C_NS_SEP, self::C_NS_REPL, $fileName . static::STANDARD_FILEEXT);
     }
 
     public function __construct(?string $pathToFile = null, ?string $fileName = null)

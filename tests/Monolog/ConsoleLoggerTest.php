@@ -23,7 +23,7 @@ require_once __DIR__ . '/../bootstrap.php';
  */
 class ConsoleLoggerTest extends TestCase
 {
-    use TraitTestAbstractEasyGoingLogger;
+    use AbstractEasyGoingLoggerTestTrait;
 
     /** @var ConsoleLogger */
     private $o2t;

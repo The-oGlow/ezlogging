@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\EasyGoingTestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 class DoNothingLoggerTest extends TestCase
 {
-    use TraitTestAbstractEasyGoingLogger;
+    use AbstractEasyGoingLoggerTestTrait;
 
     /** @var DoNothingLogger */
     private $o2t;
@@ -33,7 +35,11 @@ class DoNothingLoggerTest extends TestCase
 
     public function testNothingHappens(): void
     {
-        $this->o2t->info('Write a log entry');
-        static::assertTrue(true);
+        $message  = 'Write a log entry';
+        $expected = '/^$/m';
+
+        $this->o2t->info($message);
+
+        static::expectOutputRegex($expected);
     }
 }

@@ -26,7 +26,7 @@ require_once __DIR__ . '/../bootstrap.php';
  */
 class PlainLoggerTest extends TestCase
 {
-    use TraitTestAbstractEasyGoingLogger;
+    use AbstractEasyGoingLoggerTestTrait;
 
     /** @var PlainLogger */
     private $o2t;

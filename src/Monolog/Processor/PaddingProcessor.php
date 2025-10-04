@@ -63,8 +63,10 @@ class PaddingProcessor implements ProcessorInterface
      * @param mixed[] $record
      *
      * @return mixed[]
+     *
+     * @phpstan-ignore method.childReturnType
      */
-    public function __invoke(array $record): array
+    public function __invoke(array $record)
     {
         $record                   = $this->__invokeIntrospection($record);
         $record['level_name_pad'] = str_pad($record['level_name'], 8, ' ', STR_PAD_RIGHT);

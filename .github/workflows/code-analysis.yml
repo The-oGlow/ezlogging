@@ -104,11 +104,11 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           api-token: ${{ env.CODACY_API_TOKEN }}
-          coverage-reports: target/clover/coverage.xml
+          coverage-reports: target/analysis/clover/coverage.xml
 
       - name: coveralls scan
         uses: coverallsapp/github-action@v2.3.6
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
-          file: target/clover/coverage.xml
+          file: target/analysis/clover/coverage.xml
           format: clover

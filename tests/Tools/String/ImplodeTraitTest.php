@@ -30,31 +30,18 @@ class ImplodeTraitTest extends TestCase
     {
         $actual = $this->o2t->implodeDefault();
         static::assertNotEmpty($actual);
-
-        /**
-         * @psalm-suppress RedundantConditionGivenDocblockType
-         */
-        static::assertIsString($actual);
     }
 
     public function testImplodeCustom(): void
     {
         $actual = $this->o2t->implodeCustom();
         static::assertNotEmpty($actual);
-        /**
-         * @psalm-suppress RedundantConditionGivenDocblockType
-         */
-        static::assertIsString($actual);
     }
 
     public function testImplodeObjectCustom(): void
     {
         $actual = $this->o2t->implodeObjectCustom();
         static::assertNotEmpty($actual);
-        /**
-         * @psalm-suppress RedundantConditionGivenDocblockType
-         */
-        static::assertIsString($actual);
     }
 }
 
@@ -90,17 +77,17 @@ class ImplodeTraitTestClazz
         $this->anydata2[] = [10 => new ImplodeTraitTestObject(), 20 => new ImplodeTraitTestObject()];
     }
 
-    public function implodeDefault(): ?string
+    public function implodeDefault(): string
     {
         return $this->implodeRecursive(self::SEP, $this->anydata);
     }
 
-    public function implodeCustom(): ?string
+    public function implodeCustom(): string
     {
         return $this->implodeRecursive(self::SEP, $this->anydata, true, true);
     }
 
-    public function implodeObjectCustom(): ?string
+    public function implodeObjectCustom(): string
     {
         return $this->implodeRecursive(self::SEP, $this->anydata2, true, true);
     }

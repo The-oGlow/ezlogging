@@ -21,8 +21,8 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class CsvLoggerTest extends TestCase
 {
-    use TraitTestAbstractEasyGoingLogger;
-    use TraitTestFileLogger;
+    use AbstractEasyGoingLoggerTestTrait;
+    use FileLoggerTestTrait;
 
     public const TEST_MSG = 'Message';
 
@@ -58,7 +58,7 @@ class CsvLoggerTest extends TestCase
         $csvLoggerFileName = $csvLogger->getFileName();
 
         if (file_exists($csvLoggerFileName)) {
-            $csvLoggerContent = str_replace("\n", '', file_get_contents($csvLoggerFileName)); // @phpstan-ignore argument.type
+            $csvLoggerContent = str_replace("\n", '', (string) file_get_contents($csvLoggerFileName));
             /** @psalm-suppress ArgumentTypeCoercion */
             $actualHeader = explode($csvLogger->getItemSeparator(), $csvLoggerContent);
             unlink($csvLoggerFileName);

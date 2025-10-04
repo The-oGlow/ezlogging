@@ -23,8 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 class FileLoggerTest extends TestCase
 {
-    use TraitTestAbstractEasyGoingLogger;
-    use TraitTestFileLogger;
+    use AbstractEasyGoingLoggerTestTrait;
+    use FileLoggerTestTrait;
 
     /** @var FileLogger */
     private $o2t;
@@ -33,8 +33,9 @@ class FileLoggerTest extends TestCase
     {
         parent::setUp();
 
-        $this->o2t      = new FileLogger(self::class, sys_get_temp_dir());
+        $this->o2t      = new FileLogger(uniqid(self::class, true), sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
+        $this->silentIsExists = false;
     }
 
     public function testConfiguration(): void
