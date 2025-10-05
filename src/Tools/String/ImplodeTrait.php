@@ -53,7 +53,6 @@ trait ImplodeTrait
                     }
                     $currKey .= '=>';
                 }
-                // $currKey = ($withKeys ? (is_int($anyKey) ? $anyKey : "'$anyKey'=>") : '');
                 $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
                 if (is_array($anyValue)) {
                     $this->parseArrayForImplodeRecursive($anyValue, $output, $glue, $withTextSep, $withKeys);

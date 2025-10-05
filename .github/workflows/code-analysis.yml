@@ -46,7 +46,7 @@ jobs:
   analysis:
     strategy:
       matrix:
-        os: [ ubuntu-22.04 ]
+        os: [ ubuntu-24.04 ]
         php: ["7.4"]
     runs-on: ${{ matrix.os }}
 
@@ -105,13 +105,15 @@ jobs:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
-      # not using automatic from codacy
+      # coverage must be uploaded manually
       - name: codacy scan
+        if: ${{ hashFiles('target/analysis/clover/coverage.xml') != '' }}
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           api-token: ${{ env.CODACY_API_TOKEN }}
           coverage-reports: target/analysis/clover/coverage.xml
 
+      # coverage must be uploaded manually
       - name: coveralls scan
         if: ${{ hashFiles('target/analysis/clover/coverage.xml') != '' }}
         uses: coverallsapp/github-action@v2.3.6
