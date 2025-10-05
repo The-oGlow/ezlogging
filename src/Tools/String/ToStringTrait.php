@@ -18,20 +18,39 @@ trait ToStringTrait
     use ImplodeTrait;
 
     /**
-     * @return mixed[]
+     * @return mixed
      *
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    abstract protected function __toStringValues(): array;  // NOSONAR: php:S100
+    abstract protected function __toStringValues();  // NOSONAR: php:S100
 
     /**
      * @inheritdoc
      */
     public function __toString()
     {
+        $toString = '';
         // @phpstan-ignore function.alreadyNarrowedType
         if (method_exists($this, '__toStringValues')) {
-            $toString = sprintf('[%s:{%s}]', get_class($this), $this->implode_recursive(',', $this->__toStringValues(), false, true));
+            $value = $this->__toStringValues();
+            if (is_string($value)) {
+                $toString = sprintf('%s:\'%s\'', get_class($this), $value);
+            } elseif (is_scalar($value)) {
+                $toString = sprintf('%s:%s', get_class($this), (string)$value);
+            } elseif (is_array($value)) {
+                foreach (array_keys($value) as $arrayKey) {
+                    if (is_object($value[$arrayKey]) && $this == $value[$arrayKey]) {
+                        $value[$arrayKey] = get_class($value[$arrayKey]);
+                    }
+                }
+                $toString = sprintf('%s:[%s]', get_class($this), implode(',', $value));
+            } elseif (is_object($value)) {
+                if ($this == $value) {
+                    $toString = sprintf('{%s}', print_r($value, true));
+                } else {
+                    $toString = sprintf('%s:{%s}', get_class($this), print_r($value, true));
+                }
+            }
         } else {
             $toString = sprintf('[%s:{%s}]', get_class($this), '');
         }

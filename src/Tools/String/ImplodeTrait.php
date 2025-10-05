@@ -37,32 +37,48 @@ trait ImplodeTrait
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string // NOSONAR: php:S100
     {
+        $sepChar  = $withTextSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
-        $textSep  = $withTextSep ? '"' : '';
-        $objWithArray = (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class));
-
-        if (is_array($anyData) || $objWithArray) {
-            foreach ($anyData as $anyKey => $anyValue) {
-                $currKey = '';
-                if ($withKeys) {
-                    if (is_int($anyKey)) {
-                        $currKey =  "$anyKey";
+        if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
+            /**
+             * @psalm-suppress PossibleRawObjectIteration,PossiblyInvalidIterator
+             * @phpstan-ignore foreach.nonIterable
+             */
+            foreach ($anyData as $key => $value) {
+                // @phpstan-ignore ternary.condNotBoolean
+                $output .= ($valueIdx ? $glue : '') . ($withKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
+                if (is_array($value)) {
+                    $arrOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
+                    if (!empty($arrOutput)) {
+                        $output .= '[' . $arrOutput . ']';
                     } else {
-                        $currKey =  "'$anyKey'";
+                        $output .= '[]';
                     }
-                    $currKey .= '=>';
-                }
-                $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
-                if (is_array($anyValue)) {
-                    $this->parseArrayForImplodeRecursive($anyValue, $output, $glue, $withTextSep, $withKeys);
                 } else {
-                    $this->parseObjectForImplodeRecursive($anyValue, $output, $glue, $textSep, $withTextSep, $withKeys);
+                    if (is_object($value)) {
+                        $objOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
+                        if (!empty($objOutput)) {
+                            $output .= '{' . $objOutput . '}';
+                        } else {
+                            $output .= '{}';
+                        }
+                    } else {
+                        $output .= $sepChar . ((string) $value) . $sepChar;
+                    }
                 }
                 $valueIdx++;
             }
         } else {
-            $this->parseNativeForImplodeRecursive($anyData, $output);
+            if (is_object($anyData)) {
+                if ($anyData instanceof Stringable) {
+                    $output = $anyData->__toString();
+                } else {
+                    $output = get_class($anyData);
+                }
+            } else {
+                $output = $anyData;
+            }
         }
 
         return $output;
@@ -98,61 +114,5 @@ trait ImplodeTrait
         }
 
         return $output;
-    }
-
-    /**
-     * @param mixed  $value
-     * @param string $output
-     * @param string $glue
-     * @param bool   $withTextSep
-     * @param bool   $withKeys
-     */
-    private function parseArrayForImplodeRecursive($value, &$output, string $glue, bool $withTextSep, bool $withKeys): void
-    {
-        $arrOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
-        if (!empty($arrOutput)) {
-            $output .= '[' . $arrOutput . ']';
-        } else {
-            $output .= '[]';
-        }
-    }
-
-    /**
-     * @param mixed  $value
-     * @param string $output
-     * @param string $glue
-     * @param string $textSep
-     * @param bool   $withTextSep
-     * @param bool   $withKeys
-     */
-    private function parseObjectForImplodeRecursive($value, &$output, string $glue, string $textSep, bool $withTextSep, bool $withKeys): void
-    {
-        if (is_object($value)) {
-            $objOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
-            if (!empty($objOutput)) {
-                $output .= '{' . $objOutput . '}';
-            } else {
-                $output .= '{}';
-            }
-        } else {
-            $output .= $textSep . ((string)$value) . $textSep;
-        }
-    }
-
-    /**
-     * @param mixed  $anyData
-     * @param string $output
-     */
-    private function parseNativeForImplodeRecursive($anyData, &$output): void
-    {
-        if (is_object($anyData)) {
-            if ($anyData instanceof Stringable) {
-                $output = $anyData->__toString();
-            } else {
-                $output = get_class($anyData);
-            }
-        } else {
-            $output = $anyData;
-        }
     }
 }

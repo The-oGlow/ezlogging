@@ -77,7 +77,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         if (defined($constantName)) {
             $constantValue = constant($constantName);
-            $this->logger->debug("Checking '$constantName'=" . var_export($constantValue, true));
+            $this->logger->debug("Checking '$constantName'=" . print_r($constantValue, true));
             if (!static::isPrimitive($constantValue)) {
                 static::assertNotEmpty($constantValue);
             }
