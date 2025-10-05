@@ -94,10 +94,11 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress
 
       - name: execute tests
-        run: php vendor/bin/phpunit -v --debug>${{ env.PHPUNIT_LOG }}
+        run: php vendor/bin/phpunit -v --debug
+        #>${{ env.PHPUNIT_LOG }}
 
-      - name: show test log
-        run: test -f ${{ env.PHPUNIT_LOG }} && cat ${{ env.PHPUNIT_LOG }}
+      #- name: show test log
+      #  run: test -f ${{ env.PHPUNIT_LOG }} && cat ${{ env.PHPUNIT_LOG }}
 
       # not using automatic from sonarcloud
       - name: sonarcloud
