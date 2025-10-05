@@ -14,8 +14,7 @@ on:
 
 env:
   # PHP Configuration
-  #XDEBUG_MODE: coverage
-  PHP_MODULES: bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
+  PHP_MODULES: none,xdebug-3.1.6,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
   PHPUNIT_LOG: phpunit-test.log
 
   # Github Additional Configuration
@@ -69,18 +68,11 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ matrix.php }}'
-          extensions: none,xdebug-3.1.6,${{ env.PHP_MODULES }}
+          extensions: ${{ env.PHP_MODULES }}
           coverage: xdebug
-          tools: phpunit:9.6
-          ini-values: xdebug.mode=coverage
+          ini-values: xdebug.mode=none
         env:
           fail-fast: true
-
-      - name: print PHP version
-        run: php -i
-
-      - name: print PHP module
-        run: php -m
 
       - name: identify composer cache
         id: composer-cache
