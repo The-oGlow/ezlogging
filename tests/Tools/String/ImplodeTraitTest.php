@@ -79,16 +79,16 @@ class ImplodeTraitTestClazz
 
     public function implodeDefault(): string
     {
-        return $this->implodeRecursive(self::SEP, $this->anydata);
+        return $this->implode_recursive(self::SEP, $this->anydata);
     }
 
     public function implodeCustom(): string
     {
-        return $this->implodeRecursive(self::SEP, $this->anydata, true, true);
+        return $this->implode_recursive(self::SEP, $this->anydata, true, true);
     }
 
     public function implodeObjectCustom(): string
     {
-        return $this->implodeRecursive(self::SEP, $this->anydata2, true, true);
+        return $this->implode_recursive(self::SEP, $this->anydata2, true, true);
     }
 }

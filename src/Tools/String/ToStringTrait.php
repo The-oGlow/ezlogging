@@ -21,6 +21,7 @@ trait ToStringTrait
      * @return mixed[]
      *
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * NOSONAR: php:S100
      */
     abstract protected function __toStringValues(): array;
 
@@ -31,7 +32,7 @@ trait ToStringTrait
     {
         // @phpstan-ignore function.alreadyNarrowedType
         if (method_exists($this, '__toStringValues')) {
-            $toString = sprintf('[%s:{%s}]', get_class($this), $this->implodeRecursive(',', $this->__toStringValues(), false, true));
+            $toString = sprintf('[%s:{%s}]', get_class($this), $this->implode_recursive(',', $this->__toStringValues(), false, true));
         } else {
             $toString = sprintf('[%s:{%s}]', get_class($this), '');
         }

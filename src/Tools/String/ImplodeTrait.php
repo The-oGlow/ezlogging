@@ -23,58 +23,73 @@ trait ImplodeTrait
      *
      * Example of $include_keys output: key, value, key, value, key, value
      *
-     * @param string $separator   value that glues elements together
+     * @param string $glue        value that glues elements together
      * @param mixed  $anyData     multi-dimensional array to recursively implode
-     * @param bool   $textSep     add a text seperator (") around each value of a scalar type (default: false)
-     * @param bool   $displayKeys include keysForValue before their values (default: false)
+     * @param bool   $withTextSep add a text seperator (") around each value of a scalar type (default: false)
+     * @param bool   $withKeys    include keysForValue before their values (default: false)
      *
      * @return string imploded array
      *
      * @see https://www.php.net/manual/en/language.types.type-system.php
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    protected function implodeRecursive(string $separator, $anyData, bool $textSep = false, bool $displayKeys = false): string
+    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string
     {
-        $sepChar  = $textSep ? '"' : '';
+        $textSep  = $withTextSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
+
         if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
             /**
              * @psalm-suppress PossibleRawObjectIteration,PossiblyInvalidIterator
              * @phpstan-ignore foreach.nonIterable
              */
-            foreach ($anyData as $key => $value) {
+            foreach ($anyData as $anyKey => $anyValue) {
                 // @phpstan-ignore ternary.condNotBoolean
-                $output .= ($valueIdx ? $separator : '') . ($displayKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
-                if (is_array($value)) {
-                    $arrOutput = $this->implodeRecursive($separator, $value, $textSep, $displayKeys);
-                    if (!empty($arrOutput)) {
-                        $output .= '[' . $arrOutput . ']';
-                    } else {
-                        $output .= '[]';
-                    }
+                $currKey = ($withKeys ? (is_int($anyKey) ? $anyKey : "'$anyKey'=>") : '');
+                $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
+                if (is_array($anyValue)) {
+                    $this->parseArrayForImplodeRecursive($anyValue, $output, $glue, $withTextSep, $withKeys);
                 } else {
-                    if (is_object($value)) {
-                        $objOutput = $this->implodeRecursive($separator, $value, $textSep, $displayKeys);
-                        if (!empty($objOutput)) {
-                            $output .= '{' . $objOutput . '}';
-                        } else {
-                            $output .= '{}';
-                        }
-                    } else {
-                        $output .= $sepChar . ((string) $value) . $sepChar;
-                    }
+                    $this->parseObjectForImplodeRecursive($anyValue, $output, $glue, $textSep, $withTextSep, $withKeys);
                 }
                 $valueIdx++;
             }
         } else {
-            if (is_object($anyData)) {
-                if ($anyData instanceof Stringable) {
-                    $output = $anyData->__toString();
-                } else {
-                    $output = get_class($anyData);
-                }
+            $this->parseStringForImplodeRecursive($anyData, $output);
+        }
+
+        return $output;
+    }
+
+    /**
+     * Flatten a multidimensional anyData to one dimension, optionally preserving keys.
+     * Original found on {@link https://stackoverflow.com/a/526633}.
+     *
+     * @param array<mixed,mixed> $anyData      the anyData to flatten
+     * @param int                $preserveKeys 0 to not preserve keys (default),
+     *                                         1 to preserve string keys only,
+     *                                         2 to preserve all keys
+     * @param array<mixed,mixed> $output       internal use argument for recursion
+     *
+     * @return array<mixed,mixed>
+     *
+     * @see https://stackoverflow.com/a/526633
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     */
+    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function array_flatten(array $anyData, int $preserveKeys = 0, array &$output = []): array
+    {
+        foreach ($anyData as $anyKey => $anyValue) {
+            if (is_array($anyValue)) {
+                $output = $this->array_flatten($anyValue, $preserveKeys, $output);
+            } elseif ($preserveKeys + (int)is_string($anyKey) > 1) {
+                $output[$anyKey] = $anyValue;
             } else {
-                $output = $anyData;
+                $output[] = $anyValue;
             }
         }
 
@@ -82,32 +97,58 @@ trait ImplodeTrait
     }
 
     /**
-     *          Flatten a multidimensional array to one dimension, optionally preserving keys.
-     * Original found on {@link https://stackoverflow.com/a/526633}.
-     *
-     * @param array<mixed,mixed> $array        the array to flatten
-     * @param int                $preserveKeys 0 (default) to not preserve keys, 1 to preserve string keys only, 2 to preserve all keys
-     * @param array<mixed,mixed> $out          internal use argument for recursion
-     *
-     * @return array<mixed,mixed>
-     *
-     * @see https://stackoverflow.com/a/526633
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseParameterName")
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @param mixed  $value
+     * @param string $output
+     * @param string $glue
+     * @param bool   $withTextSep
+     * @param bool   $withKeys
      */
-    public function array_flatten(array $array, int $preserveKeys = 0, array &$out = []): array // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    private function parseArrayForImplodeRecursive($value, &$output, string $glue, bool $withTextSep, bool $withKeys): void
     {
-        foreach ($array as $key => $child) {
-            if (is_array($child)) {
-                $out = $this->array_flatten($child, $preserveKeys, $out);
-            } elseif ($preserveKeys + (int)is_string($key) > 1) {
-                $out[$key] = $child;
-            } else {
-                $out[] = $child;
-            }
+        $arrOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
+        if (!empty($arrOutput)) {
+            $output .= '[' . $arrOutput . ']';
+        } else {
+            $output .= '[]';
         }
+    }
 
-        return $out;
+    /**
+     * @param mixed  $value
+     * @param string $output
+     * @param string $glue
+     * @param string $textSep
+     * @param bool   $withTextSep
+     * @param bool   $withKeys
+     */
+    private function parseObjectForImplodeRecursive($value, &$output, string $glue, string $textSep, bool $withTextSep, bool $withKeys): void
+    {
+        if (is_object($value)) {
+            $objOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
+            if (!empty($objOutput)) {
+                $output .= '{' . $objOutput . '}';
+            } else {
+                $output .= '{}';
+            }
+        } else {
+            $output .= $textSep . ((string)$value) . $textSep;
+        }
+    }
+
+    /**
+     * @param mixed  $anyData
+     * @param string $output
+     */
+    private function parseStringForImplodeRecursive($anyData, &$output): void
+    {
+        if (is_object($anyData)) {
+            if ($anyData instanceof Stringable) {
+                $output = $anyData->__toString();
+            } else {
+                $output = get_class($anyData);
+            }
+        } else {
+            $output = $anyData;
+        }
     }
 }
