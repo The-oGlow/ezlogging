@@ -68,7 +68,7 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ env.PHP_VERSION }}'
-          extensions: bz2,curl,fileinfo,gd2,intl,mbstring,exif,openssl,soap,sockets,xsl
+          extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
           coverage: xdebug
           tools: phpunit:9
         env:
