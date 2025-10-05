@@ -43,8 +43,8 @@ trait ImplodeTrait
         $objWithArray = (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class));
 
         if (is_array($anyData) || $objWithArray) {
-            foreach ($anyData as $key => $value) { // NOSONAR: php:S134
-                $currKey = ($withKeys ? (is_int($key) ? $key : "'$key'") . '=>' : '');
+            foreach ($anyData as $key => $value) {
+                $currKey = ($withKeys ? (is_int($key) ? $key : "'$key'") . '=>' : ''); // NOSONAR: php:S3358
                 $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
 
                 if (is_array($value)) {
