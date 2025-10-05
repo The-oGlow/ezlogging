@@ -16,6 +16,7 @@ env:
   # PHP Configuration
   XDEBUG_MODE: off
   #coverage
+  PHP_MODULES: bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
   PHPUNIT_LOG: phpunit-test.log
 
   # Github Additional Configuration
@@ -69,14 +70,11 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ matrix.php }}'
-          extensions: none,:opcache,xdebug-3.1.6
-          # extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
+          extensions: none,xdebug-3.1.6,${{ env.PHP_MODULES }}
           coverage: xdebug
-          # tools: phpunit:9
-          #ini-values: zend.enable_gc=0,memory_limit=512M
+          tools: phpunit:9.6
         env:
           fail-fast: true
-          #phpts: nts
 
       - name: print PHP version
         run: php -i
