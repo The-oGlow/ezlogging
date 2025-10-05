@@ -67,15 +67,18 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ matrix.php }}'
-          extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
+          # extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
           coverage: xdebug
-          tools: phpunit:9
+          # tools: phpunit:9
         env:
           fail-fast: true
           phpts: ts
 
       - name: print PHP version
-        run: echo ${{ steps.setup-php.outputs.php-version }}
+        run: php -i
+
+      - name: print PHP module
+        run: php -m
 
       - name: identify composer cache
         id: composer-cache
@@ -96,7 +99,10 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress
 
       - name: execute tests
-        run: php vendor/bin/phpunit
+        run: php vendor/bin/phpunit -v --debug>target/test.log
+
+      - name: show test log
+        run: test -f target/test.log && cat target/test.log
 
       # not using automatic from sonarcloud
       - name: sonarcloud
