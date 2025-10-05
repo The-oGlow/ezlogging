@@ -68,13 +68,14 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ matrix.php }}'
+          extensions: :opcache
           # extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
-          coverage: xdebug
+          coverage: xdebug2
           # tools: phpunit:9
-          ini-values: zend.enable_gc=0,memory_limit=512M
+          #ini-values: zend.enable_gc=0,memory_limit=512M
         env:
           fail-fast: true
-          phpts: nts
+          #phpts: nts
 
       - name: print PHP version
         run: php -i
