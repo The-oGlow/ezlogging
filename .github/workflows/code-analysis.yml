@@ -68,9 +68,9 @@ jobs:
         uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ matrix.php }}'
-          extensions: :opcache
+          extensions: :opcache,xdebug-3.1.6
           # extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
-          coverage: xdebug2
+          coverage: xdebug
           # tools: phpunit:9
           #ini-values: zend.enable_gc=0,memory_limit=512M
         env:
