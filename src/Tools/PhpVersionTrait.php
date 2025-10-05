@@ -24,6 +24,6 @@ trait PhpVersionTrait
      */
     final protected function isPhpGreater(string $checkVersion): bool
     {
-        return (version_compare(PHP_VERSION, $checkVersion, '>=') && !defined('HHVM_VERSION'));
+        return version_compare(PHP_VERSION, $checkVersion, '>=') && !defined('HHVM_VERSION');
     }
 }

@@ -37,11 +37,12 @@ trait ImplodeTrait
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string
     {
-        $textSep  = $withTextSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
+        $textSep  = $withTextSep ? '"' : '';
+        $objWithArray = (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class));
 
-        if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
+        if (is_array($anyData) || $objWithArray) {
             /**
              * @psalm-suppress PossibleRawObjectIteration,PossiblyInvalidIterator
              * @phpstan-ignore foreach.nonIterable
@@ -58,7 +59,7 @@ trait ImplodeTrait
                 $valueIdx++;
             }
         } else {
-            $this->parseStringForImplodeRecursive($anyData, $output);
+            $this->parseNativeForImplodeRecursive($anyData, $output);
         }
 
         return $output;
@@ -139,7 +140,7 @@ trait ImplodeTrait
      * @param mixed  $anyData
      * @param string $output
      */
-    private function parseStringForImplodeRecursive($anyData, &$output): void
+    private function parseNativeForImplodeRecursive($anyData, &$output): void
     {
         if (is_object($anyData)) {
             if ($anyData instanceof Stringable) {
