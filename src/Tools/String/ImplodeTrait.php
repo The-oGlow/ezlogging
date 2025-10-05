@@ -37,17 +37,16 @@ trait ImplodeTrait
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string // NOSONAR: php:S100
     {
-        $sepChar  = $withTextSep ? '"' : '';
         $output   = '';
         $valueIdx = 0;
-        if (is_array($anyData) || (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class))) {
-            /**
-             * @psalm-suppress PossibleRawObjectIteration,PossiblyInvalidIterator
-             * @phpstan-ignore foreach.nonIterable
-             */
-            foreach ($anyData as $key => $value) {
-                // @phpstan-ignore ternary.condNotBoolean
-                $output .= ($valueIdx ? $glue : '') . ($withKeys ? (is_int($key) ? $key : "'" . $key . "'") . '=>' : '');
+        $textSep  = $withTextSep ? '"' : '';
+        $objWithArray = (is_object($anyData) && is_subclass_of($anyData, ArrayAccess::class));
+
+        if (is_array($anyData) || $objWithArray) {
+            foreach ($anyData as $key => $value) { // NOSONAR: php:S134
+                $currKey = ($withKeys ? (is_int($key) ? $key : "'$key'") . '=>' : '');
+                $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
+
                 if (is_array($value)) {
                     $arrOutput = $this->implode_recursive($glue, $value, $withTextSep, $withKeys);
                     if (!empty($arrOutput)) {
@@ -64,7 +63,7 @@ trait ImplodeTrait
                             $output .= '{}';
                         }
                     } else {
-                        $output .= $sepChar . ((string) $value) . $sepChar;
+                        $output .= $textSep . ((string) $value) . $textSep;
                     }
                 }
                 $valueIdx++;
