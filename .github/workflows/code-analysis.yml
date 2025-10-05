@@ -14,7 +14,8 @@ on:
 
 env:
   # PHP Configuration
-  PHP_MODULES: none,xdebug-3.1.6,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
+  PHP_MODULES-7.4: none,xdebug-3.1.6,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
+  PHP_MODULES: none,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
   PHPUNIT_LOG: phpunit-test.log
 
   # Github Additional Configuration
@@ -47,7 +48,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-24.04 ]
-        php: ["7.4"]
+        php: ["8.4"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -70,7 +71,7 @@ jobs:
           php-version: '${{ matrix.php }}'
           extensions: ${{ env.PHP_MODULES }}
           coverage: xdebug
-          ini-values: xdebug.mode=none
+          ini-values: xdebug.mode=coverage
         env:
           fail-fast: true
 
