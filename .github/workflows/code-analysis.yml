@@ -59,13 +59,13 @@ jobs:
         run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
 
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.3.0
         with:
           fetch-depth: 0
 
       - name: setup PHP
         id: setup-php
-        uses: shivammathur/setup-php@2
+        uses: shivammathur/setup-php@2.35.3
         with:
           php-version: '${{ env.PHP_VERSION }}'
           extensions: bz2,curl,fileinfo,gd2,intl,mbstring,exif,openssl,soap,sockets,xsl
@@ -84,7 +84,7 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
-        uses: actions/cache@v4
+        uses: actions/cache@v4.2.3
         id: cache
         with:
           path: |
@@ -101,20 +101,20 @@ jobs:
 
       # not using automatic from sonarcloud
       - name: sonarcloud
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v5.3.1
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
       # not using automatic from codacy
       - name: codacy scan
-        uses: codacy/codacy-coverage-reporter-action@v1
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           api-token: ${{ env.CODACY_API_TOKEN }}
           coverage-reports: target/analysis/clover/coverage.xml
 
       - name: coveralls scan
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@v2.3.6
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           file: target/analysis/clover/coverage.xml
