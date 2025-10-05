@@ -46,7 +46,7 @@ jobs:
   analysis:
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-22.04 ]
         php: ["7.4"]
     runs-on: ${{ matrix.os }}
 
