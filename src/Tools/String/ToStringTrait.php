@@ -21,9 +21,8 @@ trait ToStringTrait
      * @return mixed[]
      *
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * NOSONAR: php:S100
      */
-    abstract protected function __toStringValues(): array;
+    abstract protected function __toStringValues(): array;  // NOSONAR: php:S100
 
     /**
      * @inheritdoc

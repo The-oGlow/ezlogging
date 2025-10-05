@@ -35,7 +35,7 @@ trait ImplodeTrait
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string
+    protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string // NOSONAR: php:S100
     {
         $output   = '';
         $valueIdx = 0;
@@ -48,8 +48,16 @@ trait ImplodeTrait
              * @phpstan-ignore foreach.nonIterable
              */
             foreach ($anyData as $anyKey => $anyValue) {
-                // @phpstan-ignore ternary.condNotBoolean
-                $currKey = ($withKeys ? (is_int($anyKey) ? $anyKey : "'$anyKey'=>") : '');
+                $currKey = '';
+                if ($withKeys) {
+                  if (is_int($anyKey)) {
+                      $currKey =  "$anyKey";
+                  } else {
+                      $currKey =  "'$anyKey'";
+                  }
+                  $currKey .= '=>';
+                }
+                // $currKey = ($withKeys ? (is_int($anyKey) ? $anyKey : "'$anyKey'=>") : '');
                 $output .= ($valueIdx > 0 ? $glue : '') .  $currKey;
                 if (is_array($anyValue)) {
                     $this->parseArrayForImplodeRecursive($anyValue, $output, $glue, $withTextSep, $withKeys);
@@ -82,7 +90,7 @@ trait ImplodeTrait
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function array_flatten(array $anyData, int $preserveKeys = 0, array &$output = []): array
+    public function array_flatten(array $anyData, int $preserveKeys = 0, array &$output = []): array // NOSONAR: php:S100
     {
         foreach ($anyData as $anyKey => $anyValue) {
             if (is_array($anyValue)) {
