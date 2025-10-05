@@ -71,9 +71,10 @@ jobs:
           # extensions: bz2,curl,fileinfo,gd,intl,mbstring,exif,openssl,soap,sockets,xsl
           coverage: xdebug
           # tools: phpunit:9
+          ini-values: zend.enable_gc=0,memory_limit=512M
         env:
           fail-fast: true
-          phpts: ts
+          phpts: nts
 
       - name: print PHP version
         run: php -i
