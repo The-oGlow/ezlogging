@@ -59,16 +59,24 @@ jobs:
         run: echo ${TS_NOW} - ${{ env.TS_NOV }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
 
       - name: checkout
-        uses: actions/checkout@v4.3.0
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: setup PHP
-        uses: shivammathur/setup-php@2.35.3
+        id: setup-php
+        uses: shivammathur/setup-php@2
         with:
           php-version: '${{ env.PHP_VERSION }}'
+          extensions: bz2,curl,fileinfo,gd2,intl,mbstring,exif,openssl,soap,sockets,xsl
           coverage: xdebug
-          tools: php-cs-fixer,phpstan,psalm
+          tools: phpunit:9
+        env:
+          fail-fast: true
+          phpts: ts
+
+      - name: print PHP version
+        run: echo ${{ steps.setup-php.outputs.php-version }}
 
       - name: identify composer cache
         id: composer-cache
@@ -76,12 +84,11 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: cache composer packages
-        uses: actions/cache@v4.2.3
+        uses: actions/cache@v4
         id: cache
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
-            ${{ env.COMPOSER_VENDOR_DIR }}
           key: ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ matrix.os }}-${{env.GITHUB_REPO_NAME}}-
@@ -89,25 +96,25 @@ jobs:
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
 
-      - name: tests
+      - name: execute tests
         run: composer c-test
 
       # not using automatic from sonarcloud
       - name: sonarcloud
-        uses: SonarSource/sonarqube-scan-action@v5.3.1
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
       # not using automatic from codacy
       - name: codacy scan
-        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        uses: codacy/codacy-coverage-reporter-action@v1
         with:
           api-token: ${{ env.CODACY_API_TOKEN }}
           coverage-reports: target/analysis/clover/coverage.xml
 
       - name: coveralls scan
-        uses: coverallsapp/github-action@v2.3.6
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           file: target/analysis/clover/coverage.xml
