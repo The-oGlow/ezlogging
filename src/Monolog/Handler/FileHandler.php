@@ -17,33 +17,44 @@ use Monolog\Logger;
 
 class FileHandler extends StreamHandler
 {
+    /** @var string */
     public const STANDARD_FILENAME = 'noFilename';
+
+    /** @var string */
     public const STANDARD_FILEEXT  = '.log';
-    /** @var string $tmpDir */
+
+    /** @var string */
+    protected const C_NS_SEP  = "\\";
+
+    /** @var string */
+    protected const        C_NS_REPL = '_';
+
+    protected const KEY_MESSAGE = 'message';
+
+    protected const KEY_CONTEXT = 'context';
+
+    /** @var string */
     private static $tmpDir;
-    /** @var string $fileName */
+
+    /** @var string */
     private $fileName;
 
     public static function prepareFileName(?string $pathToFile = null, ?string $fileName = ''): string
     {
-        /** @psalm-suppress RiskyTruthyFalsyComparison */
-        if (empty($pathToFile))
-        {
+        if (is_null($pathToFile) || empty($pathToFile)) {
             $pathToFile = self::$tmpDir;
         }
-        /** @psalm-suppress RiskyTruthyFalsyComparison */
-        if (empty($fileName))
-        {
-            $fileName = self::STANDARD_FILENAME;
+        if (is_null($fileName) || empty($fileName)) {
+            $fileName = static::STANDARD_FILENAME;
         }
 
-        return $pathToFile . DIRECTORY_SEPARATOR . str_replace("\\", "_", $fileName . self::STANDARD_FILEEXT);
+        return $pathToFile . DIRECTORY_SEPARATOR . str_replace(self::C_NS_SEP, self::C_NS_REPL, $fileName . static::STANDARD_FILEEXT);
     }
 
     public function __construct(?string $pathToFile = null, ?string $fileName = null)
     {
         self::$tmpDir   = sys_get_temp_dir();
-        $this->fileName = self::prepareFileName($pathToFile, $fileName);
+        $this->fileName = static::prepareFileName($pathToFile, $fileName);
         parent::__construct($this->fileName);
     }
 

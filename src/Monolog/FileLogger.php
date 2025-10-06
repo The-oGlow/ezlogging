@@ -21,17 +21,21 @@ use Monolog\Handler\StreamHandler;
 class FileLogger extends ConsoleLogger
 {
     /**
-     *
      * @param string             $name
      * @param string             $pathToFile
-     * @param HandlerInterface[] $handlers
-     *            Optional stack of handlers, the first one in the array is called first, etc.
+     * @param handlerInterface[] $handlers
+     *                                       Optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors
-     *            Optional array of processors
-     * @param DateTimeZone|null  $timezone
+     *                                       Optional array of processors
+     * @param null|DateTimeZone  $timezone
      */
-    public function __construct(string $name, string $pathToFile, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
-    {
+    public function __construct(
+        string $name,
+        string $pathToFile,
+        array $handlers = [],
+        array $processors = [],
+        ?DateTimeZone $timezone = null
+    ) {
         parent::__construct(
             $name,
             (empty($handlers) ? [$this->getFileHandler($pathToFile, $name)] : $handlers),
@@ -40,18 +44,25 @@ class FileLogger extends ConsoleLogger
         );
     }
 
+    /**
+     * @param string $pathToFile
+     * @param string $fileName
+     *
+     * @return StreamHandler
+     */
     protected function getFileHandler(string $pathToFile, string $fileName): StreamHandler
     {
         return new FileHandler($pathToFile, $fileName);
     }
 
+    /**
+     * @return string
+     */
     public function getFileName(): string
     {
         $fileName = '';
-        foreach ($this->getHandlers() as $handler)
-        {
-            if ($handler instanceof FileHandler)
-            {
+        foreach ($this->getHandlers() as $handler) {
+            if ($handler instanceof FileHandler) {
                 $fileName = $handler->getFileName();
             }
         }

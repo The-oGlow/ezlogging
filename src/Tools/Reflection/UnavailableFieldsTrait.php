@@ -22,40 +22,42 @@ trait UnavailableFieldsTrait
      * @param string $fieldName
      * @param mixed  $instance
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     protected function getFieldByReflection($clazzName, string $fieldName, $instance)
     {
-        if (!empty($clazzName))
-        {
+        $result = null;
+        if (!empty($clazzName)) {
             $refObject = new ReflectionProperty($clazzName, $fieldName);
-            $refObject->setAccessible(true);
+            $refObject->setAccessible(true); // NOSONAR: php:S3011
 
-            return $refObject->getValue($instance);
-        } else
-        {
-            return null;
+            $result = $refObject->getValue($instance);  // NOSONAR: php:S3011
         }
+
+        return $result;
     }
 
     /**
      * @param string $fieldName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     protected function getFieldFromO2t(string $fieldName)
     {
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
-        if (!empty($this->o2t)) // @phpstan-ignore empty.property,property.notFound
-        {
-            $locO2t = $this->o2t;
-            /** @psalm-suppress TypeDoesNotContainType */
-            $clazzName = get_class($locO2t) === false ? '' : get_class($locO2t); // @phpstan-ignore identical.alwaysFalse
+        $result = null;
 
-            return $this->getFieldByReflection($clazzName, $fieldName, $locO2t);
-        } else
-        {
-            return null;
+        /**
+         * @psalm-suppress RedundantPropertyInitializationCheck
+         * @phpstan-ignore isset.property,property.notFound
+         */
+        if (isset($this->o2t)) {
+            $clazzName = get_class($this->o2t);
+            /** @psalm-suppress RedundantCondition */
+            if (!empty($clazzName)) {
+                $result = $this->getFieldByReflection($clazzName, $fieldName, $this->o2t);
+            }
         }
+
+        return $result;
     }
 }

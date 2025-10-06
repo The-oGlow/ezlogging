@@ -1,26 +1,84 @@
 parameters:
     level: 8
 
+    parallel:
+        jobSize: 10
+        maximumNumberOfProcesses: 32
+        minimumNumberOfJobsPerProcess: 4
+
     paths:
         - src/
         - tests/
 
+    checkStrictPrintfPlaceholderTypes: false
+
+    strictRules:
+        # Too strict -> disabled
+        disallowedEmpty: false
+        disallowedLooseComparison: false
+
     ignoreErrors:
+        # Too strict -> disabled
         -
-            identifier: empty.notAllowed
+            identifier: booleanAnd.alwaysFalse
             paths:
-                - src/Monolog/AbstractEasyGoingLogger.php
-                - src/Monolog/FileLogger.php
-                - src/Monolog/Handler/FileHandler.php
-                - src/Tools/Reflection/UnavailableFieldsTrait.php
-                - src/Tools/Reflection/UnavailableMethodsTrait.php
-                - tests/Monolog/PlainLoggerTest.php
+                - tests/*/*TestTrait.php
         -
-            identifier: method.childReturnType
+            identifier: booleanAnd.alwaysTrue
             paths:
-                - src\Monolog\Processor\PaddingProcessor.php
-                - src\Monolog\Processor\PlainProcessor.php
-        - identifier: switch.type
+                - tests/*/*TestTrait.php
+        -
+            identifier: function.alreadyNarrowedType
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: function.impossibleType
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: instanceof.alwaysFalse
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: instanceof.alwaysTrue
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: isset.property
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: method.dynamicName
+            paths:
+                - tests/*/*TestTrait.php
+                - tests/*/*Test.php
+        -
+            identifier: method.notFound
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: method.unused
+            paths:
+                - tests/*/*Test.php
+        -
+            identifier: property.notFound
+            paths:
+                - tests/*/*TestTrait.php
+        -
+            identifier: property.onlyWritten
+            paths:
+                - tests/*/*Test.php
+        -
+            identifier: staticMethod.alreadyNarrowedType
+            paths:
+                - tests/*/*TestTrait.php
+
+        # Custom
+        -
+            identifier: constructor.unusedParameter
+            paths:
+                - src\Monolog\Formatter\EasyGoingFormatter.php
+                - src\Monolog\Formatter\PlainFormatter.php
 
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon

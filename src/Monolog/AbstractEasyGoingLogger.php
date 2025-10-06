@@ -22,26 +22,19 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
 
 /**
- * Class AbstractEasyGoingLogger
- *
- * @package Monolog
+ * Class AbstractEasyGoingLogger.
  */
 abstract class AbstractEasyGoingLogger extends Logger
 {
     public const STANDARD_TIMEZONE = "Europe/Berlin";
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor
-     * @var string $targetFile
-     */
-    protected $targetFile;
 
     /**
      * AbstractEasyGoingLogger constructor.
      *
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
-     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
+     * @param HandlerInterface[] $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors Optional array of processors
-     * @param DateTimeZone|null  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      */
     public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
@@ -49,10 +42,12 @@ abstract class AbstractEasyGoingLogger extends Logger
             $name,
             $handlers,
             $processors,
-            $timezone ?? new DateTimeZone(!empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE)
+            $timezone ?? new DateTimeZone( // NOSONAR:  php:S2830
+                !empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE
+            )
         );
         $this->pushProcessor($this->getDefaultProcessor());
-        $this->pushHandler($this->getConsoleHandler());
+        $this->pushHandler($this->getDefaultHandler());
     }
 
     abstract protected function getDefaultHandler(): HandlerInterface;

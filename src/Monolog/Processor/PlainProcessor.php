@@ -21,6 +21,8 @@ class PlainProcessor implements ProcessorInterface
      * @param mixed[] $record
      *
      * @return mixed[] The processed record
+     *
+     * @phpstan-ignore method.childReturnType
      */
     public function __invoke(array $record)
     {

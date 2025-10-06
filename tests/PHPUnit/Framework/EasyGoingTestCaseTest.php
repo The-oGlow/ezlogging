@@ -17,10 +17,14 @@ use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ */
 class EasyGoingTestCaseO2t
 {
-};
-class EasyGoingTestCaseClazz extends EasyGoingTestCase //NOSONAR php:S3360
+}
+
+class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR php:S3360
 {
     protected function prepareO2t()
     {
@@ -38,7 +42,7 @@ class EasyGoingTestCaseTest extends TestCase
     use UnavailableMethodsTrait;
     use UnavailableFieldsTrait;
 
-    /** @var EasyGoingTestCaseClazz $o2t */
+    /** @var EasyGoingTestCaseClazz */
     private $o2t;
 
     public function setUp(): void
@@ -51,7 +55,7 @@ class EasyGoingTestCaseTest extends TestCase
     public function testPrepareO2t(): void
     {
         $expected = $this->getFieldFromO2t("o2t");
-        $actual = $this->callMethodOnO2t('prepareO2t');
+        $actual   = $this->callMethodOnO2t('prepareO2t');
 
         static::assertNotEmpty($expected);
         static::assertNotEmpty($actual);
@@ -64,7 +68,7 @@ class EasyGoingTestCaseTest extends TestCase
     public function testGetCasto2t(): void
     {
         $expected = $this->getFieldFromO2t("o2t");
-        $actual = $this->callMethodOnO2t('getCasto2t');
+        $actual   = $this->callMethodOnO2t('getCasto2t');
 
         static::assertNotEmpty($expected);
         static::assertNotEmpty($actual);

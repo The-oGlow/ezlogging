@@ -15,6 +15,7 @@ namespace Monolog;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\HandlerInterface;
@@ -22,18 +23,28 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
 use PHPUnit\Framework\TestCase;
 
-class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSONAR php:S3360
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Files.SideEffects.FoundWithSymbols
+class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface // NOSONAR php:S3360
 {
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function isHandling(array $record): bool
     {
         return true;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handle(array $record): bool
     {
         return true;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function handleBatch(array $records): void
     {
         // nothing2do
@@ -44,15 +55,16 @@ class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface //NOSO
         // nothing2do
     }
 }
-class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface //NOSONAR php:S3360
+
+class AbstractEasyGoingLoggerTestProcessorClazz implements ProcessorInterface // NOSONAR php:S3360
 {
-    /** @psalm-suppress InvalidReturnType,InvalidReturnStatement */
     public function __invoke(array $record)
     {
-        return []; // @phpstan-ignore return.type
+        return $record;
     }
 }
-class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //NOSONAR php:S3360
+
+class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface // NOSONAR php:S3360
 {
     public function format(array $record)
     {
@@ -64,7 +76,8 @@ class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface //
         return $records;
     }
 }
-class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger //NOSONAR php:S3360
+
+class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger // NOSONAR php:S3360
 {
     protected function getDefaultHandler(): HandlerInterface
     {
@@ -84,8 +97,9 @@ class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger //NOSONAR
 
 class AbstractEasyGoingLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
-    /** @var AbstractEasyGoingLoggerTestClazz $o2t */
+    use AbstractEasyGoingLoggerTestTrait;
+
+    /** @var AbstractEasyGoingLoggerTestClazz */
     private $o2t;
 
     public function setUp(): void
@@ -104,8 +118,8 @@ class AbstractEasyGoingLoggerTest extends TestCase
 
     public function testCreateWithDifferentTimezone(): void
     {
-        $customDTZ = new \DateTimeZone("America/Los_Angeles");
-        $o2tb = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
+        $customDTZ = new DateTimeZone("America/Los_Angeles");
+        $o2tb      = new AbstractEasyGoingLoggerTestClazz(self::class, [], [], $customDTZ);
 
         static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

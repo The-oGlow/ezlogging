@@ -49,6 +49,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @param mixed             $level
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function log($level, $message, array $context = []): void
     {
@@ -58,6 +60,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function emergency($message, array $context = []): void
     {
@@ -67,6 +71,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function alert($message, array $context = []): void
     {
@@ -76,6 +82,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function warning($message, array $context = []): void
     {
@@ -85,6 +93,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function notice($message, array $context = []): void
     {
@@ -94,6 +104,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function info($message, array $context = []): void
     {
@@ -103,6 +115,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     /**
      * @param string|Stringable $message
      * @param mixed[]           $context
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function debug($message, array $context = []): void
     {

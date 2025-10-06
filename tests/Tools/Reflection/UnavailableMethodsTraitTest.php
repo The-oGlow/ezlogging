@@ -17,6 +17,11 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ *
+ * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
+ */
 class UnavailableMethodsTraitTestHolderClazz
 {
     public function publicFunc(): string
@@ -29,7 +34,7 @@ class UnavailableMethodsTraitTestHolderClazz
         return 'protectedFuncValue';
     }
 
-    private function privateFunc(): string // @phpstan-ignore method.unused
+    private function privateFunc(): string
     {
         return 'privateFuncValue';
     }
@@ -38,7 +43,8 @@ class UnavailableMethodsTraitTestHolderClazz
 class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
-    /** @var mixed $o2t */
+
+    /** @var mixed */
     private $o2t;
 
     public function __construct()
@@ -49,7 +55,7 @@ class UnavailableMethodsTraitTestO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodOnO2t(string $methodName)
     {
@@ -59,7 +65,7 @@ class UnavailableMethodsTraitTestO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodByReflection(string $methodName)
     {
@@ -70,8 +76,9 @@ class UnavailableMethodsTraitTestO2tClazz
 class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
-    /** @var mixed $wrongO2t */
-    private $wrongO2t; // @phpstan-ignore property.onlyWritten
+
+    /** @var mixed */
+    private $wrongO2t;
 
     public function __construct()
     {
@@ -81,7 +88,7 @@ class UnavailableMethodsTraitTestWrongO2tClazz
     /**
      * @param string $methodName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicCallMethodOnO2t(string $methodName)
     {
@@ -91,8 +98,9 @@ class UnavailableMethodsTraitTestWrongO2tClazz
 
 class UnavailableMethodsTraitTest extends TestCase
 {
-    /** @var UnavailableMethodsTraitTestO2tClazz $o2t */
+    /** @var UnavailableMethodsTraitTestO2tClazz */
     private $o2t;
+
     /** @var string[] */
     private $methodNames = ['publicFunc', 'protectedFunc', 'privateFunc'];
 
@@ -104,16 +112,14 @@ class UnavailableMethodsTraitTest extends TestCase
 
     public function testCallMethodByReflection(): void
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodByReflection($methodName));
         }
     }
 
     public function testCallMethodOnO2t(): void
     {
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertEquals($methodName . 'Value', $this->o2t->publicCallMethodOnO2t($methodName));
         }
     }
@@ -122,8 +128,7 @@ class UnavailableMethodsTraitTest extends TestCase
     {
         /** @var UnavailableMethodsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableMethodsTraitTestWrongO2tClazz();
-        foreach ($this->methodNames as $methodName)
-        {
+        foreach ($this->methodNames as $methodName) {
             static::assertNull($o2tb->publicCallMethodOnO2t($methodName));
         }
     }

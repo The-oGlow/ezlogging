@@ -13,25 +13,33 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use Monolog\Formatter\EasyGoingFormatter;
-use Monolog\Handler\ConsoleHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PaddingProcessor;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
-require_once __DIR__.  '/../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
+/**
+ * Class ConsoleLoggerTest.
+ */
 class ConsoleLoggerTest extends TestCase
 {
-    use TraitForAbstractEasyGoingLogger;
+    use AbstractEasyGoingLoggerTestTrait;
 
-    /** @var ConsoleLogger $o2t */
+    /** @var ConsoleLogger */
     private $o2t;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->o2t = new ConsoleLogger(self::class);
+    }
+
+    public function testCreateWithDifferentTimezone(): void
+    {
+        $customDTZ = new DateTimeZone("America/Los_Angeles");
+        $o2tb      = new ConsoleLogger(self::class, [], [], $customDTZ);
+
+        static::assertInstanceOf(ConsoleLogger::class, $o2tb);
+        static::assertEquals($customDTZ, $o2tb->getTimezone());
     }
 }

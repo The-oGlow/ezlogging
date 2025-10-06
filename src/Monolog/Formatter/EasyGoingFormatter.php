@@ -17,6 +17,7 @@ class EasyGoingFormatter extends LineFormatter
 {
     /** @var string */
     public const FORMATTER_OUTPUT = "\n%datetime% [%level_name_pad%] %channel%->%xFunction%() - %message% %context% %extra%";
+
     /** @var string */
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
@@ -28,8 +29,11 @@ class EasyGoingFormatter extends LineFormatter
      * @param bool   $allowInlineLineBreaks
      * @param bool   $ignoreEmptyContextAndExtra
      * @param bool   $includeStacktraces
+     *
+     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     * @SuppressWarnings("PHPMD.LongVariable")
      */
-    // @phpstan-ignore constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter, constructor.unusedParameter
     public function __construct(
         $format = self::FORMATTER_OUTPUT,
         $dateFormat = self::FORMATTER_DATEFORMAT,

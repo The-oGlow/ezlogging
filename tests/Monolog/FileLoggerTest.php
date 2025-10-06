@@ -21,43 +21,21 @@ use Monolog\Handler\HandlerInterface;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
-class FileLoggerTestHandlerClazz implements HandlerInterface
-{
-    public function isHandling(array $record): bool
-    {
-        return true;
-    }
-
-    public function handle(array $record): bool
-    {
-        return true;
-    }
-
-    public function handleBatch(array $records): void
-    {
-        // nothing2do
-    }
-
-    public function close(): void
-    {
-        // nothing2do
-    }
-}
-
 class FileLoggerTest extends TestCase
 {
-    use UnavailableFieldsTrait;
-    /** @var FileLogger $o2t */
+    use AbstractEasyGoingLoggerTestTrait;
+    use FileLoggerTestTrait;
+
+    /** @var FileLogger */
     private $o2t;
-    /** @var string $fileName */
-    private $fileName;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->o2t      = new FileLogger(self::class, sys_get_temp_dir());
-        $this->fileName = $this->o2t->getFileName();
+        $this->o2t      = new FileLogger(uniqid(self::class, true), sys_get_temp_dir());
+        self::$fileName = $this->o2t->getFileName();
+        $this->silentIsExists = false;
     }
 
     public function testConfiguration(): void
@@ -72,10 +50,10 @@ class FileLoggerTest extends TestCase
 
     public function testFileCreated(): void
     {
-        static::assertNotEmpty($this->fileName);
-        static::assertFileDoesNotExist($this->fileName);
+        static::assertNotEmpty(self::$fileName);
+        static::assertFileDoesNotExist(self::$fileName);
         $this->o2t->info('Write a log entry');
-        static::assertFileExists($this->fileName);
+        static::assertFileExists(self::$fileName);
     }
 
     public function testCreateWithCustomHandler(): void
@@ -97,13 +75,39 @@ class FileLoggerTest extends TestCase
         $fileName = $o2tc->getFileName();
         static::assertEmpty($fileName);
     }
+}
 
-    public function tearDown(): void
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ */
+class FileLoggerTestHandlerClazz implements HandlerInterface
+{
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function isHandling(array $record): bool
     {
-        if (file_exists($this->fileName))
-        {
-            unlink($this->fileName);
-        }
-        parent::tearDown();
+        return true;
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function handle(array $record): bool
+    {
+        return true;
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
+    public function handleBatch(array $records): void
+    {
+        // nothing2do
+    }
+
+    public function close(): void
+    {
+        // nothing2do
     }
 }

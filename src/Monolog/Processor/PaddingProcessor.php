@@ -16,21 +16,23 @@ namespace Monolog\Processor;
 use Monolog\Logger;
 
 /**
- * Class PaddingProcessor
+ * Class PaddingProcessor.
  *
- * Use Introspection from @link IntrospectionProcessor.
+ * Use Introspection from @see IntrospectionProcessor.
  *
- * @package Monolog\Processor
  * @see     IntrospectionProcessor
  */
 class PaddingProcessor implements ProcessorInterface
 {
     /** @var int */
     private $level;
+
     /** @var string[] */
     private $skipClassesPartials;
+
     /** @var int */
     private $skipStackFramesCount;
+
     /** @var string[] */
     private $skipFunctions = [
         'call_user_func',
@@ -38,11 +40,12 @@ class PaddingProcessor implements ProcessorInterface
     ];
 
     /**
-     *
      * @param mixed    $level
-     *            The minimum logging level at which this Processor will be triggered
+     *                                       The minimum logging level at which this Processor will be triggered
      * @param string[] $skipClassesPartials
      * @param int      $skipStackFramesCount
+     *
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function __construct($level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
@@ -57,12 +60,13 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $record
      *
      * @return mixed[]
+     *
+     * @phpstan-ignore method.childReturnType
      */
-    public function __invoke(array $record): array
+    public function __invoke(array $record)
     {
         $record                   = $this->__invokeIntrospection($record);
         $record['level_name_pad'] = str_pad($record['level_name'], 8, ' ', STR_PAD_RIGHT);
@@ -71,16 +75,17 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $record
      *
      * @return mixed[]
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ElseExpression")
      */
-    private function __invokeIntrospection(array $record): array
+    private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
         // return if the level is not high enough
-        if ($record['level'] < $this->level)
-        {
+        if ($record['level'] < $this->level) {
             return $record;
         }
 
@@ -91,40 +96,33 @@ class PaddingProcessor implements ProcessorInterface
         // the call_user_func call is also skipped
         array_shift($trace);
 
-        $i = 0;
+        $index = 0;
 
-        while ($this->isTraceClassOrSkippedFunction($trace, $i))
-        {
-            if (isset($trace[$i]['class']))
-            {
-                foreach ($this->skipClassesPartials as $part)
-                {
-                    if (strpos($trace[$i]['class'], $part) !== false)
-                    {
-                        $i++;
+        while ($this->isTraceClassOrSkippedFunction($trace, $index)) {
+            if (isset($trace[$index]['class'])) {
+                foreach ($this->skipClassesPartials as $part) {
+                    if (strpos($trace[$index]['class'], $part) !== false) {
+                        $index++;
 
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$i]['function'], $this->skipFunctions, true))
-            {
-                $i++;
+            } elseif (in_array($trace[$index]['function'], $this->skipFunctions, true)) {
+                $index++;
 
                 continue;
-            } else
-            {
+            } else {
                 break;
             }
             break;
         }
 
-        $i += $this->skipStackFramesCount;
+        $index += $this->skipStackFramesCount;
 
         // we should have the call source now
-        if ($i > 0 && $i < count($trace))
-        {
-            $curTrace  = $trace[$i];
-            $prevTrace = $trace[$i - 1];
+        if ($index > 0 && $index < count($trace)) {
+            $curTrace  = $trace[$index];
+            $prevTrace = $trace[$index - 1];
             $xDetails  = [
                 'xFile'     => $prevTrace['file'] ?? null,
                 'xLine'     => $prevTrace['line'] ?? null,
@@ -139,7 +137,6 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     *
      * @param mixed[] $trace
      * @param int     $index
      *
@@ -147,8 +144,7 @@ class PaddingProcessor implements ProcessorInterface
      */
     private function isTraceClassOrSkippedFunction(array $trace, int $index): bool
     {
-        if (!isset($trace[$index]))
-        {
+        if (!isset($trace[$index])) {
             return false;
         }
 

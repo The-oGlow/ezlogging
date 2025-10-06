@@ -17,20 +17,28 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ *
+ * @SuppressWarnings("PHPMD.UnusedPrivateField")
+ */
 class UnavailableFieldsTraitTestHolderClazz
 {
-    /** @var string $publicField */
+    /** @var string */
     public $publicField = 'publicFieldValue';
-    /** @var string $protectedField */
+
+    /** @var string */
     protected $protectedField = 'protectedFieldValue';
-    /** @var string $privateField */
-    private $privateField = 'privateFieldValue'; // @phpstan-ignore property.onlyWritten
+
+    /** @var string */
+    private $privateField = 'privateFieldValue';
 }
 
 class UnavailableFieldsTraitTestO2tClazz
 {
     use UnavailableFieldsTrait;
-    /** @var mixed $o2t */
+
+    /** @var mixed */
     private $o2t;
 
     public function __construct()
@@ -41,7 +49,7 @@ class UnavailableFieldsTraitTestO2tClazz
     /**
      * @param string $fieldName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicGetFieldFromO2t(string $fieldName)
     {
@@ -51,7 +59,7 @@ class UnavailableFieldsTraitTestO2tClazz
     /**
      * @param string $fieldName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicGetFieldByReflection(string $fieldName)
     {
@@ -62,8 +70,9 @@ class UnavailableFieldsTraitTestO2tClazz
 class UnavailableFieldsTraitTestWrongO2tClazz
 {
     use UnavailableFieldsTrait;
-    /** @var mixed $wrongO2t */
-    private $wrongO2t; // @phpstan-ignore property.onlyWritten
+
+    /** @var mixed */
+    private $wrongO2t;
 
     public function __construct()
     {
@@ -73,7 +82,7 @@ class UnavailableFieldsTraitTestWrongO2tClazz
     /**
      * @param string $fieldName
      *
-     * @return mixed|null
+     * @return null|mixed
      */
     public function publicGetFieldFromO2t(string $fieldName)
     {
@@ -83,8 +92,9 @@ class UnavailableFieldsTraitTestWrongO2tClazz
 
 class UnavailableFieldsTraitTest extends TestCase
 {
-    /** @var UnavailableFieldsTraitTestO2tClazz $o2t */
+    /** @var UnavailableFieldsTraitTestO2tClazz */
     private $o2t;
+
     /** @var string[] */
     private $fieldNames = ['publicField', 'protectedField', 'privateField'];
 
@@ -96,16 +106,14 @@ class UnavailableFieldsTraitTest extends TestCase
 
     public function testGetFieldByReflection(): void
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldByReflection($fieldName));
         }
     }
 
     public function testGetFieldFromO2t(): void
     {
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertEquals($fieldName . 'Value', $this->o2t->publicGetFieldFromO2t($fieldName));
         }
     }
@@ -114,8 +122,7 @@ class UnavailableFieldsTraitTest extends TestCase
     {
         /** @var UnavailableFieldsTraitTestWrongO2tClazz $o2tb */
         $o2tb = new UnavailableFieldsTraitTestWrongO2tClazz();
-        foreach ($this->fieldNames as $fieldName)
-        {
+        foreach ($this->fieldNames as $fieldName) {
             static::assertNull($o2tb->publicGetFieldFromO2t($fieldName));
         }
     }

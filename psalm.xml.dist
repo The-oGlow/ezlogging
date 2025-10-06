@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <psalm
-        errorLevel="2"
+        errorLevel="1"
         resolveFromConfigFile="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
         findUnusedBaselineEntry="true"
         findUnusedCode="false"
+        findUnusedPsalmSuppress="true"
+        reportInfo="false"
+        reportMixedIssues="true"
 >
     <projectFiles>
         <directory name="src"/>
@@ -16,7 +19,15 @@
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
+        <UnusedPsalmSuppress errorLevel="error"/>
+        <!-- too strict -->
         <LessSpecificImplementedReturnType errorLevel="suppress"/>
+        <MixedArgument errorLevel="info"/>
+        <MixedReturnStatement errorLevel="info"/>
+        <MixedArrayAccess errorLevel="info"/>
+        <MixedAssignment errorLevel="info"/>
+        <MixedArgumentTypeCoercion errorLevel="info"/>
+        <MixedInferredReturnType errorLevel="info"/>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
