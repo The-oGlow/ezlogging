@@ -14,9 +14,15 @@ declare(strict_types=1);
 namespace PHPUnit\Framework;
 
 use Monolog\ConsoleLogger;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPUnit\Framework\Error\Warning;
 
 abstract class EasyGoingTestCase extends TestCase
 {
+    public const    C_STATIC_SEP = '::';
+
+    protected const C_PRIMITIVES = 'int|integer|bool|boolean|float';
+
     /** @var \Monolog\Logger */
     protected $logger;
 
@@ -75,8 +81,9 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected function verifyConstExists(string $constantName): void
     {
-        if (defined($constantName)) {
-            $constantValue = constant($constantName);
+        $isDefined = self::isConstExist($this->o2t, $constantName);
+        if ($isDefined) {
+            $constantValue = self::getConstValue($this->o2t, $constantName);
             $this->logger->debug("Checking '$constantName'=" . print_r($constantValue, true));
             if (!static::isPrimitive($constantValue)) {
                 static::assertNotEmpty($constantValue);
@@ -88,8 +95,6 @@ abstract class EasyGoingTestCase extends TestCase
         }
     }
 
-    public const LOP = 'int|integer|bool|boolean|float';
-
     /**
      * @param mixed $var
      *
@@ -99,7 +104,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         $primitive = false;
 
-        if (isset($var) && strpos(self::LOP, gettype($var)) > 0) {
+        if (isset($var) && strpos(self::C_PRIMITIVES, gettype($var)) > 0) {
             $primitive = true;
         }
 
@@ -111,11 +116,87 @@ abstract class EasyGoingTestCase extends TestCase
      *
      * @return mixed[]
      */
-    protected function getAllDefinedConsts($clazz): array
+    protected static function getAllDefinedConsts($clazz): array
     {
         $clazz = new \ReflectionClass($clazz);
 
         return $clazz->getConstants();
+    }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return bool
+     */
+    protected static function isConstExist($clazz, string $constantName): bool
+    {
+        $isDefined = defined($constantName);
+        if (!$isDefined) {
+            echo "\nisConstExist(): '$constantName' not public!";
+            $allConsts  = self::getAllDefinedConsts($clazz);
+            $splitClazz = explode(self::C_STATIC_SEP, $constantName);
+            $isDefined  = isset($allConsts[$splitClazz[count($splitClazz) - 1]]);
+        }
+
+        return $isDefined;
+    }
+
+    /**
+     * @param mixed   $clazz
+     * @param mixed[] $actualConsts
+     */
+    public static function crossCheckConstants($clazz, array $actualConsts): void
+    {
+        $expected = self::getAllDefinedConsts($clazz);
+        ksort($expected);
+        $expected = array_keys($expected);
+
+        $callback = /**
+         * @param mixed $value
+         *
+         * @return string
+         */
+            function ($value): string {
+                $startPos = ((int)strpos($value, self::C_STATIC_SEP)) + strlen(self::C_STATIC_SEP);
+
+                return substr((string)$value, $startPos);
+            };
+        /** @var string[] */
+        $actual = array_map($callback, $actualConsts);
+        $actual = array_flip($actual);
+        ksort($actual);
+        $actual = array_keys($actual);
+
+        //        print_r($expected);
+        //        print_r($actual);
+        static::assertEqualsCanonicalizing(
+            $expected,
+            $actual,
+            'You have forgotten to check: ' . print_r(array_diff($expected, $actual), true)
+        );
+    }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return mixed
+     */
+    protected static function getConstValue($clazz, string $constantName)
+    {
+        try {
+            $constantValue = constant($constantName);
+        } catch (Warning $e) { // @phpstan-ignore catch.neverThrown
+            echo "\ngetConstValue(): '" . $constantName . "' cannot get value!";
+        }
+        if (!isset($constantValue)) {
+            $clazz         = new \ReflectionClass($clazz);
+            $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
+            $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]);
+        }
+
+        return $constantValue;
     }
 
     public function testInit(): void
