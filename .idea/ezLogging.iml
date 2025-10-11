@@ -54,7 +54,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/socket" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/stream" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -150,7 +149,6 @@
           <root url="file://$MODULE_DIR$/vendor/react/promise" />
           <root url="file://$MODULE_DIR$/vendor/react/socket" />
           <root url="file://$MODULE_DIR$/vendor/react/stream" />
-          <root url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -242,7 +240,6 @@
           <root url="file://$MODULE_DIR$/vendor/react/promise" />
           <root url="file://$MODULE_DIR$/vendor/react/socket" />
           <root url="file://$MODULE_DIR$/vendor/react/stream" />
-          <root url="file://$MODULE_DIR$/vendor/rogervila/php-sonarqube-scanner" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />

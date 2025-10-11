@@ -10,6 +10,7 @@
         findUnusedPsalmSuppress="true"
         reportInfo="false"
         reportMixedIssues="true"
+        allowStringToStandInForClass="true"
 >
     <projectFiles>
         <directory name="src"/>

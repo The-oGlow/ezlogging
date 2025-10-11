@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e270328b83eaf159fb4f987d3aded01",
+    "content-hash": "2e798e1cd22fd1807b7123da358af044",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -3151,17 +3151,11 @@
         },
         {
             "name": "rogervila/php-sonarqube-scanner",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rogervila/php-sonarqube-scanner.git",
-                "reference": "262a79012b1fc94c2814c9e9a76c1e533577b18e"
-            },
+            "version": "dev-develop",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rogervila/php-sonarqube-scanner/zipball/262a79012b1fc94c2814c9e9a76c1e533577b18e",
-                "reference": "262a79012b1fc94c2814c9e9a76c1e533577b18e",
-                "shasum": ""
+                "type": "path",
+                "url": "../php-sonarqube-scanner",
+                "reference": "5a9a6d4eca36e4deaf0831b01ede05c0a2dcbb58"
             },
             "require": {
                 "crysalead/dir": "^2.0",
@@ -3171,7 +3165,7 @@
             },
             "require-dev": {
                 "creativestyle/app-http-server-mock": "^1.0",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0 || ^11.0",
                 "symfony/process": "^4.1 || ^5.0"
             },
             "bin": [
@@ -3183,7 +3177,11 @@
                     "Sonar\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\Sonar\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -3198,11 +3196,9 @@
                 "sonar scanner php",
                 "sonarqube scanner php"
             ],
-            "support": {
-                "issues": "https://github.com/rogervila/php-sonarqube-scanner/issues",
-                "source": "https://github.com/rogervila/php-sonarqube-scanner/tree/1.1.0"
-            },
-            "time": "2020-12-09T07:46:28+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "sebastian/cli-parser",
@@ -6285,7 +6281,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "rogervila/php-sonarqube-scanner": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

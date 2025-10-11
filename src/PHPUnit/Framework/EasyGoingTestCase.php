@@ -26,7 +26,7 @@ abstract class EasyGoingTestCase extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->logger = new ConsoleLogger(self::class);
+        $this->logger = new ConsoleLogger(static::class);
         $this->o2t    = $this->prepareO2t();
     }
 
@@ -80,6 +80,8 @@ abstract class EasyGoingTestCase extends TestCase
             $this->logger->debug("Checking '$constantName'=" . print_r($constantValue, true));
             if (!static::isPrimitive($constantValue)) {
                 static::assertNotEmpty($constantValue);
+            } else {
+                static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
             }
         } else {
             static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
@@ -96,11 +98,24 @@ abstract class EasyGoingTestCase extends TestCase
     protected static function isPrimitive($var): bool
     {
         $primitive = false;
+
         if (isset($var) && strpos(self::LOP, gettype($var)) > 0) {
             $primitive = true;
         }
 
         return $primitive;
+    }
+
+    /**
+     * @param mixed $clazz
+     *
+     * @return mixed[]
+     */
+    protected function getAllDefinedConsts($clazz): array
+    {
+        $clazz = new \ReflectionClass($clazz);
+
+        return $clazz->getConstants();
     }
 
     public function testInit(): void

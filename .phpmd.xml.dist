@@ -51,5 +51,12 @@
             <property name="subtract-suffixes" value="Clazz,Trait,Test"/>
         </properties>
     </rule>
+    <rule ref="rulesets/naming.xml/LongVariable">
+        <!-- refine -->
+        <priority>1</priority>
+        <properties>
+            <property name="maximum" value="40"/>
+        </properties>
+    </rule>
 
 </ruleset>
