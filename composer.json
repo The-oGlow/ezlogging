@@ -35,7 +35,8 @@
   "require": {
     "php": ">=7.4",
     "monolog/monolog": "^2.10",
-    "psr/log": "^1.0||^2.0||^3.0"
+    "psr/log": "^1.0||^2.0||^3.0",
+    "composer/composer": "^2.0"
   },
   "provide": {
     "psr/log-implementation": "^1.0||^2.0||^3.0"
