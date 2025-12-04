@@ -69,7 +69,7 @@ abstract class EasyGoingTestCase extends TestCase
 
     protected function verifyConstArraySize(string $constantName, int $expectedSize): void
     {
-        $constantValue = constant($constantName);
+        $constantValue = self::getConstValue($this->o2t, $constantName);
         static::assertIsArray($constantValue);
         static::assertCount($expectedSize, $constantValue);
     }
