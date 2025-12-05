@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\TextUI\XmlConfiguration\PHPUnit;
 
 class EnvironmentVariableTraitTest extends TestCase
 {
@@ -31,6 +32,9 @@ class EnvironmentVariableTraitTest extends TestCase
     public function testHomeUserProfileDirect(): void
     {
         $actual = self::getHome('USERPROFILE');
+        if (empty($actual)) {
+            $actual = self::getHome('HOME');
+        }
 
         $this->validateActualContains($actual, DIRECTORY_SEPARATOR);
     }
@@ -39,7 +43,7 @@ class EnvironmentVariableTraitTest extends TestCase
     {
         $actual = self::getHome('NOTEXISTS');
 
-        static::assertStringContainsString(DIRECTORY_SEPARATOR, $actual);
+        static::assertEquals("", $actual);
     }
 
     public function testGetProjectRoot(): void

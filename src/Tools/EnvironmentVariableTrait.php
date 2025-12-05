@@ -26,7 +26,7 @@ trait EnvironmentVariableTrait
     {
         $home = getenv($homeVariable);
         /** @psalm-suppress RiskyTruthyFalsyComparison */
-        if (empty($home)) {
+        if ($homeVariable == 'HOME' && empty($home)) {
             // we are on windows?
             $home = getenv('USERPROFILE');
         }
