@@ -18,7 +18,14 @@
     {
       "name": "ollily",
       "email": "426229+ollily@users.noreply.github.com",
-      "homepage": "https://github.com/ollily"
+      "homepage": "https://github.com/ollily",
+      "role": "Project Owner, Developer"
+    },
+    {
+      "name": "oglowa",
+      "email": "36665428+oglowa@users.noreply.github.com",
+      "homepage": "https://github.com/The-oGlow",
+      "role": "Developer"
     }
   ],
   "support": {
@@ -26,12 +33,6 @@
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../php-sonarqube-scanner"
-    }
-  ],
   "require": {
     "php": ">=7.4",
     "monolog/monolog": "^2.10",
@@ -53,7 +54,7 @@
     "friendsofphp/php-cs-fixer": "^3.0",
     "squizlabs/php_codesniffer": "^3.13",
     "phpmd/phpmd": "^2.0",
-    "rogervila/php-sonarqube-scanner": "dev-develop"
+    "rogervila/php-sonarqube-scanner": "^1.0"
   },
   "config": {
     "platform": {
@@ -90,10 +91,6 @@
       "composer c-phpmd",
       "composer c-test"
     ],
-    "c-codacy": [
-      "composer c-test",
-      "@php -d xdebug.mode=off vendor/bin/codacy-coverage"
-    ],
     "c-da": "@composer dump-autoload",
     "c-dry-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer check --allow-unsupported-php-version=yes --allow-risky=yes --format txt",
     "c-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer fix --allow-unsupported-php-version=yes --allow-risky=yes",
@@ -102,6 +99,7 @@
       "bash -c 'mkdir --p target/analysis/phpcs'",
       "@php -d xdebug.mode=off vendor/bin/phpcs -v"],
     "c-phpcbf": "@php -d xdebug.mode=off vendor/bin/phpcbf",
+    "c-phpdoc": "phpDocumentor run",
     "c-phpmd": "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt",
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm --report=target/analysis/psalm/psalm-report.txt",
@@ -114,7 +112,6 @@
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit"
   },
   "scripts-descriptions": {
-    "c-codacy": "CUSTOM: Codacy sends the coverage to codacy",
     "c-all": "CUSTOM: Run composer with c-fix, c-phpcs, c-phpstan, c-psalm, c-phpmd, c-test",
     "c-da": "CUSTOM: shortkey for 'dump-autoload'",
     "c-dry-fix": "CUSTOM: See what PHP CS Fixer will fix (dry run)",
@@ -122,6 +119,7 @@
     "c-package": "CUSTOM: Create deployable package",
     "c-phpcs": "CUSTOM: PHP Code Sniffer verifies your code",
     "c-phpcbf": "CUSTOM: PHP Code Sniffer fixes your code",
+    "c-phpdoc": "CUSTOM: phpDocumentor generates the API documentation",
     "c-phpmd": "CUSTOM: PHP Mess Detector verifies your code",
     "c-phpstan": "CUSTOM: PHPStan verifies your code",
     "c-psalm": "CUSTOM: Psalm verifies your code",
