@@ -187,7 +187,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         try {
             $constantValue = constant($constantName);
-        } catch (Error $e) { // @phpstan-ignore catch.neverThrown
+        } catch (\Exception $e) { // @phpstan-ignore catch.neverThrown
             echo "\ngetConstValue(): '" . $constantName . "' cannot get value!";
         }
         if (!isset($constantValue)) {
