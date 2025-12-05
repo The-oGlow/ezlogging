@@ -16,8 +16,8 @@ env:
   # PHP Configuration
   PHP_MODULES-7.4: none,xdebug-3.1.6,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
   PHP_MODULES: none,bcmath,bz2,calendar,Core,ctype,curl,date,dom,exif,fileinfo,filter,gd,hash,iconv,intl,json,libxml,mbstring,openssl,pcre,PDO,Phar,readline,Reflection,session,SimpleXML,soap,sockets,SPL,standard,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
-  PHPUNIT_DIR: "target/analysis/phpunit"
-  PHPUNIT_LOG: "target/analysis/phpunit/phpunit-test.log"
+  PHPUNIT_DIR: ${{ github.workspace }}/target/analysis/phpunit
+  PHPUNIT_LOG: ${{ github.workspace }}/target/analysis/phpunit/phpunit-test.log
 
   # User Configuration
   AUTH_DIR: "${HOME}/.ya-corapi"
@@ -43,11 +43,11 @@ env:
 
   # Codacy Configuration
   CODACY_API_TOKEN: ${{ secrets.CODACY_TOKEN_GH }}
-  CODACY_COVERAGE_FILE: "target/analysis/clover/coverage.xml"
+  CODACY_COVERAGE_FILE: ${{ github.workspace }}/target/analysis/clover/coverage.xml
 
   # Coveralls Configuration
   COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-  COVERALLS_COVERAGE_FILE: "target/analysis/clover/coverage.xml"
+  COVERALLS_COVERAGE_FILE: ${{ github.workspace }}/target/analysis/clover/coverage.xml
 
 jobs:
   code-analysis:
@@ -106,7 +106,7 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress
 
       - name: execute tests
-        run: composer c-test > ${{ env.PHPUNIT_LOG }}
+        run: composer c-test>${{ env.PHPUNIT_LOG }}
 
       #- name: show test log
       #  run: test -f ${{ env.PHPUNIT_LOG }} && cat ${{ env.PHPUNIT_LOG }}
