@@ -100,12 +100,6 @@ jobs:
       - name: install dependencies
         run: composer update --no-ansi --no-interaction --no-progress
 
-      - name: prepare personal files
-        run: |
-          mkdir -p ${{ env.AUTH_DIR }}
-          cp ${{ env.GITHUB_PROJECT_DIR }}/cfg/MyAuth.php.dist ${{ env.AUTH_DIR }}/MyAuth.php
-          cp ${{ env.GITHUB_PROJECT_DIR }}/cfg/MySpaces.php.dist ${{ env.AUTH_DIR }}/MySpaces.php
-
       - name: execute tests
         run: composer c-test > ${{ env.PHPUNIT_LOG }}
 
