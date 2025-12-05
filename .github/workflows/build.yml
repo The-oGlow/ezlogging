@@ -67,8 +67,7 @@ jobs:
         run: echo ${TS_NOW} - ${{ env.TS_NOW }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
 
       - name: create target dir
-        run: |
-          mkdir -p ${{ env.PHPUNIT_DIR }}
+        run: mkdir -p ${{ env.PHPUNIT_DIR }}
 
       - name: checkout
         uses: actions/checkout@v4.3.0

@@ -67,8 +67,7 @@ jobs:
         run: echo ${TS_NOW} - ${{ env.TS_NOW }} - ${{ steps.TS_NOW.outputs.TS_NOW }}
 
       - name: create target dir
-        run: |
-          mkdir -p ${{ env.PHPUNIT_DIR }}
+        run: mkdir -p ${{ env.PHPUNIT_DIR }}
 
       - name: checkout
         uses: actions/checkout@v4.3.0
@@ -106,7 +105,7 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress
 
       - name: execute tests
-        run: composer c-test>${{ env.PHPUNIT_LOG }}
+        run: composer c-test
 
       #- name: show test log
       #  run: test -f ${{ env.PHPUNIT_LOG }} && cat ${{ env.PHPUNIT_LOG }}
