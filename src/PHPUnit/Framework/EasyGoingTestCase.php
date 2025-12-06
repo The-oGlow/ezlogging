@@ -188,12 +188,15 @@ abstract class EasyGoingTestCase extends TestCase
         try {
             $constantValue = constant($constantName);
         } catch (\Exception $e) { // @phpstan-ignore catch.neverThrown
-            echo "\ngetConstValue(): '" . $constantName . "' cannot get value!";
+            echo "\ngetConstValue(): By Constant   '$constantName' cannot get value!";
         }
         if (!isset($constantValue)) {
             $clazz         = new \ReflectionClass($clazz);
             $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
             $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]);
+            echo "\ngetConstValue(): By Reflection '$constantName'='$constantValue'";
+        } else {
+            echo "\ngetConstValue(): By Constant   '$constantName'='$constantValue'";
         }
 
         return $constantValue;
