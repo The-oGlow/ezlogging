@@ -131,9 +131,13 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected static function isConstExist($clazz, string $constantName): bool
     {
-        $isDefined = defined($constantName);
+        try {
+            $isDefined = defined($constantName);
+        } catch (\Exception $e) { // @phpstan-ignore catch.neverThrown
+            $isDefined = false;
+        }
         if (!$isDefined) {
-            echo "\nisConstExist(): '$constantName' not public!";
+            echo "\nisConstExist(): By constant() '$constantName' not found!";
             $allConsts  = self::getAllDefinedConsts($clazz);
             $splitClazz = explode(self::C_STATIC_SEP, $constantName);
             $isDefined  = isset($allConsts[$splitClazz[count($splitClazz) - 1]]);
@@ -188,7 +192,7 @@ abstract class EasyGoingTestCase extends TestCase
         try {
             $constantValue = constant($constantName);
         } catch (\Exception $e) { // @phpstan-ignore catch.neverThrown
-            echo "\ngetConstValue(): By Constant   '$constantName' cannot get value!";
+            echo "\ngetConstValue(): By constant() '$constantName' cannot get value!";
         }
         if (!isset($constantValue)) {
             $clazz         = new \ReflectionClass($clazz);
@@ -196,7 +200,7 @@ abstract class EasyGoingTestCase extends TestCase
             $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]);
             // echo "\ngetConstValue(): By Reflection '$constantName'='$constantValue'";
             // } else {
-            // echo "\ngetConstValue(): By Constant   '$constantName'='$constantValue'";
+            // echo "\ngetConstValue(): By constant() '$constantName'='$constantValue'";
         }
 
         return $constantValue;

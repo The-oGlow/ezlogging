@@ -54,6 +54,17 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR php:S3360
     {
         return parent::getConstValue($clazz, $constantName);
     }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return bool
+     */
+    public static function isConstExist($clazz, string $constantName) :bool
+    {
+        return parent::isConstExist($clazz,  $constantName);
+    }
 }
 
 class EasyGoingTestCaseTest extends TestCase
@@ -138,4 +149,44 @@ class EasyGoingTestCaseTest extends TestCase
 
         static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
     }
+
+    public function testIsConstExistWithPublic():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PUBLIC');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithProtected():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PROTECTED');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithPrivate():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PRIVATE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithNone():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NONE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+    public function testIsConstExistWithNotExists():void
+    {
+        $expected = false;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NOTEXISTS');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
 }
