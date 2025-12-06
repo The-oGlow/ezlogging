@@ -26,6 +26,14 @@ class EasyGoingTestCaseO2t
 
 class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR php:S3360
 {
+    public const EASYGOINGTESTCASETEXT_PUBLIC = 'public';
+
+    protected const EASYGOINGTESTCASETEXT_PROTECTED = 'protected';
+
+    private const EASYGOINGTESTCASETEXT_PRIVATE = 'private'; // @phpstan-ignore classConstant.unused
+
+    public const EASYGOINGTESTCASETEXT_NONE = 'none';
+
     protected function prepareO2t()
     {
         return new EasyGoingTestCaseO2t();
@@ -35,12 +43,36 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR php:S3360
     {
         return $this->o2t;
     }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return mixed
+     */
+    public static function getConstValue($clazz, string $constantName)
+    {
+        return parent::getConstValue($clazz, $constantName);
+    }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return bool
+     */
+    public static function isConstExist($clazz, string $constantName) :bool
+    {
+        return parent::isConstExist($clazz,  $constantName);
+    }
 }
 
 class EasyGoingTestCaseTest extends TestCase
 {
     use UnavailableMethodsTrait;
     use UnavailableFieldsTrait;
+
+    private const TEST_CLAZZ = '\PHPUnit\Framework\EasyGoingTestCaseClazz';
 
     /** @var EasyGoingTestCaseClazz */
     private $o2t;
@@ -77,4 +109,84 @@ class EasyGoingTestCaseTest extends TestCase
         static::assertEquals($expected, $actual);
         static::assertSame($expected, $actual);
     }
+
+    public function testGetConstValueWithPublic(): void
+    {
+        $expected = 'public';
+        $actual = $this->o2t::getConstValue($this->o2t, self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PUBLIC');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testGetConstValueWithProtected(): void
+    {
+        $expected = 'protected';
+        $actual = $this->o2t::getConstValue($this->o2t, self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PROTECTED');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testGetConstValueWithPrivate(): void
+    {
+        $expected = 'private';
+        $actual = $this->o2t::getConstValue($this->o2t, self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PRIVATE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testGetConstValueWithNone(): void
+    {
+        $expected = 'none';
+        $actual = $this->o2t::getConstValue($this->o2t, self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NONE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testGetConstValueWithNotExists(): void
+    {
+        $expected = '';
+        $actual = $this->o2t::getConstValue($this->o2t, self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NOTEXISTS');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithPublic():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PUBLIC');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithProtected():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PROTECTED');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithPrivate():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_PRIVATE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
+    public function testIsConstExistWithNone():void
+    {
+        $expected = true;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NONE');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+    public function testIsConstExistWithNotExists():void
+    {
+        $expected = false;
+        $actual = $this->o2t::isConstExist($this->o2t,self::TEST_CLAZZ . '::EASYGOINGTESTCASETEXT_NOTEXISTS');
+
+        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+    }
+
 }

@@ -18,7 +18,14 @@
     {
       "name": "ollily",
       "email": "426229+ollily@users.noreply.github.com",
-      "homepage": "https://github.com/ollily"
+      "homepage": "https://github.com/ollily",
+      "role": "Project Owner, Developer"
+    },
+    {
+      "name": "oglowa",
+      "email": "36665428+oglowa@users.noreply.github.com",
+      "homepage": "https://github.com/The-oGlow",
+      "role": "Developer"
     }
   ],
   "support": {
@@ -29,7 +36,8 @@
   "require": {
     "php": ">=7.4",
     "monolog/monolog": "^2.10",
-    "psr/log": "^1.0||^2.0||^3.0"
+    "psr/log": "^1.0||^2.0||^3.0",
+    "composer/composer": "^2.0"
   },
   "provide": {
     "psr/log-implementation": "^1.0||^2.0||^3.0"
@@ -91,11 +99,16 @@
       "bash -c 'mkdir --p target/analysis/phpcs'",
       "@php -d xdebug.mode=off vendor/bin/phpcs -v"],
     "c-phpcbf": "@php -d xdebug.mode=off vendor/bin/phpcbf",
+    "c-phpdoc": "phpDocumentor run",
     "c-phpmd": "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt",
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm --report=target/analysis/psalm/psalm-report.txt",
     "c-dry-psalter": "@php -d xdebug.mode=off vendor/bin/psalter --dry-run --issues=MissingReturnType,MissingClosureReturnType,MissingParamType,MissingPropertyType,PossiblyUndefinedVariable,PossiblyUndefinedGlobalVariable,ParamNameMismatch",
     "c-psalter": "@php -d xdebug.mode=off vendor/bin/psalter --issues=MissingReturnType,MissingClosureReturnType,MissingParamType,MissingPropertyType,PossiblyUndefinedVariable,PossiblyUndefinedGlobalVariable,ParamNameMismatch",
+    "c-sonar": [
+      "composer c-test",
+      "@php -d xdebug.mode=off -Dproject.settings=sonar-project.properties vendor/bin/sonar-scanner"
+    ],
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit"
   },
   "scripts-descriptions": {
@@ -106,11 +119,13 @@
     "c-package": "CUSTOM: Create deployable package",
     "c-phpcs": "CUSTOM: PHP Code Sniffer verifies your code",
     "c-phpcbf": "CUSTOM: PHP Code Sniffer fixes your code",
+    "c-phpdoc": "CUSTOM: phpDocumentor generates the API documentation",
     "c-phpmd": "CUSTOM: PHP Mess Detector verifies your code",
     "c-phpstan": "CUSTOM: PHPStan verifies your code",
     "c-psalm": "CUSTOM: Psalm verifies your code",
     "c-dry-psalter": "CUSTOM: See what Psalter will fix (dry run)",
     "c-psalter": "CUSTOM: Psalter fixes your code",
+    "c-sonar": "CUSTOM: Sonarcloud verifies your code",
     "c-test": "CUSTOM: PHPUnit executes all unit tests"
   }
 }
