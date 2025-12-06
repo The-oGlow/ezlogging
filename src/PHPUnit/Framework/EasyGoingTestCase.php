@@ -194,9 +194,9 @@ abstract class EasyGoingTestCase extends TestCase
             $clazz         = new \ReflectionClass($clazz);
             $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
             $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]);
-            echo "\ngetConstValue(): By Reflection '$constantName'='$constantValue'";
-        } else {
-            echo "\ngetConstValue(): By Constant   '$constantName'='$constantValue'";
+            // echo "\ngetConstValue(): By Reflection '$constantName'='$constantValue'";
+            // } else {
+            // echo "\ngetConstValue(): By Constant   '$constantName'='$constantValue'";
         }
 
         return $constantValue;
