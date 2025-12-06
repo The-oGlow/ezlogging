@@ -10,6 +10,8 @@
     <rule ref="rulesets/codesize.xml">
         <!-- refine -->
         <exclude name="CyclomaticComplexity"/>
+        <!-- refine -->
+        <exclude name="TooManyPublicMethods"/>
     </rule>
     <rule ref="rulesets/cleancode.xml">
         <!-- too strict -->
@@ -33,7 +35,13 @@
             <property name="reportLevel" value="20"/>
         </properties>
     </rule>
-
+    <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+        <!-- refine -->
+        <priority>1</priority>
+        <properties>
+            <property name="maxmethods" value="25"/>
+        </properties>
+    </rule>
     <rule ref="rulesets/cleancode.xml/MissingImport">
         <!-- refine -->
         <priority>1</priority>
@@ -41,7 +49,6 @@
             <property name="ignore-global" value="true"/>
         </properties>
     </rule>
-
     <rule ref="rulesets/naming.xml/LongClassName">
         <!-- refine -->
         <priority>1</priority>

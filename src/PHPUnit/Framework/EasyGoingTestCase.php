@@ -120,7 +120,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         $clazz = new \ReflectionClass($clazz);
 
-        return $clazz->getConstants();
+        return $clazz->getConstants(); // NOSONAR php:S3011
     }
 
     /**
@@ -133,7 +133,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         try {
             $isDefined = defined($constantName);
-        } catch (\Exception $e) { // @phpstan-ignore catch.neverThrown
+        } catch (\Throwable $e) {
             $isDefined = false;
         }
         if (!$isDefined) {
@@ -191,13 +191,13 @@ abstract class EasyGoingTestCase extends TestCase
     {
         try {
             $constantValue = constant($constantName);
-        } catch (\Throwable $e) { // @phpstan-ignore catch.neverThrown
+        } catch (\Throwable $e) {
             echo "\ngetConstValue(): By constant() '$constantName' cannot get value!";
         }
         if (!isset($constantValue)) {
             $clazz         = new \ReflectionClass($clazz);
             $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
-            $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]);
+            $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]); // NOSONAR php:S3011
             // echo "\ngetConstValue(): By Reflection '$constantName'='$constantValue'";
             // } else {
             // echo "\ngetConstValue(): By constant() '$constantName'='$constantValue'";
