@@ -21,10 +21,13 @@
         <exclude name="StaticAccess"/>
     </rule>
     <rule ref="rulesets/controversial.xml"/>
-    <rule ref="rulesets/design.xml"/>
+    <rule ref="rulesets/design.xml">
+        <exclude name="CouplingBetweenObjects"/>
+    </rule>
     <rule ref="rulesets/naming.xml">
         <!-- refine -->
         <exclude name="LongClassName"/>
+        <exclude name="LongVariable"/>
     </rule>
     <rule ref="rulesets/unusedcode.xml"/>
 
@@ -47,6 +50,13 @@
         <priority>1</priority>
         <properties>
             <property name="ignore-global" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+        <!-- refine -->
+        <priority>1</priority>
+        <properties>
+            <property name="maximum" value="30"/>
         </properties>
     </rule>
     <rule ref="rulesets/naming.xml/LongClassName">
