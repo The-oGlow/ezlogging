@@ -19,7 +19,7 @@ class ChildClazzesHelperTest extends TestCase
 {
     public function testNoChildren(): void
     {
-        $clazzName = self::class;
+        $clazzName = ChildClazzesHelperTest::class;
         $expected = 0;
 
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
@@ -36,7 +36,7 @@ class ChildClazzesHelperTest extends TestCase
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
 
         static::assertGreaterThanOrEqual($expected, sizeof($actual));
-        static::assertContains(self::class, $actual);
+        static::assertContains(ChildClazzesHelperTest::class, $actual);
         static::assertNotContains($clazzName, $actual);
     }
 

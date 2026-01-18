@@ -11,19 +11,22 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog\Processor;
+namespace ollily\Tools\String;
 
-class PlainProcessor implements ProcessorInterface
+class ToStringTraitTestClazz
 {
+    use ToStringTrait;
+
+    /** @var string */
+    public $greeting = 'hello';
+
     /**
-     * @param mixed[] $record
+     * @return mixed
      *
-     * @return mixed[] The processed record
-     *
-     * @phpstan-ignore method.childReturnType
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    public function __invoke(array $record)
+    protected function __toStringValues()
     {
-        return $record;
+        return $this;
     }
 }

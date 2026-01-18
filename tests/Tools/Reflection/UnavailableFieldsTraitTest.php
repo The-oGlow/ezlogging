@@ -13,12 +13,10 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Reflection;
 
-require_once __DIR__ . '/../../bootstrap.php';
-
 use PHPUnit\Framework\TestCase;
 
 /**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
+ * @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
  *
  * @SuppressWarnings("PHPMD.UnusedPrivateField")
  */
@@ -39,7 +37,7 @@ class UnavailableFieldsTraitTestO2tClazz
     use UnavailableFieldsTrait;
 
     /** @var mixed */
-    private $o2t;
+    protected $o2t;
 
     public function __construct()
     {
@@ -93,7 +91,7 @@ class UnavailableFieldsTraitTestWrongO2tClazz
 class UnavailableFieldsTraitTest extends TestCase
 {
     /** @var UnavailableFieldsTraitTestO2tClazz */
-    private $o2t;
+    protected $o2t;
 
     /** @var string[] */
     private $fieldNames = ['publicField', 'protectedField', 'privateField'];

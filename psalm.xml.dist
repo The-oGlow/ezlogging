@@ -22,6 +22,7 @@
     <issueHandlers>
         <UnusedPsalmSuppress errorLevel="error"/>
         <!-- too strict -->
+        <InternalMethod errorLevel="info"/>
         <LessSpecificImplementedReturnType errorLevel="suppress"/>
         <MixedArgument errorLevel="info"/>
         <MixedReturnStatement errorLevel="info"/>
@@ -29,6 +30,7 @@
         <MixedAssignment errorLevel="info"/>
         <MixedArgumentTypeCoercion errorLevel="info"/>
         <MixedInferredReturnType errorLevel="info"/>
+        <PropertyNotSetInConstructor errorLevel="info"/>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

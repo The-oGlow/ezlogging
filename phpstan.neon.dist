@@ -57,14 +57,6 @@ parameters:
             paths:
                 - tests/*/*TestTrait.php
         -
-            identifier: method.unused
-            paths:
-                - tests/*/*Test.php
-        -
-            identifier: property.notFound
-            paths:
-                - tests/*/*TestTrait.php
-        -
             identifier: property.onlyWritten
             paths:
                 - tests/*/*Test.php

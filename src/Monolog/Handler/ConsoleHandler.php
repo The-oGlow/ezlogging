@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
-use Monolog\Logger;
-
 class ConsoleHandler extends StreamHandler
 {
     public const HANDLER_STDOUT = "php://stdout";

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class ImplodeTraitTest extends TestCase
 {
     /** @var ImplodeTraitTestClazz */
-    private $o2t;
+    protected $o2t;
 
     protected function setUp(): void
     {
@@ -42,53 +42,5 @@ class ImplodeTraitTest extends TestCase
     {
         $actual = $this->o2t->implodeObjectCustom();
         static::assertNotEmpty($actual);
-    }
-}
-
-/**
- * Class ImplodeTraitTestObject.
- *
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class ImplodeTraitTestObject
-{
-}
-
-/**
- * Class ImplodeTraitTestClazz.
- *
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class ImplodeTraitTestClazz
-{
-    use ImplodeTrait;
-
-    public const SEP = '#';
-
-    /** @var array<mixed,mixed> */
-    public $anydata = ['first' => 'a', 'second' => [1, 2]];
-
-    /** @var array<mixed,mixed> */
-    public $anydata2 = [];
-
-    public function __construct()
-    {
-        $this->anydata2[] = new ImplodeTraitTestObject();
-        $this->anydata2[] = [10 => new ImplodeTraitTestObject(), 20 => new ImplodeTraitTestObject()];
-    }
-
-    public function implodeDefault(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata);
-    }
-
-    public function implodeCustom(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata, true, true);
-    }
-
-    public function implodeObjectCustom(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata2, true, true);
     }
 }

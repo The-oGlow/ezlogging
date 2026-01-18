@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class PlainProcessorTest extends TestCase
 {
     /** @var PlainProcessor */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

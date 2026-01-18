@@ -22,7 +22,7 @@ class PaddingProcessorTest extends TestCase
     use UnavailableFieldsTrait;
 
     /** @var PaddingProcessor */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

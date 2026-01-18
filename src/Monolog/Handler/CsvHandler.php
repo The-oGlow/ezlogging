@@ -13,11 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
-use Monolog\FileLogger;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\NormalizerFormatter;
-use Monolog\Handler\StreamHandler;
 use ollily\Tools\PhpVersionTrait;
 use ollily\Tools\String\ImplodeTrait;
 

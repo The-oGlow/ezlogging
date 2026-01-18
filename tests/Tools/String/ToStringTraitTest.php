@@ -13,15 +13,12 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String;
 
-use Monolog\Handler\CsvHandler;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../../bootstrap.php';
 
 class ToStringTraitTest extends TestCase
 {
     /** @var ToStringTraitTestClazz */
-    private $o2t;
+    protected $o2t;
 
     protected function setUp(): void
     {
@@ -40,26 +37,5 @@ class ToStringTraitTest extends TestCase
     {
         static::expectException(\BadMethodCallException::class);
         $this->o2t->__wakeup();
-    }
-}
-
-/**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class ToStringTraitTestClazz
-{
-    use ToStringTrait;
-
-    /** @var string */
-    public $greeting = 'hello';
-
-    /**
-     * @return mixed
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     */
-    protected function __toStringValues()
-    {
-        return $this;
     }
 }

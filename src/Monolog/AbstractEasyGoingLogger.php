@@ -16,7 +16,6 @@ namespace Monolog;
 use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\ConsoleHandler;
-use Monolog\Handler\FileHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;

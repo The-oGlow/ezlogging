@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use DateTimeZone;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\NoopHandler;
@@ -29,7 +28,7 @@ class DoNothingLogger extends AbstractEasyGoingLogger
     public function __construct()
     {
         parent::__construct(
-            self::class,
+            DoNothingLogger::class,
             [],
             [],
             null

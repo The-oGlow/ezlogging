@@ -13,12 +13,8 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-require_once __DIR__ . '/../bootstrap.php';
-
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\FileHandler;
-use Monolog\Handler\HandlerInterface;
-use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
 class FileLoggerTest extends TestCase
@@ -27,7 +23,7 @@ class FileLoggerTest extends TestCase
     use FileLoggerTestTrait;
 
     /** @var FileLogger */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {
@@ -74,40 +70,5 @@ class FileLoggerTest extends TestCase
         static::assertInstanceOf(FileLogger::class, $o2tc);
         $fileName = $o2tc->getFileName();
         static::assertEmpty($fileName);
-    }
-}
-
-/**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class FileLoggerTestHandlerClazz implements HandlerInterface
-{
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function isHandling(array $record): bool
-    {
-        return true;
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function handle(array $record): bool
-    {
-        return true;
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public function handleBatch(array $records): void
-    {
-        // nothing2do
-    }
-
-    public function close(): void
-    {
-        // nothing2do
     }
 }

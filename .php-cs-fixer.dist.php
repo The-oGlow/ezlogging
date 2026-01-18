@@ -21,8 +21,9 @@ $projRules = [
     // Customizing
     'declare_strict_types'                          => true,
     'no_trailing_comma_in_singleline'               => true,
+    'no_unused_imports'                             => true,
     'protected_to_private'                          => false,
-    'modifier_keywords' => true,
+    'modifier_keywords'                             => true,
     'return_assignment'                             => true,
     // Blank lines / spacing
     'class_attributes_separation'                   => [
@@ -144,4 +145,3 @@ $projRules = [
 $finder = PhpCsFixer\Finder::create()->in(__DIR__ . '/src')->in(__DIR__ . '/tests');
 
 return (new PhpCsFixer\Config())->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())->setRules($projRules)->setFinder($finder);
-

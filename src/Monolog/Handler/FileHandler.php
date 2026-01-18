@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
-use Monolog\Logger;
-
 class FileHandler extends StreamHandler
 {
     /** @var string */

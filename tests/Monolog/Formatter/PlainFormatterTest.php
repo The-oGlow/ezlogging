@@ -21,7 +21,7 @@ class PlainFormatterTest extends TestCase
     use UnavailableFieldsTrait;
 
     /** @var PlainFormatter */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

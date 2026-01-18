@@ -13,93 +13,12 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Reflection;
 
-require_once __DIR__ . '/../../bootstrap.php';
-
 use PHPUnit\Framework\TestCase;
-
-/**
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- *
- * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
- */
-class UnavailableMethodsTraitTestHolderClazz
-{
-    public function publicFunc(): string
-    {
-        return 'publicFuncValue';
-    }
-
-    protected function protectedFunc(): string
-    {
-        return 'protectedFuncValue';
-    }
-
-    private function privateFunc(): string
-    {
-        return 'privateFuncValue';
-    }
-}
-
-class UnavailableMethodsTraitTestO2tClazz
-{
-    use UnavailableMethodsTrait;
-
-    /** @var mixed */
-    private $o2t;
-
-    public function __construct()
-    {
-        $this->o2t = new UnavailableMethodsTraitTestHolderClazz();
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return null|mixed
-     */
-    public function publicCallMethodOnO2t(string $methodName)
-    {
-        return $this->callMethodOnO2t($methodName);
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return null|mixed
-     */
-    public function publicCallMethodByReflection(string $methodName)
-    {
-        return $this->callMethodByReflection(UnavailableMethodsTraitTestHolderClazz::class, $methodName, $this->o2t);
-    }
-}
-
-class UnavailableMethodsTraitTestWrongO2tClazz
-{
-    use UnavailableMethodsTrait;
-
-    /** @var mixed */
-    private $wrongO2t;
-
-    public function __construct()
-    {
-        $this->wrongO2t = new UnavailableMethodsTraitTestHolderClazz();
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return null|mixed
-     */
-    public function publicCallMethodOnO2t(string $methodName)
-    {
-        return $this->callMethodOnO2t($methodName);
-    }
-}
 
 class UnavailableMethodsTraitTest extends TestCase
 {
     /** @var UnavailableMethodsTraitTestO2tClazz */
-    private $o2t;
+    protected $o2t;
 
     /** @var string[] */
     private $methodNames = ['publicFunc', 'protectedFunc', 'privateFunc'];

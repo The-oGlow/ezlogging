@@ -13,21 +13,13 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use DateTimeZone;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\CsvHandler;
-use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
-use Stringable;
 
-/**
- * Class CsvLogger.
- *
- * @psalm-suppress PropertyNotSetInConstructor
- */
 class CsvLogger extends FileLogger
 {
     /** @var string */
