@@ -30,15 +30,15 @@ abstract class EasyGoingTestCase extends TestCase
      *
      * @see EasyGoingTestCase::expectedConstsCount
      */
-    private static $crossCheckConsts = false;
+    private static $withConstCrossCheck = false;
 
     /**
      * @var int Set the correct count of constants in child classes. Only used if {@link EasyGoingTestCase::crossCheckConsts}=true.
      *
-     * @see EasyGoingTestCase::crossCheckConsts
+     * @see EasyGoingTestCase::$withConstCrossCheck
      * @see EasyGoingTestCase::testAllConstants()
      */
-    private $expectedConstsCount = 0;
+    private static $expectedConstsCount = 0;
 
     /** @var mixed[] Array of the names of all constants in the class. */
     private static $actualConsts = [];
@@ -47,13 +47,20 @@ abstract class EasyGoingTestCase extends TestCase
     private static $logger;
 
     /**
-     * @see EasyGoingTestCase::crossCheckConsts
+     * @param bool $withConstCrossCheck
+     * @param int  $expectedConstsCount
+     *
+     * @see EasyGoingTestCase::$withConstCrossCheck
+     * @see EasyGoingTestCase::$expectedConstsCount
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass(bool $withConstCrossCheck = false, int $expectedConstsCount = 0): void
     {
         self::$logger->debug('START');
         parent::setUpBeforeClass();
-        self::$actualConsts = [];
+        self::$actualConsts        = [];
+        self::$withConstCrossCheck = $withConstCrossCheck;
+        self::$expectedConstsCount = $expectedConstsCount;
+        self::$logger->info('withConstCrossCheck,expectedConstCount', [self::$withConstCrossCheck, self::$expectedConstsCount]);
         self::$logger->debug('END');
     }
 
@@ -62,8 +69,9 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('START');
         parent::tearDownAfterClass();
         self::crossCheckConstants(get_class(static::prepareO2t()), self::$actualConsts);
-        self::$actualConsts     = [];
-        self::$crossCheckConsts = false;
+        self::$actualConsts        = [];
+        self::$withConstCrossCheck = false;
+        self::$expectedConstsCount = 0;
         self::$logger->debug('END');
     }
 
@@ -90,24 +98,11 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('END');
     }
 
-    protected function getExpectedConstsCount(): int
-    {
-        return 0;
-    }
-
-    protected function isConstsCrosscheck(): bool
-    {
-        return false;
-    }
-
     public function setUp(): void
     {
         self::$logger->debug('START');
         parent::setUp();
-        self::$crossCheckConsts    = $this->isConstsCrosscheck();
-        $this->expectedConstsCount = $this->getExpectedConstsCount();
-        self::$logger->info('crossCheckConsts,expectedConstCount', [self::$crossCheckConsts, $this->expectedConstsCount]);
-        $this->o2t                 = static::prepareO2t();
+        $this->o2t = static::prepareO2t();
         self::$logger->debug('END');
     }
 
@@ -217,11 +212,11 @@ abstract class EasyGoingTestCase extends TestCase
      * @param mixed   $clazz
      * @param mixed[] $actualConsts
      *
-     * @see EasyGoingTestCase::crossCheckConsts
+     * @see EasyGoingTestCase::$withConstCrossCheck
      */
     protected static function crossCheckConstants($clazz, $actualConsts): void
     {
-        if (self::$crossCheckConsts) {
+        if (self::$withConstCrossCheck) {
             self::$logger->info('Cross check is active');
             $expected = self::getAllDefinedConsts($clazz);
             ksort($expected);
@@ -261,33 +256,33 @@ abstract class EasyGoingTestCase extends TestCase
     }
 
     /**
-     * @param null|mixed[] $checkedConstants
+     * @param null|mixed[] $checkedConsts
      *
-     * @see EasyGoingTestCase::crossCheckConsts
+     * @see EasyGoingTestCase::$withConstCrossCheck
      */
-    protected static function updateActualConsts($checkedConstants): void
+    protected static function updateActualConsts($checkedConsts): void
     {
-        if (self::$crossCheckConsts && !is_null($checkedConstants)) {
-            self::$actualConsts = array_merge(self::$actualConsts, $checkedConstants);
+        if (self::$withConstCrossCheck && !is_null($checkedConsts)) {
+            self::$actualConsts = array_merge(self::$actualConsts, $checkedConsts);
         }
     }
 
     /**
-     * @param int     $expectedConstantsCount
+     * @param int     $expectedCount
      * @param mixed[] $allDefinedConsts
      *
      * @return array<mixed>
      */
-    protected static function checkConstantsCount(int $expectedConstantsCount, $allDefinedConsts)
+    protected static function checkConstantsCount(int $expectedCount, $allDefinedConsts)
     {
-        $actualConstantCount = sizeof($allDefinedConsts);
-        if (self::$crossCheckConsts) {
-            $result = $expectedConstantsCount == $actualConstantCount;
+        $allCount = sizeof($allDefinedConsts);
+        if (self::$withConstCrossCheck) {
+            $result = $expectedCount == $allCount;
         } else {
             $result = true;
         }
 
-        return [$result,$actualConstantCount];
+        return [$result, $allCount];
     }
 
     /**
@@ -322,15 +317,18 @@ abstract class EasyGoingTestCase extends TestCase
     }
 
     /**
-     * @see EasyGoingTestCase::crossCheckConsts
-     * @see EasyGoingTestCase::expectedConstsCount
+     * @see EasyGoingTestCase::$withConstCrossCheck
+     * @see EasyGoingTestCase::$expectedConstsCount
      */
     public function testAllConstants(): void
     {
         $allDefinedConsts = self::getAllDefinedConsts(get_class(static::prepareO2t()));
         ksort($allDefinedConsts);
-        [$actual,$actualConstsCount] = self::checkConstantsCount($this->expectedConstsCount, $allDefinedConsts);
+        [$actual, $actualConstsCount] = self::checkConstantsCount(self::$expectedConstsCount, $allDefinedConsts);
 
-        static::assertTrue($actual, sprintf('Constants, expected count is not reached by actual count [%s, %s] ', $this->expectedConstsCount, $actualConstsCount));
+        static::assertTrue(
+            $actual,
+            sprintf('Constants, expected count is not reached by actual count [%s, %s] ', self::$expectedConstsCount, $actualConstsCount)
+        );
     }
 }

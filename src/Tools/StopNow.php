@@ -32,18 +32,7 @@ class StopNow
 
     private function __construct()
     {
-        self::$logger = self::prepareLogger();
-        self::$logger->debug('START');
         self::init();
-        self::$logger->debug('END');
-    }
-
-    private static function prepareLogger(): LoggerInterface
-    {
-        $handler = new ErrorLogHandler();
-        $handler->setFormatter(new EasyGoingFormatter());
-
-        return new Logger(StopNow::class, [$handler], [new PaddingProcessor()]);
     }
 
     private static function init(): void
@@ -53,10 +42,10 @@ class StopNow
          * @phpstan-ignore  function.impossibleType
          *  */
         if (is_null(self::$logger)) {
-            self::$logger = self::prepareLogger();
+            $handler = new ErrorLogHandler();
+            $handler->setFormatter(new EasyGoingFormatter());
+            self::$logger = new Logger(StopNow::class, [$handler], [new PaddingProcessor()]);
         }
-        self::$logger->debug('START');
-        self::$logger->debug('END');
     }
 
     /**
