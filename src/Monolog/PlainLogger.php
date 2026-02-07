@@ -20,25 +20,39 @@ use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
 use Stringable;
 
+/**
+ * Class PlainLogger.
+ *
+ * @see AbstractEasyGoingLogger
+ */
 class PlainLogger extends AbstractEasyGoingLogger
 {
-    protected function getDefaultHandler(): HandlerInterface
+    /**
+     * @inheritdoc
+     */
+    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
-        return $this->getConsoleHandler();
+        return $this->getConsoleHandler($level);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new PlainProcessor();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new PlainFormatter();
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|Stringable $message The log message
      */
     public function out($message): void
     {
@@ -46,9 +60,9 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param mixed             $level
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param mixed             $level   The log level (a Monolog, PSR-3 or RFC 5424 level)
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -58,8 +72,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -69,8 +83,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -80,8 +94,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -91,8 +105,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -102,8 +116,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
@@ -113,8 +127,8 @@ class PlainLogger extends AbstractEasyGoingLogger
     }
 
     /**
-     * @param string|Stringable $message
-     * @param mixed[]           $context
+     * @param string|Stringable $message The log message
+     * @param mixed[]           $context The log context
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */

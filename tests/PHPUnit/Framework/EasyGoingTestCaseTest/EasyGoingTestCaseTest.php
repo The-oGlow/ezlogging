@@ -11,11 +11,12 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace PHPUnit\Framework;
+namespace PHPUnit\Framework\EasyGoingTestCaseTest;
 
 use Monolog\ConsoleLogger;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -110,7 +111,7 @@ class EasyGoingTestCaseTest extends TestCase
     {
         try {
             $this->o2t->testInit();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             static::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }
@@ -119,7 +120,7 @@ class EasyGoingTestCaseTest extends TestCase
     {
         try {
             $this->o2t->testAllConstants();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             static::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }
@@ -128,7 +129,7 @@ class EasyGoingTestCaseTest extends TestCase
     {
         try {
             $this->o2t->testConsts();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             static::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }

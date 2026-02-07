@@ -11,35 +11,16 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace PHPUnit\Framework;
+namespace PHPUnit\Framework\EasyGoingTestCaseTest;
 
-/**
- * A simple clazz which will be tested by the test clazz.
- *
- * @see EasyGoingTestCaseTestCaseClazz
- */
-class EasyGoingTestCaseClazz
-{
-    public const    TEST_CLAZZ                      = EasyGoingTestCaseClazz::class . '::';
-
-    public const    TEST_CONST_PREFIX               = self::TEST_CLAZZ . 'EASYGOINGTESTCASETEXT';
-
-    public const    EASYGOINGTESTCASETEXT_PUBLIC    = 'public';
-
-    protected const EASYGOINGTESTCASETEXT_PROTECTED = 'protected';
-
-    private const   EASYGOINGTESTCASETEXT_PRIVATE   = 'private'; // @phpstan-ignore classConstant.unused
-
-    public const           EASYGOINGTESTCASETEXT_NONE      = 'none';
-}
+use PHPUnit\Framework\EasyGoingTestCase;
+use PHPUnit\Framework\EasyGoingTestCaseTest;
 
 /**
  * This is the test clazz which will be tested.
  *
- * @see EasyGoingTestCaseClazz
- * @see EasyGoingTestCaseTest
- *
- * @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
+ * @see  EasyGoingTestCaseClazz
+ * @see  EasyGoingTestCaseTest
  */
 class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase
 {

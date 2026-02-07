@@ -19,45 +19,76 @@ use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Class AbstractEasyGoingLogger.
+ *
+ * @see Logger
+ * @see ConsoleHandler
  */
 abstract class AbstractEasyGoingLogger extends Logger
 {
+    /** @var string Fallback timezone */
     public const STANDARD_TIMEZONE = "Europe/Berlin";
 
+    /** @var string Default output level (INFO) */
+    public const LEVEL_DEFAULT = LogLevel::INFO;
+
     /**
-     * AbstractEasyGoingLogger constructor.
-     *
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
+     * @param mixed              $level      The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      * @param HandlerInterface[] $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors Optional array of processors
      * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     *
+     * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
-    public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
+    public function __construct(string $name, $level = self::LEVEL_DEFAULT, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
-        parent::__construct(
-            $name,
-            $handlers,
-            $processors,
-            $timezone ?? new DateTimeZone( // NOSONAR:  php:S2830
-                !empty(date_default_timezone_get()) ? date_default_timezone_get() : self::STANDARD_TIMEZONE
-            )
-        );
+        if (empty($timezone)) {
+            /**
+             * @psalm-suppress RedundantCondition,TypeDoesNotContainNull
+             * @phpstan-ignore nullCoalesce.expr
+             */
+            $timezone = new DateTimeZone(date_default_timezone_get() ?? self::STANDARD_TIMEZONE);
+        }
+        parent::__construct($name, $handlers, $processors, $timezone);
+        $this->pushHandler($this->getDefaultHandler($level));
         $this->pushProcessor($this->getDefaultProcessor());
-        $this->pushHandler($this->getDefaultHandler());
     }
 
-    abstract protected function getDefaultHandler(): HandlerInterface;
+    /**
+     * @param mixed $level Output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     *
+     * @
+     *
+     * @return HandlerInterface
+     *
+     * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
+     */
+    abstract protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface;
 
+    /**
+     * @return ProcessorInterface
+     */
     abstract protected function getDefaultProcessor(): ProcessorInterface;
 
+    /**
+     * @return FormatterInterface
+     */
     abstract protected function getDefaultFormatter(): FormatterInterface;
 
-    protected function getConsoleHandler(): StreamHandler
+    /**
+     * @param mixed $level Output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     *
+     * @return StreamHandler the stream handler for the file
+     *
+     * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
+     */
+    protected function getConsoleHandler($level = self::LEVEL_DEFAULT): StreamHandler
     {
-        $consoleHandler = new ConsoleHandler();
+        $consoleHandler = new ConsoleHandler($level);
         $consoleHandler->setFormatter($this->getDefaultFormatter());
 
         return $consoleHandler;

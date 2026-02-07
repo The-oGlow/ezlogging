@@ -21,30 +21,44 @@ use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
 
 /**
+ * Class DoNothingLogger.
+ *
  * This logger does exactly: <strong>nothing</strong>!
+ *
+ * @see AbstractEasyGoingLogger
+ * @see NoopHandler
+ * @see PlainProcessor
+ * @see PlainFormatter
  */
 class DoNothingLogger extends AbstractEasyGoingLogger
 {
+    /**
+     * DoNothingLogger constructor.
+     */
     public function __construct()
     {
-        parent::__construct(
-            DoNothingLogger::class,
-            [],
-            [],
-            null
-        );
+        parent::__construct(DoNothingLogger::class, self::LEVEL_DEFAULT, [], [], null);
     }
 
-    protected function getDefaultHandler(): HandlerInterface
+    /**
+     * @inheritdoc
+     */
+    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return new NoopHandler();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new PlainProcessor();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new PlainFormatter();

@@ -11,10 +11,13 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use DateTimeZone;
+use Monolog\AbstractEasyGoingLogger;
+use Monolog\AbstractEasyGoingLoggerTestTrait;
 use Monolog\Handler\ConsoleHandler;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -37,15 +40,19 @@ class AbstractEasyGoingLoggerTest extends TestCase
     {
         self::$logger = new Logger(AbstractEasyGoingLoggerTest::class);
         self::$logger->debug('START');
+
         parent::__construct($name, $data, $dataName);
+
         self::$logger->debug('END');
     }
 
     public function setUp(): void
     {
         self::$logger->debug('START');
+
         parent::setUp();
         $this->o2t = new AbstractEasyGoingLoggerTestClazz(AbstractEasyGoingLoggerTest::class);
+
         self::$logger->debug('END');
     }
 
@@ -60,7 +67,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new DateTimeZone("America/Los_Angeles");
-        $o2tb      = new AbstractEasyGoingLoggerTestClazz(AbstractEasyGoingLoggerTest::class, [], [], $customDTZ);
+        $o2tb      = new AbstractEasyGoingLoggerTestClazz(AbstractEasyGoingLoggerTest::class, AbstractEasyGoingLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
         static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

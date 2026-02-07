@@ -35,7 +35,7 @@ class ConsoleLoggerTest extends TestCase
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new DateTimeZone("America/Los_Angeles");
-        $o2tb      = new ConsoleLogger(ConsoleLoggerTest::class, [], [], $customDTZ);
+        $o2tb      = new ConsoleLogger(ConsoleLoggerTest::class, ConsoleLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
         static::assertInstanceOf(ConsoleLogger::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

@@ -11,7 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace ollily\Tools\String;
+namespace ollily\Tools\String\ImplodeTraitTest;
+
+use ollily\Tools\String\ImplodeTrait;
 
 class ImplodeTraitTestClazz
 {
@@ -45,13 +47,4 @@ class ImplodeTraitTestClazz
     {
         return $this->implode_recursive(self::SEP, $this->anydata2, true, true);
     }
-}
-
-/**
- * Class ImplodeTraitTestObject.
- *
- * @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols
- */
-class ImplodeTraitTestObject
-{
 }

@@ -59,7 +59,7 @@ parameters:
         -
             identifier: property.onlyWritten
             paths:
-                - tests/*/*Test.php
+                - tests/*/*Clazz.php
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:

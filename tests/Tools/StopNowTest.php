@@ -17,51 +17,75 @@ use PHPUnit\Framework\TestCase;
 
 class StopNowTest extends TestCase
 {
-    public function testStopDefault(): void
+    public const CODE_NEG1     = -1;
+
+    public const CODE_0        = 0;
+
+    public const CODE_89       = 89;
+
+    public const CODE_123      = 123;
+
+    public const CODE_255      = 255;
+
+    public const ERR_MSG_EMPTY = '';
+
+    public const ERR_MSG_01    = 'ERR-MSG';
+
+    public const ERR_MSG_02    = 'There is something worried';
+
+    /**
+     * @param int    $errCode
+     * @param string $errMessage
+     * @param int    $expected
+     *
+     * @dataProvider prepareDataStop
+     */
+    public function testStop(int $errCode, string $errMessage, int $expected): void
     {
-        $errCode    = 0;
-        $errMessage = '';
-
-        $expected = StopNow::ERR_CODE_DEFAULT;
-
         $actual = StopNow::stop($errCode, $errMessage, true);
 
         static::assertEquals($expected, $actual);
     }
 
-    public function testStopSpecific(): void
+    /**
+     * @return array<mixed>
+     */
+    public function prepareDataStop(): array
     {
-        $errCode    = 123;
-        $errMessage = 'There is something worried';
+        return [
+            'Default'         => [self::CODE_0, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+            'Specific'        => [self::CODE_123, self::ERR_MSG_02, self::CODE_123],
+            'ErrorCodeToLow'  => [self::CODE_NEG1, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+            'ErrorCodeToHigh' => [self::CODE_255, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+        ];
+    }
 
-        $expected = 123;
-
-        $actual = StopNow::stop($errCode, $errMessage, true);
+    /**
+     * @param \Throwable $throwable
+     * @param int        $expected
+     *
+     * @dataProvider prepareDataStopException
+     */
+    public function testStopException(\Throwable $throwable, int $expected): void
+    {
+        $actual = StopNow::stopException($throwable, true);
 
         static::assertEquals($expected, $actual);
     }
 
-    public function testStopErrorCodeToLow(): void
+    /**
+     * @return array<mixed>
+     */
+    public function prepareDataStopException(): array
     {
-        $errCode    = -1;
-        $errMessage = '';
-
-        $expected = StopNow::ERR_CODE_DEFAULT;
-
-        $actual = StopNow::stop($errCode, $errMessage, true);
-
-        static::assertEquals($expected, $actual);
-    }
-
-    public function testStopErrorCodeToHigh(): void
-    {
-        $errCode    = 255;
-        $errMessage = '';
-
-        $expected = StopNow::ERR_CODE_DEFAULT;
-
-        $actual = StopNow::stop($errCode, $errMessage, true);
-
-        static::assertEquals($expected, $actual);
+        return [
+            'Default' => [new \Exception(), StopNow::ERR_CODE_DEFAULT],
+            'Specific' => [new \RuntimeException(),StopNow::ERR_CODE_DEFAULT],
+            'ErrCode' => [new \RuntimeException(self::ERR_MSG_EMPTY, self::CODE_89), self::CODE_89],
+            'ErrCodeToLow' => [new \RuntimeException(self::ERR_MSG_EMPTY, self::CODE_NEG1), StopNow::ERR_CODE_DEFAULT],
+            'ErrCodeToHigh' => [new \RuntimeException(self::ERR_MSG_EMPTY, self::CODE_255), StopNow::ERR_CODE_DEFAULT],
+            'ErrMsg' => [new \Error(self::ERR_MSG_01), StopNow::ERR_CODE_DEFAULT],
+            'ErrMsgCode' => [new \Error(self::ERR_MSG_01, self::CODE_123), self::CODE_123],
+            ];
     }
 }

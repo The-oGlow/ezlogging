@@ -11,11 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use Monolog\Handler\HandlerInterface;
 
-class FileLoggerTestHandlerClazz implements HandlerInterface
+class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface
 {
     /**
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")

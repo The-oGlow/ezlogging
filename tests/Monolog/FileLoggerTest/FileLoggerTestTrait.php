@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\FileLoggerTest;
 
 use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;

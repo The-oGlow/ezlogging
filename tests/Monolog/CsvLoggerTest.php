@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\FileLoggerTest\FileLoggerTestTrait;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\CsvHandler;
 use PHPUnit\Framework\TestCase;

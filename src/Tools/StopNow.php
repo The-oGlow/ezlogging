@@ -22,7 +22,9 @@ use Psr\Log\LoggerInterface;
 class StopNow
 {
     public const  ERR_MSG_DEFAULT = 'Undefined reason to stop now!';
+
     public const  ERR_CODE_DEFAULT = 1;
+
     private const ERR_CODE_MAX = 254;
 
     /** @var LoggerInterface */
@@ -58,7 +60,7 @@ class StopNow
 
     /**
      * @param \Throwable $throwable
-     * @param bool       $unitTest TRUE=don't call exit(), it's an unit test (Default: FALSE)
+     * @param bool       $unitTest  TRUE=don't call exit(), it's an unit test (Default: FALSE)
      *
      * @return int errorcode
      *
@@ -68,13 +70,14 @@ class StopNow
     {
         $errMsg = sprintf('{%s} - %s', get_class($throwable), $throwable->getMessage());
 
+        /** @psalm-suppress PossiblyInvalidArgument */
         return static::stop($throwable->getCode(), $errMsg, $unitTest);
     }
 
     /**
      * @param int    $errorCode
      * @param string $errorMessage
-     * @param bool   $unitTest TRUE=don't call exit(), it's an unit test (Default: FALSE)
+     * @param bool   $unitTest     TRUE=don't call exit(), it's an unit test (Default: FALSE)
      *
      * @return int errorcode
      *

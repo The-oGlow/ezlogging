@@ -18,8 +18,10 @@ use Psr\Log\LoggerInterface;
 
 abstract class EasyGoingTestCase extends TestCase
 {
+    /** var string Separator for static access */
     public const    C_STATIC_SEP = '::';
 
+    /** @var string All primitive datatypes */
     protected const C_PRIMITIVES = 'int|integer|bool|boolean|float';
 
     /** @var mixed The object which will be tested. */
@@ -56,22 +58,26 @@ abstract class EasyGoingTestCase extends TestCase
     public static function setUpBeforeClass(bool $withConstCrossCheck = false, int $expectedConstsCount = 0): void
     {
         self::$logger->debug('START');
+
         parent::setUpBeforeClass();
         self::$actualConsts        = [];
         self::$withConstCrossCheck = $withConstCrossCheck;
         self::$expectedConstsCount = $expectedConstsCount;
-        self::$logger->info('withConstCrossCheck,expectedConstCount', [self::$withConstCrossCheck, self::$expectedConstsCount]);
+        self::$logger->notice('withConstCrossCheck,expectedConstCount', [self::$withConstCrossCheck, self::$expectedConstsCount]);
+
         self::$logger->debug('END');
     }
 
     public static function tearDownAfterClass(): void
     {
         self::$logger->debug('START');
+
         parent::tearDownAfterClass();
         self::crossCheckConstants(get_class(static::prepareO2t()), self::$actualConsts);
         self::$actualConsts        = [];
         self::$withConstCrossCheck = false;
         self::$expectedConstsCount = 0;
+
         self::$logger->debug('END');
     }
 
@@ -94,15 +100,19 @@ abstract class EasyGoingTestCase extends TestCase
     {
         self::$logger = new ConsoleLogger(EasyGoingTestCase::class);
         self::$logger->debug('START');
+
         parent::__construct($name, $data, $dataName);
+
         self::$logger->debug('END');
     }
 
     public function setUp(): void
     {
         self::$logger->debug('START');
+
         parent::setUp();
         $this->o2t = static::prepareO2t();
+
         self::$logger->debug('END');
     }
 
@@ -111,9 +121,13 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected function verifyConstAllExists(array $constants = []): void
     {
+        self::$logger->debug('START');
+
         foreach ($constants as $constant) {
             $this->verifyConstExists($constant);
         }
+
+        self::$logger->debug('END');
     }
 
     /**
@@ -121,17 +135,25 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected function verifyConstArrayAllExists(array $constants = []): void
     {
+        self::$logger->debug('START');
+
         foreach ($constants as $constant => $expectedSize) {
             $this->verifyConstExists($constant);
             $this->verifyConstArraySize($constant, $expectedSize);
         }
+
+        self::$logger->debug('END');
     }
 
     protected function verifyConstArraySize(string $constantName, int $expectedSize): void
     {
+        self::$logger->debug('START');
+
         $constantValue = self::getConstValue($this->o2t, $constantName);
         static::assertIsArray($constantValue);
         static::assertCount($expectedSize, $constantValue);
+
+        self::$logger->debug('END');
     }
 
     /**
@@ -141,10 +163,12 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected function verifyConstExists(string $constantName): void
     {
+        self::$logger->debug('START');
+
         $isDefined = self::isConstExist($this->o2t, $constantName);
         if ($isDefined) {
             $constantValue = self::getConstValue($this->o2t, $constantName);
-            self::$logger->debug("Checking '$constantName'=" . print_r($constantValue, true));
+            self::$logger->info("Checking '$constantName'=" . print_r($constantValue, true));
             if (static::isPrimitive($constantValue)) {
                 static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
             } else {
@@ -153,6 +177,8 @@ abstract class EasyGoingTestCase extends TestCase
         } else {
             static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
+
+        self::$logger->debug('END');
     }
 
     /**
@@ -191,11 +217,13 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected static function isConstExist($clazz, string $constantName): bool
     {
+        self::$logger->debug('START');
+
         try {
             $isDefined = defined($constantName);
             self::$logger->debug('Check existence by defined()', [$constantName]);
         } catch (\Throwable $e) {
-            self::$logger->debug('Cannot check existence by defined()', [$constantName]);
+            self::$logger->info('Cannot check existence by defined()', [$constantName]);
             $isDefined = false;
         }
         if (!$isDefined) {
@@ -204,6 +232,8 @@ abstract class EasyGoingTestCase extends TestCase
             $isDefined  = isset($allConsts[$splitClazz[count($splitClazz) - 1]]);
             self::$logger->debug('Verify existence by reflection', [$constantName]);
         }
+
+        self::$logger->debug('END');
 
         return $isDefined;
     }
@@ -216,8 +246,10 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected static function crossCheckConstants($clazz, $actualConsts): void
     {
+        self::$logger->debug('START');
+
         if (self::$withConstCrossCheck) {
-            self::$logger->info('Cross check is active');
+            self::$logger->notice('CrossCheck is active');
             $expected = self::getAllDefinedConsts($clazz);
             ksort($expected);
             $expected = array_keys($expected);
@@ -253,6 +285,8 @@ abstract class EasyGoingTestCase extends TestCase
                 'You have forgotten to check: ' . print_r(array_diff($expected, $actual), true)
             );
         }
+
+        self::$logger->debug('END');
     }
 
     /**
@@ -275,12 +309,16 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected static function checkConstantsCount(int $expectedCount, $allDefinedConsts)
     {
+        self::$logger->debug('START');
+
         $allCount = sizeof($allDefinedConsts);
         if (self::$withConstCrossCheck) {
             $result = $expectedCount == $allCount;
         } else {
             $result = true;
         }
+
+        self::$logger->debug('END');
 
         return [$result, $allCount];
     }
@@ -293,11 +331,13 @@ abstract class EasyGoingTestCase extends TestCase
      */
     protected static function getConstValue($clazz, string $constantName)
     {
+        self::$logger->debug('START');
+
         try {
             $constantValue = constant($constantName);
             self::$logger->debug('Recieved by constant()', [$constantName]);
         } catch (\Throwable $e) {
-            self::$logger->debug('Cannot get value by constant()', [$constantName]);
+            self::$logger->info('Cannot get value by constant()', [$constantName]);
         }
         if (!isset($constantValue)) {
             $clazz         = new \ReflectionClass($clazz);
@@ -306,14 +346,20 @@ abstract class EasyGoingTestCase extends TestCase
             self::$logger->debug('Recieved by reflection', [$constantName]);
         }
 
+        self::$logger->debug('END');
+
         return $constantValue;
     }
 
     public function testInit(): void
     {
+        self::$logger->debug('START');
+
         static::assertNotEmpty($this->o2t);
         static::assertIsObject($this->o2t);
         static::assertInstanceOf(get_class($this->o2t), static::prepareO2t());
+
+        self::$logger->debug('END');
     }
 
     /**
@@ -322,6 +368,8 @@ abstract class EasyGoingTestCase extends TestCase
      */
     public function testAllConstants(): void
     {
+        self::$logger->debug('START');
+
         $allDefinedConsts = self::getAllDefinedConsts(get_class(static::prepareO2t()));
         ksort($allDefinedConsts);
         [$actual, $actualConstsCount] = self::checkConstantsCount(self::$expectedConstsCount, $allDefinedConsts);
@@ -330,5 +378,7 @@ abstract class EasyGoingTestCase extends TestCase
             $actual,
             sprintf('Constants, expected count is not reached by actual count [%s, %s] ', self::$expectedConstsCount, $actualConstsCount)
         );
+
+        self::$logger->debug('END');
     }
 }

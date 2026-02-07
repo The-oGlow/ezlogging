@@ -11,14 +11,26 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace ollily\Tools\String;
+namespace ollily\Tools\String\ToStringTraitTest;
+
+use ollily\Tools\String\ToStringTrait;
 
 class ToStringTraitTestClazz
 {
     use ToStringTrait;
 
-    /** @var string */
+    /** @var mixed */
     public $greeting = 'hello';
+
+    /**
+     * @param mixed $greeting
+     */
+    public function __construct($greeting = null)
+    {
+        if (!is_null($greeting)) {
+            $this->greeting = $greeting;
+        }
+    }
 
     /**
      * @return mixed
@@ -27,6 +39,6 @@ class ToStringTraitTestClazz
      */
     protected function __toStringValues()
     {
-        return $this;
+        return $this->greeting;
     }
 }

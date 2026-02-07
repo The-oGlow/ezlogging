@@ -13,22 +13,30 @@ declare(strict_types=1);
 
 namespace Monolog\Formatter;
 
+/**
+ * Class PlainFormatter.
+ *
+ * @see LineFormatter
+ */
 class PlainFormatter extends LineFormatter
 {
-    /** @var string */
+    /** @var string Default output format */
     public const FORMATTER_OUTPUT = "\n%message%";
 
-    /** @var string */
+    /** @var string Default datetime format */
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
      * PlainFormatter constructor.
      *
-     * @param string $format
-     * @param string $dateFormat
-     * @param bool   $allowInlineLineBreaks
-     * @param bool   $ignoreEmptyContextAndExtra
-     * @param bool   $includeStacktraces
+     * @param null|string $format                     Is ignored (Default: {@link PlainFormatter::FORMATTER_OUTPUT})
+     * @param null|string $dateFormat                 Is ignored (Default: {@link PlainFormatter::FORMATTER_DATEFORMAT})
+     * @param bool        $allowInlineLineBreaks      Whether to allow inline line breaks in log entries (Default: true)
+     * @param bool        $ignoreEmptyContextAndExtra Whether ignore context and extra data in output (Default: true)
+     * @param bool        $includeStacktraces         Add stacktrace to output (Default: false)
+     *
+     * @see PlainFormatter::FORMATTER_OUTPUT
+     * @see PlainFormatter::FORMATTER_DATEFORMAT
      *
      * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")

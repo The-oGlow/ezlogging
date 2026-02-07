@@ -11,29 +11,21 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\AbstractEasyGoingLoggerTest;
 
-use Monolog\Formatter\EasyGoingFormatter;
+use Monolog\AbstractEasyGoingLogger;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
-use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\ProcessorInterface;
 
-/**
- * Class ConsoleLogger.
- *
- * @see AbstractEasyGoingLogger
- * @see PaddingProcessor
- * @see EasyGoingFormatter
- */
-class ConsoleLogger extends AbstractEasyGoingLogger
+class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger
 {
     /**
      * @inheritdoc
      */
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
-        return $this->getConsoleHandler($level);
+        return new AbstractEasyGoingLoggerTestHandlerClazz();
     }
 
     /**
@@ -41,7 +33,7 @@ class ConsoleLogger extends AbstractEasyGoingLogger
      */
     protected function getDefaultProcessor(): ProcessorInterface
     {
-        return new PaddingProcessor();
+        return new AbstractEasyGoingLoggerTestProcessorClazz();
     }
 
     /**
@@ -49,6 +41,6 @@ class ConsoleLogger extends AbstractEasyGoingLogger
      */
     protected function getDefaultFormatter(): FormatterInterface
     {
-        return new EasyGoingFormatter();
+        return new AbstractEasyGoingLoggerTestFormatterClazz();
     }
 }
