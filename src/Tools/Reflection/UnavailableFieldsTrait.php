@@ -38,6 +38,22 @@ trait UnavailableFieldsTrait
     }
 
     /**
+     * @param mixed      $clazzName
+     * @param string     $fieldName
+     * @param mixed      $instance
+     * @param null|mixed $newValue
+     */
+    protected function setFieldByReflection($clazzName, string $fieldName, $instance, $newValue): void
+    {
+        if (!empty($clazzName)) {
+            $refObject = new ReflectionProperty($clazzName, $fieldName);
+            $refObject->setAccessible(true); // NOSONAR: php:S3011
+
+            $refObject->setValue($instance, $newValue);  // NOSONAR: php:S3011
+        }
+    }
+
+    /**
      * @param string $fieldName
      *
      * @return null|mixed

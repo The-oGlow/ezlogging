@@ -87,6 +87,14 @@ abstract class EasyGoingTestCase extends TestCase
     abstract protected static function prepareO2t();
 
     /**
+     * @return bool
+     */
+    public static function isWithConstCrossCheck(): bool
+    {
+        return self::$withConstCrossCheck;
+    }
+
+    /**
      * @return mixed
      */
     abstract protected function getCasto2t();
@@ -311,7 +319,7 @@ abstract class EasyGoingTestCase extends TestCase
     {
         self::$logger->debug('START');
 
-        $allCount = sizeof($allDefinedConsts);
+        $allCount = count($allDefinedConsts);
         if (self::$withConstCrossCheck) {
             $result = $expectedCount == $allCount;
         } else {
@@ -340,10 +348,10 @@ abstract class EasyGoingTestCase extends TestCase
             self::$logger->info('Cannot get value by constant()', [$constantName]);
         }
         if (!isset($constantValue)) {
-            $clazz         = new \ReflectionClass($clazz);
+            $reflectionClazz         = new \ReflectionClass($clazz);
             $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
-            $constantValue = $clazz->getConstant($splitClazz[count($splitClazz) - 1]); // NOSONAR php:S3011
-            self::$logger->debug('Recieved by reflection', [$constantName]);
+            $constantValue = $reflectionClazz->getConstant($splitClazz[count($splitClazz) - 1]); // NOSONAR php:S3011
+            self::$logger->info('Recieved by reflection', [$constantName]);
         }
 
         self::$logger->debug('END');

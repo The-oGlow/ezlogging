@@ -24,6 +24,8 @@ class EasyGoingTestCaseClazz
 
     public const    TEST_CONST_PREFIX               = self::TEST_CLAZZ . 'EASYGOINGTESTCASETEXT';
 
+    public const TEST_CONST_ARRAY = ['one', 'two'];
+
     public const    EASYGOINGTESTCASETEXT_PUBLIC    = 'public';
 
     protected const EASYGOINGTESTCASETEXT_PROTECTED = 'protected';

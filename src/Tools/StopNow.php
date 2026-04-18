@@ -93,7 +93,7 @@ class StopNow
         }
         self::getLogger()->emergency($errorMessage, [$errorCode]);
         if (!$unitTest) {
-            die($errorCode);
+            die($errorCode); // NOSONAR:php:S1799
         } else {
             return $errorCode;
         }

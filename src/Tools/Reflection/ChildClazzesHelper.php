@@ -17,6 +17,7 @@ final class ChildClazzesHelper
 {
     private function __construct()
     {
+        // Hide the public constructor
     }
 
     /**

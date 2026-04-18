@@ -46,4 +46,13 @@ class UnavailableFieldsTraitTestO2tClazz
     {
         return $this->getFieldByReflection(UnavailableFieldsTraitTestHolderClazz::class, $fieldName, $this->o2t);
     }
+
+    /**
+     * @param string     $fieldName
+     * @param null|mixed $newValue
+     */
+    public function publicSetFieldByReflection(string $fieldName, $newValue): void
+    {
+        $this->setFieldByReflection(UnavailableFieldsTraitTestHolderClazz::class, $fieldName, $this->o2t, $newValue);
+    }
 }

@@ -24,7 +24,7 @@ class ChildClazzesHelperTest extends TestCase
 
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
 
-        static::assertEquals($expected, sizeof($actual));
+        static::assertEquals($expected, count($actual));
         static::assertNotContains($clazzName, $actual);
     }
 
@@ -35,7 +35,7 @@ class ChildClazzesHelperTest extends TestCase
 
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
 
-        static::assertGreaterThanOrEqual($expected, sizeof($actual));
+        static::assertGreaterThanOrEqual($expected, count($actual));
         static::assertContains(ChildClazzesHelperTest::class, $actual);
         static::assertNotContains($clazzName, $actual);
     }
@@ -47,7 +47,7 @@ class ChildClazzesHelperTest extends TestCase
 
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
 
-        static::assertEquals($expected, sizeof($actual));
+        static::assertEquals($expected, count($actual));
         static::assertNotContains($clazzName, $actual);
     }
 }

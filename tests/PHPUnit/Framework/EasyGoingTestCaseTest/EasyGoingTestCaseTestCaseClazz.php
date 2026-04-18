@@ -22,7 +22,7 @@ use PHPUnit\Framework\EasyGoingTestCaseTest;
  * @see  EasyGoingTestCaseClazz
  * @see  EasyGoingTestCaseTest
  */
-class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase
+class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
 {
     /**
      * @return EasyGoingTestCaseClazz
@@ -30,6 +30,11 @@ class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase
     protected static function prepareO2t()
     {
         return new EasyGoingTestCaseClazz();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        // Deactivate the check
     }
 
     /**
@@ -40,24 +45,7 @@ class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase
         return $this->o2t;
     }
 
-    protected function isConstsCrosscheck(): bool
-    {
-        return true;
-    }
-
-    protected function getExpectedConstsCount(): int
-    {
-        return 6;
-    }
     // Override the visibility for the test cases
-
-    /**
-     * @return EasyGoingTestCaseClazz
-     */
-    public function publicGetCastO2t()
-    {
-        return $this->getCasto2t();
-    }
 
     /**
      * @param mixed  $clazz
@@ -81,16 +69,77 @@ class EasyGoingTestCaseTestCaseClazz extends EasyGoingTestCase
         return parent::isConstExist($clazz, $constantName);
     }
 
-    public function testConsts(): void
+    /**
+     * @param null|mixed[] $checkedConsts
+     */
+    public static function publicUpdateActualConsts($checkedConsts): void
     {
-        $consts = [
+        parent::updateActualConsts($checkedConsts);
+    }
+
+    /**
+     * @return EasyGoingTestCaseClazz
+     */
+    public function publicGetCastO2t()
+    {
+        return $this->getCasto2t();
+    }
+
+    /**
+     * @param mixed[] $constants
+     */
+    public function publicVerifyConstAllExists(array $constants = []): void
+    {
+        parent::verifyConstAllExists($constants);
+    }
+
+    /**
+     * @param mixed[] $constants
+     */
+    public function publicVerifyConstArrayAllExists(array $constants = []): void
+    {
+        parent::verifyConstArrayAllExists($constants);
+    }
+
+    /**
+     * @param string $constantName
+     * @param int    $expectedSize
+     */
+    public function publicVerifyConstArraySize(string $constantName, int $expectedSize): void
+    {
+        parent::verifyConstArraySize($constantName, $expectedSize);
+    }
+
+    /**
+     * @param mixed $clazz
+     * @param mixed $actualConstants
+     */
+    public function publicCrossCheckConstants($clazz, $actualConstants): void
+    {
+        parent::crossCheckConstants($clazz, $actualConstants);
+    }
+
+    // Verify, if the test class has the correct constants
+
+    /**
+     * @return mixed[]
+     */
+    protected static function prepareAllConsts(): array
+    {
+        return [
             EasyGoingTestCaseClazz::TEST_CLAZZ . 'TEST_CLAZZ',
             EasyGoingTestCaseClazz::TEST_CLAZZ . 'TEST_CONST_PREFIX',
+            EasyGoingTestCaseClazz::TEST_CLAZZ . 'TEST_CONST_ARRAY',
             EasyGoingTestCaseClazz::TEST_CONST_PREFIX . '_PUBLIC',
             EasyGoingTestCaseClazz::TEST_CONST_PREFIX . '_PROTECTED',
             EasyGoingTestCaseClazz::TEST_CONST_PREFIX . '_PRIVATE',
             EasyGoingTestCaseClazz::TEST_CONST_PREFIX . '_NONE',
         ];
+    }
+
+    public function testConsts(): void
+    {
+        $consts = self::prepareAllConsts();
         static::updateActualConsts($consts);
 
         static::verifyConstAllExists($consts);
