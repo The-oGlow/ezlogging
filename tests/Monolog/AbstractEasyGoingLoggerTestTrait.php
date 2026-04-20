@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestClazz;
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestFormatterClazz;
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestHandlerClazz;
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestProcessorClazz;
 use Monolog\Formatter\EasyGoingFormatter;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\ConsoleHandler;

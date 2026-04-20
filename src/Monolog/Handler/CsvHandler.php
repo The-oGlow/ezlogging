@@ -13,11 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
-use Monolog\FileLogger;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\NormalizerFormatter;
-use Monolog\Handler\StreamHandler;
 use ollily\Tools\PhpVersionTrait;
 use ollily\Tools\String\ImplodeTrait;
 
@@ -26,50 +21,62 @@ use ollily\Tools\String\ImplodeTrait;
  *
  * Inspired by {@see https://github.com/femtopixel/monolog-csvhandler}.
  * Original by @author Jay MOULIN <jay@femtopixel.com>
+ *
+ * @see FileHandler
  */
 class CsvHandler extends FileHandler
 {
     use PhpVersionTrait;
     use ImplodeTrait;
 
-    /** @var string */
+    /** @var string Fallback filename */
     public const    STANDARD_FILENAME = 'noCSVName';
 
-    /** @var string */
+    /** @var string Default file extension */
     public const    STANDARD_FILEEXT     = '.csv';
 
+    /** @var string Default separator char for each column */
     public const    STANDARD_ITEM_SEP    = ';';
 
+    /** @var string Default char enclosing each column value */
     public const    STANDARD_TEXT_SEP    = '"';
 
+    /** @var string Default char for escaping char */
     public const    STANDARD_ESCAPE_CHAR = '\\';
 
+    /** var string Relevant PHP version */
+    protected const CHECKVERSION = '5.5.4';
+
+    /** @var string Key of the formatted in the output record */
     protected const KEY_FORMATTED        = 'formatted';
 
-    /** @var string */
+    /** @var string The separator char for each column */
     private $itemSeparator;
 
-    /** @var string */
+    /** @var string The char enclosing each column value */
     private $itemEnclosure;
 
     /**
      * CsvHandler constructor.
      *
-     * @param string $pathToFile
-     * @param string $fileName
-     * @param string $itemSeparator
-     * @param string $itemEnclosure
+     * @param null|string $pathToFile    The full path to the output folder
+     * @param null|string $fileName      The name of the output file
+     * @param string      $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string      $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param mixed       $level         The output level (Default: {@link FileHandler::LEVEL_DEFAULT})
+     *
+     * @see CsvHandler::STANDARD_ITEM_SEP
+     * @see CsvHandler::STANDARD_TEXT_SEP
+     * @see FileHandler::LEVEL_DEFAULT
      */
     public function __construct(
         ?string $pathToFile = null,
         ?string $fileName = null,
         string $itemSeparator = self::STANDARD_ITEM_SEP,
-        string $itemEnclosure = self::STANDARD_TEXT_SEP
+        string $itemEnclosure = self::STANDARD_TEXT_SEP,
+        $level = self::LEVEL_DEFAULT
     ) {
-        parent::__construct(
-            $pathToFile,
-            $fileName
-        );
+        parent::__construct($pathToFile, $fileName, $level);
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
     }
@@ -97,7 +104,7 @@ class CsvHandler extends FileHandler
             }
             $output = array_merge($output, $implodeContext);
         }
-        if ($this->isPhpGreater('5.5.4')) {
+        if ($this->isPhpGreater(self::CHECKVERSION)) {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure, static::STANDARD_ESCAPE_CHAR);
         } else {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure);

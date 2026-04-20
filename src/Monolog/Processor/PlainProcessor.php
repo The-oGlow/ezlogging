@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
-use Monolog;
-
 class PlainProcessor implements ProcessorInterface
 {
     /**

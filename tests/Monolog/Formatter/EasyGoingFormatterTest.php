@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Monolog\Formatter;
 
-use Monolog\Logger;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +21,7 @@ class EasyGoingFormatterTest extends TestCase
     use UnavailableFieldsTrait;
 
     /** @var EasyGoingFormatter */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

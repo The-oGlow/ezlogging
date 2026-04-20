@@ -18,6 +18,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ergebnis/agent-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
@@ -118,6 +119,7 @@
           <root url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+          <root url="file://$MODULE_DIR$/vendor/ergebnis/agent-detector" />
           <root url="file://$MODULE_DIR$/vendor/evenement/evenement" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
@@ -214,6 +216,7 @@
           <root url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+          <root url="file://$MODULE_DIR$/vendor/ergebnis/agent-detector" />
           <root url="file://$MODULE_DIR$/vendor/evenement/evenement" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
           <root url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />

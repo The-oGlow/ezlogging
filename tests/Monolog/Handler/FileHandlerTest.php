@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class FileHandlerTest extends TestCase
 {
     /** @var FileHandler */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

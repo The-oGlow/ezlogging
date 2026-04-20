@@ -11,54 +11,10 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace ollily\Tools\String;
+namespace ollily\Tools\String\ImplodeTraitTest;
 
-use PHPUnit\Framework\TestCase;
+use ollily\Tools\String\ImplodeTrait;
 
-class ImplodeTraitTest extends TestCase
-{
-    /** @var ImplodeTraitTestClazz */
-    private $o2t;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->o2t = new ImplodeTraitTestClazz();
-    }
-
-    public function testImplodeDefault(): void
-    {
-        $actual = $this->o2t->implodeDefault();
-        static::assertNotEmpty($actual);
-    }
-
-    public function testImplodeCustom(): void
-    {
-        $actual = $this->o2t->implodeCustom();
-        static::assertNotEmpty($actual);
-    }
-
-    public function testImplodeObjectCustom(): void
-    {
-        $actual = $this->o2t->implodeObjectCustom();
-        static::assertNotEmpty($actual);
-    }
-}
-
-/**
- * Class ImplodeTraitTestObject.
- *
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
-class ImplodeTraitTestObject
-{
-}
-
-/**
- * Class ImplodeTraitTestClazz.
- *
- * phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses,PSR1.Files.SideEffects.FoundWithSymbols.
- */
 class ImplodeTraitTestClazz
 {
     use ImplodeTrait;

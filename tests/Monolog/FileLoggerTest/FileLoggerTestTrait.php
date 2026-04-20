@@ -11,10 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\FileLoggerTest;
 
 use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
+use Psr\Log\LoggerInterface;
 
 trait FileLoggerTestTrait
 {
@@ -91,23 +92,24 @@ trait FileLoggerTestTrait
         tCase::assertFileExists(self::$fileName);
     }
 
-    /**
-     * @return string
-     *
-     * @psalm-suppress InternalMethod
-     */
     protected function currentTestMethod(): string
     {
         return $this->getName();
     }
 
-    private function isExists(?string $methodName = null): bool
+    /**
+     * @param null|string          $methodName
+     * @param null|LoggerInterface $logger
+     *
+     * @return bool
+     */
+    private function isExists(?string $methodName = null, LoggerInterface $logger = null): bool
     {
         $methodName = $methodName ?? $this->methodName;
         $exists     = method_exists($this->o2t, $methodName);
         if (!$exists) {
-            if (isset($this->logger)) {
-                $this->logger->warning('Method not exists: ', [$this->methodName]);
+            if (isset($logger)) {
+                $logger->warning('Method not exists: ', [$this->methodName]);
             }
             if ($this->silentIsExists) {
                 static::fail('Method not exists: ' . $this->methodName);

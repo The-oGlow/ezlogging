@@ -13,19 +13,14 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\EasyGoingTestCase;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../bootstrap.php';
 
 class DoNothingLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTestTrait;
 
     /** @var DoNothingLogger */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {

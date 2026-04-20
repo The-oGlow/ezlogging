@@ -13,13 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use Monolog\Formatter\EasyGoingFormatter;
-use Monolog\Handler\ConsoleHandler;
-use Monolog\Processor\PaddingProcessor;
-use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../bootstrap.php';
 
 /**
  * Class PlainLoggerTest.
@@ -29,7 +23,7 @@ class PlainLoggerTest extends TestCase
     use AbstractEasyGoingLoggerTestTrait;
 
     /** @var PlainLogger */
-    private $o2t;
+    protected $o2t;
 
     /** @var string[] */
     private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];

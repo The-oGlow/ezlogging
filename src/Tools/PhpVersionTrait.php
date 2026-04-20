@@ -16,7 +16,7 @@ namespace ollily\Tools;
 trait PhpVersionTrait
 {
     /**
-     * Checks, if the running PHP version is greater or equal than {@link $checkVersion}.
+     * Checks, if the running PHP version is greater or equal than {@link PhpVersionTrait::checkVersion}.
      *
      * @param string $checkVersion The version to check against
      *

@@ -13,22 +13,30 @@ declare(strict_types=1);
 
 namespace Monolog\Formatter;
 
+/**
+ * Class EasyGoingFormatter.
+ *
+ * @see LineFormatter
+ */
 class EasyGoingFormatter extends LineFormatter
 {
-    /** @var string */
+    /** @var string Default output format */
     public const FORMATTER_OUTPUT = "\n%datetime% [%level_name_pad%] %channel%->%xFunction%() - %message% %context% %extra%";
 
-    /** @var string */
+    /** @var string Default datetime format */
     public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
      * EasyGoingFormatter constructor.
      *
-     * @param string $format
-     * @param string $dateFormat
-     * @param bool   $allowInlineLineBreaks
-     * @param bool   $ignoreEmptyContextAndExtra
-     * @param bool   $includeStacktraces
+     * @param null|string $format                     Is ignored (Default: {@link EasyGoingFormatter::FORMATTER_OUTPUT})
+     * @param null|string $dateFormat                 Is ignored (Default: {@link EasyGoingFormatter::FORMATTER_DATEFORMAT})
+     * @param bool        $allowInlineLineBreaks      Whether to allow inline line breaks in log entries (Default: true)
+     * @param bool        $ignoreEmptyContextAndExtra Whether ignore context and extra data in output (Default: true)
+     * @param bool        $includeStacktraces         Add stacktrace to output (Default: false)
+     *
+     * @see EasyGoingFormatter::FORMATTER_OUTPUT
+     * @see EasyGoingFormatter::FORMATTER_DATEFORMAT
      *
      * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")

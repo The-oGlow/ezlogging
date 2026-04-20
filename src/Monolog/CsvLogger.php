@@ -13,58 +13,61 @@ declare(strict_types=1);
 
 namespace Monolog;
 
-use DateTimeZone;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\CsvHandler;
-use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
-use Stringable;
 
 /**
  * Class CsvLogger.
  *
- * @psalm-suppress PropertyNotSetInConstructor
+ * @see FileLogger
+ * @see CsvHandler
+ * @see PlainProcessor
+ * @see PlainFormatter
  */
 class CsvLogger extends FileLogger
 {
-    /** @var string */
+    /** @var string The separator char for each column */
     private $itemSeparator;
 
-    /** @var string */
+    /** @var string The char enclosing each column value */
     private $itemEnclosure;
 
-    /** @var array<string> */
+    /** @var array<string> The column header */
     private $header;
 
     /**
-     * CsvLogger constructor.
+     * @param string        $name          The logging channel, a simple descriptive name that is attached to all log records
+     * @param string        $pathToFile    The full path to the output folder
+     * @param array<string> $header        The column header (Default: empty)
+     * @param string        $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string        $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param mixed         $level         The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
-     * @param string        $name
-     * @param string        $pathToFile
-     * @param array<string> $header
-     * @param string        $itemSeparator
-     * @param string        $itemEnclosure
+     * @see CsvHandler::STANDARD_ITEM_SEP
+     * @see CsvHandler::STANDARD_TEXT_SEP
      */
     public function __construct(
         string $name,
         string $pathToFile,
         array $header = [],
         string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
-        string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP
+        string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP,
+        $level = self::LEVEL_DEFAULT
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
         $this->header        = $header;
-        parent::__construct($name, $pathToFile, [], [], null);
+        parent::__construct($name, $pathToFile, [], [], null, $level);
         $this->writeHeader($this->header);
     }
 
     /**
-     * @param string             $message
-     * @param array<mixed>|mixed ...$context
+     * @param string             $message    The text written to the file
+     * @param array<mixed>|mixed ...$context The log context
      */
     public function out(string $message, ...$context): void
     {
@@ -80,7 +83,7 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @param array<string> $header
+     * @param array<string> $header The column header
      */
     protected function writeHeader(array $header): void
     {
@@ -90,7 +93,7 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @return string
+     * @return string The separator char for each column
      */
     public function getItemSeparator(): string
     {
@@ -98,7 +101,7 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @return string
+     * @return string The char enclosing each column value
      */
     public function getItemEnclosure(): string
     {
@@ -124,9 +127,9 @@ class CsvLogger extends FileLogger
     /**
      * @inheritdoc
      */
-    protected function getFileHandler(string $pathToFile, string $fileName): StreamHandler
+    protected function getFileHandler(string $pathToFile, string $fileName, $level = self::LEVEL_DEFAULT): StreamHandler
     {
-        $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure);
+        $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure, $level);
         $handler->setFormatter($this->getDefaultFormatter());
 
         return $handler;

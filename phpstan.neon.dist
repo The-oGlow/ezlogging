@@ -57,21 +57,14 @@ parameters:
             paths:
                 - tests/*/*TestTrait.php
         -
-            identifier: method.unused
-            paths:
-                - tests/*/*Test.php
-        -
-            identifier: property.notFound
-            paths:
-                - tests/*/*TestTrait.php
-        -
             identifier: property.onlyWritten
             paths:
-                - tests/*/*Test.php
+                - tests/*/*Clazz.php
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:
                 - tests/*/*TestTrait.php
+                - tests/*/*TestCaseTest.php
 
         # Custom
         -

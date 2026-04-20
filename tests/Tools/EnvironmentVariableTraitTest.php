@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace ollily\Tools;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\TextUI\XmlConfiguration\PHPUnit;
 
 class EnvironmentVariableTraitTest extends TestCase
 {

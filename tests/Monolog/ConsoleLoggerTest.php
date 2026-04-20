@@ -16,8 +16,6 @@ namespace Monolog;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../bootstrap.php';
-
 /**
  * Class ConsoleLoggerTest.
  */
@@ -26,18 +24,18 @@ class ConsoleLoggerTest extends TestCase
     use AbstractEasyGoingLoggerTestTrait;
 
     /** @var ConsoleLogger */
-    private $o2t;
+    protected $o2t;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->o2t = new ConsoleLogger(self::class);
+        $this->o2t = new ConsoleLogger(ConsoleLoggerTest::class);
     }
 
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new DateTimeZone("America/Los_Angeles");
-        $o2tb      = new ConsoleLogger(self::class, [], [], $customDTZ);
+        $o2tb      = new ConsoleLogger(ConsoleLoggerTest::class, ConsoleLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
         static::assertInstanceOf(ConsoleLogger::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());

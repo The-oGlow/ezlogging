@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\FileLoggerTest\FileLoggerTestTrait;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\CsvHandler;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../bootstrap.php';
 
 class CsvLoggerTest extends TestCase
 {
@@ -31,7 +30,7 @@ class CsvLoggerTest extends TestCase
     public const TEST_CONTEXT_ARRAY = ['Context01', 'Context02'];
 
     /** @var CsvLogger */
-    private $o2t;
+    protected $o2t;
 
     protected function setUp(): void
     {
