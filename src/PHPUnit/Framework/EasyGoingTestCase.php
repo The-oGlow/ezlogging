@@ -60,10 +60,11 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('START');
 
         parent::setUpBeforeClass();
+        $testInfo =  [self::$withConstCrossCheck, self::$expectedConstsCount, self::get_called_clazz()];
         self::$actualConsts        = [];
         self::$withConstCrossCheck = $withConstCrossCheck;
         self::$expectedConstsCount = $expectedConstsCount;
-        self::$logger->notice('withConstCrossCheck,expectedConstCount', [self::$withConstCrossCheck, self::$expectedConstsCount]);
+        self::$logger->notice('withConstCrossCheck,expectedConstCount,calledClazz',$testInfo);
 
         self::$logger->debug('END');
     }
@@ -110,6 +111,9 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('START');
 
         parent::__construct($name, $data, $dataName);
+
+        $testInfo = [$this->get_called_clazz(), $this->get_called_function()];
+        self::$logger->notice('calledClazz,calledFunction', $testInfo);
 
         self::$logger->debug('END');
     }
@@ -187,6 +191,41 @@ abstract class EasyGoingTestCase extends TestCase
         }
 
         self::$logger->debug('END');
+    }
+
+    /**
+     * Tries to identify the name of the class, from where the testcase was called.
+     * 
+     * @return string the name of the calling class or empty
+     */
+    protected static function get_called_clazz(): string
+    {
+        $calledClazz = '';
+        try {
+            $calledClazz= get_called_class();
+        } catch (\Exception $exception) {
+            // ignore
+        }
+        return $calledClazz;
+    }
+
+    /**
+     * Tries to identify the name of the function, from where the testcase was called.
+     * 
+     * @return string the name of the calling function or empty
+     */
+    protected function get_called_function():string {
+        $calledFunction = '';
+        try {
+            $debug = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+            if (is_array($debug) && key_exists('function', $debug[1])) 
+            {
+                $calledFunction=$debug[1]['function'];
+            }
+        } catch (\Exception $exception) {
+            // ignore
+        }
+        return $calledFunction;
     }
 
     /**
