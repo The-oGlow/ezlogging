@@ -122,17 +122,16 @@ class EasyGoingTestCaseTest extends TestCase
         }
     }
 
-
     /**
-     * @param string $expected
      * @param bool   $expectedBool
      * @param string $constName
+     * @param string $expected
      *
      * @dataProvider prepareDataProvider
      */
-    public function testGetConstValue(string $expected, bool $expectedBool, string $constName): void
+    public function testGetConstValue( bool $expectedBool, string $constName, string $expected): void
     {
-        self::$logger->info('parameters', [$expected,$expectedBool,$constName]);
+        self::$logger->info('parameters', [$expectedBool,$constName]);
 
         $actual = $this->o2t::publicGetConstValue($this->o2t->publicGetCastO2t(), $constName);
 
@@ -142,15 +141,14 @@ class EasyGoingTestCaseTest extends TestCase
     }
 
     /**
-     * @param string $expected
      * @param bool   $expectedBool
      * @param string $constName
      *
      * @dataProvider prepareDataProvider
      */
-    public function testIsConstExist(string $expected, bool $expectedBool, string $constName): void
+    public function testIsConstExist(bool $expectedBool, string $constName): void
     {
-        self::$logger->info('parameters', [$expected,$expectedBool,$constName]);
+        self::$logger->info('parameters', [$expectedBool,$constName]);
 
         $actual = $this->o2t::publicIsConstExist($this->o2t->publicGetCastO2t(), $constName);
 
@@ -168,10 +166,10 @@ class EasyGoingTestCaseTest extends TestCase
     public function prepareDataProvider()
     {
         return [
-            ['public', true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PUBLIC'],
-            ['protected', true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PROTECTED'],
-            ['private', true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PRIVATE'],
-            ['', false, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_NOTEXISTS']
+            'public'=>[ true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PUBLIC', 'public'],
+            'protected'=>[ true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PROTECTED', 'protected'],
+            'private'=>[ true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PRIVATE', 'private'],
+            'notexist'=>[ false, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_NOTEXISTS', '']
         ];
     }
 }
