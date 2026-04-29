@@ -13,24 +13,86 @@ declare(strict_types=1);
 
 namespace PHPUnit\Framework\EasyGoingTestCaseTest;
 
+use PHPUnit\Framework\EasyGoingTestCase;
+use PHPUnit\Framework\EasyGoingTestCaseTest;
+
 /**
- * A simple clazz which will be tested by the test clazz.
+ * This is the test clazz which will be tested.
  *
- * @see EasyGoingTestCaseTestCaseClazz
+ * @see  EasyGoingTestCaseDummyClazz
+ * @see  EasyGoingTestCaseTest
  */
-class EasyGoingTestCaseClazz
+class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
 {
-    public const    TEST_CLAZZ                      = EasyGoingTestCaseClazz::class . '::';
+    public static function tearDownAfterClass(): void
+    {
+        // Deactivate the check, will be called manually in testcase
+    }
 
-    public const    TEST_CONST_PREFIX               = self::TEST_CLAZZ . 'EASYGOINGTESTCASETEXT';
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    protected static function prepareO2t()
+    {
+        return new EasyGoingTestCaseDummyClazz();
+    }
 
-    public const TEST_CONST_ARRAY = ['one', 'two'];
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    protected function getCasto2t()
+    {
+        return $this->o2t;
+    }
 
-    public const    EASYGOINGTESTCASETEXT_PUBLIC    = 'public';
+    // Override the visibility for the test cases
 
-    protected const EASYGOINGTESTCASETEXT_PROTECTED = 'protected';
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return mixed
+     */
+    public static function publicGetConstValue($clazz, string $constantName)
+    {
+        return parent::getConstValue($clazz, $constantName);
+    }
 
-    private const   EASYGOINGTESTCASETEXT_PRIVATE   = 'private'; // @phpstan-ignore classConstant.unused
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return bool
+     */
+    public static function publicIsConstExist($clazz, string $constantName): bool
+    {
+        return parent::isConstExist($clazz, $constantName);
+    }
 
-    public const           EASYGOINGTESTCASETEXT_NONE      = 'none';
+
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    public function publicGetCastO2t()
+    {
+        return $this->getCasto2t();
+    }
+
+    // Misc functions
+
+    /**
+     * @return mixed[]
+     */
+    public static function prepareAllConsts(): array
+    {
+        return [
+            EasyGoingTestCaseDummyClazz::TEST_CLAZZ . 'TEST_CLAZZ',
+            EasyGoingTestCaseDummyClazz::TEST_CLAZZ . 'TEST_CONST_PREFIX',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_ARRAY',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PUBLIC',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PROTECTED',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PRIVATE',
+        ];
+    }
+
 }

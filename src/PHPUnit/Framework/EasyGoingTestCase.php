@@ -24,76 +24,17 @@ abstract class EasyGoingTestCase extends TestCase
     /** @var string All primitive datatypes */
     protected const C_PRIMITIVES = 'int|integer|bool|boolean|float';
 
-    /** @var mixed The object which will be tested. */
-    protected $o2t;
-
-    /**
-     * @var bool TRUE=Execute a constants cross check (Default: FALSE)
-     *
-     * @see EasyGoingTestCase::expectedConstsCount
-     */
-    private static $withConstCrossCheck = false;
-
-    /**
-     * @var int Set the correct count of constants in child classes. Only used if {@link EasyGoingTestCase::crossCheckConsts}=true.
-     *
-     * @see EasyGoingTestCase::$withConstCrossCheck
-     * @see EasyGoingTestCase::testAllConstants()
-     */
-    private static $expectedConstsCount = 0;
-
-    /** @var mixed[] Array of the names of all constants in the class. */
-    private static $actualConsts = [];
-
     /** @var LoggerInterface */
     private static $logger;
 
-    /**
-     * @param bool $withConstCrossCheck
-     * @param int  $expectedConstsCount
-     *
-     * @see EasyGoingTestCase::$withConstCrossCheck
-     * @see EasyGoingTestCase::$expectedConstsCount
-     */
-    public static function setUpBeforeClass(bool $withConstCrossCheck = false, int $expectedConstsCount = 0): void
-    {
-        self::$logger->debug('START');
+    /** @var mixed The object which will be tested. */
+    protected $o2t;
 
-        parent::setUpBeforeClass();
-        $testInfo =  [self::$withConstCrossCheck, self::$expectedConstsCount, self::get_called_clazz()];
-        self::$actualConsts        = [];
-        self::$withConstCrossCheck = $withConstCrossCheck;
-        self::$expectedConstsCount = $expectedConstsCount;
-        self::$logger->notice('withConstCrossCheck,expectedConstCount,calledClazz',$testInfo);
-
-        self::$logger->debug('END');
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        self::$logger->debug('START');
-
-        parent::tearDownAfterClass();
-        self::crossCheckConstants(get_class(static::prepareO2t()), self::$actualConsts);
-        self::$actualConsts        = [];
-        self::$withConstCrossCheck = false;
-        self::$expectedConstsCount = 0;
-
-        self::$logger->debug('END');
-    }
 
     /**
      * @return mixed
      */
     abstract protected static function prepareO2t();
-
-    /**
-     * @return bool
-     */
-    public static function isWithConstCrossCheck(): bool
-    {
-        return self::$withConstCrossCheck;
-    }
 
     /**
      * @return mixed
@@ -112,8 +53,8 @@ abstract class EasyGoingTestCase extends TestCase
 
         parent::__construct($name, $data, $dataName);
 
-        $testInfo = [$this->get_called_clazz(), $this->get_called_function()];
-        self::$logger->notice('calledClazz,calledFunction', $testInfo);
+        $testInfo = [ $this->get_called_function(),$this->get_called_clazz()];
+        self::$logger->info('calledFunction,calledClazz', $testInfo);
 
         self::$logger->debug('END');
     }
@@ -128,70 +69,7 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('END');
     }
 
-    /**
-     * @param mixed[] $constants
-     */
-    protected function verifyConstAllExists(array $constants = []): void
-    {
-        self::$logger->debug('START');
-
-        foreach ($constants as $constant) {
-            $this->verifyConstExists($constant);
-        }
-
-        self::$logger->debug('END');
-    }
-
-    /**
-     * @param mixed[] $constants
-     */
-    protected function verifyConstArrayAllExists(array $constants = []): void
-    {
-        self::$logger->debug('START');
-
-        foreach ($constants as $constant => $expectedSize) {
-            $this->verifyConstExists($constant);
-            $this->verifyConstArraySize($constant, $expectedSize);
-        }
-
-        self::$logger->debug('END');
-    }
-
-    protected function verifyConstArraySize(string $constantName, int $expectedSize): void
-    {
-        self::$logger->debug('START');
-
-        $constantValue = self::getConstValue($this->o2t, $constantName);
-        static::assertIsArray($constantValue);
-        static::assertCount($expectedSize, $constantValue);
-
-        self::$logger->debug('END');
-    }
-
-    /**
-     * @param string $constantName
-     *
-     * @SuppressWarnings("PHPMD.ElseExpression")
-     */
-    protected function verifyConstExists(string $constantName): void
-    {
-        self::$logger->debug('START');
-
-        $isDefined = self::isConstExist($this->o2t, $constantName);
-        if ($isDefined) {
-            $constantValue = self::getConstValue($this->o2t, $constantName);
-            self::$logger->info("Checking '$constantName'=" . print_r($constantValue, true));
-            if (static::isPrimitive($constantValue)) {
-                static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
-            } else {
-                static::assertNotEmpty($constantValue);
-            }
-        } else {
-            static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
-        }
-
-        self::$logger->debug('END');
-    }
+    // Static function
 
     /**
      * Tries to identify the name of the class, from where the testcase was called.
@@ -207,25 +85,6 @@ abstract class EasyGoingTestCase extends TestCase
             // ignore
         }
         return $calledClazz;
-    }
-
-    /**
-     * Tries to identify the name of the function, from where the testcase was called.
-     * 
-     * @return string the name of the calling function or empty
-     */
-    protected function get_called_function():string {
-        $calledFunction = '';
-        try {
-            $debug = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-            if (is_array($debug) && key_exists('function', $debug[1])) 
-            {
-                $calledFunction=$debug[1]['function'];
-            }
-        } catch (\Exception $exception) {
-            // ignore
-        }
-        return $calledFunction;
     }
 
     /**
@@ -285,90 +144,20 @@ abstract class EasyGoingTestCase extends TestCase
         return $isDefined;
     }
 
-    /**
-     * @param mixed   $clazz
-     * @param mixed[] $actualConsts
-     *
-     * @see EasyGoingTestCase::$withConstCrossCheck
-     */
-    protected static function crossCheckConstants($clazz, $actualConsts): void
+    // Test functions
+
+    public function testInit(): void
     {
         self::$logger->debug('START');
 
-        if (self::$withConstCrossCheck) {
-            self::$logger->notice('CrossCheck is active');
-            $expected = self::getAllDefinedConsts($clazz);
-            ksort($expected);
-            $expected = array_keys($expected);
-
-            $callback = /**
-             * @param mixed $value
-             *
-             * @return string
-             */
-                function ($value): string {
-                    $res = '';
-                    if (is_string($value) && str_contains($value, self::C_STATIC_SEP)) {
-                        try {
-                            $startPos = ((int)strpos($value, self::C_STATIC_SEP)) + strlen(self::C_STATIC_SEP);
-                            $res      = substr($value, $startPos);
-                        } catch (\Throwable $exception) {
-                            self::$logger->error(sprintf("%s: '%s'", $exception->getMessage(), $value));
-                        }
-                    } else {
-                        self::$logger->error(sprintf("Value has no '%s': '%s'", self::C_STATIC_SEP, $value));
-                    }
-
-                    return $res;
-                };
-            /** @var string[] */
-            $actual = array_map($callback, $actualConsts);
-            $actual = array_flip($actual);
-            ksort($actual);
-            $actual = array_keys($actual);
-            static::assertEqualsCanonicalizing(
-                $expected,
-                $actual,
-                'You have forgotten to check: ' . print_r(array_diff($expected, $actual), true)
-            );
-        }
+        static::assertNotEmpty($this->o2t);
+        static::assertIsObject($this->o2t);
+        static::assertInstanceOf(get_class($this->o2t), static::prepareO2t());
 
         self::$logger->debug('END');
     }
 
-    /**
-     * @param null|mixed[] $checkedConsts
-     *
-     * @see EasyGoingTestCase::$withConstCrossCheck
-     */
-    protected static function updateActualConsts($checkedConsts): void
-    {
-        if (self::$withConstCrossCheck && !is_null($checkedConsts)) {
-            self::$actualConsts = array_merge(self::$actualConsts, $checkedConsts);
-        }
-    }
-
-    /**
-     * @param int     $expectedCount
-     * @param mixed[] $allDefinedConsts
-     *
-     * @return array<mixed>
-     */
-    protected static function checkConstantsCount(int $expectedCount, $allDefinedConsts)
-    {
-        self::$logger->debug('START');
-
-        $allCount = count($allDefinedConsts);
-        if (self::$withConstCrossCheck) {
-            $result = $expectedCount == $allCount;
-        } else {
-            $result = true;
-        }
-
-        self::$logger->debug('END');
-
-        return [$result, $allCount];
-    }
+    // Misc functions
 
     /**
      * @param mixed  $clazz
@@ -398,34 +187,49 @@ abstract class EasyGoingTestCase extends TestCase
         return $constantValue;
     }
 
-    public function testInit(): void
+    /**
+     * @param string $constantName
+     *
+     * @SuppressWarnings("PHPMD.ElseExpression")
+     */
+    protected function verifyConstExists(string $constantName): void
     {
         self::$logger->debug('START');
 
-        static::assertNotEmpty($this->o2t);
-        static::assertIsObject($this->o2t);
-        static::assertInstanceOf(get_class($this->o2t), static::prepareO2t());
+        $isDefined = self::isConstExist($this->o2t, $constantName);
+        if ($isDefined) {
+            $constantValue = self::getConstValue($this->o2t, $constantName);
+            self::$logger->info("Checking '$constantName'=" . print_r($constantValue, true));
+            if (static::isPrimitive($constantValue)) {
+                static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
+            } else {
+                static::assertNotEmpty($constantValue);
+            }
+        } else {
+            static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
+        }
 
         self::$logger->debug('END');
     }
+
 
     /**
-     * @see EasyGoingTestCase::$withConstCrossCheck
-     * @see EasyGoingTestCase::$expectedConstsCount
+     * Tries to identify the name of the function, from where the testcase was called.
+     *
+     * @return string the name of the calling function or empty
      */
-    public function testAllConstants(): void
-    {
-        self::$logger->debug('START');
-
-        $allDefinedConsts = self::getAllDefinedConsts(get_class(static::prepareO2t()));
-        ksort($allDefinedConsts);
-        [$actual, $actualConstsCount] = self::checkConstantsCount(self::$expectedConstsCount, $allDefinedConsts);
-
-        static::assertTrue(
-            $actual,
-            sprintf('Constants, expected count is not reached by actual count [%s, %s] ', self::$expectedConstsCount, $actualConstsCount)
-        );
-
-        self::$logger->debug('END');
+    protected function get_called_function():string {
+        $calledFunction = '';
+        try {
+            $debug = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+            if (is_array($debug) && key_exists('function', $debug[1]))
+            {
+                $calledFunction=$debug[1]['function'];
+            }
+        } catch (\Exception $exception) {
+            // ignore
+        }
+        return $calledFunction;
     }
+
 }
