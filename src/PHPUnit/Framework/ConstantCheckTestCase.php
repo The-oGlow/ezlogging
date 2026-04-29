@@ -1,9 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: GLO03
- * Date: 29.04.2026
- * Time: 11:20
+
+declare(strict_types=1);
+
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace PHPUnit\Framework;
@@ -13,7 +18,6 @@ use Psr\Log\LoggerInterface;
 
 abstract class ConstantCheckTestCase extends EasyGoingTestCase
 {
-
     /**
      * @var bool TRUE=Execute a constants cross check (Default: FALSE)
      *
@@ -54,13 +58,13 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
         self::$actualConsts        = [];
         self::$withConstCrossCheck = $withConstCrossCheck;
         self::$expectedConstsCount = $expectedConstsCount;
-        self::$logger->notice('withConstCrossCheck,expectedConstCount,calledClazz',$testInfo);
+        self::$logger->notice('withConstCrossCheck,expectedConstCount,calledClazz', $testInfo);
 
         self::$logger->debug('END');
     }
 
     /**
-     * Performs the constants crosscheck at the end
+     * Performs the constants crosscheck at the end.
      */
     public static function tearDownAfterClass(): void
     {
@@ -88,7 +92,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
     /**
      * Executes the constant crosscheck  and fails if a constant is not found or not expected to exist.
      *
-     * @param mixed   $clazz the clazz having the constants to check
+     * @param mixed   $clazz        the clazz having the constants to check
      * @param mixed[] $actualConsts an array of the already found constants
      *
      * @see ConstantCheckTestCase::$withConstCrossCheck
@@ -140,6 +144,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
 
     /**
      * Adds an array of constants which have been found.
+     *
      * @param null|mixed[] $checkedConsts array of found constants
      *
      * @see ConstantCheckTestCase::$withConstCrossCheck
@@ -154,7 +159,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
     /**
      * Checks, if {@link $allDefinedConsts) has the size of {@link $expectedCount}.
      *
-     * @param int     $expectedCount count of constants which must exists
+     * @param int     $expectedCount    count of constants which must exists
      * @param mixed[] $allDefinedConsts an array with all defined constants
      *
      * @return array<mixed> [true|false, count($allDefinedConsts)]
@@ -204,7 +209,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
 
     /**
      * Checks, if all constants exists.
-     * <code>['CONST1','CONST2',...]</code>
+     * <code>['CONST1','CONST2',...]</code>.
      *
      * @param mixed[] $constants an array with constants to check
      */
@@ -221,7 +226,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
 
     /**
      * Checks, if all constants exists are arrays and have the expected size.
-     * <code>['CONST1'=>3,'CONST2'=>10,...]</code>
+     * <code>['CONST1'=>3,'CONST2'=>10,...]</code>.
      *
      * @param mixed[] $constants an array with constants and expected sizes to check
      */
@@ -253,5 +258,4 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
 
         self::$logger->debug('END');
     }
-
 }

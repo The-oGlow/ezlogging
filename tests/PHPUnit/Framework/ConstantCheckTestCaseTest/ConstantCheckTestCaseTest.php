@@ -1,9 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: GLO03
- * Date: 29.04.2026
- * Time: 11:47
+
+declare(strict_types=1);
+
+/*
+ * This file is part of ezlogging
+ *
+ * (c) 2025 Oliver Glowa, coding.glowa.com
+ *
+ * This source file is subject to the Apache-2.0 license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace PHPUnit\Framework\ConstantCheckTestCaseTest;
@@ -12,7 +17,6 @@ use Monolog\ConsoleLogger;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 use PHPUnit\Framework\ConstantCheckTestCase;
-use PHPUnit\Framework\EasyGoingTestCaseTest\EasyGoingTestCaseTest;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -25,13 +29,20 @@ class ConstantCheckTestCaseTest extends TestCase
 {
     use UnavailableMethodsTrait;
     use UnavailableFieldsTrait;
+
     private const TEST_CONST_PREFIX_NAME = 'TEST_CONST_PREFIX';
+
     private const TEST_CONST_ARRAY_NAME = 'TEST_CONST_ARRAY';
+
     private const TEST_CONST_ARRAY_SIZE = 2;
+
     private const WRONG_CONST = 'WRONG_CONST';
+
     private const WRONG_CONST_SIZE = 1;
+
     /** @var ConstantCheckTestCaseClazz */
     protected $o2t;
+
     /** @var LoggerInterface */
     private static $logger;
 

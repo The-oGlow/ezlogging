@@ -69,7 +69,6 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
         return parent::isConstExist($clazz, $constantName);
     }
 
-
     /**
      * @return EasyGoingTestCaseDummyClazz
      */
@@ -94,5 +93,4 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
             EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PRIVATE',
         ];
     }
-
 }

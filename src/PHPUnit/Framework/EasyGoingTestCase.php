@@ -30,7 +30,6 @@ abstract class EasyGoingTestCase extends TestCase
     /** @var mixed The object which will be tested. */
     protected $o2t;
 
-
     /**
      * @return mixed
      */
@@ -53,7 +52,7 @@ abstract class EasyGoingTestCase extends TestCase
 
         parent::__construct($name, $data, $dataName);
 
-        $testInfo = [ $this->get_called_function(),$this->get_called_clazz()];
+        $testInfo = [ $this->get_called_function(),self::get_called_clazz()];
         self::$logger->info('calledFunction,calledClazz', $testInfo);
 
         self::$logger->debug('END');
@@ -73,17 +72,22 @@ abstract class EasyGoingTestCase extends TestCase
 
     /**
      * Tries to identify the name of the class, from where the testcase was called.
-     * 
+     *
      * @return string the name of the calling class or empty
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
+    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected static function get_called_clazz(): string
     {
         $calledClazz = '';
+
         try {
-            $calledClazz= get_called_class();
-        } catch (\Exception $exception) {
+            $calledClazz = get_called_class();
+        } catch (\Exception $exception) { // @phpstan-ignore catch.neverThrown
             // ignore
         }
+
         return $calledClazz;
     }
 
@@ -212,24 +216,30 @@ abstract class EasyGoingTestCase extends TestCase
         self::$logger->debug('END');
     }
 
-
     /**
      * Tries to identify the name of the function, from where the testcase was called.
      *
      * @return string the name of the calling function or empty
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    protected function get_called_function():string {
+    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    protected function get_called_function(): string
+    {
         $calledFunction = '';
+
         try {
             $debug = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-            if (is_array($debug) && key_exists('function', $debug[1]))
-            {
-                $calledFunction=$debug[1]['function'];
+            /** @psalm-suppress RedundantCondition
+             * @phpstan-ignore function.alreadyNarrowedType
+             */
+            if (is_array($debug) && count($debug) > 0) {
+                $calledFunction = $debug[1]['function'];
             }
         } catch (\Exception $exception) {
             // ignore
         }
+
         return $calledFunction;
     }
-
 }
