@@ -94,13 +94,14 @@ class CsvHandler extends FileHandler
 
         // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
-            $implodeContext = $record[self::KEY_CONTEXT];
             /**
              * @psalm-suppress RedundantCondition
              * @phpstan-ignore if.alwaysTrue
              */
             if (is_array($record[self::KEY_CONTEXT])) {
                 $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
+            } else {
+                $implodeContext = $record[self::KEY_CONTEXT];
             }
             $output = array_merge($output, $implodeContext);
         }

@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableMethodsTraitTest;
 
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
+/**
+ * This is the test clazz which will be tested.
+ *
+ * @see  UnavailableMethodsTraitDummyClazz
+ * @see  UnavailableMethodsTraitTest
+ */
 class UnavailableMethodsTraitTestO2tClazz
 {
     use UnavailableMethodsTrait;
@@ -24,7 +30,7 @@ class UnavailableMethodsTraitTestO2tClazz
 
     public function __construct()
     {
-        $this->o2t = new UnavailableMethodsTraitTestHolderClazz();
+        $this->o2t = new UnavailableMethodsTraitDummyClazz();
     }
 
     /**
@@ -44,6 +50,6 @@ class UnavailableMethodsTraitTestO2tClazz
      */
     public function publicCallMethodByReflection(string $methodName)
     {
-        return $this->callMethodByReflection(UnavailableMethodsTraitTestHolderClazz::class, $methodName, $this->o2t);
+        return $this->callMethodByReflection(UnavailableMethodsTraitDummyClazz::class, $methodName, $this->o2t);
     }
 }

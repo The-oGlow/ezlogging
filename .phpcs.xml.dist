@@ -43,7 +43,10 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>tests/**/*Test\.php</exclude-pattern>
     </rule>
-
+    <!-- Allow different naming styles for function names -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+    </rule>
     <!--
        There is a special internal error message produced by PHP_CodeSniffer
        when it is unable to detect code in a file, possible due to

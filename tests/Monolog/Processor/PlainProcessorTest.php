@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
 class PlainProcessorTest extends TestCase
@@ -32,10 +33,26 @@ class PlainProcessorTest extends TestCase
         static::assertInstanceOf(PlainProcessor::class, $this->o2t);
     }
 
-    public function testInvoke(): void
+    public function testInvokeWithRecord(): void
     {
-        $testArray = [1,2,'hello'];
-        $result = $this->o2t->__invoke($testArray);
+        $testArray = [
+            'message'        => '',
+            'context'        => [],
+            'level'          => Logger::INFO,
+            'level_name'     => 'INFO',
+            'level_name_pad' => '',
+            'channel'        => '',
+            'datetime'       => new \DateTimeImmutable(),
+            'extra'          => []
+        ];
+        $result    = $this->o2t->__invoke($testArray);
+        static::assertEquals($testArray, $result);
+    }
+
+    public function testInvokeWithPlain(): void
+    {
+        $testArray = [1, 2, 'hello'];
+        $result    = $this->o2t->__invoke($testArray); // @phpstan-ignore argument.type
         static::assertEquals($testArray, $result);
     }
 }

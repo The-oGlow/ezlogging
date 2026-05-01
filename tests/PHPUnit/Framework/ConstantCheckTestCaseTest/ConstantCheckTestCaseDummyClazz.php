@@ -30,5 +30,5 @@ class ConstantCheckTestCaseDummyClazz
 
     protected const TEST_CONST_PROTECTED = 'protected';
 
-    private const   TEST_CONST_PRIVATE   = 'private'; // @phpstan-ignore classConstant.unused
+    private const   TEST_CONST_PRIVATE   = 'private';
 }

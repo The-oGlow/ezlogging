@@ -74,10 +74,7 @@ abstract class EasyGoingTestCase extends TestCase
      * Tries to identify the name of the class, from where the testcase was called.
      *
      * @return string the name of the calling class or empty
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected static function get_called_clazz(): string
     {
         $calledClazz = '';
@@ -220,10 +217,7 @@ abstract class EasyGoingTestCase extends TestCase
      * Tries to identify the name of the function, from where the testcase was called.
      *
      * @return string the name of the calling function or empty
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
-    // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     protected function get_called_function(): string
     {
         $calledFunction = '';

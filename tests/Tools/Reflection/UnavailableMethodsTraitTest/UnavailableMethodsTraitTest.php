@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableMethodsTraitTest;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * This is the test clazz which will test the test clazz.
+ *
+ * @see UnavailableMethodsTraitTestO2tClazz
+ * @see UnavailableMethodsTraitTestWrongO2tClazz
+ */
 class UnavailableMethodsTraitTest extends TestCase
 {
     /** @var UnavailableMethodsTraitTestO2tClazz */

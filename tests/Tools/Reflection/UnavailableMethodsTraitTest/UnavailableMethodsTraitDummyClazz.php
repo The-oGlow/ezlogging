@@ -14,9 +14,14 @@ declare(strict_types=1);
 namespace ollily\Tools\Reflection\UnavailableMethodsTraitTest;
 
 /**
+ * A simple clazz which will be tested by the test clazz.
+ *
+ * @see UnavailableMethodsTraitTestO2tClazz
+ * @see UnavailableMethodsTraitTestWrongO2tClazz
+ *
  * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
  */
-class UnavailableMethodsTraitTestHolderClazz
+class UnavailableMethodsTraitDummyClazz
 {
     public function publicFunc(): string
     {
@@ -28,7 +33,7 @@ class UnavailableMethodsTraitTestHolderClazz
         return 'protectedFuncValue';
     }
 
-    private function privateFunc(): string // @phpstan-ignore method.unused
+    private function privateFunc(): string
     {
         return 'privateFuncValue';
     }

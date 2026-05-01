@@ -38,13 +38,14 @@ class StopNow
     private static function init(): void
     {
         /**
-         * @psalm-suppress  DocblockTypeContradiction
-         * @phpstan-ignore  function.impossibleType
+         * @psalm-suppress DocblockTypeContradiction
+         * @phpstan-ignore function.impossibleType
          *  */
         if (is_null(self::$logger)) {
             $handler = new ErrorLogHandler();
             $handler->setFormatter(new EasyGoingFormatter());
-            self::$logger = new Logger(StopNow::class, [$handler], [new PaddingProcessor()]);
+            self::$logger = new Logger(StopNow::class, [$handler]);
+            self::$logger->pushProcessor(new PaddingProcessor());
         }
     }
 

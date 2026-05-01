@@ -29,8 +29,7 @@ trait ToStringTrait
      */
     public function __toString()
     {
-        // @phpstan-ignore function.alreadyNarrowedType
-        if (method_exists($this, '__toStringValues')) {
+        if (method_exists($this, '__toStringValues')) { // @phpstan-ignore function.alreadyNarrowedType
             $value = $this->__toStringValues();
             if (is_string($value)) {
                 $toString = sprintf('%s:\'%s\'', get_class($this), $value);

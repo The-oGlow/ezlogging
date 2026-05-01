@@ -71,15 +71,7 @@ class CsvLogger extends FileLogger
      */
     public function out(string $message, ...$context): void
     {
-        /**
-         * @psalm-suppress TypeDoesNotContainType
-         * @phpstan-ignore function.alreadyNarrowedType
-         */
-        if (!is_array($context)) {
-            parent::info($message, [$context]);
-        } else {
-            parent::info($message, $context);
-        }
+        parent::info($message, $context);
     }
 
     /**
