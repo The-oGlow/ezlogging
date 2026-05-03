@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String\ToStringTraitTest;
 
-/**
+/*
  * A simple clazz which will be tested by the test clazz.
  *
  * @see ToStringTraitTest

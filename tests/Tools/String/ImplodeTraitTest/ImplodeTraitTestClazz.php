@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ImplodeTraitTest;
 
 use ollily\Tools\String\ImplodeTrait;
+
 /**
  * This is the test clazz which will be tested.
  *

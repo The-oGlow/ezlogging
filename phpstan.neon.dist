@@ -67,8 +67,6 @@ parameters:
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:
-                - tests/*/*TestTrait.php
-                - tests/*/*TestCaseTest.php
                 - tests/*/*Test.php
         -
             identifier: classConstant.unused

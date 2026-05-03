@@ -101,6 +101,7 @@ class CsvHandler extends FileHandler
             if (is_array($record[self::KEY_CONTEXT])) {
                 $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
             } else {
+                /** @psalm-suppress NoValue */
                 $implodeContext = $record[self::KEY_CONTEXT];
             }
             $output = array_merge($output, $implodeContext);

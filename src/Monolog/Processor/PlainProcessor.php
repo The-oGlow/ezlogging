@@ -14,16 +14,23 @@ declare(strict_types=1);
 namespace Monolog\Processor;
 
 /**
- * Class PlainProcessor.
- *
  * @phpstan-import-type Level from \Monolog\Logger
  * @phpstan-import-type LevelName from \Monolog\Logger
- * @phpstan-import-type Record from \Monolog\Logger
+ *
+ * @phpstan-type Record array<mixed,mixed>
  */
 class PlainProcessor implements ProcessorInterface
 {
     /**
-     * @inheritdoc
+     * @param array $record A record
+     *
+     * @phpstan-param Record $record A record
+     *
+     * @return array The processed record
+     *
+     * @phpstan-return Record
+     *
+     * @phpstan-ignore method.childReturnType
      */
     public function __invoke(array $record)
     {

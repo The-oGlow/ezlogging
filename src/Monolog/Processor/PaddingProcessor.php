@@ -25,7 +25,7 @@ use Monolog\Logger;
  * @phpstan-import-type Level from \Monolog\Logger
  * @phpstan-import-type LevelName from \Monolog\Logger
  *
- * @phpstan-type Record array{message: string, context: mixed[], level: Level, level_name: LevelName, level_name_pad: string, channel: string, datetime: \DateTimeImmutable, extra: mixed[]}
+ * @phpstan-type Record array<mixed,mixed>
  */
 class PaddingProcessor implements ProcessorInterface
 {
@@ -65,20 +65,22 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @phpstan-param Record $record
+     * @param array $record A record
+     *
+     * @phpstan-param Record $record A record
      *
      * @return array The processed record
      *
      * @phpstan-return Record
      *
-     * @phpstan-ignore method.childParameterType
+     * @phpstan-ignore method.childReturnType
      */
     public function __invoke(array $record)
     {
         $record                   = $this->__invokeIntrospection($record);
         $record['level_name_pad'] = str_pad($record['level_name'], 8, ' ', STR_PAD_RIGHT);
 
-        return $record; // @phpstan-ignore return.type
+        return $record;
     }
 
     /**

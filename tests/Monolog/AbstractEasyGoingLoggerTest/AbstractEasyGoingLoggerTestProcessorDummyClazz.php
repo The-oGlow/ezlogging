@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use Monolog\Processor\ProcessorInterface;
+
 /**
  * A simple clazz which will be tested by the test clazz.
  */

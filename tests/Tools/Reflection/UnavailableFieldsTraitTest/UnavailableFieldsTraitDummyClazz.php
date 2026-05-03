@@ -19,7 +19,7 @@ namespace ollily\Tools\Reflection\UnavailableFieldsTraitTest;
  * @see UnavailableFieldsTraitTestO2tClazz
  * @see UnavailableFieldsTraitTestWrongO2tClazz
  *
- * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
+ * @SuppressWarnings("PHPMD.UnusedPrivateField")
  */
 class UnavailableFieldsTraitDummyClazz
 {

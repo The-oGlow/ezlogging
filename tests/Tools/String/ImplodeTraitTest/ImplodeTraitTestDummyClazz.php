@@ -17,7 +17,6 @@ namespace ollily\Tools\String\ImplodeTraitTest;
  * A simple clazz which will be tested by the test clazz.
  *
  * @see ImplodeTraitTestClazz
- *
  */
 class ImplodeTraitTestDummyClazz
 {

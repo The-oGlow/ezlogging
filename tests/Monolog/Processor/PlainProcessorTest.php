@@ -45,14 +45,18 @@ class PlainProcessorTest extends TestCase
             'datetime'       => new \DateTimeImmutable(),
             'extra'          => []
         ];
+
         $result    = $this->o2t->__invoke($testArray);
+
         static::assertEquals($testArray, $result);
     }
 
     public function testInvokeWithPlain(): void
     {
         $testArray = [1, 2, 'hello'];
-        $result    = $this->o2t->__invoke($testArray); // @phpstan-ignore argument.type
+
+        $result    = $this->o2t->__invoke($testArray);
+
         static::assertEquals($testArray, $result);
     }
 }

@@ -18,11 +18,11 @@ use Monolog\Handler\HandlerInterface;
 /**
  * A simple clazz which will be tested by the test clazz.
  */
-  class FileLoggerTestHandlerDummyClazz implements HandlerInterface
-  {
-  /**
- * @SuppressWarnings("PHPMD.UnusedFormalParameter")
- */
+class FileLoggerTestHandlerDummyClazz implements HandlerInterface
+{
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function isHandling(array $record): bool
     {
         return true;
