@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsoleLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
     /** @var ConsoleLogger */
     protected $o2t;

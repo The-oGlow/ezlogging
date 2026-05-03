@@ -15,11 +15,14 @@ namespace Monolog\FileLoggerTest;
 
 use Monolog\Handler\HandlerInterface;
 
-class FileLoggerTestHandlerClazz implements HandlerInterface
-{
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
+/**
+ * A simple clazz which will be tested by the test clazz.
+ */
+  class FileLoggerTestHandlerDummyClazz implements HandlerInterface
+  {
+  /**
+ * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+ */
     public function isHandling(array $record): bool
     {
         return true;

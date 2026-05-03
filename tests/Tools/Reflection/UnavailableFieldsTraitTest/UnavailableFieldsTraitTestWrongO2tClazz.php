@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableFieldsTraitTest;
 
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 
+/**
+ * This is the test clazz which will be tested.
+ *
+ * @see  UnavailableFieldsTraitDummyClazz
+ * @see  UnavailableFieldsTraitTest
+ */
 class UnavailableFieldsTraitTestWrongO2tClazz
 {
     use UnavailableFieldsTrait;
@@ -24,7 +30,7 @@ class UnavailableFieldsTraitTestWrongO2tClazz
 
     public function __construct()
     {
-        $this->wrongO2t = new UnavailableFieldsTraitTestHolderClazz();
+        $this->wrongO2t = new UnavailableFieldsTraitDummyClazz();
     }
 
     /**

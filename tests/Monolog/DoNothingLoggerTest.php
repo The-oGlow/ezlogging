@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class DoNothingLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
     /** @var DoNothingLogger */
     protected $o2t;

@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PlainLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
     /** @var PlainLogger */
     protected $o2t;

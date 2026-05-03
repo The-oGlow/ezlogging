@@ -18,14 +18,17 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
 
-class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger
+/**
+ * A simple clazz which will be tested by the test clazz.
+ */
+class AbstractEasyGoingLoggerTestDummyClazz extends AbstractEasyGoingLogger
 {
     /**
      * @inheritdoc
      */
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
-        return new AbstractEasyGoingLoggerTestHandlerClazz();
+        return new AbstractEasyGoingLoggerTestHandlerDummyClazz();
     }
 
     /**
@@ -33,7 +36,7 @@ class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger
      */
     protected function getDefaultProcessor(): ProcessorInterface
     {
-        return new AbstractEasyGoingLoggerTestProcessorClazz();
+        return new AbstractEasyGoingLoggerTestProcessorDummyClazz();
     }
 
     /**
@@ -41,6 +44,6 @@ class AbstractEasyGoingLoggerTestClazz extends AbstractEasyGoingLogger
      */
     protected function getDefaultFormatter(): FormatterInterface
     {
-        return new AbstractEasyGoingLoggerTestFormatterClazz();
+        return new AbstractEasyGoingLoggerTestFormatterDummyClazz();
     }
 }

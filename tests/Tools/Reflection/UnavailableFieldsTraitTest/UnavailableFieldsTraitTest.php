@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableFieldsTraitTest;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * This is the test clazz which will test the test clazz.
+ *
+ * @see UnavailableFieldsTraitTestO2tClazz
+ * @see UnavailableFieldsTraitTestWrongO2tClazz
+ */
 class UnavailableFieldsTraitTest extends TestCase
 {
     /** @var UnavailableFieldsTraitTestO2tClazz */

@@ -11,13 +11,14 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\AbstractEasyGoingLoggerTest;
 
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestFormatterClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestHandlerClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestProcessorClazz;
 use Monolog\Formatter\EasyGoingFormatter;
+use Monolog\PlainLogger;
+use Monolog\DoNothingLogger;
+use Monolog\FileLogger;
+use Monolog\CsvLogger;
+use Monolog\ConsoleLogger;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\NoopHandler;
@@ -39,7 +40,7 @@ trait AbstractEasyGoingLoggerTestTrait
             DoNothingLogger::class,
             FileLogger::class,
             CsvLogger::class,
-            AbstractEasyGoingLoggerTestClazz::class,
+            AbstractEasyGoingLoggerTestDummyClazz::class,
             ConsoleLogger::class
         ];
 
@@ -62,7 +63,7 @@ trait AbstractEasyGoingLoggerTestTrait
 
     public function testGetDefaultHandler(): void
     {
-        $expectedResult = [AbstractEasyGoingLoggerTestHandlerClazz::class, NoopHandler::class, ConsoleHandler::class];
+        $expectedResult = [AbstractEasyGoingLoggerTestHandlerDummyClazz::class, NoopHandler::class, ConsoleHandler::class];
 
         $actualResult = $this->callMethodOnO2t('getDefaultHandler');
 
@@ -74,7 +75,7 @@ trait AbstractEasyGoingLoggerTestTrait
     {
         $expectedResult = [
             PlainProcessor::class,
-            AbstractEasyGoingLoggerTestProcessorClazz::class,
+            AbstractEasyGoingLoggerTestProcessorDummyClazz::class,
             PaddingProcessor::class
         ];
 
@@ -88,7 +89,7 @@ trait AbstractEasyGoingLoggerTestTrait
     {
         $expectedResult = [
             PlainFormatter::class,
-            AbstractEasyGoingLoggerTestFormatterClazz::class,
+            AbstractEasyGoingLoggerTestFormatterDummyClazz::class,
             EasyGoingFormatter::class
         ];
 

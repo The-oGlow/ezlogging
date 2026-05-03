@@ -16,7 +16,11 @@ namespace Monolog\FileLoggerTest;
 use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use Psr\Log\LoggerInterface;
-
+/**
+ * This trait tests the FileLogger.
+ * 
+ * @see \Monolog\FileLogger
+ */
 trait FileLoggerTestTrait
 {
     use ImplodeTrait;

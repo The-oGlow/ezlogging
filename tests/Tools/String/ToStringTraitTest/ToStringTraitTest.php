@@ -15,15 +15,22 @@ namespace ollily\Tools\String\ToStringTraitTest;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * This is the test clazz which will test the test clazz.
+ *
+ * @see ToStringTraitTestDummyClazz
+ * @see ToStringTraitTestDummyParentClazz
+ * @see ToStringTraitTestDummyChildClazz
+ */
 class ToStringTraitTest extends TestCase
 {
-    /** @var ToStringTraitTestClazz */
+    /** @var ToStringTraitTestDummyClazz */
     protected $o2t;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->o2t = new ToStringTraitTestClazz();
+        $this->o2t = new ToStringTraitTestDummyClazz();
     }
 
     public function testToStringDefault(): void
@@ -47,7 +54,7 @@ class ToStringTraitTest extends TestCase
      */
     public function testToString($data, string $expected): void
     {
-        $actualObj = new ToStringTraitTestClazz($data);
+        $actualObj = new ToStringTraitTestDummyClazz($data);
         $actual    = $actualObj->__toString();
 
         static::assertEquals($expected, $actual);
@@ -61,37 +68,37 @@ class ToStringTraitTest extends TestCase
         return [
             'String'      => [
                 'This is a string',
-                sprintf('%s:\'%s\'', ToStringTraitTestClazz::class, 'This is a string'),
+                sprintf('%s:\'%s\'', ToStringTraitTestDummyClazz::class, 'This is a string'),
                 true
             ],
             'Integer'     => [
                 1234,
-                sprintf('%s:%s', ToStringTraitTestClazz::class, '1234'),
+                sprintf('%s:%s', ToStringTraitTestDummyClazz::class, '1234'),
                 true
             ],
             'Array'       => [
                 [12, 34],
-                sprintf('%s:[%s]', ToStringTraitTestClazz::class, '12,34'),
+                sprintf('%s:[%s]', ToStringTraitTestDummyClazz::class, '12,34'),
                 true
             ],
             'Object'      => [
-                new ToStringTraitTestClazz2(),
+                new ToStringTraitTestDummyParentClazz(),
                 sprintf(
                     '%s:{%s}',
-                    ToStringTraitTestClazz::class,
-                    ToStringTraitTestClazz2::class . " Object\n(\n)\n"
+                    ToStringTraitTestDummyClazz::class,
+                    ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n"
                 ),
                 true
             ],
             'ArrayObject' => [
                 [
-                    'First' => new ToStringTraitTestClazz2(),
-                    '2nd'   => new ToStringTraitTestClazz3()
+                    'First' => new ToStringTraitTestDummyParentClazz(),
+                    '2nd'   => new ToStringTraitTestDummyChildClazz()
                 ],
                 sprintf(
                     '%s:[%s]',
-                    ToStringTraitTestClazz::class,
-                    '{' . ToStringTraitTestClazz2::class . " Object\n(\n)\n}" . ",{" . ToStringTraitTestClazz3::class . " Object\n(\n)\n}"
+                    ToStringTraitTestDummyClazz::class,
+                    '{' . ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n}" . ",{" . ToStringTraitTestDummyChildClazz::class . " Object\n(\n)\n}"
                 ),
                 true
             ]

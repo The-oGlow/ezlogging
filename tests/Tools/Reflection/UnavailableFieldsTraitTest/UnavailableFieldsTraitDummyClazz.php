@@ -14,9 +14,14 @@ declare(strict_types=1);
 namespace ollily\Tools\Reflection\UnavailableFieldsTraitTest;
 
 /**
- * @SuppressWarnings("PHPMD.UnusedPrivateField")
+ * A simple clazz which will be tested by the test clazz.
+ *
+ * @see UnavailableFieldsTraitTestO2tClazz
+ * @see UnavailableFieldsTraitTestWrongO2tClazz
+ *
+ * @SuppressWarnings("PHPMD.UnusedPrivateMethod")
  */
-class UnavailableFieldsTraitTestHolderClazz
+class UnavailableFieldsTraitDummyClazz
 {
     /** @var string */
     public $publicField = 'publicFieldValue';

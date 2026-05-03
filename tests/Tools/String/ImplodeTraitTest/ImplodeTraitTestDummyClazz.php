@@ -11,8 +11,14 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace ollily\Tools\String\ToStringTraitTest;
+namespace ollily\Tools\String\ImplodeTraitTest;
 
-class ToStringTraitTestClazz3 extends ToStringTraitTestClazz2
+/**
+ * A simple clazz which will be tested by the test clazz.
+ *
+ * @see ImplodeTraitTestClazz
+ *
+ */
+class ImplodeTraitTestDummyClazz
 {
 }

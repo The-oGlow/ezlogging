@@ -15,12 +15,14 @@ namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use DateTimeZone;
 use Monolog\AbstractEasyGoingLogger;
-use Monolog\AbstractEasyGoingLoggerTestTrait;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
+/**
+ * This is the test clazz which will using the trait test-clazz.
+ */
 class AbstractEasyGoingLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTestTrait;
@@ -28,7 +30,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
     /** @var LoggerInterface */
     private static $logger;
 
-    /** @var AbstractEasyGoingLoggerTestClazz */
+    /** @var AbstractEasyGoingLoggerTestDummyClazz */
     protected $o2t;
 
     /**
@@ -51,7 +53,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
         self::$logger->debug('START');
 
         parent::setUp();
-        $this->o2t = new AbstractEasyGoingLoggerTestClazz(AbstractEasyGoingLoggerTest::class);
+        $this->o2t = new AbstractEasyGoingLoggerTestDummyClazz(AbstractEasyGoingLoggerTest::class);
 
         self::$logger->debug('END');
     }
@@ -61,15 +63,15 @@ class AbstractEasyGoingLoggerTest extends TestCase
         $result = $this->callMethodOnO2t("getConsoleHandler");
 
         static::assertInstanceOf(ConsoleHandler::class, $result);
-        static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterClazz::class, $result->getFormatter());
+        static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterDummyClazz::class, $result->getFormatter());
     }
 
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new DateTimeZone("America/Los_Angeles");
-        $o2tb      = new AbstractEasyGoingLoggerTestClazz(AbstractEasyGoingLoggerTest::class, AbstractEasyGoingLogger::LEVEL_DEFAULT, [], [], $customDTZ);
+        $o2tb      = new AbstractEasyGoingLoggerTestDummyClazz(AbstractEasyGoingLoggerTest::class, AbstractEasyGoingLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
-        static::assertInstanceOf(AbstractEasyGoingLoggerTestClazz::class, $o2tb);
+        static::assertInstanceOf(AbstractEasyGoingLoggerTestDummyClazz::class, $o2tb);
         static::assertEquals($customDTZ, $o2tb->getTimezone());
     }
 }

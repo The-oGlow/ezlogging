@@ -13,12 +13,15 @@ declare(strict_types=1);
 
 namespace Monolog\FileLoggerTest;
 
-use Monolog\AbstractEasyGoingLoggerTestTrait;
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 use Monolog\FileLogger;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\FileHandler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * This is the test clazz which will using the trait test-clazz.
+ */
 class FileLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTestTrait;
@@ -63,7 +66,7 @@ class FileLoggerTest extends TestCase
     {
         $expectedCount = 3;
 
-        $o2tB = new FileLogger(uniqid(self::class, true), sys_get_temp_dir(), [new FileLoggerTestHandlerClazz()]);
+        $o2tB = new FileLogger(uniqid(self::class, true), sys_get_temp_dir(), [new FileLoggerTestHandlerDummyClazz()]);
         static::assertInstanceOf(FileLogger::class, $o2tB);
 
         $handlers = $o2tB->getHandlers();
@@ -72,7 +75,7 @@ class FileLoggerTest extends TestCase
         static::assertCount($expectedCount, $handlers, var_export($handlers, true));
         static::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
         static::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
-        static::assertInstanceOf(FileLoggerTestHandlerClazz::class, $handlers[2], var_export($handlers, true));
+        static::assertInstanceOf(FileLoggerTestHandlerDummyClazz::class, $handlers[2], var_export($handlers, true));
     }
 
     public function testGetFileNameEmpty(): void
@@ -80,7 +83,7 @@ class FileLoggerTest extends TestCase
         $targetFolder = sys_get_temp_dir();
         $targetFilename = str_replace(FileHandler::C_NS_SEP, FileHandler::C_NS_FS_SEP, uniqid(self::class, true));
 
-        $o2tc = new FileLogger($targetFilename, $targetFolder, [new FileLoggerTestHandlerClazz()]);
+        $o2tc = new FileLogger($targetFilename, $targetFolder, [new FileLoggerTestHandlerDummyClazz()]);
         static::assertInstanceOf(FileLogger::class, $o2tc);
 
         $fileName = $o2tc->getFileName();

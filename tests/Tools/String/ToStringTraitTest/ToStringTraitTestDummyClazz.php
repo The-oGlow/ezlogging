@@ -13,11 +13,29 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String\ToStringTraitTest;
 
+/**
+ * A simple clazz which will be tested by the test clazz.
+ *
+ * @see ToStringTraitTest
+ */
 use ollily\Tools\String\ToStringTrait;
 
-class ToStringTraitTestClazz2
+class ToStringTraitTestDummyClazz
 {
     use ToStringTrait;
+
+    /** @var mixed */
+    public $greeting = 'hello';
+
+    /**
+     * @param mixed $greeting
+     */
+    public function __construct($greeting = null)
+    {
+        if (!is_null($greeting)) {
+            $this->greeting = $greeting;
+        }
+    }
 
     /**
      * @return mixed
@@ -26,6 +44,6 @@ class ToStringTraitTestClazz2
      */
     protected function __toStringValues()
     {
-        return $this;
+        return $this->greeting;
     }
 }

@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableFieldsTraitTest;
 
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 
+/**
+ * This is the test clazz which will be tested.
+ *
+ * @see  UnavailableFieldsTraitDummyClazz
+ * @see  UnavailableFieldsTraitTest
+ */
 class UnavailableFieldsTraitTestO2tClazz
 {
     use UnavailableFieldsTrait;
@@ -24,7 +30,7 @@ class UnavailableFieldsTraitTestO2tClazz
 
     public function __construct()
     {
-        $this->o2t = new UnavailableFieldsTraitTestHolderClazz();
+        $this->o2t = new UnavailableFieldsTraitDummyClazz();
     }
 
     /**
@@ -44,7 +50,7 @@ class UnavailableFieldsTraitTestO2tClazz
      */
     public function publicGetFieldByReflection(string $fieldName)
     {
-        return $this->getFieldByReflection(UnavailableFieldsTraitTestHolderClazz::class, $fieldName, $this->o2t);
+        return $this->getFieldByReflection(UnavailableFieldsTraitDummyClazz::class, $fieldName, $this->o2t);
     }
 
     /**
@@ -53,6 +59,6 @@ class UnavailableFieldsTraitTestO2tClazz
      */
     public function publicSetFieldByReflection(string $fieldName, $newValue): void
     {
-        $this->setFieldByReflection(UnavailableFieldsTraitTestHolderClazz::class, $fieldName, $this->o2t, $newValue);
+        $this->setFieldByReflection(UnavailableFieldsTraitDummyClazz::class, $fieldName, $this->o2t, $newValue);
     }
 }

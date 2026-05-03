@@ -15,6 +15,11 @@ namespace ollily\Tools\String\ImplodeTraitTest;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * This is the test clazz which will test the test clazz.
+ *
+ * @see ImplodeTraitTestClazz
+ */
 class ImplodeTraitTest extends TestCase
 {
     /** @var ImplodeTraitTestClazz */
@@ -26,21 +31,21 @@ class ImplodeTraitTest extends TestCase
         $this->o2t = new ImplodeTraitTestClazz();
     }
 
-    public function testImplodeDefault(): void
+    public function testImplode_recursiveDefault(): void
     {
-        $actual = $this->o2t->implodeDefault();
+        $actual = $this->o2t->implode_recursiveDefault();
         static::assertNotEmpty($actual);
     }
 
-    public function testImplodeCustom(): void
+    public function testImplode_recursiveCustom(): void
     {
-        $actual = $this->o2t->implodeCustom();
+        $actual = $this->o2t->implode_recursiveCustom();
         static::assertNotEmpty($actual);
     }
 
-    public function testImplodeObjectCustom(): void
+    public function testImplode_recursiveObjectCustom(): void
     {
-        $actual = $this->o2t->implodeObjectCustom();
+        $actual = $this->o2t->implode_recursive_ObjectCustom();
         static::assertNotEmpty($actual);
     }
 }

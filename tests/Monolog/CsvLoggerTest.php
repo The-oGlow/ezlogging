@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
     use FileLoggerTestTrait;
 
     public const TEST_MSG = 'Message';
