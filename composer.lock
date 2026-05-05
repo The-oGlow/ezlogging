@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d857f2024169b746da7c60df4ba2f19",
+    "content-hash": "82b067038badb55dfcb424f74c2eb7a0",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -80,16 +80,16 @@
         },
         {
             "name": "composer/class-map-generator",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
-                "reference": "6a9c2f0970022ab00dc58c07d0685dd712f2231b"
+                "reference": "86d8208fc3c649a3a999daf1a63c25201be2990f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/6a9c2f0970022ab00dc58c07d0685dd712f2231b",
-                "reference": "6a9c2f0970022ab00dc58c07d0685dd712f2231b",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/86d8208fc3c649a3a999daf1a63c25201be2990f",
+                "reference": "86d8208fc3c649a3a999daf1a63c25201be2990f",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +133,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/class-map-generator/issues",
-                "source": "https://github.com/composer/class-map-generator/tree/1.7.2"
+                "source": "https://github.com/composer/class-map-generator/tree/1.7.3"
             },
             "funding": [
                 {
@@ -145,7 +145,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-30T15:36:56+00:00"
+            "time": "2026-05-05T09:17:07+00:00"
         },
         {
             "name": "composer/composer",
@@ -629,16 +629,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.8.0",
+            "version": "6.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc"
+                "reference": "2c89ebb95ca9cedc9347f780333f7b25792dcb76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
-                "reference": "89ac92bcfe5d0a8a4433c7b89d394553ae7250cc",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/2c89ebb95ca9cedc9347f780333f7b25792dcb76",
+                "reference": "2c89ebb95ca9cedc9347f780333f7b25792dcb76",
                 "shasum": ""
             },
             "require": {
@@ -648,7 +648,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.3.0",
-                "json-schema/json-schema-test-suite": "^23.2",
+                "json-schema/json-schema-test-suite": "dev-main",
                 "marc-mabe/php-enum-phpstan": "^2.0",
                 "phpspec/prophecy": "^1.19",
                 "phpstan/phpstan": "^1.12",
@@ -698,9 +698,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.8.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.8.2"
             },
-            "time": "2026-04-02T12:43:11+00:00"
+            "time": "2026-05-05T05:39:01+00:00"
         },
         {
             "name": "marc-mabe/php-enum",
@@ -876,6 +876,62 @@
                 }
             ],
             "time": "2026-01-01T13:05:00+00:00"
+        },
+        {
+            "name": "php-ds/php-ds",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-ds/polyfill.git",
+                "reference": "017fb5cdfa52a1f13126c94987b04b884c44f9cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/017fb5cdfa52a1f13126c94987b04b884c44f9cd",
+                "reference": "017fb5cdfa52a1f13126c94987b04b884c44f9cd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "provide": {
+                "ext-ds": "1.5.0"
+            },
+            "require-dev": {
+                "php-ds/tests": "^1.5"
+            },
+            "suggest": {
+                "ext-ds": "to improve performance and reduce memory usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudi Theunissen",
+                    "email": "rudolf.theunissen@gmail.com"
+                }
+            ],
+            "description": "Specialized data structures as alternatives to the PHP array",
+            "keywords": [
+                "data structures",
+                "ds",
+                "php",
+                "polyfill"
+            ],
+            "support": {
+                "issues": "https://github.com/php-ds/polyfill/issues",
+                "source": "https://github.com/php-ds/polyfill/tree/v1.7.0"
+            },
+            "time": "2025-05-18T04:50:53+00:00"
         },
         {
             "name": "psr/container",
@@ -4027,11 +4083,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.52",
+            "version": "2.1.54",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/08a34f8db7ca4daabff74a474fe13c0e56e2b4e5",
-                "reference": "08a34f8db7ca4daabff74a474fe13c0e56e2b4e5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8be50c3992107dc837b17da4d140fbbdf9a5c5bd",
+                "reference": "8be50c3992107dc837b17da4d140fbbdf9a5c5bd",
                 "shasum": ""
             },
             "require": {
@@ -4076,20 +4132,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-28T12:17:53+00:00"
+            "time": "2026-04-29T13:31:09+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "1aba28b697c1e3b6bbec8a1725f8b11b6d3e5a5f"
+                "reference": "9b000a578b85b32945b358b172c7b20e91189024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/1aba28b697c1e3b6bbec8a1725f8b11b6d3e5a5f",
-                "reference": "1aba28b697c1e3b6bbec8a1725f8b11b6d3e5a5f",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/9b000a578b85b32945b358b172c7b20e91189024",
+                "reference": "9b000a578b85b32945b358b172c7b20e91189024",
                 "shasum": ""
             },
             "require": {
@@ -4125,9 +4181,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.10"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.11"
             },
-            "time": "2026-02-11T14:17:32+00:00"
+            "time": "2026-05-02T06:54:10+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

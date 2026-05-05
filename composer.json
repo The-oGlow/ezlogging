@@ -35,6 +35,7 @@
   "prefer-stable": true,
   "require": {
     "php": ">=7.4",
+    "php-ds/php-ds": "^1.0",
     "monolog/monolog": "^2.10",
     "psr/log": "^1.0||^2.0||^3.0",
     "composer/composer": "^2.0"
@@ -84,24 +85,31 @@
   },
   "scripts": {
     "c-all": [
-      "composer c-phpstan",
-      "composer c-psalm",
-      "composer c-phpmd",
+      "composer c-check",
       "composer c-test",
       "composer c-format"
+    ],
+    "c-check": [
+      "composer c-phpstan",
+      "composer c-psalm",
+      "composer c-phpmd"
     ],
     "c-da": "@composer dump-autoload",
     "c-dry-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer check --allow-unsupported-php-version=yes --allow-risky=yes --format txt",
     "c-fix": "@php -d xdebug.mode=off vendor/bin/php-cs-fixer fix --allow-unsupported-php-version=yes --allow-risky=yes",
     "c-format": [
       "composer c-fix",
-      "composer c-phpcs"
+      "composer c-phpcbf"
     ],
     "c-package": "@composer archive --format=zip --dir=target/staging",
     "c-phpcs": [
       "bash -c 'mkdir --p target/analysis/phpcs'",
-      "@php -d xdebug.mode=off vendor/bin/phpcs -v"],
-    "c-phpcbf": "@php -d xdebug.mode=off vendor/bin/phpcbf",
+      "@php -d xdebug.mode=off vendor/bin/phpcs -v"
+    ],
+    "c-phpcbf": [
+      "bash -c 'mkdir --p target/analysis/phpcs'",
+      "@php -d xdebug.mode=off vendor/bin/phpcbf"
+    ],
     "c-phpdoc": "phpDocumentor run",
     "c-phpmd": "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt",
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
@@ -115,10 +123,11 @@
     "c-test": "@php -d xdebug.mode=coverage vendor/bin/phpunit"
   },
   "scripts-descriptions": {
-    "c-all": "CUSTOM: Run composer with c-phpstan, c-psalm, c-phpmd, c-test, c-format",
+    "c-all": "CUSTOM: Run composer with c-check, c-test, c-format",
+    "c-check": "CUSTOM: Run composer with c-phpstan, c-psalm, c-phpmd",
     "c-da": "CUSTOM: shortkey for 'dump-autoload'",
     "c-dry-fix": "CUSTOM: See what PHP CS Fixer will fix (dry run)",
-    "c-format": "CUSTOM: Format the code",
+    "c-format": "CUSTOM: Format the code with c-fix, c-phpcbf",
     "c-fix": "CUSTOM: PHP CS Fixer fixes your code",
     "c-package": "CUSTOM: Create deployable package",
     "c-phpcs": "CUSTOM: PHP Code Sniffer verifies your code",
