@@ -104,14 +104,22 @@
     "c-package": "@composer archive --format=zip --dir=target/staging",
     "c-phpcs": [
       "bash -c 'mkdir --p target/analysis/phpcs'",
-      "@php -d xdebug.mode=off vendor/bin/phpcs -v"
+      "bash -c 'rm -f target/analysis/phpcs/phpcsniffer-report.txt'",
+      "@php -d xdebug.mode=off vendor/bin/phpcs --colors || true",
+      "bash -c 'if [ -s target/analysis/phpcs/phpcsniffer-report.txt ]; then cat target/analysis/phpcs/phpcsniffer-report.txt; exit 1; else exit 0; fi'"
     ],
     "c-phpcbf": [
       "bash -c 'mkdir --p target/analysis/phpcs'",
-      "@php -d xdebug.mode=off vendor/bin/phpcbf"
+      "bash -c 'rm -f target/analysis/phpcs/phpcsniffer-report.txt'",
+      "@php -d xdebug.mode=off vendor/bin/phpcbf || true",
+      "bash -c 'if [ -s target/analysis/phpcs/phpcsniffer-report.txt ]; then cat target/analysis/phpcs/phpcsniffer-report.txt; exit 0; else exit 0; fi'"
     ],
     "c-phpdoc": "phpDocumentor run",
-    "c-phpmd": "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt",
+    "c-phpmd": [
+        "bash -c 'rm -f target/analysis/phpmd/phpmd-report.txt'",
+        "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt -v --color --ignore-errors-on-exit --ignore-violations-on-exit",
+        "bash -c 'if [ -s target/analysis/phpmd/phpmd-report.txt ]; then cat target/analysis/phpmd/phpmd-report.txt; exit 1; else exit 0; fi'"
+    ],
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm --report=target/analysis/psalm/psalm-report.txt",
     "c-dry-psalter": "@php -d xdebug.mode=off vendor/bin/psalter --dry-run --issues=MissingReturnType,MissingClosureReturnType,MissingParamType,MissingPropertyType,PossiblyUndefinedVariable,PossiblyUndefinedGlobalVariable,ParamNameMismatch",

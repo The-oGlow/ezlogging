@@ -53,7 +53,7 @@ abstract class EasyGoingTestCase extends TestCase
         parent::__construct($name, $data, $dataName);
 
         $testInfo = [ $this->get_called_function(),self::get_called_clazz()];
-        self::$logger->info('calledFunction,calledClazz', $testInfo);
+        self::$logger->debug('calledFunction,calledClazz', $testInfo);
 
         self::$logger->debug('END');
     }

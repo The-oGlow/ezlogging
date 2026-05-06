@@ -24,6 +24,8 @@ use PHPUnit\Framework\EasyGoingTestCaseTest;
  */
 class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
 {
+    public const C_TEST = 1;
+
     public static function tearDownAfterClass(): void
     {
         // Deactivate the check, will be called manually in testcase
@@ -51,6 +53,17 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
      * @param mixed  $clazz
      * @param string $constantName
      *
+     * @return bool
+     */
+    public static function publicIsConstExist($clazz, string $constantName): bool
+    {
+        return parent::isConstExist($clazz, $constantName);
+    }
+
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
      * @return mixed
      */
     public static function publicGetConstValue($clazz, string $constantName)
@@ -59,14 +72,47 @@ class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
     }
 
     /**
-     * @param mixed  $clazz
-     * @param string $constantName
+     * @param mixed $var
      *
      * @return bool
      */
-    public static function publicIsConstExist($clazz, string $constantName): bool
+    public static function publicIsPrimitive($var): bool
     {
-        return parent::isConstExist($clazz, $constantName);
+        return parent::isPrimitive($var);
+    }
+
+    /**
+     * @return string
+     */
+    public static function publicGet_called_clazz(): string
+    {
+        return parent::get_called_clazz();
+    }
+
+    /**
+     * @param string $clazz
+     *
+     * @return mixed[]
+     */
+    public static function publicGetAllDefinedConsts(string $clazz): array
+    {
+        return parent::getAllDefinedConsts($clazz);
+    }
+
+    /**
+     * @param string $constantName
+     */
+    public function publicVerifyConstExists(string $constantName): void
+    {
+        parent::verifyConstExists($constantName);
+    }
+
+    /**
+     * @return string
+     */
+    public function publicGet_called_function(): string
+    {
+        return parent::get_called_function();
     }
 
     /**

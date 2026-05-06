@@ -113,6 +113,23 @@ class EasyGoingTestCaseTest extends TestCase
     /**
      * @param bool   $expectedBool
      * @param string $constName
+     *
+     * @dataProvider prepareDataProvider
+     */
+    public function testIsConstExist(bool $expectedBool, string $constName): void
+    {
+        self::$logger->info('parameters', [$expectedBool, $constName]);
+
+        $actual = $this->o2t::publicIsConstExist($this->o2t->publicGetCastO2t(), $constName);
+
+        self::$logger->debug('comparing', [$expectedBool, $actual]);
+
+        static::assertEquals($expectedBool, $actual, "Not equals: '$expectedBool'='$actual'");
+    }
+
+    /**
+     * @param bool   $expectedBool
+     * @param string $constName
      * @param string $expected
      *
      * @dataProvider prepareDataProvider
@@ -128,21 +145,53 @@ class EasyGoingTestCaseTest extends TestCase
         static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
     }
 
-    /**
-     * @param bool   $expectedBool
-     * @param string $constName
-     *
-     * @dataProvider prepareDataProvider
-     */
-    public function testIsConstExist(bool $expectedBool, string $constName): void
+    public function testIsPrimitive(): void
     {
-        self::$logger->info('parameters', [$expectedBool,$constName]);
+        $expected = true;
+        $var = 100;
 
-        $actual = $this->o2t::publicIsConstExist($this->o2t->publicGetCastO2t(), $constName);
+        $actual = $this->o2t::publicIsPrimitive($var);
 
-        self::$logger->debug('comparing', [$expectedBool,$actual]);
+        static::assertEquals($expected, $actual);
+    }
 
-        static::assertEquals($expectedBool, $actual, "Not equals: '$expectedBool'='$actual'");
+    public function testGetAllDefinedConsts(): void
+    {
+        $expectedSize = 3;
+        $clazz = get_class($this->o2t);
+
+        $actual = $this->o2t::publicGetAllDefinedConsts($clazz);
+
+        static::assertCount($expectedSize, $actual);
+    }
+
+    public function testGet_called_clazz(): void
+    {
+        $expected = get_class($this->o2t);
+
+        $actual = $this->o2t::publicGet_called_clazz();
+
+        static::assertEquals($expected, $actual);
+    }
+
+    public function testVerifyConstExists(): void
+    {
+        $constantName = get_class($this->o2t) . '::C_TEST';
+
+        try {
+            $this->o2t->publicVerifyConstExists($constantName);
+        } catch (\Exception $exception) {
+            static::fail('Should not raise an exception: ' . $exception->getMessage());
+        }
+    }
+
+    public function testGet_called_function(): void
+    {
+        $expected = 'publicGet_called_function';
+
+        $actual = $this->o2t->publicGet_called_function();
+
+        static::assertEquals($expected, $actual);
     }
 
     // Data Provider
