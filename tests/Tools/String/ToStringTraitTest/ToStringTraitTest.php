@@ -15,22 +15,28 @@ namespace ollily\Tools\String\ToStringTraitTest;
 
 use PHPUnit\Framework\TestCase;
 use ollily\Tools\TestData;
-use ollily\Tools\TestDataFoo;
 
 /**
  * This is the test clazz which will test the test clazz.
  *
  * @see ToStringTraitTestDummyClazz
- * @see ToStringTraitTestDummyParentClazz
- * @see ToStringTraitTestDummyChildClazz
  */
 class ToStringTraitTest extends TestCase
 {
+    public const FORMAT_ARRAY = '%s:[%s]';
+
+    public const FORMAT_ITEMS = '%s:{%s}';
+
+    public const FORMAT_NUM = '%s:%s';
+
+    public const FORMAT_ALPHA = '%s:\'%s\'';
+
     /** @var ToStringTraitTestDummyClazz */
     protected $o2t;
 
     protected function setUp(): void
     {
+        TestData::C_ARRAY_OBJECT1();
         parent::setUp();
         $this->o2t = new ToStringTraitTestDummyClazz();
     }
@@ -57,67 +63,45 @@ class ToStringTraitTest extends TestCase
     public function testToString($data, string $expected): void
     {
         $actualObj = new ToStringTraitTestDummyClazz($data);
-        $actual    = $actualObj->__toString();
-
+        $actual = $actualObj->__toString();
         static::assertEquals($expected, $actual);
     }
 
     /**
-     * @return array<string,array<mixed>>
+     * @return array<mixed,mixed>
+     *
+     * @psalm-suppress InvalidArgument
      */
     public function provideDataToString(): array
     {
         return [
-            'String'      => [
+            'StringAsValue' => [
                 TestData::C_DATA_ALPHA1,
-                sprintf('%s:\'%s\'', ToStringTraitTestDummyClazz::class, TestData::C_DATA_ALPHA1)
+                sprintf(self::FORMAT_ALPHA, ToStringTraitTestDummyClazz::class, TestData::C_DATA_ALPHA1)
             ],
-            'Integer'     => [
-            TestData::C_DATA_NUM1,
-                sprintf('%s:%s', ToStringTraitTestDummyClazz::class, TestData::C_DATA_NUM1),
+            'IntegerAsValue' => [
+                TestData::C_DATA_NUM1,
+                sprintf(self::FORMAT_NUM, ToStringTraitTestDummyClazz::class, TestData::C_DATA_NUM1),
             ],
-            'Array'       => [
-            TestData::C_ARRAY_ALPHA3,
-                sprintf(
-                    '%s:[%s]',
-                    ToStringTraitTestDummyClazz::class,
-                    implode(',', TestData::C_ARRAY_ALPHA3)
-                ),
+            'BoolAsValue' => [
+                TestData::C_DATA_BOOLT,
+                sprintf(self::FORMAT_NUM, ToStringTraitTestDummyClazz::class, TestData::C_DATA_BOOLT),
             ],
-            'ArrayWithKeys' => [
+            'ObjectAsValue' => [
+                TestData::C_DATA_OBJECT1(),
+                sprintf(self::FORMAT_NUM, ToStringTraitTestDummyClazz::class, TestData::C_DATA_OBJECT1()),
+            ],
+            'ArrayWithNumKey' => [
+                TestData::C_ARRAY_ALPHA3,
+                sprintf(self::FORMAT_ARRAY, ToStringTraitTestDummyClazz::class, implode(TestData::C_ARRAY_ITEMS_SEP, TestData::C_ARRAY_ALPHA3)),
+            ],
+            'ArrayWithAlphaKeys' => [
                 TestData::C_ARRAY_ALPHA_KEY2,
-                sprintf(
-                    '%s:[%s]',
-                    ToStringTraitTestDummyClazz::class,
-                    implode(',', TestData::C_ARRAY_ALPHA_KEY2)
-                ),
+                sprintf(self::FORMAT_ARRAY, ToStringTraitTestDummyClazz::class, implode(TestData::C_ARRAY_ITEMS_SEP, TestData::C_ARRAY_ALPHA_KEY2)),
             ],
-            'ArrayWithObjectKey' => [
-                [new TestDataFoo(), TestData::C_DATA_NUM1],
-                sprintf(
-                    '%s:[%s]',
-                    ToStringTraitTestDummyClazz::class,
-                    implode(',', [new TestDataFoo(), TestData::C_DATA_NUM1])
-                ),
-            ],
-            'Object'      => [
-                new ToStringTraitTestDummyParentClazz(),
-                sprintf(
-                    '%s:{%s}',
-                    ToStringTraitTestDummyClazz::class,
-                    ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n"
-                ),
-            ],
-            'ArrayObject' => [
-                [
-                    'First' => new ToStringTraitTestDummyParentClazz(),
-                    '2nd'   => new ToStringTraitTestDummyChildClazz()
-                ],
-                sprintf(
-                    '%s:[%s]',
-                    ToStringTraitTestDummyClazz::class,
-                    '{' . ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n}" . ",{" . ToStringTraitTestDummyChildClazz::class . " Object\n(\n)\n}"
-                ),
+            'ArrayWithObjectValues' => [
+                TestData::C_ARRAY_OBJECT2(),
+                sprintf(self::FORMAT_ARRAY, ToStringTraitTestDummyClazz::class, implode(TestData::C_ARRAY_ITEMS_SEP, TestData::C_ARRAY_OBJECT2())),
             ]
         ];
     }

@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace ollily\Tools;
 
+/**
+ * @SuppressWarnings("PHPMD.CamelCasePropertyName")
+ */
 class TestData
 {
     // Unspecific test data
@@ -45,10 +48,14 @@ class TestData
 
     public const C_DATA_BOOLF = false;
 
-    /** @var string */
+    /** @var null|string */
     public const C_DATA_NULL = null;
 
     public const C_DATA_EMPTY = '';
+
+    public const C_DATA_INVALID = 'INVALID';
+
+    public const C_DATA_NOTEXIST = 'NOT-EXIST';
 
     // Array keys
     public const C_KEY_NUM1 = 1;
@@ -67,10 +74,12 @@ class TestData
 
     public const C_KEY_ALPHA3 = 'KEY-ALPHA3';
 
+    public const C_ARRAY_ITEMS_SEP = ',';
+
     // Arrays complete
     public const C_ARRAY_EMPTY = [];
 
-    /** @var array<mixed,mixed> */
+    /** @var null|array<mixed,mixed> */
     public const C_ARRAY_NULL = null;
 
     public const C_ARRAY_ALPHA1 = [self::C_DATA_ALPHA1];
@@ -84,6 +93,10 @@ class TestData
     public const C_ARRAY_ALPHA5 = [self::C_DATA_ALPHA1, self::C_DATA_ALPHA2, self::C_DATA_ALPHA3, self::C_DATA_ALPHA4, self::C_DATA_ALPHA5];
 
     public const C_ARRAY_ALPHA_KEY1 = [self::C_KEY_ALPHA1 => self::C_DATA_ALPHA1];
+
+    public const C_ARRAY_NUM1 = [self::C_DATA_NUM1];
+
+    public const C_ARRAY_BOOL1 = [self::C_DATA_BOOLT];
 
     public const C_ARRAY_ALPHA_KEY2 = [
         self::C_KEY_ALPHA1 => self::C_DATA_ALPHA1,
@@ -110,7 +123,7 @@ class TestData
     ];
 
     // Filenames
-    /** @var string */
+    /** @var null|string */
     public const C_FILENAME_NULL = null;
 
     public const C_FILENAME_EMPTY = '';
@@ -118,7 +131,8 @@ class TestData
     public const C_FILENAME_PREFIX = 'teda-';
 
     // File Extensions
-    /** @var string */
+
+    /** @var null|string */
     public const C_EXT_NULL = null;
 
     public const C_EXT_EMPTY = '';
@@ -131,9 +145,61 @@ class TestData
 
     public const C_EXT_CSV = '.csv';
 
-    private static function initFoo(): \Exception
+    /** @var array<mixed> */
+    private static $C_ARRAY_OBJECT1 = [];
+
+    /** @var array<mixed> */
+    private static $C_ARRAY_OBJECT2 = [];
+
+    /** @var array<mixed> */
+    private static $C_ARRAY_OBJECT3 = [];
+
+    public static function C_DATA_OBJECT1(): TestDataFoo
     {
-        return new \Exception();
+        return TestDataFoo::init(TestData::C_DATA_NUM1);
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public static function C_ARRAY_OBJECT1(): array
+    {
+        if (empty(self::$C_ARRAY_OBJECT1)) {
+            self::$C_ARRAY_OBJECT1 = [self::C_KEY_ALPHA1 => TestDataFoo::init(self::C_DATA_NUM1)];
+        }
+
+        return self::$C_ARRAY_OBJECT1;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public static function C_ARRAY_OBJECT2(): array
+    {
+        if (empty(self::$C_ARRAY_OBJECT2)) {
+            self::$C_ARRAY_OBJECT2 = [
+                self::C_KEY_ALPHA1 => TestDataFoo::init(self::C_DATA_NUM1),
+                self::C_KEY_ALPHA2 => TestDataFoo::init(self::C_DATA_NUM2),
+            ];
+        }
+
+        return self::$C_ARRAY_OBJECT2;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public static function C_ARRAY_OBJECT3(): array
+    {
+        if (empty(self::$C_ARRAY_OBJECT3)) {
+            self::$C_ARRAY_OBJECT3 = [
+                self::C_KEY_ALPHA1 => TestDataFoo::init(self::C_DATA_NUM1),
+                self::C_KEY_ALPHA2 => TestDataFoo::init(self::C_DATA_NUM2),
+                self::C_KEY_ALPHA3 => TestDataFoo::init(self::C_DATA_NUM3),
+            ];
+        }
+
+        return self::$C_ARRAY_OBJECT3;
     }
 
     private function __construct()
@@ -166,12 +232,5 @@ class TestData
         } catch (\Throwable $ex) {
             echo "\n[WARNING] $ex";
         }
-    }
-}
-class TestDataFoo
-{
-    public function __toString(): string
-    {
-        return "TestDataFoo";
     }
 }

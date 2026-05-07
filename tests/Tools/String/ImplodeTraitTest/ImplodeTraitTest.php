@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * This is the test clazz which will test the test clazz.
  *
- * @see ImplodeTraitTestClazz
+ * @see ImplodeTraitTestDummyClazz
  */
 class ImplodeTraitTest extends TestCase
 {
@@ -26,13 +26,13 @@ class ImplodeTraitTest extends TestCase
 
     public const KEY_SEP = '=>';
 
-    /** @var ImplodeTraitTestClazz */
+    /** @var ImplodeTraitTestDummyClazz */
     protected $o2t;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->o2t = new ImplodeTraitTestClazz();
+        $this->o2t = new ImplodeTraitTestDummyClazz();
     }
 
     public function testImplode_recursiveDefault(): void
@@ -84,10 +84,10 @@ class ImplodeTraitTest extends TestCase
             if ($withClazz) {
                 if (is_array($expected)) {
                     foreach ($expected as $innerExpected) {
-                        static::assertStringContainsString(get_class($innerExpected), $actual);
+                        static::assertStringContainsString('' . get_class($innerExpected), $actual);
                     }
                 } else {
-                    static::assertStringContainsString(get_class($expected), $actual);
+                    static::assertStringContainsString('' . get_class($expected), $actual);
                 }
             } else {
                 static::assertStringContainsString($expected, $actual);

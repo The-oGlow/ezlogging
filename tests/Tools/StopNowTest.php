@@ -38,7 +38,7 @@ class StopNowTest extends TestCase
      * @param string $errMessage
      * @param int    $expected
      *
-     * @dataProvider prepareDataStop
+     * @dataProvider providerStopNow
      */
     public function testStop(int $errCode, string $errMessage, int $expected): void
     {
@@ -48,23 +48,10 @@ class StopNowTest extends TestCase
     }
 
     /**
-     * @return array<mixed>
-     */
-    public function prepareDataStop(): array
-    {
-        return [
-            'Default'         => [self::CODE_0, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
-            'Specific'        => [self::CODE_123, self::ERR_MSG_02, self::CODE_123],
-            'ErrorCodeToLow'  => [self::CODE_NEG1, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
-            'ErrorCodeToHigh' => [self::CODE_255, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
-        ];
-    }
-
-    /**
      * @param \Throwable $throwable
      * @param int        $expected
      *
-     * @dataProvider prepareDataStopException
+     * @dataProvider providerStopNowException
      */
     public function testStopException(\Throwable $throwable, int $expected): void
     {
@@ -73,10 +60,25 @@ class StopNowTest extends TestCase
         static::assertEquals($expected, $actual);
     }
 
+    // Dataprovider
+
     /**
-     * @return array<mixed>
+     * @return array<mixed,mixed>
      */
-    public function prepareDataStopException(): array
+    public function providerStopNow(): array
+    {
+        return [
+            'Default' => [self::CODE_0, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+            'Specific' => [self::CODE_123, self::ERR_MSG_02, self::CODE_123],
+            'ErrorCodeToLow' => [self::CODE_NEG1, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+            'ErrorCodeToHigh' => [self::CODE_255, self::ERR_MSG_EMPTY, StopNow::ERR_CODE_DEFAULT],
+        ];
+    }
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerStopNowException(): array
     {
         return [
             'Default' => [new \Exception(), StopNow::ERR_CODE_DEFAULT],
