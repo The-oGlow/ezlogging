@@ -18,9 +18,9 @@ use ollily\Tools\TestData;
 
 class TaskItemTest extends EasyGoingTestCase
 {
-    public const KEY = TestData::C_KEY_NUM;
+    public const KEY = TestData::C_KEY_NUM1;
 
-    public const DATA = [TestData::C_DATA_ALPHA, TestData::C_DATA_BOOL];
+    public const DATA = [TestData::C_DATA_ALPHA1, TestData::C_DATA_BOOLT];
 
     /**
      * @return ITaskItem

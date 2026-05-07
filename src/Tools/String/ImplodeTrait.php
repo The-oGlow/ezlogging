@@ -35,7 +35,7 @@ trait ImplodeTrait
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    protected function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string // NOSONAR: php:S100
+    final public function implode_recursive(string $glue, $anyData, bool $withTextSep = false, bool $withKeys = false): string // NOSONAR: php:S100
     {
         $output   = '';
         $valueIdx = 0;
@@ -100,7 +100,7 @@ trait ImplodeTrait
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // @phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function array_flatten(array $anyData, int $preserveKeys = 0, array &$output = []): array // NOSONAR: php:S100
+    final public function array_flatten(array $anyData, int $preserveKeys = 0, array &$output = []): array // NOSONAR: php:S100
     {
         foreach ($anyData as $anyKey => $anyValue) {
             if (is_array($anyValue)) {

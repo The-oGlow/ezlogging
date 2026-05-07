@@ -16,7 +16,7 @@ namespace ollily\Tools\String\ToStringTraitTest;
 use ollily\Tools\String\ToStringTrait;
 
 /**
- * A simple clazz which will be tested by the test clazz.
+ * A simple clazz which will be used by the test clazz.
  *
  * @see ToStringTraitTest
  */

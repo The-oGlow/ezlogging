@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ImplodeTraitTest;
 
 use ollily\Tools\String\ImplodeTrait;
+use ollily\Tools\TestData;
 
 /**
  * This is the test clazz which will be tested.
@@ -25,32 +26,17 @@ class ImplodeTraitTestClazz
 {
     use ImplodeTrait;
 
-    public const SEP = '#';
+    /** @var array<mixed,mixed> */
+    public $traitData = TestData::C_ARRAY_ALPHA2;
 
     /** @var array<mixed,mixed> */
-    public $anydata = ['first' => 'a', 'second' => [1, 2]];
-
-    /** @var array<mixed,mixed> */
-    public $anydata2 = [];
+    public $traitObject = TestData::C_ARRAY_EMPTY;
 
     public function __construct()
     {
-        $this->anydata2[] = new ImplodeTraitTestDummyClazz();
-        $this->anydata2[] = [10 => new ImplodeTraitTestDummyClazz(), 20 => new ImplodeTraitTestDummyClazz()];
-    }
-
-    public function implode_recursiveDefault(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata);
-    }
-
-    public function implode_recursiveCustom(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata, true, true);
-    }
-
-    public function implode_recursive_ObjectCustom(): string
-    {
-        return $this->implode_recursive(self::SEP, $this->anydata2, true, true);
+        $this->traitObject[] = new ImplodeTraitTestDummyClazz();
+        $this->traitObject[] = [
+        TestData::C_KEY_NUM1 => new ImplodeTraitTestDummyClazz(),
+        TestData::C_KEY_NUM2 => new ImplodeTraitTestDummyClazz()];
     }
 }

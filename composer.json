@@ -44,7 +44,8 @@
     "psr/log-implementation": "^1.0||^2.0||^3.0"
   },
   "suggest": {
-    "bamarni/composer-bin-plugin": "Having compatible versions"
+    "bamarni/composer-bin-plugin": "Having compatible versions",
+    "hrodic/php-integration-testing": "Integration Testing with PHPUnit"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.6",
@@ -116,9 +117,9 @@
     ],
     "c-phpdoc": "phpDocumentor run",
     "c-phpmd": [
-        "bash -c 'rm -f target/analysis/phpmd/phpmd-report.txt'",
-        "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt -v --color --ignore-errors-on-exit --ignore-violations-on-exit",
-        "bash -c 'if [ -s target/analysis/phpmd/phpmd-report.txt ]; then cat target/analysis/phpmd/phpmd-report.txt; exit 1; else exit 0; fi'"
+      "bash -c 'rm -f target/analysis/phpmd/phpmd-report.txt'",
+      "@php -d xdebug.mode=off vendor/bin/phpmd src,tests text .phpmd.xml.dist --report-file=target/analysis/phpmd/phpmd-report.txt -v --color --ignore-errors-on-exit --ignore-violations-on-exit",
+      "bash -c 'if [ -s target/analysis/phpmd/phpmd-report.txt ]; then cat target/analysis/phpmd/phpmd-report.txt; exit 1; else exit 0; fi'"
     ],
     "c-phpstan": "@php -d xdebug.mode=off vendor/bin/phpstan analyse",
     "c-psalm": "@php -d xdebug.mode=off vendor/bin/psalm --report=target/analysis/psalm/psalm-report.txt",

@@ -19,10 +19,10 @@ use PHPUnit\Framework\EasyGoingTestCase;
 class TaskListTest extends EasyGoingTestCase
 {
     /** @var string */
-    public const KEY = TestData::C_KEY_ALPHA;
+    public const KEY = TestData::C_KEY_ALPHA1;
 
     /** @var string */
-    public const DATA = TestData::C_DATA_ALPHA;
+    public const DATA = TestData::C_DATA_ALPHA1;
 
     /** @var string */
     protected static $emptyFileName = TestData::C_FILENAME_EMPTY;

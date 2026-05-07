@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ToStringTraitTest;
 
 use PHPUnit\Framework\TestCase;
+use ollily\Tools\TestData;
+use ollily\Tools\TestDataFoo;
 
 /**
  * This is the test clazz which will test the test clazz.
@@ -61,25 +63,42 @@ class ToStringTraitTest extends TestCase
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string,array<mixed>>
      */
     public function provideDataToString(): array
     {
         return [
             'String'      => [
-                'This is a string',
-                sprintf('%s:\'%s\'', ToStringTraitTestDummyClazz::class, 'This is a string'),
-                true
+                TestData::C_DATA_ALPHA1,
+                sprintf('%s:\'%s\'', ToStringTraitTestDummyClazz::class, TestData::C_DATA_ALPHA1)
             ],
             'Integer'     => [
-                1234,
-                sprintf('%s:%s', ToStringTraitTestDummyClazz::class, '1234'),
-                true
+            TestData::C_DATA_NUM1,
+                sprintf('%s:%s', ToStringTraitTestDummyClazz::class, TestData::C_DATA_NUM1),
             ],
             'Array'       => [
-                [12, 34],
-                sprintf('%s:[%s]', ToStringTraitTestDummyClazz::class, '12,34'),
-                true
+            TestData::C_ARRAY_ALPHA3,
+                sprintf(
+                    '%s:[%s]',
+                    ToStringTraitTestDummyClazz::class,
+                    implode(',', TestData::C_ARRAY_ALPHA3)
+                ),
+            ],
+            'ArrayWithKeys' => [
+                TestData::C_ARRAY_ALPHA_KEY2,
+                sprintf(
+                    '%s:[%s]',
+                    ToStringTraitTestDummyClazz::class,
+                    implode(',', TestData::C_ARRAY_ALPHA_KEY2)
+                ),
+            ],
+            'ArrayWithObjectKey' => [
+                [new TestDataFoo(), TestData::C_DATA_NUM1],
+                sprintf(
+                    '%s:[%s]',
+                    ToStringTraitTestDummyClazz::class,
+                    implode(',', [new TestDataFoo(), TestData::C_DATA_NUM1])
+                ),
             ],
             'Object'      => [
                 new ToStringTraitTestDummyParentClazz(),
@@ -88,7 +107,6 @@ class ToStringTraitTest extends TestCase
                     ToStringTraitTestDummyClazz::class,
                     ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n"
                 ),
-                true
             ],
             'ArrayObject' => [
                 [
@@ -100,7 +118,6 @@ class ToStringTraitTest extends TestCase
                     ToStringTraitTestDummyClazz::class,
                     '{' . ToStringTraitTestDummyParentClazz::class . " Object\n(\n)\n}" . ",{" . ToStringTraitTestDummyChildClazz::class . " Object\n(\n)\n}"
                 ),
-                true
             ]
         ];
     }
