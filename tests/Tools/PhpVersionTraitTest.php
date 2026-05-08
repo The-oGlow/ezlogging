@@ -34,7 +34,7 @@ class PhpVersionTraitTest extends TestCase
     public function testIsPhpGreater(bool $expected, string $checkVersion): void
     {
         $actual = $this->isPhpGreater($checkVersion);
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     // Dataprovider

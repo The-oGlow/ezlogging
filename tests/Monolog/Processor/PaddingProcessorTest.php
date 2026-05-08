@@ -33,13 +33,13 @@ class PaddingProcessorTest extends TestCase
 
     public function testConfiguration(): void
     {
-        static::assertInstanceOf(PaddingProcessor::class, $this->o2t);
-        static::assertEquals(Logger::DEBUG, $this->getFieldFromO2t('level'));
+        self::assertInstanceOf(PaddingProcessor::class, $this->o2t);
+        self::assertEquals(Logger::DEBUG, $this->getFieldFromO2t('level'));
         $arrayResult = $this->getFieldFromO2t('skipClassesPartials');
-        static::assertIsArray($arrayResult);
-        static::assertCount(1, $arrayResult);
-        static::assertStringContainsString('Monolog\\', $arrayResult[0]);
-        static::assertEquals(0, $this->getFieldFromO2t('skipStackFramesCount'));
+        self::assertIsArray($arrayResult);
+        self::assertCount(1, $arrayResult);
+        self::assertStringContainsString('Monolog\\', $arrayResult[0]);
+        self::assertEquals(0, $this->getFieldFromO2t('skipStackFramesCount'));
     }
 
     public function testInvoke(): void
@@ -73,12 +73,12 @@ class PaddingProcessorTest extends TestCase
 
         $arrayResult = $this->o2t->__invoke($testArray);
 
-        static::assertNotEmpty($arrayResult);
-        static::assertCount($expectedCount, $arrayResult);
-        static::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
-        static::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
+        self::assertNotEmpty($arrayResult);
+        self::assertCount($expectedCount, $arrayResult);
+        self::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
+        self::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
         foreach ($expectedKeys as $key) {
-            static::assertArrayHasKey($key, $arrayResult);
+            self::assertArrayHasKey($key, $arrayResult);
         }
     }
 }

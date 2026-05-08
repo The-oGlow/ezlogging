@@ -32,7 +32,7 @@ interface ITaskItem
      * @phpstan-return TaskData
      */
     public function getData(): array;
-    
+
     /**
      * @return mixed
      */

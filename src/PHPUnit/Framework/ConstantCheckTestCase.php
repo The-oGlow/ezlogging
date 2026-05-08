@@ -102,7 +102,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
         self::$logger->debug('START');
 
         if (self::$withConstCrossCheck) {
-            self::$logger->notice('CrossCheck is active',[$clazz]);
+            self::$logger->notice('CrossCheck is active', [$clazz]);
             $expected = self::getAllDefinedConsts($clazz);
             ksort($expected);
             $expected = array_keys($expected);

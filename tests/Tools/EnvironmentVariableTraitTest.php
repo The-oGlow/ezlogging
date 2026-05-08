@@ -48,7 +48,7 @@ class EnvironmentVariableTraitTest extends TestCase
     {
         $actual = self::getHome(self::HOME_NOTEXIST);
 
-        static::assertEquals(TestData::C_DATA_EMPTY, $actual);
+        self::assertEquals(TestData::C_DATA_EMPTY, $actual);
     }
 
     public function testGetProjectRoot(): void
@@ -74,13 +74,13 @@ class EnvironmentVariableTraitTest extends TestCase
 
     private function validateActualContains(string $actual, string $expected): void
     {
-        static::assertNotEmpty($actual);
-        static::assertStringContainsString($expected, $actual);
+        self::assertNotEmpty($actual);
+        self::assertStringContainsString($expected, $actual);
     }
 
     private function validateActualEnds(string $actual, string $expected): void
     {
-        static::assertNotEmpty($actual);
-        static::assertStringEndsWith($expected, $actual);
+        self::assertNotEmpty($actual);
+        self::assertStringEndsWith($expected, $actual);
     }
 }

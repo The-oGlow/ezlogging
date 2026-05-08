@@ -21,20 +21,23 @@ use ollily\Tools\TestData;
  *
  * @see ImplodeTraitTestDummyClazz
  */
-class ImplodeTraitTest extends TestCase {
-
+class ImplodeTraitTest extends TestCase
+{
     public const ITEM_SEP = '#';
+
     public const KEY_SEP = '=>';
 
     /** @var ImplodeTraitTestDummyClazz */
     protected $o2t;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->o2t = new ImplodeTraitTestDummyClazz();
     }
 
-    public function testImplode_recursiveDefault(): void {
+    public function testImplode_recursiveDefault(): void
+    {
         $testData = $this->o2t->traitData;
         $expectedKeyCount = 0;
         $expectedItemCount = count($testData) - 1;
@@ -44,7 +47,8 @@ class ImplodeTraitTest extends TestCase {
         $this->verifyResult($actual, $testData, $expectedKeyCount, $expectedItemCount);
     }
 
-    public function testImplode_recursiveCustom(): void {
+    public function testImplode_recursiveCustom(): void
+    {
         $testData = $this->o2t->traitData;
         $expectedKeyCount = count($testData);
         $expectedItemCount = $expectedKeyCount - 1;
@@ -54,7 +58,8 @@ class ImplodeTraitTest extends TestCase {
         $this->verifyResult($actual, $testData, $expectedKeyCount, $expectedItemCount);
     }
 
-    public function testImplode_recursive_ObjectCustom(): void {
+    public function testImplode_recursive_ObjectCustom(): void
+    {
         $testData = $this->o2t->traitObject;
         $expectedKeyCount = count($testData) + count($testData[1]);
         $expectedItemCount = $expectedKeyCount - 2;
@@ -65,17 +70,17 @@ class ImplodeTraitTest extends TestCase {
     }
 
     /**
-     * @param int $expectedCount
+     * @param int                $expectedCount
      * @param array<mixed,mixed> $testData
-     * @param int $preserveKeys
-     * 
+     * @param int                $preserveKeys
+     *
      * @dataProvider providerArrayFlatten
      */
-    public function testArray_flatten(int $expectedCount, array $testData, int $preserveKeys): void {
-
+    public function testArray_flatten(int $expectedCount, array $testData, int $preserveKeys): void
+    {
         $actual = $this->o2t->array_flatten($testData, $preserveKeys);
 
-        static::assertCount($expectedCount, $actual);
+        self::assertCount($expectedCount, $actual);
     }
 
     /**
@@ -85,21 +90,22 @@ class ImplodeTraitTest extends TestCase {
      * @param int   $expectedItemCount
      * @param bool  $withClazz
      */
-    public function verifyResult($actual, $testData, int $expectedKeyCount, int $expectedItemCount, bool $withClazz = false): void {
-        static::assertNotEmpty($actual);
-        static::assertEquals($expectedKeyCount, substr_count($actual, self::KEY_SEP));
-        static::assertEquals($expectedItemCount, substr_count($actual, self::ITEM_SEP));
+    public function verifyResult($actual, $testData, int $expectedKeyCount, int $expectedItemCount, bool $withClazz = false): void
+    {
+        self::assertNotEmpty($actual);
+        self::assertEquals($expectedKeyCount, substr_count($actual, self::KEY_SEP));
+        self::assertEquals($expectedItemCount, substr_count($actual, self::ITEM_SEP));
         foreach ($testData as $expected) {
             if ($withClazz) {
                 if (is_array($expected)) {
                     foreach ($expected as $innerExpected) {
-                        static::assertStringContainsString('' . get_class($innerExpected), $actual);
+                        self::assertStringContainsString('' . get_class($innerExpected), $actual);
                     }
                 } else {
-                    static::assertStringContainsString('' . get_class($expected), $actual);
+                    self::assertStringContainsString('' . get_class($expected), $actual);
                 }
             } else {
-                static::assertStringContainsString($expected, $actual);
+                self::assertStringContainsString($expected, $actual);
             }
         }
     }
@@ -109,7 +115,8 @@ class ImplodeTraitTest extends TestCase {
     /**
      * @return array<mixed,mixed>
      */
-    public function providerArrayFlatten(): array {
+    public function providerArrayFlatten(): array
+    {
         return [
             'emptyDefault' => [0, [], 0],
             'noChangeDefault' => [5, TestData::C_ARRAY_ALPHA5, 0],

@@ -77,7 +77,7 @@ class TaskListTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t()->getListKey();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testIsEmpty(): void
@@ -86,7 +86,7 @@ class TaskListTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t()->isEmpty();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testAddTask(): void
@@ -96,7 +96,7 @@ class TaskListTest extends EasyGoingTestCase
         foreach ($this->prepareTaskItem($this->getCasto2t()->getListKey(), $expected) as $taskItem) {
             $this->getCasto2t()->addTask($taskItem);
         }
-        static::assertEquals($expected, $this->getCasto2t()->count());
+        self::assertEquals($expected, $this->getCasto2t()->count());
     }
 
     public function testCount(): void
@@ -106,7 +106,7 @@ class TaskListTest extends EasyGoingTestCase
         foreach ($this->prepareTaskItem($this->getCasto2t()->getListKey(), $expected) as $taskItem) {
             $this->getCasto2t()->addTask($taskItem);
         }
-        static::assertEquals($expected, $this->getCasto2t()->count());
+        self::assertEquals($expected, $this->getCasto2t()->count());
     }
 
     public function testNextTask(): void
@@ -119,13 +119,13 @@ class TaskListTest extends EasyGoingTestCase
 
         for ($idx = 0; $idx < $countItems; $idx++) {
             $item = $this->getCasto2t()->nextTask();
-            static::assertNotNull($item);
-            static::assertEquals($listKey . $idx, $item->getKey());
-            static::assertEquals([self::DATA . $idx, $idx * 10], $item->getData());
+            self::assertNotNull($item);
+            self::assertEquals($listKey . $idx, $item->getKey());
+            self::assertEquals([self::DATA . $idx, $idx * 10], $item->getData());
         }
 
         $item = $this->getCasto2t()->nextTask();
-        static::assertNull($item);
+        self::assertNull($item);
     }
 
     /**
@@ -139,8 +139,8 @@ class TaskListTest extends EasyGoingTestCase
         $this->o2t = new TaskList(self::class);
         $actual = $this->getCasto2t()->readFile($fileName);
 
-        static::assertEquals($expectedCount, $this->getCasto2t()->count());
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expectedCount, $this->getCasto2t()->count());
+        self::assertEquals($expected, $actual);
     }
 
     public function testStoreFile(): void
@@ -155,8 +155,8 @@ class TaskListTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t()->storeFile($this->writeTaskListFile);
 
-        static::assertEquals($expected, $actual);
-        static::assertFileExists($this->writeTaskListFile);
+        self::assertEquals($expected, $actual);
+        self::assertFileExists($this->writeTaskListFile);
     }
 
     // Dataprovider

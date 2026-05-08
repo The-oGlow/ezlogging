@@ -58,15 +58,16 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     /**
      * @param null|mixed[] $checkedConsts
      */
-    public static function publicUpdateActualConsts($checkedConsts): void {
+    public static function publicUpdateActualConsts($checkedConsts): void
+    {
         parent::updateActualConsts($checkedConsts);
     }
 
     /**
-     * @param int     $expectedCount    count of constants which must exists
-     * @param mixed[] $allDefinedConsts an array with all defined constants
+     * @param int     $expectedCount
+     * @param mixed[] $allDefinedConsts
      *
-     * @return array<mixed> [true|false, count($allDefinedConsts)]
+     * @return array<mixed>
      */
     public static function publicCheckConstantsCount(int $expectedCount, $allDefinedConsts)
     {
@@ -76,14 +77,16 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     /**
      * @param mixed[] $constants
      */
-    public function publicVerifyConstAllExists(array $constants = []): void {
+    public function publicVerifyConstAllExists(array $constants = []): void
+    {
         parent::verifyConstAllExists($constants);
     }
 
     /**
      * @param mixed[] $constants
      */
-    public function publicVerifyConstArrayAllExists(array $constants = []): void {
+    public function publicVerifyConstArrayAllExists(array $constants = []): void
+    {
         parent::verifyConstArrayAllExists($constants);
     }
 
@@ -91,7 +94,8 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
      * @param string $constantName
      * @param int    $expectedSize
      */
-    public function publicVerifyConstArraySize(string $constantName, int $expectedSize): void {
+    public function publicVerifyConstArraySize(string $constantName, int $expectedSize): void
+    {
         parent::verifyConstArraySize($constantName, $expectedSize);
     }
 

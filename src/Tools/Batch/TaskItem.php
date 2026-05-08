@@ -22,8 +22,10 @@ use ollily\Tools\String\ToStringTrait;
 class TaskItem implements ITaskItem
 {
     use ToStringTrait;
-    /** 
+
+    /**
      * @var mixed
+     *
      * @phpstan-var TaskKey */
     private $key;
 
@@ -65,10 +67,9 @@ class TaskItem implements ITaskItem
 
     /**
      * @return mixed
-     * 
-     * @phpstan-return TaskData
      */
-    protected function __toStringValues() {
+    protected function __toStringValues()
+    {
         return $this->data;
     }
 }

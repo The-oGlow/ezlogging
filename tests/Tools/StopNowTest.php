@@ -44,7 +44,7 @@ class StopNowTest extends TestCase
     {
         $actual = StopNow::stop($errCode, $errMessage, true);
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -57,7 +57,7 @@ class StopNowTest extends TestCase
     {
         $actual = StopNow::stopException($throwable, true);
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     // Dataprovider

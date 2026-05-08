@@ -47,17 +47,17 @@ trait AbstractEasyGoingLoggerTestTrait
         $actualClazz = get_class($this->o2t);
 
         /** @psalm-suppress RedundantCondition */
-        static::assertNotFalse($actualClazz);
-        static::assertContains($actualClazz, $expectedClazz);
+        self::assertNotFalse($actualClazz);
+        self::assertContains($actualClazz, $expectedClazz);
 
         $handlers = $this->callMethodOnO2t('getHandlers');
-        static::assertNotEmpty($handlers);
-        static::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
+        self::assertNotEmpty($handlers);
+        self::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType,RedundantPropertyInitializationCheck
          */
         if (isset($this->o2t) && $this->o2t instanceof ConsoleLogger) {
-            static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
+            self::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
         }
     }
 
@@ -67,8 +67,8 @@ trait AbstractEasyGoingLoggerTestTrait
 
         $actualResult = $this->callMethodOnO2t('getDefaultHandler');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 
     public function testGetDefaultProcessor(): void
@@ -81,8 +81,8 @@ trait AbstractEasyGoingLoggerTestTrait
 
         $actualResult = $this->callMethodOnO2t('getDefaultProcessor');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 
     public function testGetDefaultFormatter(): void
@@ -95,7 +95,7 @@ trait AbstractEasyGoingLoggerTestTrait
 
         $actualResult = $this->callMethodOnO2t('getDefaultFormatter');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 }

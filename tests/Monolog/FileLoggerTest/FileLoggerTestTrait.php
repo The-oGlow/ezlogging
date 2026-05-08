@@ -80,7 +80,7 @@ trait FileLoggerTestTrait
             echo file_get_contents(self::$fileName);
             echo "\n";
         }
-        static::tearDownAfterClass();
+        self::tearDownAfterClass();
         parent::tearDown();
     }
 
@@ -117,9 +117,9 @@ trait FileLoggerTestTrait
                 $logger->warning('Method not exists: ', [$this->methodName]);
             }
             if ($this->silentIsExists) {
-                static::fail('Method not exists: ' . $this->methodName);
+                self::fail('Method not exists: ' . $this->methodName);
             } else {
-                static::assertTrue(true);
+                self::assertTrue(true);
             }
         }
 

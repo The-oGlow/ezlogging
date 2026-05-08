@@ -80,12 +80,12 @@ class EasyGoingTestCaseTest extends TestCase
         $expected = $this->getFieldFromO2t("o2t");
         $actual   = $this->callMethodOnO2t('prepareO2t');
 
-        static::assertNotEmpty($expected);
-        static::assertNotEmpty($actual);
-        static::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $expected);
-        static::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $actual);
-        static::assertNotSame($expected, $actual);
-        static::assertEquals($expected, $actual);
+        self::assertNotEmpty($expected);
+        self::assertNotEmpty($actual);
+        self::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $expected);
+        self::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $actual);
+        self::assertNotSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetCasto2t(): void
@@ -93,12 +93,12 @@ class EasyGoingTestCaseTest extends TestCase
         $expected = $this->getFieldFromO2t("o2t");
         $actual   = $this->callMethodOnO2t('getCasto2t');
 
-        static::assertNotEmpty($expected);
-        static::assertNotEmpty($actual);
-        static::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $expected);
-        static::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $actual);
-        static::assertEquals($expected, $actual);
-        static::assertSame($expected, $actual);
+        self::assertNotEmpty($expected);
+        self::assertNotEmpty($actual);
+        self::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $expected);
+        self::assertInstanceOf(EasyGoingTestCaseDummyClazz::class, $actual);
+        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testTestInit(): void
@@ -106,7 +106,7 @@ class EasyGoingTestCaseTest extends TestCase
         try {
             $this->o2t->testInit();
         } catch (\Exception $e) {
-            static::fail('Should not raise any exection: ' . $e->getMessage());
+            self::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }
 
@@ -124,7 +124,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         self::$logger->debug('comparing', [$expectedBool, $actual]);
 
-        static::assertEquals($expectedBool, $actual, "Not equals: '$expectedBool'='$actual'");
+        self::assertEquals($expectedBool, $actual, "Not equals: '$expectedBool'='$actual'");
     }
 
     /**
@@ -142,7 +142,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         self::$logger->debug('comparing', [$expected,$actual]);
 
-        static::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+        self::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
     }
 
     public function testIsPrimitive(): void
@@ -152,7 +152,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t::publicIsPrimitive($var);
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetAllDefinedConsts(): void
@@ -162,7 +162,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t::publicGetAllDefinedConsts($clazz);
 
-        static::assertCount($expectedSize, $actual);
+        self::assertCount($expectedSize, $actual);
     }
 
     public function testGet_called_clazz(): void
@@ -171,7 +171,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t::publicGet_called_clazz();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testVerifyConstExists(): void
@@ -181,7 +181,7 @@ class EasyGoingTestCaseTest extends TestCase
         try {
             $this->o2t->publicVerifyConstExists($constantName);
         } catch (\Exception $exception) {
-            static::fail('Should not raise an exception: ' . $exception->getMessage());
+            self::fail('Should not raise an exception: ' . $exception->getMessage());
         }
     }
 
@@ -191,7 +191,7 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t->publicGet_called_function();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     // Data Provider

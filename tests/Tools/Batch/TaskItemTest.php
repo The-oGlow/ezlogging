@@ -44,7 +44,7 @@ class TaskItemTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t();
 
-        static::assertInstanceOf($expected, $actual);
+        self::assertInstanceOf($expected, $actual);
     }
 
     public function testGetKey(): void
@@ -53,7 +53,7 @@ class TaskItemTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t()->getKey();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetData(): void
@@ -62,6 +62,6 @@ class TaskItemTest extends EasyGoingTestCase
 
         $actual = $this->getCasto2t()->getData();
 
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 }

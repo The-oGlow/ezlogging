@@ -62,8 +62,8 @@ class AbstractEasyGoingLoggerTest extends TestCase
     {
         $result = $this->callMethodOnO2t("getConsoleHandler");
 
-        static::assertInstanceOf(ConsoleHandler::class, $result);
-        static::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterDummyClazz::class, $result->getFormatter());
+        self::assertInstanceOf(ConsoleHandler::class, $result);
+        self::assertInstanceOf(AbstractEasyGoingLoggerTestFormatterDummyClazz::class, $result->getFormatter());
     }
 
     public function testCreateWithDifferentTimezone(): void
@@ -71,7 +71,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
         $customDTZ = new DateTimeZone("America/Los_Angeles");
         $o2tb      = new AbstractEasyGoingLoggerTestDummyClazz(AbstractEasyGoingLoggerTest::class, AbstractEasyGoingLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
-        static::assertInstanceOf(AbstractEasyGoingLoggerTestDummyClazz::class, $o2tb);
-        static::assertEquals($customDTZ, $o2tb->getTimezone());
+        self::assertInstanceOf(AbstractEasyGoingLoggerTestDummyClazz::class, $o2tb);
+        self::assertEquals($customDTZ, $o2tb->getTimezone());
     }
 }

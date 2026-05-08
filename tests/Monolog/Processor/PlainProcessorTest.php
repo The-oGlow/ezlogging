@@ -30,7 +30,7 @@ class PlainProcessorTest extends TestCase
 
     public function testConfiguration(): void
     {
-        static::assertInstanceOf(PlainProcessor::class, $this->o2t);
+        self::assertInstanceOf(PlainProcessor::class, $this->o2t);
     }
 
     public function testInvokeWithRecord(): void
@@ -48,7 +48,7 @@ class PlainProcessorTest extends TestCase
 
         $result    = $this->o2t->__invoke($testArray);
 
-        static::assertEquals($testArray, $result);
+        self::assertEquals($testArray, $result);
     }
 
     public function testInvokeWithPlain(): void
@@ -57,6 +57,6 @@ class PlainProcessorTest extends TestCase
 
         $result    = $this->o2t->__invoke($testArray);
 
-        static::assertEquals($testArray, $result);
+        self::assertEquals($testArray, $result);
     }
 }

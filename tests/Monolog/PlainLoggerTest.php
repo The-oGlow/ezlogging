@@ -48,33 +48,33 @@ class PlainLoggerTest extends TestCase
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
-        static::assertTrue($valid);
+        self::assertTrue($valid);
     }
 
     public function testLog(): void
     {
-        static::assertTrue(
+        self::assertTrue(
             $this->log($this->logMethods)
         );
     }
 
     public function testLogWithContext(): void
     {
-        static::assertTrue(
+        self::assertTrue(
             $this->log($this->logMethods, $this->context)
         );
     }
 
     public function testLogMethods(): void
     {
-        static::assertTrue(
+        self::assertTrue(
             $this->logMethods($this->logMethods)
         );
     }
 
     public function testLogMethodsWithContext(): void
     {
-        static::assertTrue(
+        self::assertTrue(
             $this->logMethods($this->logMethods, $this->context)
         );
     }

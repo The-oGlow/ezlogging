@@ -105,32 +105,32 @@ class ConstantCheckTestCaseTest extends TestCase
 
     public function testSetUpBeforeClass(): void
     {
-        $sO2t      = static::prepareO2t();
+        $sO2t      = self::prepareO2t();
         $clazzName = ConstantCheckTestCase::class;
 
         $sO2t::setUpBeforeClass();
 
         $locActualConsts = self::getFieldByReflection($clazzName, 'actualConsts', null);
-        static::assertEmpty($locActualConsts);
+        self::assertEmpty($locActualConsts);
         $locWithConstCrossCheck = self::getFieldByReflection($clazzName, 'withConstCrossCheck', null);
-        static::assertFalse($locWithConstCrossCheck);
+        self::assertFalse($locWithConstCrossCheck);
         $locExpectedConstsCount = self::getFieldByReflection($clazzName, 'expectedConstsCount', null);
-        static::assertEmpty($locExpectedConstsCount);
+        self::assertEmpty($locExpectedConstsCount);
     }
 
     public function testTearDownAfterClass(): void
     {
-        $sO2t      = static::prepareO2t();
+        $sO2t      = self::prepareO2t();
         $clazzName = ConstantCheckTestCase::class;
 
         $sO2t::tearDownAfterClass();
 
         $locActualConsts = self::getFieldByReflection($clazzName, 'actualConsts', null);
-        static::assertEmpty($locActualConsts);
+        self::assertEmpty($locActualConsts);
         $locWithConstCrossCheck = self::getFieldByReflection($clazzName, 'withConstCrossCheck', null);
-        static::assertFalse($locWithConstCrossCheck);
+        self::assertFalse($locWithConstCrossCheck);
         $locExpectedConstsCount = self::getFieldByReflection($clazzName, 'expectedConstsCount', null);
-        static::assertEmpty($locExpectedConstsCount);
+        self::assertEmpty($locExpectedConstsCount);
     }
 
     public function testTestAllConstants(): void
@@ -138,7 +138,7 @@ class ConstantCheckTestCaseTest extends TestCase
         try {
             $this->o2t->testAllConstants();
         } catch (\Exception $e) {
-            static::fail('Should not raise any exection: ' . $e->getMessage());
+            self::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }
 
@@ -147,19 +147,19 @@ class ConstantCheckTestCaseTest extends TestCase
         try {
             $this->o2t->testConsts();
         } catch (\Exception $e) {
-            static::fail('Should not raise any exection: ' . $e->getMessage());
+            self::fail('Should not raise any exection: ' . $e->getMessage());
         }
     }
 
-    public function testIsWithConstCrossCheck(): void 
+    public function testIsWithConstCrossCheck(): void
     {
         $expected = false;
-        
-        $actual = $this->o2t->isWithConstCrossCheck();
-        
-        static::assertEquals($expected, $actual);
+
+        $actual = $this->o2t::isWithConstCrossCheck();
+
+        self::assertEquals($expected, $actual);
     }
-    
+
     /**
      * @param bool    $success
      * @param bool    $crossCheckActive
@@ -179,7 +179,7 @@ class ConstantCheckTestCaseTest extends TestCase
         $exception = null;
 
         try {
-            $ccO2t->publicCrossCheckConstants($clazz, $actualConstants);
+            $ccO2t::publicCrossCheckConstants($clazz, $actualConstants);
         } catch (\Exception $exception) {
             // Catch the exception
         }
@@ -187,32 +187,33 @@ class ConstantCheckTestCaseTest extends TestCase
         $this->verifyConstantsTestResult($success, $exception, [$success, $crossCheckActive, $clazz, $actualConstants]);
     }
 
-    public function testUpdateActualConsts(): void 
-    {        
-        $before = $this->getFieldByReflection(ConstantCheckTestCase::class, 'actualConsts', $this->o2t);
+    public function testUpdateActualConsts(): void
+    {
         $checkedConsts = TestData::C_ARRAY_ALPHA5;
+        /** @var array<mixed> */
+        $before = $this->getFieldByReflection(ConstantCheckTestCase::class, 'actualConsts', $this->o2t);
         $expected = count($before) + count($checkedConsts);
 
-        $this->o2t->publicUpdateActualConsts($checkedConsts);        
-        
+        $this->o2t::publicUpdateActualConsts($checkedConsts);
+
+        /** @var array<mixed> */
         $actual = $this->getFieldByReflection(ConstantCheckTestCase::class, 'actualConsts', $this->o2t);
 
-        static::assertIsArray($actual);
-        static::assertCount($expected, $actual);
+        self::assertCount($expected, $actual);
     }
 
-    public function testCheckConstantsCountDisabled(): void {
+    public function testCheckConstantsCountDisabled(): void
+    {
         $expectedResult = true;
-        $expectedAllCount=0;
+        $expectedAllCount = 0;
 
         $expectedCount = 0;
         $allDefinedConsts = TestData::C_ARRAY_EMPTY;
-        
-        $actual = $this->o2t->publicCheckConstantsCount($expectedCount, $allDefinedConsts);
 
-        static::assertIsArray($actual);
-        static::assertEquals($expectedResult, $actual[0]);
-        static::assertEquals($expectedAllCount, $actual[1]);
+        $actual = $this->o2t::publicCheckConstantsCount($expectedCount, $allDefinedConsts);
+
+        self::assertEquals($expectedResult, $actual[0]);
+        self::assertEquals($expectedAllCount, $actual[1]);
     }
 
     /**
@@ -221,7 +222,8 @@ class ConstantCheckTestCaseTest extends TestCase
      *
      * @dataProvider prepareConstantsDataProvider
      */
-    public function testVerifyConstAllExists(bool $success, array $constants): void {
+    public function testVerifyConstAllExists(bool $success, array $constants): void
+    {
         self::$logger->debug('parameters', [$success, $constants]);
         $exception = null;
 
@@ -239,7 +241,8 @@ class ConstantCheckTestCaseTest extends TestCase
      *
      * @dataProvider prepareConstantsArrayDataProvider
      */
-    public function testVerifyConstArrayAllExists(bool $success, array $constants): void {
+    public function testVerifyConstArrayAllExists(bool $success, array $constants): void
+    {
         self::$logger->debug('parameters', [$success, $constants]);
         $exception = null;
 
@@ -258,7 +261,8 @@ class ConstantCheckTestCaseTest extends TestCase
      *
      * @dataProvider prepareConstantNameDataProvider
      */
-    public function testVerifyConstArraySize(bool $success, string $constantName, int $expectedSize): void {
+    public function testVerifyConstArraySize(bool $success, string $constantName, int $expectedSize): void
+    {
         self::$logger->debug('parameters', [$constantName, $expectedSize]);
         $exception = null;
 
@@ -349,15 +353,15 @@ class ConstantCheckTestCaseTest extends TestCase
             if (empty($exception)) {
                 self::$logger->debug('Testcase ended correctly.', $extraData);
             } else {
-                static::fail('Should raise no exception');
+                self::fail('Should raise no exception');
             }
         } else {
             if (!empty($exception)) {
                 self::$logger->debug('Testcase ended correctly with an exception.', $extraData);
             } else {
-                static::fail('Should raise an exception');
+                self::fail('Should raise an exception');
             }
         }
-        static::assertTrue(true);
+        self::assertTrue(true);
     }
 }

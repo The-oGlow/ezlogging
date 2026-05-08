@@ -35,6 +35,6 @@ class DoNothingLoggerTest extends TestCase
 
         $this->o2t->info($message);
 
-        static::expectOutputRegex($expected);
+        self::expectOutputRegex($expected);
     }
 }

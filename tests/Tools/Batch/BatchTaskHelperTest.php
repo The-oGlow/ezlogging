@@ -30,10 +30,10 @@ class BatchTaskHelperTest extends TestCase
     {
         $actual = BatchTaskHelper::getTaskList($listKey);
 
-        static::assertInstanceOf(TaskList::class, $actual);
-        static::assertEquals($expectedKey, $actual->getListKey());
-        static::assertEquals($expectedCount, $actual->count());
-        static::assertEquals($expectedEmpty, $actual->isEmpty());
+        self::assertInstanceOf(TaskList::class, $actual);
+        self::assertEquals($expectedKey, $actual->getListKey());
+        self::assertEquals($expectedCount, $actual->count());
+        self::assertEquals($expectedEmpty, $actual->isEmpty());
     }
 
     /**
@@ -49,10 +49,10 @@ class BatchTaskHelperTest extends TestCase
     {
         $actual = BatchTaskHelper::readTaskList($fileName, $listKey);
 
-        static::assertInstanceOf(TaskList::class, $actual);
-        static::assertEquals($expectedKey, $actual->getListKey());
-        static::assertEquals($expectedCount, $actual->count());
-        static::assertEquals($expectedEmpty, $actual->isEmpty());
+        self::assertInstanceOf(TaskList::class, $actual);
+        self::assertEquals($expectedKey, $actual->getListKey());
+        self::assertEquals($expectedCount, $actual->count());
+        self::assertEquals($expectedEmpty, $actual->isEmpty());
     }
 
     // Dataprovider

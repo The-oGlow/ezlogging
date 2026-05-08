@@ -42,24 +42,24 @@ class FileLoggerTest extends TestCase
     public function testConfiguration(): void
     {
         $expectedCount = 2;
-        static::assertInstanceOf(FileLogger::class, $this->o2t);
+        self::assertInstanceOf(FileLogger::class, $this->o2t);
 
         $handlers = $this->o2t->getHandlers();
 
-        static::assertNotEmpty($handlers, var_export($handlers, true));
-        static::assertCount($expectedCount, $handlers, var_export($handlers, true));
-        static::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
-        static::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
+        self::assertNotEmpty($handlers, var_export($handlers, true));
+        self::assertCount($expectedCount, $handlers, var_export($handlers, true));
+        self::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
+        self::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
     }
 
     public function testFileCreated(): void
     {
-        static::assertNotEmpty(self::$fileName);
-        static::assertFileDoesNotExist(self::$fileName);
+        self::assertNotEmpty(self::$fileName);
+        self::assertFileDoesNotExist(self::$fileName);
 
         $this->o2t->info('Write a log entry');
 
-        static::assertFileExists(self::$fileName);
+        self::assertFileExists(self::$fileName);
     }
 
     public function testCreateWithCustomHandler(): void
@@ -67,15 +67,15 @@ class FileLoggerTest extends TestCase
         $expectedCount = 3;
 
         $o2tB = new FileLogger(uniqid(self::class, true), sys_get_temp_dir(), [new FileLoggerTestHandlerDummyClazz()]);
-        static::assertInstanceOf(FileLogger::class, $o2tB);
+        self::assertInstanceOf(FileLogger::class, $o2tB);
 
         $handlers = $o2tB->getHandlers();
 
-        static::assertNotEmpty($handlers, var_export($handlers, true));
-        static::assertCount($expectedCount, $handlers, var_export($handlers, true));
-        static::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
-        static::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
-        static::assertInstanceOf(FileLoggerTestHandlerDummyClazz::class, $handlers[2], var_export($handlers, true));
+        self::assertNotEmpty($handlers, var_export($handlers, true));
+        self::assertCount($expectedCount, $handlers, var_export($handlers, true));
+        self::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
+        self::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
+        self::assertInstanceOf(FileLoggerTestHandlerDummyClazz::class, $handlers[2], var_export($handlers, true));
     }
 
     public function testGetFileNameEmpty(): void
@@ -84,12 +84,12 @@ class FileLoggerTest extends TestCase
         $targetFilename = str_replace(FileHandler::C_NS_SEP, FileHandler::C_NS_FS_SEP, uniqid(self::class, true));
 
         $o2tc = new FileLogger($targetFilename, $targetFolder, [new FileLoggerTestHandlerDummyClazz()]);
-        static::assertInstanceOf(FileLogger::class, $o2tc);
+        self::assertInstanceOf(FileLogger::class, $o2tc);
 
         $fileName = $o2tc->getFileName();
 
-        static::assertNotEmpty($fileName, $fileName);
-        static::assertStringContainsString($targetFolder, $fileName, $fileName);
-        static::assertStringContainsString($targetFilename, $fileName, $fileName);
+        self::assertNotEmpty($fileName, $fileName);
+        self::assertStringContainsString($targetFolder, $fileName, $fileName);
+        self::assertStringContainsString($targetFilename, $fileName, $fileName);
     }
 }

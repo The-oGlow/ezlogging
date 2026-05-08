@@ -30,14 +30,14 @@ class ChildClazzesHelperTest extends TestCase
     {
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
         if ($isEqual) {
-            static::assertCount($expected, $actual);
+            self::assertCount($expected, $actual);
         } else {
-            static::assertThat(count($actual), static::greaterThanOrEqual($expected));
+            self::assertThat(count($actual), self::greaterThanOrEqual($expected));
         }
-        static::assertNotContains($clazzName, $actual);
+        self::assertNotContains($clazzName, $actual);
         if (count($childClazzes) > 0) {
             foreach ($childClazzes as $childClazz) {
-                static::assertContains($childClazz, $actual);
+                self::assertContains($childClazz, $actual);
             }
         }
     }

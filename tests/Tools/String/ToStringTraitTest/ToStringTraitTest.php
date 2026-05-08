@@ -44,13 +44,13 @@ class ToStringTraitTest extends TestCase
     public function testToStringDefault(): void
     {
         $result = $this->o2t->__toString();
-        static::assertNotEmpty($result);
-        static::assertStringContainsString(get_class($this->o2t), $result);
+        self::assertNotEmpty($result);
+        self::assertStringContainsString(get_class($this->o2t), $result);
     }
 
     public function testWakeup(): void
     {
-        static::expectException(\BadMethodCallException::class);
+        self::expectException(\BadMethodCallException::class);
         $this->o2t->__wakeup();
     }
 
@@ -64,7 +64,7 @@ class ToStringTraitTest extends TestCase
     {
         $actualObj = new ToStringTraitTestDummyClazz($data);
         $actual = $actualObj->__toString();
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
