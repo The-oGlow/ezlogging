@@ -13,23 +13,67 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Batch;
 
-use PHPUnit\Framework\EasyGoingTestCase;
+use PHPUnit\Framework\TestCase;
+use ollily\Tools\TestData;
 
-class BatchTaskHelperTest extends EasyGoingTestCase
+class BatchTaskHelperTest extends TestCase
 {
     /**
-     * @return BatchTaskHelper
+     * @param string      $expectedKey
+     * @param int         $expectedCount
+     * @param bool        $expectedEmpty
+     * @param null|string $listKey
+     *
+     * @dataProvider providerTaskList
      */
-    protected static function prepareO2t()
+    public function testGetTaskList(string $expectedKey, int $expectedCount, bool $expectedEmpty, ?string $listKey = null): void
     {
-        return new BatchTaskHelper();
+        $actual = BatchTaskHelper::getTaskList($listKey);
+
+        static::assertInstanceOf(TaskList::class, $actual);
+        static::assertEquals($expectedKey, $actual->getListKey());
+        static::assertEquals($expectedCount, $actual->count());
+        static::assertEquals($expectedEmpty, $actual->isEmpty());
     }
 
     /**
-     * @return BatchTaskHelper
+     * @param string      $expectedKey
+     * @param int         $expectedCount
+     * @param bool        $expectedEmpty
+     * @param string      $fileName
+     * @param null|string $listKey
+     *
+     * @dataProvider providerTaskListFile
      */
-    protected function getCasto2t()
+    public function testReadTaskList(string $expectedKey, int $expectedCount, bool $expectedEmpty, string $fileName, ?string $listKey = null): void
     {
-        return $this->o2t;
+        $actual = BatchTaskHelper::readTaskList($fileName, $listKey);
+
+        static::assertInstanceOf(TaskList::class, $actual);
+        static::assertEquals($expectedKey, $actual->getListKey());
+        static::assertEquals($expectedCount, $actual->count());
+        static::assertEquals($expectedEmpty, $actual->isEmpty());
+    }
+
+    // Dataprovider
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerTaskList(): array
+    {
+        return [
+          'empty' => [BatchTaskHelper::DEFAULT, 0, true],
+        ];
+    }
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerTaskListFile(): array
+    {
+        return [
+            'empty' => [BatchTaskHelper::DEFAULT, 0, true, TestData::C_FILENAME_EMPTY],
+        ];
     }
 }

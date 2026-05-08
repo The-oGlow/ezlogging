@@ -21,7 +21,7 @@ use PHPUnit\Framework\ConstantCheckTestCase;
  * @see  ConstantCheckTestCaseDummyClazz
  * @see  ConstantCheckTestCase
  */
-class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S3360 
+class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S3360
 {
     public static function tearDownAfterClass(): void
     {

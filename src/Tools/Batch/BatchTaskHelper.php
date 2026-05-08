@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
 
 class BatchTaskHelper
 {
+    /** Default key for a tasklist. */
     public const DEFAULT = 'DEFAULT';
 
     /** @var \Ds\Map<mixed,TaskList> */
@@ -27,38 +28,63 @@ class BatchTaskHelper
     /** @var LoggerInterface */
     private static $logger;
 
-    public function __construct()
+    private function __construct()
     {
-        self::$logger = new ConsoleLogger(BatchTaskHelper::class);
-        self::$logger->debug('START');
+        self::init();
+    }
 
-        self::$tasklists = new Map();
-
-        self::$logger->debug('END');
+    public static function init(): void
+    {
+        /**
+         * @psalm-suppress DocblockTypeContradiction
+         * @phpstan-ignore function.impossibleType
+         */
+        if (is_null(self::$logger)) {
+            self::$logger = new ConsoleLogger(BatchTaskHelper::class);
+        }
+        /**
+         * @psalm-suppress DocblockTypeContradiction
+         * @phpstan-ignore function.impossibleType
+         */
+        if (is_null(self::$tasklists)) {
+            self::$tasklists = new Map();
+        }
     }
 
     /**
-     * @param string $listKey
+     * @param null|string $listKey
      *
      * @return TaskList
      */
-    public static function getTaskList(string $listKey = self::DEFAULT): TaskList
+    public static function getTaskList(?string $listKey): TaskList
     {
+        self::init();
+
+        self::$logger->debug('START - listKey', [$listKey]);
+
+        $listKey = $listKey ?? self::DEFAULT;
         if (!self::$tasklists->hasKey($listKey)) {
             self::$tasklists->put($listKey, new TaskList($listKey));
         }
+
+        self::$logger->debug('END');
 
         return self::$tasklists->get($listKey);
     }
 
     /**
-     * @param string $fileName
-     * @param string $listKey
+     * @param string      $fileName
+     * @param null|string $listKey
      *
      * @return TaskList
      */
-    public function readTaskList(string $fileName, string $listKey = self::DEFAULT)
+    public static function readTaskList(string $fileName, ?string $listKey)
     {
+        self::init();
+
+        self::$logger->debug('START - listKey,fileName', [$listKey,$fileName]);
+
+        $listKey = $listKey ?? self::DEFAULT;
         if (file_exists($fileName)) {
             $taskList = self::getTaskList($listKey);
             $taskList->readFile($fileName);
@@ -66,6 +92,8 @@ class BatchTaskHelper
             self::$logger->warning('File does not exists!', [$fileName]);
             $taskList = self::getTaskList($listKey);
         }
+
+        self::$logger->debug('END');
 
         return $taskList;
     }
