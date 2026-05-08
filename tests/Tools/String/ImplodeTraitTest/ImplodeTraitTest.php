@@ -14,29 +14,27 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ImplodeTraitTest;
 
 use PHPUnit\Framework\TestCase;
+use ollily\Tools\TestData;
 
 /**
  * This is the test clazz which will test the test clazz.
  *
  * @see ImplodeTraitTestDummyClazz
  */
-class ImplodeTraitTest extends TestCase
-{
-    public const ITEM_SEP = '#';
+class ImplodeTraitTest extends TestCase {
 
+    public const ITEM_SEP = '#';
     public const KEY_SEP = '=>';
 
     /** @var ImplodeTraitTestDummyClazz */
     protected $o2t;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
         $this->o2t = new ImplodeTraitTestDummyClazz();
     }
 
-    public function testImplode_recursiveDefault(): void
-    {
+    public function testImplode_recursiveDefault(): void {
         $testData = $this->o2t->traitData;
         $expectedKeyCount = 0;
         $expectedItemCount = count($testData) - 1;
@@ -46,8 +44,7 @@ class ImplodeTraitTest extends TestCase
         $this->verifyResult($actual, $testData, $expectedKeyCount, $expectedItemCount);
     }
 
-    public function testImplode_recursiveCustom(): void
-    {
+    public function testImplode_recursiveCustom(): void {
         $testData = $this->o2t->traitData;
         $expectedKeyCount = count($testData);
         $expectedItemCount = $expectedKeyCount - 1;
@@ -57,8 +54,7 @@ class ImplodeTraitTest extends TestCase
         $this->verifyResult($actual, $testData, $expectedKeyCount, $expectedItemCount);
     }
 
-    public function testImplode_recursive_ObjectCustom(): void
-    {
+    public function testImplode_recursive_ObjectCustom(): void {
         $testData = $this->o2t->traitObject;
         $expectedKeyCount = count($testData) + count($testData[1]);
         $expectedItemCount = $expectedKeyCount - 2;
@@ -69,14 +65,27 @@ class ImplodeTraitTest extends TestCase
     }
 
     /**
+     * @param int $expectedCount
+     * @param array<mixed,mixed> $testData
+     * @param int $preserveKeys
+     * 
+     * @dataProvider providerArrayFlatten
+     */
+    public function testArray_flatten(int $expectedCount, array $testData, int $preserveKeys): void {
+
+        $actual = $this->o2t->array_flatten($testData, $preserveKeys);
+
+        static::assertCount($expectedCount, $actual);
+    }
+
+    /**
      * @param mixed $actual
      * @param mixed $testData
      * @param int   $expectedKeyCount
      * @param int   $expectedItemCount
      * @param bool  $withClazz
      */
-    public function verifyResult($actual, $testData, int $expectedKeyCount, int $expectedItemCount, bool $withClazz = false): void
-    {
+    public function verifyResult($actual, $testData, int $expectedKeyCount, int $expectedItemCount, bool $withClazz = false): void {
         static::assertNotEmpty($actual);
         static::assertEquals($expectedKeyCount, substr_count($actual, self::KEY_SEP));
         static::assertEquals($expectedItemCount, substr_count($actual, self::ITEM_SEP));
@@ -93,5 +102,29 @@ class ImplodeTraitTest extends TestCase
                 static::assertStringContainsString($expected, $actual);
             }
         }
+    }
+
+    // Dataprovider
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerArrayFlatten(): array {
+        return [
+            'emptyDefault' => [0, [], 0],
+            'noChangeDefault' => [5, TestData::C_ARRAY_ALPHA5, 0],
+            'oneLevelDefault' => [4, [
+                    TestData::C_DATA_ALPHA1,
+                    TestData::C_ARRAY_ALPHA2,
+                    TestData::C_DATA_BOOLF
+                ], 0
+            ],
+            'twoLevelDefault' => [8, [
+                    TestData::C_ARRAY_ALPHA2,
+                    [TestData::C_ARRAY_ALPHA2, TestData::C_ARRAY_ALPHA2],
+                    TestData::C_ARRAY_ALPHA2
+                ], 0
+            ],
+        ];
     }
 }

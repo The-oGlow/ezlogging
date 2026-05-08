@@ -16,6 +16,7 @@ namespace PHPUnit\Framework\ConstantCheckTestCaseTest;
 use Monolog\ConsoleLogger;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
+use ollily\Tools\TestData;
 use PHPUnit\Framework\ConstantCheckTestCase;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -150,64 +151,15 @@ class ConstantCheckTestCaseTest extends TestCase
         }
     }
 
-    /**
-     * @param bool    $success
-     * @param mixed[] $constants
-     *
-     * @dataProvider prepareConstantsDataProvider
-     */
-    public function testVerifyConstAllExists(bool $success, array $constants): void
+    public function testIsWithConstCrossCheck(): void 
     {
-        self::$logger->debug('parameters', [$success, $constants]);
-        $exception = null;
-
-        try {
-            $this->o2t->publicVerifyConstAllExists($constants);
-        } catch (\Exception $exception) {
-            // Catch the exception
-        }
-        $this->verifyConstantsTestResult($success, $exception, [$success, $constants]);
+        $expected = false;
+        
+        $actual = $this->o2t->isWithConstCrossCheck();
+        
+        static::assertEquals($expected, $actual);
     }
-
-    /**
-     * @param bool    $success
-     * @param mixed[] $constants
-     *
-     * @dataProvider prepareConstantsArrayDataProvider
-     */
-    public function testVerifyConstArrayAllExists(bool $success, array $constants): void
-    {
-        self::$logger->debug('parameters', [$success, $constants]);
-        $exception = null;
-
-        try {
-            $this->o2t->publicVerifyConstArrayAllExists($constants);
-        } catch (\Exception $exception) {
-            // Catch the exception
-        }
-        $this->verifyConstantsTestResult($success, $exception, [$success, $constants]);
-    }
-
-    /**
-     * @param bool   $success
-     * @param string $constantName
-     * @param int    $expectedSize
-     *
-     * @dataProvider prepareConstantNameDataProvider
-     */
-    public function testVerifyConstArraySize(bool $success, string $constantName, int $expectedSize): void
-    {
-        self::$logger->debug('parameters', [$constantName, $expectedSize]);
-        $exception = null;
-
-        try {
-            $this->o2t->publicVerifyConstArraySize($constantName, $expectedSize);
-        } catch (\Exception $exception) {
-            // Catch the exception
-        }
-        $this->verifyConstantsTestResult($success, $exception, [$success, $constantName, $expectedSize]);
-    }
-
+    
     /**
      * @param bool    $success
      * @param bool    $crossCheckActive
@@ -233,6 +185,89 @@ class ConstantCheckTestCaseTest extends TestCase
         }
         $ccO2t::tearDownAfterClass();
         $this->verifyConstantsTestResult($success, $exception, [$success, $crossCheckActive, $clazz, $actualConstants]);
+    }
+
+    public function testUpdateActualConsts(): void 
+    {        
+        $before = $this->getFieldByReflection(ConstantCheckTestCase::class, 'actualConsts', $this->o2t);
+        $checkedConsts = TestData::C_ARRAY_ALPHA5;
+        $expected = count($before) + count($checkedConsts);
+
+        $this->o2t->publicUpdateActualConsts($checkedConsts);        
+        
+        $actual = $this->getFieldByReflection(ConstantCheckTestCase::class, 'actualConsts', $this->o2t);
+
+        static::assertIsArray($actual);
+        static::assertCount($expected, $actual);
+    }
+
+    public function testCheckConstantsCountDisabled(): void {
+        $expectedResult = true;
+        $expectedAllCount=0;
+
+        $expectedCount = 0;
+        $allDefinedConsts = TestData::C_ARRAY_EMPTY;
+        
+        $actual = $this->o2t->publicCheckConstantsCount($expectedCount, $allDefinedConsts);
+
+        static::assertIsArray($actual);
+        static::assertEquals($expectedResult, $actual[0]);
+        static::assertEquals($expectedAllCount, $actual[1]);
+    }
+
+    /**
+     * @param bool    $success
+     * @param mixed[] $constants
+     *
+     * @dataProvider prepareConstantsDataProvider
+     */
+    public function testVerifyConstAllExists(bool $success, array $constants): void {
+        self::$logger->debug('parameters', [$success, $constants]);
+        $exception = null;
+
+        try {
+            $this->o2t->publicVerifyConstAllExists($constants);
+        } catch (\Exception $exception) {
+            // Catch the exception
+        }
+        $this->verifyConstantsTestResult($success, $exception, [$success, $constants]);
+    }
+
+    /**
+     * @param bool    $success
+     * @param mixed[] $constants
+     *
+     * @dataProvider prepareConstantsArrayDataProvider
+     */
+    public function testVerifyConstArrayAllExists(bool $success, array $constants): void {
+        self::$logger->debug('parameters', [$success, $constants]);
+        $exception = null;
+
+        try {
+            $this->o2t->publicVerifyConstArrayAllExists($constants);
+        } catch (\Exception $exception) {
+            // Catch the exception
+        }
+        $this->verifyConstantsTestResult($success, $exception, [$success, $constants]);
+    }
+
+    /**
+     * @param bool   $success
+     * @param string $constantName
+     * @param int    $expectedSize
+     *
+     * @dataProvider prepareConstantNameDataProvider
+     */
+    public function testVerifyConstArraySize(bool $success, string $constantName, int $expectedSize): void {
+        self::$logger->debug('parameters', [$constantName, $expectedSize]);
+        $exception = null;
+
+        try {
+            $this->o2t->publicVerifyConstArraySize($constantName, $expectedSize);
+        } catch (\Exception $exception) {
+            // Catch the exception
+        }
+        $this->verifyConstantsTestResult($success, $exception, [$success, $constantName, $expectedSize]);
     }
 
     // Data Provider

@@ -97,6 +97,8 @@ class TestData
 
     public const C_ARRAY_NUM1 = [self::C_DATA_NUM1];
 
+    public const C_ARRAY_NUM2 = [self::C_DATA_NUM1, self::C_DATA_NUM2];
+
     public const C_ARRAY_BOOL1 = [self::C_DATA_BOOLT];
 
     public const C_ARRAY_ALPHA_KEY2 = [
