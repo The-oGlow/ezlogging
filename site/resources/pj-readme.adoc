@@ -47,7 +47,7 @@ include::{site_resource}/pj-usage.adoc[opts=optional]
 
 == Examples
 
-include::{site_resource}/pj-examples.adoc[opts=optional]
+Please read some link:examples.adoc[examples].
 
 == Project Status
 

@@ -1,4 +1,17 @@
-=== PHPUnit
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+include::{site_resource}/pj-settings.adoc[opts=optional]
+include::{site_resource}/adoc-cmmn-all.adoc[opts=optional]
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo} - Examples
+:toc:
+:toclevels: 2
+
+== PHPUnit
 
 .Business Class
 [source,php]
@@ -67,7 +80,7 @@ PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
 ..
 ----
 
-=== Reflection
+== Reflection
 
 .Extended class example
 [source,php]
