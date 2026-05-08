@@ -15,6 +15,12 @@ namespace ollily\Tools\Reflection\UnavailableMethodsTraitTest;
 
 use ollily\Tools\Reflection\UnavailableMethodsTrait;
 
+/**
+ * This is the test clazz which will be tested.
+ *
+ * @see  UnavailableMethodsTraitDummyClazz
+ * @see  UnavailableMethodsTraitTest
+ */
 class UnavailableMethodsTraitTestWrongO2tClazz
 {
     use UnavailableMethodsTrait;
@@ -23,14 +29,12 @@ class UnavailableMethodsTraitTestWrongO2tClazz
      * @var mixed
      *
      * @SuppressWarnings("PHPMD.UnusedPrivateField")
-     *
-     * @phpstan-ignore property.onlyWritten
      */
     private $wrongO2t;
 
     public function __construct()
     {
-        $this->wrongO2t = new UnavailableMethodsTraitTestHolderClazz();
+        $this->wrongO2t = new UnavailableMethodsTraitDummyClazz();
     }
 
     /**

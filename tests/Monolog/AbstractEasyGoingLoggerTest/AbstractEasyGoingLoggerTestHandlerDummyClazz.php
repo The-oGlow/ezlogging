@@ -15,7 +15,10 @@ namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use Monolog\Handler\HandlerInterface;
 
-class AbstractEasyGoingLoggerTestHandlerClazz implements HandlerInterface
+/**
+ * A simple clazz which will be tested by the test clazz.
+ */
+class AbstractEasyGoingLoggerTestHandlerDummyClazz implements HandlerInterface
 {
     /**
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")

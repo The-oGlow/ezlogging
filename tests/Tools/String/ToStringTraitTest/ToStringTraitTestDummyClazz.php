@@ -13,9 +13,14 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String\ToStringTraitTest;
 
+/*
+ * A simple clazz which will be used by the test clazz.
+ *
+ * @see ToStringTraitTest
+ */
 use ollily\Tools\String\ToStringTrait;
 
-class ToStringTraitTestClazz
+class ToStringTraitTestDummyClazz
 {
     use ToStringTrait;
 

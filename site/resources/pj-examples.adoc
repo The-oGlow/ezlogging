@@ -1,0 +1,167 @@
+:hide-uri-scheme:
+:doctype: book
+
+:site_resource: .
+include::{site_resource}/pj-settings.adoc[opts=optional]
+include::{site_resource}/adoc-cmmn-all.adoc[opts=optional]
+
+:source-highlighter: highlight.js
+
+= {pj_gh_repo} - Examples
+:toc:
+:toclevels: 2
+
+== PHPUnit
+
+.Business Class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    public function isValid(): bool
+    {
+        return true; // not very complex, i know ;-)
+    }
+}
+----
+
+.Related test class
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testFoo(): void
+    {
+        $this->logger->debug('testFoo() - Start');
+
+        // test code
+        static::assertTrue($this->getCasto2t()->isValid());
+        // or
+        static::assertTrue($this->o2t->isValid());
+
+        $this->logger->info('testFoo() - End');
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.609 [DEBUG   ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - Start
+20250821-162846.611 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testFoo() - testFoo() - End
+..
+----
+
+== Reflection
+
+.Extended class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+class FooClazz
+{
+    private $privateFoo = 'privateFooValue';
+
+    protected function protectedFoo(): string
+    {
+        return 'protectedFooMethod';
+    }
+}
+----
+
+.Related extended test class example
+[source,php]
+----
+<?php
+
+declare(strict_types=1);
+
+namespace foo;
+
+require_once __DIR__ . './bootstrap.php';
+
+use ollily\Tools\Reflection\UnavailableFieldsTrait;
+use ollily\Tools\Reflection\UnavailableMethodsTrait;
+use PHPUnit\Framework\EasyGoingTestCase;
+
+class FooClazzTest extends EasyGoingTestCase
+{
+    use UnavailableFieldsTrait;
+    use UnavailableMethodsTrait;
+
+    protected function prepareO2t(): FooClazz // cast to business class
+    {
+        return new FooClazz();
+    }
+
+    protected function getCasto2t(): FooClazz // cast to business class
+    {
+        return $this->o2t;
+    }
+
+    public function testPrivateField(): void
+    {
+        $result = $this->getFieldFromO2t('privateFoo');
+        // or
+        $result2 = $this->getFieldByReflection(FooClazz::class, 'privateFoo', $this->o2t);
+        $this->logger->info("privateFoo is '${result}' or '${result2}'");
+
+        static::assertEquals('privateFooValue', $result);
+        static::assertEquals($result, $result2);
+    }
+
+    public function testProtectedMethod(): void
+    {
+        $result = $this->callMethodOnO2t('protectedFoo');
+        // or
+        $result2 = $this->callMethodByReflection(FooClazz::class, 'protectedFoo', $this->o2t);
+        $this->logger->info("protectedFoo returns '${result}' or '${result2}'");
+
+        static::assertEquals('protectedFooMethod', $result);
+        static::assertEquals($result, $result2);
+    }
+}
+----
+
+.Log output
+[source,text]
+----
+PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
+
+20250821-162846.588 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testPrivateField() - privateFoo is 'privateFooValue' or 'privateFooValue'
+20250821-162846.608 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testProtectedMethod() - protectedFoo returns 'protectedFooMethod' or 'protectedFooMethod'
+..
+----

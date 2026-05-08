@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsoleLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
     /** @var ConsoleLogger */
     protected $o2t;
@@ -37,7 +37,7 @@ class ConsoleLoggerTest extends TestCase
         $customDTZ = new DateTimeZone("America/Los_Angeles");
         $o2tb      = new ConsoleLogger(ConsoleLoggerTest::class, ConsoleLogger::LEVEL_DEFAULT, [], [], $customDTZ);
 
-        static::assertInstanceOf(ConsoleLogger::class, $o2tb);
-        static::assertEquals($customDTZ, $o2tb->getTimezone());
+        self::assertInstanceOf(ConsoleLogger::class, $o2tb);
+        self::assertEquals($customDTZ, $o2tb->getTimezone());
     }
 }

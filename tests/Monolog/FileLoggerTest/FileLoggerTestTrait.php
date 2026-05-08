@@ -17,6 +17,11 @@ use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use Psr\Log\LoggerInterface;
 
+/**
+ * This trait tests the FileLogger.
+ *
+ * @see \Monolog\FileLogger
+ */
 trait FileLoggerTestTrait
 {
     use ImplodeTrait;
@@ -75,7 +80,7 @@ trait FileLoggerTestTrait
             echo file_get_contents(self::$fileName);
             echo "\n";
         }
-        static::tearDownAfterClass();
+        self::tearDownAfterClass();
         parent::tearDown();
     }
 
@@ -112,9 +117,9 @@ trait FileLoggerTestTrait
                 $logger->warning('Method not exists: ', [$this->methodName]);
             }
             if ($this->silentIsExists) {
-                static::fail('Method not exists: ' . $this->methodName);
+                self::fail('Method not exists: ' . $this->methodName);
             } else {
-                static::assertTrue(true);
+                self::assertTrue(true);
             }
         }
 

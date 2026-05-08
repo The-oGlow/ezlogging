@@ -14,40 +14,43 @@ declare(strict_types=1);
 namespace ollily\Tools\Reflection;
 
 use PHPUnit\Framework\TestCase;
+use ollily\Tools\TestData;
 
 class ChildClazzesHelperTest extends TestCase
 {
-    public function testNoChildren(): void
+    /**
+     * @param int                $expected
+     * @param string             $clazzName
+     * @param array<mixed,mixed> $childClazzes
+     * @param bool               $isEqual
+     *
+     * @dataProvider providerChildClazzes
+     */
+    public function testAllChildren(int $expected, string $clazzName, array $childClazzes, bool $isEqual = true): void
     {
-        $clazzName = ChildClazzesHelperTest::class;
-        $expected = 0;
-
         $actual = ChildClazzesHelper::getAllChildren($clazzName);
-
-        static::assertEquals($expected, count($actual));
-        static::assertNotContains($clazzName, $actual);
+        if ($isEqual) {
+            self::assertCount($expected, $actual);
+        } else {
+            self::assertThat(count($actual), self::greaterThanOrEqual($expected));
+        }
+        self::assertNotContains($clazzName, $actual);
+        if (count($childClazzes) > 0) {
+            foreach ($childClazzes as $childClazz) {
+                self::assertContains($childClazz, $actual);
+            }
+        }
     }
 
-    public function testOneOrManyChildren(): void
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerChildClazzes(): array
     {
-        $clazzName = TestCase::class;
-        $expected = 1;
-
-        $actual = ChildClazzesHelper::getAllChildren($clazzName);
-
-        static::assertGreaterThanOrEqual($expected, count($actual));
-        static::assertContains(ChildClazzesHelperTest::class, $actual);
-        static::assertNotContains($clazzName, $actual);
-    }
-
-    public function testClazzNotExists(): void
-    {
-        $clazzName = 'ClazzNotExists';
-        $expected = 0;
-
-        $actual = ChildClazzesHelper::getAllChildren($clazzName);
-
-        static::assertEquals($expected, count($actual));
-        static::assertNotContains($clazzName, $actual);
+        return [
+            'noChildren' => [0, ChildClazzesHelperTest::class,[]],
+            'clazzNotExists' => [0, TestData::C_NOTEXIST_NAME,[]],
+            'oneOrManyChildren' => [31, TestCase::class,[self::class], false],
+        ];
     }
 }

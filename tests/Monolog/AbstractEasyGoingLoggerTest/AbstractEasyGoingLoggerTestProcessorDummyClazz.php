@@ -13,17 +13,15 @@ declare(strict_types=1);
 
 namespace Monolog\AbstractEasyGoingLoggerTest;
 
-use Monolog\Formatter\FormatterInterface;
+use Monolog\Processor\ProcessorInterface;
 
-class AbstractEasyGoingLoggerTestFormatterClazz implements FormatterInterface
+/**
+ * A simple clazz which will be tested by the test clazz.
+ */
+class AbstractEasyGoingLoggerTestProcessorDummyClazz implements ProcessorInterface
 {
-    public function format(array $record)
+    public function __invoke(array $record)
     {
         return $record;
-    }
-
-    public function formatBatch(array $records)
-    {
-        return $records;
     }
 }

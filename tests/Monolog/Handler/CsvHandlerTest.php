@@ -29,22 +29,22 @@ class CsvHandlerTest extends TestCase
 
     public function testConfiguration(): void
     {
-        static::assertInstanceOf(CsvHandler::class, $this->o2t);
+        self::assertInstanceOf(CsvHandler::class, $this->o2t);
     }
 
     public function testGetFileNameDefault(): void
     {
         $result = $this->o2t->getFileName();
 
-        static::assertNotEmpty($result);
-        static::assertStringEndsWith(DIRECTORY_SEPARATOR . CsvHandler::STANDARD_FILENAME . CsvHandler::STANDARD_FILEEXT, $result);
+        self::assertNotEmpty($result);
+        self::assertStringEndsWith(DIRECTORY_SEPARATOR . CsvHandler::STANDARD_FILENAME . CsvHandler::STANDARD_FILEEXT, $result);
     }
 
     public function testPrepareFileNameDefault(): void
     {
         $result = $this->o2t::prepareFileName();
 
-        static::assertNotEmpty($result);
-        static::assertStringEndsWith(DIRECTORY_SEPARATOR . CsvHandler::STANDARD_FILENAME . CsvHandler::STANDARD_FILEEXT, $result);
+        self::assertNotEmpty($result);
+        self::assertStringEndsWith(DIRECTORY_SEPARATOR . CsvHandler::STANDARD_FILENAME . CsvHandler::STANDARD_FILEEXT, $result);
     }
 }

@@ -33,28 +33,52 @@ class PaddingProcessorTest extends TestCase
 
     public function testConfiguration(): void
     {
-        static::assertInstanceOf(PaddingProcessor::class, $this->o2t);
-        static::assertEquals(Logger::DEBUG, $this->getFieldFromO2t('level'));
+        self::assertInstanceOf(PaddingProcessor::class, $this->o2t);
+        self::assertEquals(Logger::DEBUG, $this->getFieldFromO2t('level'));
         $arrayResult = $this->getFieldFromO2t('skipClassesPartials');
-        static::assertIsArray($arrayResult);
-        static::assertCount(1, $arrayResult);
-        static::assertStringContainsString('Monolog\\', $arrayResult[0]);
-        static::assertEquals(0, $this->getFieldFromO2t('skipStackFramesCount'));
+        self::assertIsArray($arrayResult);
+        self::assertCount(1, $arrayResult);
+        self::assertStringContainsString('Monolog\\', $arrayResult[0]);
+        self::assertEquals(0, $this->getFieldFromO2t('skipStackFramesCount'));
     }
 
     public function testInvoke(): void
     {
-        $testArray = ['level' => Logger::INFO, 'level_name' => 'INFO'];
-        $testArrayKeys = ['level','level_name', 'level_name_pad', 'xFile', 'xLine', 'xClass', 'xCallType', 'xFunction'];
+        $expectedCount = 13;
+        $expectedKeys  = [
+            'message',
+            'context',
+            'level',
+            'level_name',
+            'level_name_pad',
+            'channel',
+            'datetime',
+            'xFile',
+            'xLine',
+            'xClass',
+            'xCallType',
+            'xFunction'
+        ];
+
+        $testArray = [
+            'message'        => '',
+            'context'        => [],
+            'level'          => Logger::INFO,
+            'level_name'     => 'INFO',
+            'level_name_pad' => '',
+            'channel'        => '',
+            'datetime'       => new \DateTimeImmutable(),
+            'extra'          => []
+        ];
 
         $arrayResult = $this->o2t->__invoke($testArray);
 
-        static::assertNotEmpty($arrayResult);
-        static::assertCount(8, $arrayResult);
-        static::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
-        static::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
-        foreach ($testArrayKeys as $key) {
-            static::assertArrayHasKey($key, $arrayResult);
+        self::assertNotEmpty($arrayResult);
+        self::assertCount($expectedCount, $arrayResult);
+        self::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
+        self::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
+        foreach ($expectedKeys as $key) {
+            self::assertArrayHasKey($key, $arrayResult);
         }
     }
 }

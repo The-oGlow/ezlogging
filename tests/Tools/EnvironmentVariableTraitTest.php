@@ -21,6 +21,12 @@ class EnvironmentVariableTraitTest extends TestCase
 
     private const         PROJECT_NAME  = 'ezlogging';
 
+    private const HOME_WIN = 'USERPROFILE';
+
+    private const HOME_LINUX = 'HOME';
+
+    private const HOME_NOTEXIST = 'NOTEXISTS';
+
     public function testHomeDefault(): void
     {
         $actual = self::getHome();
@@ -30,9 +36,9 @@ class EnvironmentVariableTraitTest extends TestCase
 
     public function testHomeUserProfileDirect(): void
     {
-        $actual = self::getHome('USERPROFILE');
+        $actual = self::getHome(self::HOME_WIN);
         if (empty($actual)) {
-            $actual = self::getHome('HOME');
+            $actual = self::getHome(self::HOME_LINUX);
         }
 
         $this->validateActualContains($actual, DIRECTORY_SEPARATOR);
@@ -40,9 +46,9 @@ class EnvironmentVariableTraitTest extends TestCase
 
     public function testHomeUserProfileIndirect(): void
     {
-        $actual = self::getHome('NOTEXISTS');
+        $actual = self::getHome(self::HOME_NOTEXIST);
 
-        static::assertEquals("", $actual);
+        self::assertEquals(TestData::C_DATA_EMPTY, $actual);
     }
 
     public function testGetProjectRoot(): void
@@ -68,15 +74,13 @@ class EnvironmentVariableTraitTest extends TestCase
 
     private function validateActualContains(string $actual, string $expected): void
     {
-        echo "\nactual='$actual'\n";
-        static::assertNotEmpty($actual);
-        static::assertStringContainsString($expected, $actual);
+        self::assertNotEmpty($actual);
+        self::assertStringContainsString($expected, $actual);
     }
 
     private function validateActualEnds(string $actual, string $expected): void
     {
-        echo "\nactual='$actual'\n";
-        static::assertNotEmpty($actual);
-        static::assertStringEndsWith($expected, $actual);
+        self::assertNotEmpty($actual);
+        self::assertStringEndsWith($expected, $actual);
     }
 }

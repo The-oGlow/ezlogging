@@ -13,24 +13,130 @@ declare(strict_types=1);
 
 namespace PHPUnit\Framework\EasyGoingTestCaseTest;
 
+use PHPUnit\Framework\EasyGoingTestCase;
+use PHPUnit\Framework\EasyGoingTestCaseTest;
+
 /**
- * A simple clazz which will be tested by the test clazz.
+ * This is the test clazz which will be tested.
  *
- * @see EasyGoingTestCaseTestCaseClazz
+ * @see  EasyGoingTestCaseDummyClazz
+ * @see  EasyGoingTestCaseTest
  */
-class EasyGoingTestCaseClazz
+class EasyGoingTestCaseClazz extends EasyGoingTestCase // NOSONAR: php:S3360
 {
-    public const    TEST_CLAZZ                      = EasyGoingTestCaseClazz::class . '::';
+    public const C_TEST = 1;
 
-    public const    TEST_CONST_PREFIX               = self::TEST_CLAZZ . 'EASYGOINGTESTCASETEXT';
+    public static function tearDownAfterClass(): void
+    {
+        // Deactivate the check, will be called manually in testcase
+    }
 
-    public const TEST_CONST_ARRAY = ['one', 'two'];
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    protected static function prepareO2t()
+    {
+        return new EasyGoingTestCaseDummyClazz();
+    }
 
-    public const    EASYGOINGTESTCASETEXT_PUBLIC    = 'public';
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    protected function getCasto2t()
+    {
+        return $this->o2t;
+    }
 
-    protected const EASYGOINGTESTCASETEXT_PROTECTED = 'protected';
+    // Override the visibility for the test cases
 
-    private const   EASYGOINGTESTCASETEXT_PRIVATE   = 'private'; // @phpstan-ignore classConstant.unused
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return bool
+     */
+    public static function publicIsConstExist($clazz, string $constantName): bool
+    {
+        return parent::isConstExist($clazz, $constantName);
+    }
 
-    public const           EASYGOINGTESTCASETEXT_NONE      = 'none';
+    /**
+     * @param mixed  $clazz
+     * @param string $constantName
+     *
+     * @return mixed
+     */
+    public static function publicGetConstValue($clazz, string $constantName)
+    {
+        return parent::getConstValue($clazz, $constantName);
+    }
+
+    /**
+     * @param mixed $var
+     *
+     * @return bool
+     */
+    public static function publicIsPrimitive($var): bool
+    {
+        return parent::isPrimitive($var);
+    }
+
+    /**
+     * @return string
+     */
+    public static function publicGet_called_clazz(): string
+    {
+        return parent::get_called_clazz();
+    }
+
+    /**
+     * @param string $clazz
+     *
+     * @return mixed[]
+     */
+    public static function publicGetAllDefinedConsts(string $clazz): array
+    {
+        return parent::getAllDefinedConsts($clazz);
+    }
+
+    /**
+     * @param string $constantName
+     */
+    public function publicVerifyConstExists(string $constantName): void
+    {
+        parent::verifyConstExists($constantName);
+    }
+
+    /**
+     * @return string
+     */
+    public function publicGet_called_function(): string
+    {
+        return parent::get_called_function();
+    }
+
+    /**
+     * @return EasyGoingTestCaseDummyClazz
+     */
+    public function publicGetCastO2t()
+    {
+        return $this->getCasto2t();
+    }
+
+    // Misc functions
+
+    /**
+     * @return mixed[]
+     */
+    public static function prepareAllConsts(): array
+    {
+        return [
+            EasyGoingTestCaseDummyClazz::TEST_CLAZZ . 'TEST_CLAZZ',
+            EasyGoingTestCaseDummyClazz::TEST_CLAZZ . 'TEST_CONST_PREFIX',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_ARRAY',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PUBLIC',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PROTECTED',
+            EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PRIVATE',
+        ];
+    }
 }

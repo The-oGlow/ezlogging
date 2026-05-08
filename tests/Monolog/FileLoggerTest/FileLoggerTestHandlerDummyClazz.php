@@ -15,7 +15,10 @@ namespace Monolog\FileLoggerTest;
 
 use Monolog\Handler\HandlerInterface;
 
-class FileLoggerTestHandlerClazz implements HandlerInterface
+/**
+ * A simple clazz which will be tested by the test clazz.
+ */
+class FileLoggerTestHandlerDummyClazz implements HandlerInterface
 {
     /**
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")

@@ -19,37 +19,36 @@ class PhpVersionTraitTest extends TestCase
 {
     use PhpVersionTrait;
 
-    private function validateResult(string $checkVersion, bool $expected): void
+    public const PHP_VERSION_MIN = '0.0.1';
+
+    public const PHP_VERSION_CURR = PHP_VERSION;
+
+    public const PHP_VERSION_MAX = '99.99.999';
+
+    /**
+     * @param bool   $expected
+     * @param string $checkVersion
+     *
+     * @dataProvider providerPhpVersion
+     */
+    public function testIsPhpGreater(bool $expected, string $checkVersion): void
     {
         $actual = $this->isPhpGreater($checkVersion);
-        static::assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
-    public function testPhpVersionEqual(): void
+    // Dataprovider
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public function providerPhpVersion(): array
     {
-        $checkVersion = PHP_VERSION;
-
-        $this->validateResult($checkVersion, true);
-    }
-
-    public function testPhpVersionLower(): void
-    {
-        $checkVersion = '1.0';
-
-        $this->validateResult($checkVersion, true);
-    }
-
-    public function testPhpVersionHigher(): void
-    {
-        $checkVersion = '99.99.999';
-
-        $this->validateResult($checkVersion, false);
-    }
-
-    public function ztestPhpVersionWrong(): void
-    {
-        $checkVersion = 'JustAText';
-
-        $this->validateResult($checkVersion, false);
+        return [
+            'equal' => [true, self::PHP_VERSION_CURR],
+            'lower' => [true, self::PHP_VERSION_MIN],
+            'higher' => [false, self::PHP_VERSION_MAX],
+            'wrong' => [true, TestData::C_DATA_INVALID],
+        ];
     }
 }

@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class DoNothingLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
     /** @var DoNothingLogger */
     protected $o2t;
@@ -35,6 +35,6 @@ class DoNothingLoggerTest extends TestCase
 
         $this->o2t->info($message);
 
-        static::expectOutputRegex($expected);
+        self::expectOutputRegex($expected);
     }
 }

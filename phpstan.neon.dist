@@ -57,14 +57,22 @@ parameters:
             paths:
                 - tests/*/*TestTrait.php
         -
+            identifier: method.unused
+            paths:
+                - tests/*/*DummyClazz.php
+        -
             identifier: property.onlyWritten
             paths:
                 - tests/*/*Clazz.php
+                - tests/*/*Foo.php
         -
             identifier: staticMethod.alreadyNarrowedType
             paths:
-                - tests/*/*TestTrait.php
-                - tests/*/*TestCaseTest.php
+                - tests/*/*Test.php
+        -
+            identifier: classConstant.unused
+            paths:
+                - tests/*/*DummyClazz.php
 
         # Custom
         -

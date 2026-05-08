@@ -21,6 +21,11 @@ use Monolog\Logger;
  * Use Introspection from @see IntrospectionProcessor.
  *
  * @see     IntrospectionProcessor
+ *
+ * @phpstan-import-type Level from \Monolog\Logger
+ * @phpstan-import-type LevelName from \Monolog\Logger
+ *
+ * @phpstan-type Record array<mixed,mixed>
  */
 class PaddingProcessor implements ProcessorInterface
 {
@@ -60,9 +65,13 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param mixed[] $record
+     * @param array $record A record
      *
-     * @return mixed[]
+     * @phpstan-param Record $record A record
+     *
+     * @return array The processed record
+     *
+     * @phpstan-return Record
      *
      * @phpstan-ignore method.childReturnType
      */
@@ -78,9 +87,6 @@ class PaddingProcessor implements ProcessorInterface
      * @param mixed[] $record
      *
      * @return mixed[]
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * @SuppressWarnings("PHPMD.ElseExpression")
      */
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {

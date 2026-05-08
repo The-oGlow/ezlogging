@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
     use FileLoggerTestTrait;
 
     public const TEST_MSG = 'Message';
@@ -41,12 +41,12 @@ class CsvLoggerTest extends TestCase
 
     public function testConfiguration(): void
     {
-        static::assertInstanceOf(CsvLogger::class, $this->o2t);
+        self::assertInstanceOf(CsvLogger::class, $this->o2t);
         $handlers = $this->o2t->getHandlers();
-        static::assertNotEmpty($handlers);
-        static::assertCount(2, $handlers);
-        static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
-        static::assertInstanceOf(CsvHandler::class, $handlers[1]);
+        self::assertNotEmpty($handlers);
+        self::assertCount(2, $handlers);
+        self::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
+        self::assertInstanceOf(CsvHandler::class, $handlers[1]);
     }
 
     public function testWriteHeader(): void
@@ -61,22 +61,22 @@ class CsvLoggerTest extends TestCase
             /** @psalm-suppress ArgumentTypeCoercion */
             $actualHeader = explode($csvLogger->getItemSeparator(), $csvLoggerContent);
             unlink($csvLoggerFileName);
-            static::assertEquals($expectedHeader, $actualHeader);
+            self::assertEquals($expectedHeader, $actualHeader);
         } else {
-            static::fail('File not created: ' . $csvLoggerFileName);
+            self::fail('File not created: ' . $csvLoggerFileName);
         }
     }
 
     public function testGetItemEnclosure(): void
     {
         $actual = $this->o2t->getItemEnclosure();
-        static::assertEquals(CsvHandler::STANDARD_TEXT_SEP, $actual);
+        self::assertEquals(CsvHandler::STANDARD_TEXT_SEP, $actual);
     }
 
     public function testGetItemSeparator(): void
     {
         $actual = $this->o2t->getItemSeparator();
-        static::assertEquals(CsvHandler::STANDARD_ITEM_SEP, $actual);
+        self::assertEquals(CsvHandler::STANDARD_ITEM_SEP, $actual);
     }
 
     public function testOutWithMessageOnly(): void
@@ -86,7 +86,7 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message);
 
-        static::expectOutputRegex($expected);
+        self::expectOutputRegex($expected);
     }
 
     public function testOutWithMessageAndContextString(): void
@@ -97,7 +97,7 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message, $context);
 
-        static::expectOutputRegex($expected);
+        self::expectOutputRegex($expected);
     }
 
     public function testOutWithMessageAndContextArray(): void
@@ -108,6 +108,6 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message, $context);
 
-        static::expectOutputRegex($expected);
+        self::expectOutputRegex($expected);
     }
 }

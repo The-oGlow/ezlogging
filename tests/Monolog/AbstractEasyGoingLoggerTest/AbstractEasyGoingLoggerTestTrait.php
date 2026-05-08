@@ -11,13 +11,14 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Monolog;
+namespace Monolog\AbstractEasyGoingLoggerTest;
 
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestFormatterClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestHandlerClazz;
-use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestProcessorClazz;
 use Monolog\Formatter\EasyGoingFormatter;
+use Monolog\PlainLogger;
+use Monolog\DoNothingLogger;
+use Monolog\FileLogger;
+use Monolog\CsvLogger;
+use Monolog\ConsoleLogger;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\NoopHandler;
@@ -39,62 +40,62 @@ trait AbstractEasyGoingLoggerTestTrait
             DoNothingLogger::class,
             FileLogger::class,
             CsvLogger::class,
-            AbstractEasyGoingLoggerTestClazz::class,
+            AbstractEasyGoingLoggerTestDummyClazz::class,
             ConsoleLogger::class
         ];
 
         $actualClazz = get_class($this->o2t);
 
         /** @psalm-suppress RedundantCondition */
-        static::assertNotFalse($actualClazz);
-        static::assertContains($actualClazz, $expectedClazz);
+        self::assertNotFalse($actualClazz);
+        self::assertContains($actualClazz, $expectedClazz);
 
         $handlers = $this->callMethodOnO2t('getHandlers');
-        static::assertNotEmpty($handlers);
-        static::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
+        self::assertNotEmpty($handlers);
+        self::assertCount(1, $handlers, 'Has uneven number of handlers: ' . $actualClazz . ' => ' . print_r($handlers, true));
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType,RedundantPropertyInitializationCheck
          */
         if (isset($this->o2t) && $this->o2t instanceof ConsoleLogger) {
-            static::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
+            self::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
         }
     }
 
     public function testGetDefaultHandler(): void
     {
-        $expectedResult = [AbstractEasyGoingLoggerTestHandlerClazz::class, NoopHandler::class, ConsoleHandler::class];
+        $expectedResult = [AbstractEasyGoingLoggerTestHandlerDummyClazz::class, NoopHandler::class, ConsoleHandler::class];
 
         $actualResult = $this->callMethodOnO2t('getDefaultHandler');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 
     public function testGetDefaultProcessor(): void
     {
         $expectedResult = [
             PlainProcessor::class,
-            AbstractEasyGoingLoggerTestProcessorClazz::class,
+            AbstractEasyGoingLoggerTestProcessorDummyClazz::class,
             PaddingProcessor::class
         ];
 
         $actualResult = $this->callMethodOnO2t('getDefaultProcessor');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 
     public function testGetDefaultFormatter(): void
     {
         $expectedResult = [
             PlainFormatter::class,
-            AbstractEasyGoingLoggerTestFormatterClazz::class,
+            AbstractEasyGoingLoggerTestFormatterDummyClazz::class,
             EasyGoingFormatter::class
         ];
 
         $actualResult = $this->callMethodOnO2t('getDefaultFormatter');
 
-        static::assertNotNull($actualResult);
-        static::assertContains(get_class($actualResult), $expectedResult);
+        self::assertNotNull($actualResult);
+        self::assertContains(get_class($actualResult), $expectedResult);
     }
 }

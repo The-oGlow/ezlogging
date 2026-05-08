@@ -60,14 +60,22 @@ jobs:
       - name: assembly analysis.adoc
         run: asciidoctor-reducer --preserve-conditionals -o analysis.adoc ${{ env.DOCU_SRC_DIR }}/pj-analysis.adoc
 
-      - name: assembly composer.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o composer.adoc ${{ env.DOCU_SRC_DIR }}/pj-composer.adoc
+      - name: assembly commmands.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o commands.adoc ${{ env.DOCU_SRC_DIR }}/pj-commands.adoc
 
-      - name: commit and push readme.adoc
+      - name: assembly examples.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o examples.adoc ${{ env.DOCU_SRC_DIR }}/pj-examples.adoc
+
+      - name: assembly usage.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o usage.adoc ${{ env.DOCU_SRC_DIR }}/pj-usage.adoc
+
+      - name: commit and push documents
         uses: EndBug/add-and-commit@v9.1.4
         with:
           add: |
             - README.adoc
             - config.adoc
             - analysis.adoc
-            - composer.adoc
+            - commands.adoc
+            - examples.adoc
+            - usage.adoc
