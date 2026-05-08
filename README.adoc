@@ -399,21 +399,63 @@ Please read the link:config.adoc[configuration].
 
 == Usage
 
+There are several classes which can be used for your development.
+
 === Monolog
 
-* link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger] - Logging to console
+*Logger*
+
+* link:src/Monolog/AbstractEasyGoingLogger.php[AbstractEasyGoingLogger] - Base class for all the logger
+* link:src/Monolog/ConsoleLogger.php[ConsoleLogger] - Logging to console
 ** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
-* link:src/Monolog/FileLogger.php[Monolog/FileLogger] - Logging to a file
-* link:src/Monolog/PlainLogger.php[Monolog/PlainLogger] - Sending the output "as it is" to the console (raw)
+* link:src/Monolog/CsvLogger.php[CsvLogger] - Writing to a file in CSV format
+* link:src/Monolog/DoNothingLogger.php[DoNothingLogger] - Replace any other logger with this and logging is disabled
+* link:src/Monolog/FileLogger.php[FileLogger] - Writing to a file
+* link:src/Monolog/PlainLogger.php[PlainLogger] - Sending the output "as it is" to the console (raw)
+
+*Formatter*
+
+* link:src/Monolog/Formatter/EasyGoingFormatter.php[Formatter/EasyGoingFormatter] - Formatter for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Formatter/PlainFormatter.php[Formatter/PlainFormatter] - Formatter for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
+
+*Handler*
+
+* link:src/Monolog/Handler/ConsoleHandler.php[Handler/ConsoleHandler] - Handler for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Handler/CsvHandler.php[Handler/CsvHandler] - Handler for the link:src/Monolog/CsvLogger.php[Monolog/CsvLogger]
+* link:src/Monolog/Handler/FileHandler.php[Handler/FileHandler] - Handler for the link:src/Monolog/FileLogger.php[Monolog/FileLogger]
+
+*Processor*
+
+* link:src/Monolog/Processor/PaddingProcessor.php[Processor/PaddingProcessor] - Processor for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Processor/PlainProcessor.php[Processor/PlainProcessor] - Processor for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
 
 === PHPUnit
 
 * link:src/PHPUnit/Framework/EasyGoingTestCase.php[EasyGoingTestCase] - All you need is already prepared, so concentrate on unit tests
+* link:src/PHPUnit/Framework/ConstantCheckTestCase.php[ConstantCheckTestCase] - Additionally there is a check, if all constants are correct defined
+
+=== Tasklist
+
+* link:src/Tools/Batch/BatchTaskHelper.php[BatchTaskHelper] - Utility class for working the tasklist
+* link:src/Tools/Batch/TaskItem.php[TaskItem] - A single task
+* link:src/Tools/Batch/TaskList.php[TaskList] - A complete tasklist (queue)
 
 === Reflection
 
+* link:src/Tools/Reflection/ChildClazzesHelper.php[ChildClazzesHelper] - Utility clazz for working with children classes
 * link:src/Tools/Reflection/UnavailableFieldsTrait.php[UnavailableFieldsTrait] - Get value from unaccessable class fields (aka properties)
 * link:src/Tools/Reflection/UnavailableMethodsTrait.php[UnavailableMethodsTrait] - Call unaccessable class methods
+
+=== String
+
+* link:src/Tools/String/ImplodeTrait.php[ImplodeTrait] - Implode multidimensional arrays to a flat array or string
+* link:src/Tools/String/ToStringTrait.php[ToStringTrait] - Provides a standard implementation for function '__toString()'
+
+=== Tools
+
+* link:src/Tools/EnvironmentVariableTrait.php[EnvironmentVariableTrait] - Provides access to environment settings
+* link:src/Tools/PhpVersionTrait.php[PhpVersionTrait] - Handles the check for PHP versions
+* link:src/Tools/StopNow.php[StopNow] - As it says: stops a process immediatly
 
 == Examples
 

@@ -521,3 +521,143 @@ PHPUnit 9.6.25 by Sebastian Bergmann and contributors.
 20250821-162846.608 [INFO    ] PHPUnit\Framework\EasyGoingTestCase->testProtectedMethod() - protectedFoo returns 'protectedFooMethod' or 'protectedFooMethod'
 ..
 ----
+
+.ChildClazzesHelper
+[source,php]
+----
+<?php
+    $clazzName = \Exception::class;
+    $actual = \ollily\Tools\Reflection\ChildClazzesHelper::getAllChildren($clazzName);
+    print_r($actual, false);
+
+----
+
+== Tasklist
+
+.Tasklist / Taskitem
+[source,php]
+----
+<?php
+
+----
+
+== Tools
+
+.implode/flatten
+[source,php]
+----
+<?php
+    use ollily\Tools\String\ImplodeTrait;
+
+    class Example {
+
+        use ImplodeTrait;
+
+        public function func_ir($array) {
+            print_r($array, false);
+            $actual = $this->implode_recursive(',', $array, true, true);
+            print_r($actual, false);
+        }
+
+        public function func_af($anyData) {
+            print_r($anyData, false);
+            $actual = $this->array_flatten($anyData, 0);
+            print_r($actual, false);
+        }
+    }
+
+    $instance = new Example();
+    $instance->func_ir([1, [2, ['a', 'b'], 3], 4]);
+    $instance->func_af([1, [2, ['a', 'b'], 3], 4]);
+----
+
+.__toString()
+[source,php]
+----
+<?php
+    use ollily\Tools\String\ToStringTrait;
+
+    class Example {
+
+        use ToStringTrait;
+
+        private $value1 = 1;
+        private $list = [];
+
+        protected function __toStringValues() {
+            return $this;
+        }
+    }
+
+    $instance = new Example();
+    print_r($instance, false);
+    print_r($instance->__toString(), false);
+----
+
+.Stop now
+[source,php]
+----
+<?php
+    use ollily\Tools\StopNow;
+
+    class Example {
+
+        public function verify($result): void {
+            if ($result) {
+                echo 'Verification ok!';
+            } else {
+                StopNow::stop(100, 'Error Message');
+            }
+        }
+
+        public function emergencyStop(): void {
+            StopNow::stopException(new \RuntimeException());
+        }
+    }
+
+    $instance = new Example();
+    $instance->verify(true);
+    $instance->verify(false);
+    $instance->emergencyStop();
+----
+
+.Environment variables
+[source,php]
+----
+<?php
+    use ollily\Tools\EnvironmentVariableTrait;
+
+    class Example {
+
+        use EnvironmentVariableTrait;
+
+        public function show(): void {
+            echo self::getHome() . "\n";
+            echo self::getProjectRoot() . "\n";
+        }
+    }
+
+    $instance = new Example();
+    $instance->show();
+
+----
+
+.PHP version
+[source,php]
+----
+<?php
+    use ollily\Tools\PhpVersionTrait;
+
+    class Example {
+
+        use PhpVersionTrait;
+
+        public function isGreater(string $checkVersion): bool {
+            return $this->isPhpGreater($checkVersion);
+        }
+    }
+
+    $instance = new Example();
+    var_dump($instance->isGreater('1.0.0'));
+    var_dump($instance->isGreater('99.99.999'));
+----
