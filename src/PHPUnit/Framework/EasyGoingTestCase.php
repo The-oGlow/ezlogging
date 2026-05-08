@@ -227,7 +227,7 @@ abstract class EasyGoingTestCase extends TestCase
             /** @psalm-suppress RedundantCondition
              * @phpstan-ignore function.alreadyNarrowedType
              */
-            if (is_array($debug) && count($debug) > 0) {
+            if (is_array($debug) && !empty($debug)) {
                 $calledFunction = $debug[1]['function'];
             }
         } catch (\Exception $exception) {

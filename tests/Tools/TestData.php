@@ -15,6 +15,7 @@ namespace ollily\Tools;
 
 /**
  * @SuppressWarnings("PHPMD.CamelCasePropertyName")
+ * @SuppressWarnings("PHPMD.CamelCaseMethodName")
  */
 class TestData
 {
