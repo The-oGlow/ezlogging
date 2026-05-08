@@ -174,13 +174,13 @@ abstract class EasyGoingTestCase extends TestCase
             $constantValue = constant($constantName);
             self::$logger->debug('Recieved by constant()', [$constantName]);
         } catch (\Throwable $e) {
-            self::$logger->info('Cannot get value by constant()', [$constantName]);
+            self::$logger->debug('Cannot get value by constant()', [$constantName]);
         }
         if (!isset($constantValue)) {
             $reflectionClazz         = new \ReflectionClass($clazz);
             $splitClazz    = explode(self::C_STATIC_SEP, $constantName);
             $constantValue = $reflectionClazz->getConstant($splitClazz[count($splitClazz) - 1]); // NOSONAR php:S3011
-            self::$logger->info('Recieved by reflection', [$constantName]);
+            self::$logger->debug('Recieved by reflection', [$constantName]);
         }
 
         self::$logger->debug('END');
@@ -200,7 +200,7 @@ abstract class EasyGoingTestCase extends TestCase
         $isDefined = self::isConstExist($this->o2t, $constantName);
         if ($isDefined) {
             $constantValue = self::getConstValue($this->o2t, $constantName);
-            self::$logger->info("Checking '$constantName'=" . print_r($constantValue, true));
+            self::$logger->info("Checking '$constantName'");
             if (static::isPrimitive($constantValue)) {
                 static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
             } else {

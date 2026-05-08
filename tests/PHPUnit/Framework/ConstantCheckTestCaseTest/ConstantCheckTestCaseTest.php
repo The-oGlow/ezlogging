@@ -158,7 +158,7 @@ class ConstantCheckTestCaseTest extends TestCase
      */
     public function testVerifyConstAllExists(bool $success, array $constants): void
     {
-        self::$logger->info('parameters', [$success, $constants]);
+        self::$logger->debug('parameters', [$success, $constants]);
         $exception = null;
 
         try {
@@ -177,7 +177,7 @@ class ConstantCheckTestCaseTest extends TestCase
      */
     public function testVerifyConstArrayAllExists(bool $success, array $constants): void
     {
-        self::$logger->info('parameters', [$success, $constants]);
+        self::$logger->debug('parameters', [$success, $constants]);
         $exception = null;
 
         try {
@@ -197,7 +197,7 @@ class ConstantCheckTestCaseTest extends TestCase
      */
     public function testVerifyConstArraySize(bool $success, string $constantName, int $expectedSize): void
     {
-        self::$logger->info('parameters', [$constantName, $expectedSize]);
+        self::$logger->debug('parameters', [$constantName, $expectedSize]);
         $exception = null;
 
         try {
@@ -218,7 +218,7 @@ class ConstantCheckTestCaseTest extends TestCase
      */
     public function testCrossCheckConstants(bool $success, bool $crossCheckActive, string $clazz, array $actualConstants): void
     {
-        self::$logger->info('parameters', [$success, $crossCheckActive, $clazz, $actualConstants]);
+        self::$logger->debug('parameters', [$success, $crossCheckActive, $clazz, $actualConstants]);
 
         $ccO2t = self::prepareO2t();
         self::setFieldByReflection(get_parent_class($ccO2t), 'withConstCrossCheck', $ccO2t, $crossCheckActive);
@@ -312,13 +312,13 @@ class ConstantCheckTestCaseTest extends TestCase
     {
         if ($success) {
             if (empty($exception)) {
-                self::$logger->info('Testcase ended correctly.', $extraData);
+                self::$logger->debug('Testcase ended correctly.', $extraData);
             } else {
                 static::fail('Should raise no exception');
             }
         } else {
             if (!empty($exception)) {
-                self::$logger->info('Testcase ended correctly with an exception.', $extraData);
+                self::$logger->debug('Testcase ended correctly with an exception.', $extraData);
             } else {
                 static::fail('Should raise an exception');
             }

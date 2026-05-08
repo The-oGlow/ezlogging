@@ -144,6 +144,9 @@ class TaskList
             if (is_resource($fHandle)) {
                 while (!$this->isEmpty()) {
                     $line = $this->nextTask() ?? '';
+                    if ($line instanceof ITaskItem){
+                        $line = $line->__toString();
+                    }
                     /**
                      * @psalm-suppress PossiblyInvalidArgument
                      * @phpstan-ignore argument.type

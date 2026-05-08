@@ -13,13 +13,17 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Batch;
 
+use ollily\Tools\String\ToStringTrait;
+
 /**
  * @phpstan-import-type TaskKey from ITaskItem
  * @phpstan-import-type TaskData from ITaskItem
  */
 class TaskItem implements ITaskItem
 {
-    /** @var mixed
+    use ToStringTrait;
+    /** 
+     * @var mixed
      * @phpstan-var TaskKey */
     private $key;
 
@@ -31,8 +35,6 @@ class TaskItem implements ITaskItem
     private $data;
 
     /**
-     * Task constructor.
-     *
      * @param mixed $key
      * @param array $data
      *
@@ -62,18 +64,11 @@ class TaskItem implements ITaskItem
     }
 
     /**
-     * @inheritdoc
+     * @return mixed
+     * 
+     * @phpstan-return TaskData
      */
-    public function __toString()
-    {
-        $value = $this->data;
-
-        foreach (array_keys($value) as $arrayKey) {
-            if (is_object($value[$arrayKey]) && $this == $value[$arrayKey]) {
-                $value[$arrayKey] = get_class($value[$arrayKey]);
-            }
-        }
-
-        return sprintf('%s', implode(';', $value));
+    protected function __toStringValues() {
+        return $this->data;
     }
 }

@@ -69,7 +69,7 @@ class StopNow
      */
     public static function stopException(\Throwable $throwable, bool $unitTest = false): int
     {
-        $errMsg = sprintf('[\%s] {%s}', get_class($throwable), $throwable->getMessage());
+        $errMsg = sprintf('\%s %s', get_class($throwable), $throwable->getMessage());
 
         /** @psalm-suppress PossiblyInvalidArgument */
         return static::stop($throwable->getCode(), $errMsg, $unitTest);

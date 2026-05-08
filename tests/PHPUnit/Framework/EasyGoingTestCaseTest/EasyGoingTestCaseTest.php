@@ -118,7 +118,7 @@ class EasyGoingTestCaseTest extends TestCase
      */
     public function testIsConstExist(bool $expectedBool, string $constName): void
     {
-        self::$logger->info('parameters', [$expectedBool, $constName]);
+        self::$logger->debug('parameters', [$expectedBool, $constName]);
 
         $actual = $this->o2t::publicIsConstExist($this->o2t->publicGetCastO2t(), $constName);
 
@@ -136,7 +136,7 @@ class EasyGoingTestCaseTest extends TestCase
      */
     public function testGetConstValue(bool $expectedBool, string $constName, string $expected): void
     {
-        self::$logger->info('parameters', [$expectedBool,$constName]);
+        self::$logger->debug('parameters', [$expectedBool,$constName]);
 
         $actual = $this->o2t::publicGetConstValue($this->o2t->publicGetCastO2t(), $constName);
 
