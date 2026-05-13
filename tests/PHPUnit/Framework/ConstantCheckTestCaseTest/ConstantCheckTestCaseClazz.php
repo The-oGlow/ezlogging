@@ -56,7 +56,7 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     }
 
     /**
-     * @param null|mixed[] $checkedConsts
+     * @param null|array<mixed,mixed> $checkedConsts
      */
     public static function publicUpdateActualConsts($checkedConsts): void
     {
@@ -64,8 +64,8 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     }
 
     /**
-     * @param int     $expectedCount
-     * @param mixed[] $allDefinedConsts
+     * @param int                $expectedCount
+     * @param array<mixed,mixed> $allDefinedConsts
      *
      * @return array<mixed>
      */
@@ -75,7 +75,7 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     }
 
     /**
-     * @param mixed[] $constants
+     * @param array<mixed,mixed> $constants
      */
     public function publicVerifyConstAllExists(array $constants = []): void
     {
@@ -83,7 +83,7 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     }
 
     /**
-     * @param mixed[] $constants
+     * @param array<mixed,mixed> $constants
      */
     public function publicVerifyConstArrayAllExists(array $constants = []): void
     {
@@ -115,7 +115,7 @@ class ConstantCheckTestCaseClazz extends ConstantCheckTestCase // NOSONAR: php:S
     // Misc functions
 
     /**
-     * @return mixed[]
+     * @return array<mixed,mixed>
      */
     public static function prepareAllConsts(): array
     {

@@ -13,19 +13,19 @@ declare(strict_types=1);
 
 namespace ollily\Tools\Batch;
 
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 use PHPUnit\Framework\EasyGoingTestCase;
 
 class TaskListTest extends EasyGoingTestCase
 {
     /** @var string */
-    public const KEY = TestData::C_KEY_ALPHA1;
+    public const KEY = TestData::KEY_ALPHA1;
 
     /** @var string */
-    public const DATA = TestData::C_DATA_ALPHA1;
+    public const DATA = TestData::DATA_ALPHA1;
 
     /** @var string */
-    protected static $emptyFileName = TestData::C_FILENAME_EMPTY;
+    protected static $emptyFileName = TestData::FILE_FILENAME_EMPTY;
 
     /** @var string */
     protected static $existingFile;
@@ -42,17 +42,17 @@ class TaskListTest extends EasyGoingTestCase
     }
 
     /**
-     * @param mixed   $name
-     * @param mixed[] $data
-     * @param string  $dataName
+     * @param mixed              $name
+     * @param array<mixed,mixed> $data
+     * @param string             $dataName
      */
     public function __construct($name = null, $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $reflector = new \ReflectionClass(self::class);
         $path = '' . realpath('' . $reflector->getFileName());
-        self::$existingFile = str_replace(TestData::C_EXT_PHP, TestData::C_EXT_CSV, $path);
-        self::$emptyFile = str_replace(TestData::C_EXT_PHP, 'Empty' . TestData::C_EXT_CSV, $path);
+        self::$existingFile = str_replace(TestData::FILE_EXT_PHP, TestData::FILE_EXT_CSV, $path);
+        self::$emptyFile = str_replace(TestData::FILE_EXT_PHP, 'Empty' . TestData::FILE_EXT_CSV, $path);
     }
 
     /**

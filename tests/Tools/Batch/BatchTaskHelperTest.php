@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\Batch;
 
 use PHPUnit\Framework\TestCase;
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 class BatchTaskHelperTest extends TestCase
 {
@@ -73,7 +73,7 @@ class BatchTaskHelperTest extends TestCase
     public function providerTaskListFile(): array
     {
         return [
-            'empty' => [BatchTaskHelper::DEFAULT, 0, true, TestData::C_FILENAME_EMPTY],
+            'empty' => [BatchTaskHelper::DEFAULT, 0, true, TestData::FILE_FILENAME_EMPTY],
         ];
     }
 }

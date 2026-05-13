@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ImplodeTraitTest;
 
 use PHPUnit\Framework\TestCase;
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 /**
  * This is the test clazz which will test the test clazz.
@@ -119,17 +119,17 @@ class ImplodeTraitTest extends TestCase
     {
         return [
             'emptyDefault' => [0, [], 0],
-            'noChangeDefault' => [5, TestData::C_ARRAY_ALPHA5, 0],
+            'noChangeDefault' => [5, TestData::ARRAY_ALPHA5, 0],
             'oneLevelDefault' => [4, [
-                    TestData::C_DATA_ALPHA1,
-                    TestData::C_ARRAY_ALPHA2,
-                    TestData::C_DATA_BOOLF
+                    TestData::DATA_ALPHA1,
+                    TestData::ARRAY_ALPHA2,
+                    TestData::DATA_BOOL_F
                 ], 0
             ],
             'twoLevelDefault' => [8, [
-                    TestData::C_ARRAY_ALPHA2,
-                    [TestData::C_ARRAY_ALPHA2, TestData::C_ARRAY_ALPHA2],
-                    TestData::C_ARRAY_ALPHA2
+                    TestData::ARRAY_ALPHA2,
+                    [TestData::ARRAY_ALPHA2, TestData::ARRAY_ALPHA2],
+                    TestData::ARRAY_ALPHA2
                 ], 0
             ],
         ];

@@ -151,9 +151,9 @@ abstract class EasyGoingTestCase extends TestCase
     {
         self::$logger->debug('START');
 
-        static::assertNotEmpty($this->o2t);
-        static::assertIsObject($this->o2t);
-        static::assertInstanceOf(get_class($this->o2t), static::prepareO2t());
+        self::assertNotEmpty($this->o2t);
+        self::assertIsObject($this->o2t);
+        self::assertInstanceOf(get_class($this->o2t), static::prepareO2t());
 
         self::$logger->debug('END');
     }
@@ -200,14 +200,14 @@ abstract class EasyGoingTestCase extends TestCase
         $isDefined = self::isConstExist($this->o2t, $constantName);
         if ($isDefined) {
             $constantValue = self::getConstValue($this->o2t, $constantName);
-            self::$logger->info("Checking '$constantName'");
+            self::$logger->debug("Checking '$constantName'");
             if (static::isPrimitive($constantValue)) {
-                static::assertGreaterThan(0, strlen("$constantValue"), "The primitive '$constantName'='$constantValue'");
+                self::assertGreaterThan(0, strlen("$constantValue"), sprintf("The primitive '%s'='%s'", $constantName, $constantValue));
             } else {
-                static::assertNotEmpty($constantValue);
+                self::assertNotEmpty($constantValue, sprintf('Constant \'%s\' is empty!', $constantName));
             }
         } else {
-            static::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
+            self::fail(sprintf("FAIL: Constant '%s' not exists", $constantName));
         }
 
         self::$logger->debug('END');

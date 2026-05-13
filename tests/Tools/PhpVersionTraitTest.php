@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools;
 
 use PHPUnit\Framework\TestCase;
+use ollily\Tools\Test\TestData;
 
 class PhpVersionTraitTest extends TestCase
 {
@@ -48,7 +49,7 @@ class PhpVersionTraitTest extends TestCase
             'equal' => [true, self::PHP_VERSION_CURR],
             'lower' => [true, self::PHP_VERSION_MIN],
             'higher' => [false, self::PHP_VERSION_MAX],
-            'wrong' => [true, TestData::C_DATA_INVALID],
+            'wrong' => [true, TestData::DATA_INVALID],
         ];
     }
 }

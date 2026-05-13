@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\String\ImplodeTraitTest;
 
 use ollily\Tools\String\ImplodeTrait;
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 /**
  * This is the test clazz which will be tested.
@@ -26,17 +26,17 @@ class ImplodeTraitTestDummyClazz
     use ImplodeTrait;
 
     /** @var array<mixed,mixed> */
-    public $traitData = TestData::C_ARRAY_ALPHA2;
+    public $traitData = TestData::ARRAY_ALPHA2;
 
     /** @var array<mixed,mixed> */
-    public $traitObject = TestData::C_ARRAY_EMPTY;
+    public $traitObject = TestData::ARRAY_EMPTY;
 
     public function __construct()
     {
         $this->traitObject[] = new ImplodeTraitTestFooClazz();
         $this->traitObject[] = [
-            TestData::C_KEY_NUM1 => new ImplodeTraitTestFooClazz(),
-            TestData::C_KEY_NUM2 => new ImplodeTraitTestFooClazz()
+            TestData::KEY_NUM1 => new ImplodeTraitTestFooClazz(),
+            TestData::KEY_NUM2 => new ImplodeTraitTestFooClazz()
         ];
     }
 }

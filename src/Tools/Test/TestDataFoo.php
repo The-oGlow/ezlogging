@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace ollily\Tools;
+namespace ollily\Tools\Test;
 
 use ollily\Tools\String\ToStringTrait;
 
