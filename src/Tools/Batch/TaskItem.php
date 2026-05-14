@@ -68,7 +68,7 @@ class TaskItem implements ITaskItem
     /**
      * @return mixed
      */
-    protected function __toStringValues()
+    protected function __toStringValues() // NOSONAR: php:S100
     {
         return $this->data;
     }

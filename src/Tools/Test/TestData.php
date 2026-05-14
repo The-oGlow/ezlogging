@@ -156,21 +156,21 @@ class TestData
      *
      * @var array<mixed>
      */
-    private static $ARRAY_OBJECT1 = [];
+    private static $ARRAY_OBJECT1 = []; // NOSONAR: php:S100 
 
     /**
      * @see self::C_ARRAY_OBJECT2()
      *
      * @var array<mixed>
      */
-    private static $ARRAY_OBJECT2 = [];
+    private static $ARRAY_OBJECT2 = []; // NOSONAR: php:S100  
 
     /**
      * @see self::C_ARRAY_OBJECT3()
      *
      * @var array<mixed>
      */
-    private static $ARRAY_OBJECT3 = [];
+    private static $ARRAY_OBJECT3 = []; // NOSONAR: php:S100  
 
     // Filesystem Data
 
@@ -215,7 +215,7 @@ class TestData
 
     // Misc Data
 
-    public static function DATA_OBJECT1(): TestDataFoo
+    public static function DATA_OBJECT1(): TestDataFoo // NOSONAR: php:S100 
     {
         return TestDataFoo::init(TestData::DATA_NUM1);
     }
@@ -223,7 +223,7 @@ class TestData
     /**
      * @return array<mixed>
      */
-    public static function ARRAY_OBJECT1(): array
+    public static function ARRAY_OBJECT1(): array // NOSONAR: php:S100  
     {
         if (empty(self::$ARRAY_OBJECT1)) {
             self::$ARRAY_OBJECT1 = [self::KEY_ALPHA1 => TestDataFoo::init(self::DATA_NUM1)];
@@ -235,7 +235,7 @@ class TestData
     /**
      * @return array<mixed>
      */
-    public static function ARRAY_OBJECT2(): array
+    public static function ARRAY_OBJECT2(): array // NOSONAR: php:S100  
     {
         if (empty(self::$ARRAY_OBJECT2)) {
             self::$ARRAY_OBJECT2 = [
@@ -250,7 +250,7 @@ class TestData
     /**
      * @return array<mixed>
      */
-    public static function ARRAY_OBJECT3(): array
+    public static function ARRAY_OBJECT3(): array // NOSONAR: php:S100   
     {
         if (empty(self::$ARRAY_OBJECT3)) {
             self::$ARRAY_OBJECT3 = [
@@ -265,6 +265,7 @@ class TestData
 
     private function __construct()
     {
+        // Hide the constructor
     }
 
     // Misc Functions
