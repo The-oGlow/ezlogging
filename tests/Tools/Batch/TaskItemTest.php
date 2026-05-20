@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace ollily\Tools\Batch;
 
 use PHPUnit\Framework\EasyGoingTestCase;
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 class TaskItemTest extends EasyGoingTestCase
 {
-    public const KEY = TestData::C_KEY_NUM1;
+    public const KEY = TestData::KEY_NUM1;
 
-    public const DATA = [TestData::C_DATA_ALPHA1, TestData::C_DATA_BOOLT];
+    public const DATA = [TestData::DATA_ALPHA1, TestData::DATA_BOOL_T];
 
     /**
      * @return ITaskItem

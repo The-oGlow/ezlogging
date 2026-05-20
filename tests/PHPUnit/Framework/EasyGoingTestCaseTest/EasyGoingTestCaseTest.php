@@ -44,7 +44,7 @@ class EasyGoingTestCaseTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return array<mixed,mixed>
      */
     protected static function prepareAllConsts(): array
     {
@@ -52,9 +52,9 @@ class EasyGoingTestCaseTest extends TestCase
     }
 
     /**
-     * @param mixed   $name
-     * @param mixed[] $data
-     * @param string  $dataName
+     * @param mixed              $name
+     * @param array<mixed,mixed> $data
+     * @param string             $dataName
      */
     public function __construct($name = null, $data = [], $dataName = '')
     {
@@ -105,8 +105,8 @@ class EasyGoingTestCaseTest extends TestCase
     {
         try {
             $this->o2t->testInit();
-        } catch (\Exception $e) {
-            self::fail('Should not raise any exection: ' . $e->getMessage());
+        } catch (\Exception $except) {
+            self::fail(sprintf('FAIL: Should not raise any exection: %s', $except->getMessage()));
         }
     }
 
@@ -114,7 +114,7 @@ class EasyGoingTestCaseTest extends TestCase
      * @param bool   $expectedBool
      * @param string $constName
      *
-     * @dataProvider prepareDataProvider
+     * @dataProvider providerConstant
      */
     public function testIsConstExist(bool $expectedBool, string $constName): void
     {
@@ -122,9 +122,9 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t::publicIsConstExist($this->o2t->publicGetCastO2t(), $constName);
 
-        self::$logger->debug('comparing', [$expectedBool, $actual]);
+        self::$logger->info('Testcase comparing', [self::dataName(), $expectedBool, $actual]);
 
-        self::assertEquals($expectedBool, $actual, "Not equals: '$expectedBool'='$actual'");
+        self::assertEquals($expectedBool, $actual, sprintf("Not equals: '%s'='%s'", "$expectedBool", "$actual"));
     }
 
     /**
@@ -132,7 +132,7 @@ class EasyGoingTestCaseTest extends TestCase
      * @param string $constName
      * @param string $expected
      *
-     * @dataProvider prepareDataProvider
+     * @dataProvider providerConstant
      */
     public function testGetConstValue(bool $expectedBool, string $constName, string $expected): void
     {
@@ -140,9 +140,9 @@ class EasyGoingTestCaseTest extends TestCase
 
         $actual = $this->o2t::publicGetConstValue($this->o2t->publicGetCastO2t(), $constName);
 
-        self::$logger->debug('comparing', [$expected,$actual]);
+        self::$logger->info('Testcase comparing', [self::dataName(), $expected,$actual]);
 
-        self::assertEquals($expected, $actual, "Not equals: '$expected'='$actual'");
+        self::assertEquals($expected, $actual, sprintf("Not equals: '%s'='%s'", $expected, $actual));
     }
 
     public function testIsPrimitive(): void
@@ -181,7 +181,7 @@ class EasyGoingTestCaseTest extends TestCase
         try {
             $this->o2t->publicVerifyConstExists($constantName);
         } catch (\Exception $exception) {
-            self::fail('Should not raise an exception: ' . $exception->getMessage());
+            self::fail(sprintf('FAIL: Should not raise any exection: %s', $exception->getMessage()));
         }
     }
 
@@ -197,9 +197,9 @@ class EasyGoingTestCaseTest extends TestCase
     // Data Provider
 
     /**
-     * @return mixed[]
+     * @return array<mixed,mixed>
      */
-    public function prepareDataProvider()
+    public function providerConstant()
     {
         return [
             'public' => [ true, EasyGoingTestCaseDummyClazz::TEST_CONST_PREFIX . '_PUBLIC', 'public'],

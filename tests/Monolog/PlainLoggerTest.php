@@ -28,7 +28,7 @@ class PlainLoggerTest extends TestCase
     /** @var string[] */
     private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
 
-    /** @var mixed[] */
+    /** @var array<mixed,mixed> */
     private $context = ['value 1', 2 => 'value 2', 3];
 
     public function setUp(): void
@@ -45,8 +45,8 @@ class PlainLoggerTest extends TestCase
         try {
             $this->o2t->out($msg);
             $valid = true;
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        } catch (\Exception $except) {
+            echo $except->getMessage();
         }
         self::assertTrue($valid);
     }
@@ -80,8 +80,8 @@ class PlainLoggerTest extends TestCase
     }
 
     /**
-     * @param string[] $levels
-     * @param mixed[]  $context
+     * @param string[]           $levels
+     * @param array<mixed,mixed> $context
      *
      * @return bool
      */
@@ -95,16 +95,16 @@ class PlainLoggerTest extends TestCase
                 $this->o2t->log($level, $msg, $context);
                 $result = true;
             }
-        } catch (\Exception $e) {
-            print_r($e);
+        } catch (\Exception $except) {
+            print_r($except);
         }
 
         return $result;
     }
 
     /**
-     * @param string[] $logMethods
-     * @param mixed[]  $context
+     * @param string[]           $logMethods
+     * @param array<mixed,mixed> $context
      *
      * @return bool
      */
@@ -118,8 +118,8 @@ class PlainLoggerTest extends TestCase
                 $this->o2t->$logMethod($msg, $context);
                 $result = true;
             }
-        } catch (\Exception $e) {
-            print_r($e);
+        } catch (\Exception $except) {
+            print_r($except);
         }
 
         return $result;

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools;
 
 use PHPUnit\Framework\TestCase;
+use ollily\Tools\Test\TestData;
 
 class EnvironmentVariableTraitTest extends TestCase
 {
@@ -48,7 +49,7 @@ class EnvironmentVariableTraitTest extends TestCase
     {
         $actual = self::getHome(self::HOME_NOTEXIST);
 
-        self::assertEquals(TestData::C_DATA_EMPTY, $actual);
+        self::assertEquals(TestData::DATA_EMPTY, $actual);
     }
 
     public function testGetProjectRoot(): void

@@ -18,12 +18,19 @@ use Psr\Log\LoggerInterface;
 
 abstract class ConstantCheckTestCase extends EasyGoingTestCase
 {
+    public const DIFF_ZERO = 0;
+
+    public const INIT_CONST_COUNT = 0;
+
+    public const INIT_CROSSCHECK = false;
+
     /**
      * @var bool TRUE=Execute a constants cross check (Default: FALSE)
      *
      * @see ConstantCheckTestCase::expectedConstsCount
+     * @see ConstantCheckTestCase::CHECK_INIT
      */
-    private static $withConstCrossCheck = false;
+    private static $withConstCrossCheck = self::INIT_CROSSCHECK;
 
     /**
      * @var int Set the expected and correct count of constants in child classes. Only used if {@link ConstantCheckTestCase::$withConstCrossCheck}=true.
@@ -31,7 +38,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
      * @see ConstantCheckTestCase::$withConstCrossCheck
      * @see ConstantCheckTestCase::testAllConstants()
      */
-    private static $expectedConstsCount = 0;
+    private static $expectedConstsCount = self::INIT_CONST_COUNT;
 
     /** @var mixed[] Array of the names of all constants in the class. */
     private static $actualConsts = [];
@@ -48,14 +55,14 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
      * @see ConstantCheckTestCase::$withConstCrossCheck
      * @see ConstantCheckTestCase::$expectedConstsCount
      */
-    public static function setUpBeforeClass(bool $withConstCrossCheck = false, int $expectedConstsCount = 0): void
+    public static function setUpBeforeClass(bool $withConstCrossCheck = self::INIT_CROSSCHECK, int $expectedConstsCount = self::INIT_CONST_COUNT): void
     {
         self::$logger = new ConsoleLogger(ConstantCheckTestCase::class);
         self::$logger->debug('START');
 
         parent::setUpBeforeClass();
-        $testInfo =  [self::$withConstCrossCheck, self::$expectedConstsCount, self::get_called_clazz()];
-        self::$actualConsts        = [];
+        $testInfo = [self::$withConstCrossCheck, self::$expectedConstsCount, self::get_called_clazz()];
+        self::$actualConsts = [];
         self::$withConstCrossCheck = $withConstCrossCheck;
         self::$expectedConstsCount = $expectedConstsCount;
         self::$logger->notice('withConstCrossCheck,expectedConstCount,calledClazz', $testInfo);
@@ -72,9 +79,9 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
 
         parent::tearDownAfterClass();
         self::crossCheckConstants(get_class(static::prepareO2t()), self::$actualConsts);
-        self::$actualConsts        = [];
-        self::$withConstCrossCheck = false;
-        self::$expectedConstsCount = 0;
+        self::$actualConsts = [];
+        self::$withConstCrossCheck = self::INIT_CROSSCHECK;
+        self::$expectedConstsCount = self::INIT_CONST_COUNT;
 
         self::$logger->debug('END');
     }
@@ -112,29 +119,41 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
              *
              * @return string
              */
-                function ($value): string {
-                    $res = '';
-                    if (is_string($value) && str_contains($value, self::C_STATIC_SEP)) {
-                        try {
-                            $startPos = ((int)strpos($value, self::C_STATIC_SEP)) + strlen(self::C_STATIC_SEP);
-                            $res      = substr($value, $startPos);
-                        } catch (\Throwable $exception) {
-                            self::$logger->error(sprintf("%s: '%s'", $exception->getMessage(), $value));
-                        }
-                    } else {
-                        self::$logger->error(sprintf("Value has no '%s': '%s'", self::C_STATIC_SEP, $value));
+            function ($value): string {
+                $res = '';
+                if (is_string($value) && str_contains($value, self::C_STATIC_SEP)) {
+                    try {
+                        $startPos = ((int) strpos($value, self::C_STATIC_SEP)) + strlen(self::C_STATIC_SEP);
+                        $res = substr($value, $startPos);
+                    } catch (\Throwable $exception) {
+                        self::$logger->error(sprintf("%s: '%s'", $exception->getMessage(), $value));
                     }
+                } else {
+                    self::$logger->error(sprintf("Value has no '%s': '%s'", self::C_STATIC_SEP, $value));
+                }
 
-                    return $res;
-                };
+                return $res;
+            };
+
+            self::$logger->info(' * Remove clazz prefix');
             /** @var string[] */
             $actual = array_map($callback, $actualConsts);
+            self::$logger->info(' * Flip constants');
             $actual = array_flip($actual);
+            self::$logger->info(' * Sort constants');
             ksort($actual);
+            self::$logger->info(' * Get array keys');
             $actual = array_keys($actual);
-            static::assertEqualsCanonicalizing(
-                $expected,
-                $actual,
+
+            self::$logger->info(' * Verify expected vs actual constants');
+            $difference = array_merge(array_diff($expected, $actual), array_diff($actual, $expected));
+            self::$logger->debug(' * expected  :', [$expected]);
+            self::$logger->debug(' * actual    :', [$actual]);
+            self::$logger->debug(' * difference:', [count($difference), $difference]);
+            self::$logger->info('CrossCheck ended', [count($difference) == self::DIFF_ZERO, $clazz]);
+            self::assertCount(
+                self::DIFF_ZERO,
+                $difference,
                 'You have forgotten to check: ' . print_r(array_diff($expected, $actual), true)
             );
         }
@@ -197,7 +216,7 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
         ksort($allDefinedConsts);
         [$actual, $actualConstsCount] = self::checkConstantsCount(self::$expectedConstsCount, $allDefinedConsts);
 
-        static::assertTrue(
+        self::assertTrue(
             $actual,
             sprintf('Constants, expected count is not reached by actual count [%s, %s] ', self::$expectedConstsCount, $actualConstsCount)
         );
@@ -253,8 +272,8 @@ abstract class ConstantCheckTestCase extends EasyGoingTestCase
         self::$logger->debug('START');
 
         $constantValue = self::getConstValue($this->o2t, $constantName);
-        static::assertIsArray($constantValue);
-        static::assertCount($expectedSize, $constantValue);
+        self::assertIsArray($constantValue, sprintf('Constant \'%s\' is not an array!', $constantName));
+        self::assertCount($expectedSize, $constantValue, sprintf('Constant \'%s\' array size is not matching!', $constantName));
 
         self::$logger->debug('END');
     }

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ollily\Tools\Reflection;
 
 use PHPUnit\Framework\TestCase;
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 class ChildClazzesHelperTest extends TestCase
 {
@@ -49,7 +49,7 @@ class ChildClazzesHelperTest extends TestCase
     {
         return [
             'noChildren' => [0, ChildClazzesHelperTest::class,[]],
-            'clazzNotExists' => [0, TestData::C_NOTEXIST_NAME,[]],
+            'clazzNotExists' => [0, TestData::NOTEXIST_NAME,[]],
             'oneOrManyChildren' => [31, TestCase::class,[self::class], false],
         ];
     }

@@ -424,6 +424,8 @@ Relevant files and folders
     |  |- *
     |
     |-.php-cs-fixer.dist.php
+	|-.phpcs.xml.dist
+	|-.phpmd.xml.dist
     |-composer.json
     |-composer.lock
     |-LICENSE

@@ -19,12 +19,18 @@ use Monolog\Logger;
 use Monolog\Processor\PaddingProcessor;
 use Psr\Log\LoggerInterface;
 
-class StopNow
+/**
+ * Utility class to stop an application.
+ */
+class Emergency
 {
-    public const  ERR_MSG_DEFAULT = 'Undefined reason to stop now!';
+    /** Default message */
+    public const  MSG_DEFAULT = 'Undefined reason to stop now!';
 
+    /** Default code */
     public const  ERR_CODE_DEFAULT = 1;
 
+    /** Maximum code which is allowed. */
     private const ERR_CODE_MAX = 254;
 
     /** @var LoggerInterface */
@@ -44,7 +50,7 @@ class StopNow
         if (is_null(self::$logger)) {
             $handler = new ErrorLogHandler();
             $handler->setFormatter(new EasyGoingFormatter());
-            self::$logger = new Logger(StopNow::class, [$handler]);
+            self::$logger = new Logger(Emergency::class, [$handler]);
             self::$logger->pushProcessor(new PaddingProcessor());
         }
     }
@@ -60,37 +66,41 @@ class StopNow
     }
 
     /**
-     * @param \Throwable $throwable
-     * @param bool       $unitTest  TRUE=don't call exit(), it's an unit test (Default: FALSE)
+     * Immediately stopping the application caused by an exception. As a hmomage to "Knight Rider".
      *
-     * @return int errorcode
+     * @param \Throwable $throwable The exception which is thrown to end the application
+     * @param bool       $unitTest  TRUE=don't call exit(), it's an unit test, FALSE= Standard termination (Default: FALSE)
+     *
+     * @return int The error code for ending the application
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
-    public static function stopException(\Throwable $throwable, bool $unitTest = false): int
+    public static function exceptionStop(\Throwable $throwable, bool $unitTest = false): int
     {
         $errMsg = sprintf('\%s %s', get_class($throwable), $throwable->getMessage());
 
         /** @psalm-suppress PossiblyInvalidArgument */
-        return static::stop($throwable->getCode(), $errMsg, $unitTest);
+        return static::breakSystem($throwable->getCode(), $errMsg, $unitTest);
     }
 
     /**
-     * @param int    $errorCode
-     * @param string $errorMessage
-     * @param bool   $unitTest     TRUE=don't call exit(), it's an unit test (Default: FALSE)
+     * Immediately stopping the application. As a hmomage to "Knight Rider"'s "Emergency Break System".
      *
-     * @return int errorcode
+     * @param int    $errorCode    The error code for ending the application
+     * @param string $errorMessage The error message for ending the application
+     * @param bool   $unitTest     TRUE=don't call exit(), it's an unit test, FALSE= Standard termination (Default: FALSE)
+     *
+     * @return int The error code for ending the application
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
-    public static function stop(int $errorCode = self::ERR_CODE_DEFAULT, string $errorMessage = '', bool $unitTest = false): int
+    public static function breakSystem(int $errorCode = self::ERR_CODE_DEFAULT, string $errorMessage = '', bool $unitTest = false): int
     {
         if ($errorCode < self::ERR_CODE_DEFAULT || $errorCode > self::ERR_CODE_MAX) {
             $errorCode = self::ERR_CODE_DEFAULT;
         }
         if (empty($errorMessage)) {
-            $errorMessage = self::ERR_MSG_DEFAULT;
+            $errorMessage = self::MSG_DEFAULT;
         }
         self::getLogger()->emergency($errorMessage, [$errorCode]);
         if (!$unitTest) {

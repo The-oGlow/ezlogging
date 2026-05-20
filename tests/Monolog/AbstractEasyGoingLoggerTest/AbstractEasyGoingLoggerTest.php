@@ -34,9 +34,9 @@ class AbstractEasyGoingLoggerTest extends TestCase
     protected $o2t;
 
     /**
-     * @param mixed   $name
-     * @param mixed[] $data
-     * @param string  $dataName
+     * @param mixed              $name
+     * @param array<mixed,mixed> $data
+     * @param string             $dataName
      */
     public function __construct($name = null, $data = [], $dataName = '')
     {

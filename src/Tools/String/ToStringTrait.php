@@ -40,7 +40,7 @@ trait ToStringTrait
                     $value[$arrayKey] = get_class($value[$arrayKey]);
                 }
             }
-            $toString = sprintf('%s:[%s]', get_class($this), implode(',', $value));
+            $toString = sprintf('%s:[%s]', get_class($this), $this->implode_recursive(',', $value));
         } elseif (is_object($value)) {
             if ($this == $value) {
                 $toString = sprintf('{%s}', print_r($value, true));

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace ollily\Tools\String\ImplodeTraitTest;
 
-use ollily\Tools\TestData;
+use ollily\Tools\Test\TestData;
 
 /**
  * A simple clazz which will be used by the dummy clazz.
@@ -23,8 +23,8 @@ use ollily\Tools\TestData;
 class ImplodeTraitTestFooClazz
 {
     /** @var array<mixed,mixed> */
-    public $dummyData =  TestData::C_ARRAY_NUM_KEY2;
+    public $dummyData =  TestData::ARRAY_NUM_KEY2;
 
     /** @var array<mixed,mixed> */
-    public $dummyEmpty = TestData::C_ARRAY_EMPTY;
+    public $dummyEmpty = TestData::ARRAY_EMPTY;
 }
