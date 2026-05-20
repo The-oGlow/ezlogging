@@ -33,9 +33,6 @@ image:{cm_shlds_tool_phpmd_url}[title="PHP Mess Detector Ruleset"]
 Simplify the usage of
 
 * Logging with Monolog
-* Testing with PHPUnit
-* Reflection with PHP
-* Developer shortkeys for composer
 
 == Configuration
 

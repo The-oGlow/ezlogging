@@ -56,13 +56,9 @@ Relevant files and folders
     <project-root>
     |--src
     |  |-- Monolog
-    |  |-- PHPUnit
-    |  |-- Tools
     |
     |--tests
     |  |-- Monolog
-    |  |-- PHPUnit
-    |  |-- Tools
     |
     |--vendor
     |  |- *
