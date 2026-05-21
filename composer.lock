@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7b9bf4a89a4ef4dca9c60a8ecd69cb4",
+    "content-hash": "2692e107024aaf095b9b369daffbe1b1",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -879,23 +879,26 @@
         },
         {
             "name": "ollily/ezkoding",
-            "version": "0.01.000",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/The-oGlow/ezkoding.git",
-                "reference": "c0257f1db30b50f28959f7e22cf279861381d1b9"
+                "reference": "2297a2cb939cb4099728835abd1a02bc3d9c1d14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/The-oGlow/ezkoding/zipball/c0257f1db30b50f28959f7e22cf279861381d1b9",
-                "reference": "c0257f1db30b50f28959f7e22cf279861381d1b9",
+                "url": "https://api.github.com/repos/The-oGlow/ezkoding/zipball/2297a2cb939cb4099728835abd1a02bc3d9c1d14",
+                "reference": "2297a2cb939cb4099728835abd1a02bc3d9c1d14",
                 "shasum": ""
             },
             "require": {
                 "composer/composer": "^2.0",
-                "ollily/ezlogging": "dev-develop",
                 "php": ">=7.4",
-                "php-ds/php-ds": "^1.0"
+                "php-ds/php-ds": "^1.0",
+                "psr/log": "^1.0||^2.0||^3.0"
+            },
+            "provide": {
+                "psr/log-implementation": "^1.0||^2.0||^3.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
@@ -915,6 +918,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "Monolog\\": "src/Monolog",
                     "PHPUnit\\": "src/PHPUnit",
                     "ollily\\Tools\\": "src/Tools"
                 }
@@ -940,9 +944,6 @@
             "description": "Simplify the usage of - Testing with PHPUnit - Reflection with PHP - Developer shortkeys for composer",
             "homepage": "https://github.com/ollily/ezkoding",
             "keywords": [
-                "logger",
-                "logging",
-                "monolog",
                 "php",
                 "phpunit",
                 "reflection",
@@ -951,9 +952,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ollily/ezkoding/issues",
-                "source": "https://github.com/The-oGlow/ezkoding/tree/0.01.000"
+                "source": "https://github.com/The-oGlow/ezkoding/tree/develop"
             },
-            "time": "2026-05-20T19:50:09+00:00"
+            "time": "2026-05-21T15:51:59+00:00"
         },
         {
             "name": "php-ds/php-ds",
@@ -7201,7 +7202,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "ollily/ezkoding": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
