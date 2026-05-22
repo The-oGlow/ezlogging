@@ -59,9 +59,6 @@ Please read the link:analysis.adoc[project status].
 link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
 
 == Reference
+* link:https://www.php-fig.org/psr/psr-3/[PSR-3 Logger Interface]
 * link:https://seldaek.github.io/monolog[Monolog]
-* link:https://phpunit.de/[PHPUnit]
-* link:https://www.php.net/manual/en/book.reflection.php[Reflection with PHP]
-* link:https://getcomposer.org/[Composer]
-
 _{pj_cright_author}_
