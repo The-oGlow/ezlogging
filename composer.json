@@ -32,7 +32,7 @@
     "require": {
         "php": ">=7.4",
         "php-ds/php-ds": "^1.0",
-        "ollily/ezkoding": "dev-develop",
+        "ollily/ezkoding": "^0.2",
         "monolog/monolog": "^2.10",
         "psr/log": "^1.0||^2.0||^3.0"
     },
