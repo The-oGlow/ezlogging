@@ -13,25 +13,26 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 use Monolog\FileLoggerTest\FileLoggerTestTrait;
-use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\CsvHandler;
 use PHPUnit\Framework\TestCase;
 
 class CsvLoggerTest extends TestCase
 {
-    use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
+    use AbstractEasyGoingLoggerTestTrait;
     use FileLoggerTestTrait;
 
-    public const TEST_MSG = 'Message';
+    public const string TEST_MSG = 'Message';
 
-    public const TEST_CONTEXT_STRING = 'ContextString';
+    public const string TEST_CONTEXT_STRING = 'ContextString';
 
-    public const TEST_CONTEXT_ARRAY = ['Context01', 'Context02'];
+    /** @var array<string> */
+    public const array TEST_CONTEXT_ARRAY = ['Context01', 'Context02'];
 
-    /** @var CsvLogger */
-    protected $o2t;
+    protected CsvLogger $o2t;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -44,9 +45,8 @@ class CsvLoggerTest extends TestCase
         self::assertInstanceOf(CsvLogger::class, $this->o2t);
         $handlers = $this->o2t->getHandlers();
         self::assertNotEmpty($handlers);
-        self::assertCount(2, $handlers);
-        self::assertInstanceOf(ConsoleHandler::class, $handlers[0]);
-        self::assertInstanceOf(CsvHandler::class, $handlers[1]);
+        self::assertCount(1, $handlers);
+        self::assertInstanceOf(CsvHandler::class, $handlers[0]);
     }
 
     public function testWriteHeader(): void
@@ -58,7 +58,10 @@ class CsvLoggerTest extends TestCase
 
         if (file_exists($csvLoggerFileName)) {
             $csvLoggerContent = str_replace("\n", '', (string) file_get_contents($csvLoggerFileName));
-            /** @psalm-suppress ArgumentTypeCoercion */
+            /**
+             * @psalm-suppress ArgumentTypeCoercion
+             * @phpstan-ignore argument.type
+             */
             $actualHeader = explode($csvLogger->getItemSeparator(), $csvLoggerContent);
             unlink($csvLoggerFileName);
             self::assertEquals($expectedHeader, $actualHeader);
@@ -86,7 +89,7 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message);
 
-        self::expectOutputRegex($expected);
+        $this->verifyFileContent($expected, self::$fileName);
     }
 
     public function testOutWithMessageAndContextString(): void
@@ -97,7 +100,7 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message, $context);
 
-        self::expectOutputRegex($expected);
+        $this->verifyFileContent($expected, self::$fileName);
     }
 
     public function testOutWithMessageAndContextArray(): void
@@ -108,6 +111,6 @@ class CsvLoggerTest extends TestCase
 
         $this->o2t->out($message, $context);
 
-        self::expectOutputRegex($expected);
+        $this->verifyFileContent($expected, self::$fileName);
     }
 }

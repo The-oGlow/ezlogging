@@ -15,8 +15,8 @@ namespace Monolog;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\PlainFormatter;
-use Monolog\Handler\NoopHandler;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\NoopHandler;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
 
@@ -32,33 +32,24 @@ use Monolog\Processor\ProcessorInterface;
  */
 class DoNothingLogger extends AbstractEasyGoingLogger
 {
-    /**
-     * DoNothingLogger constructor.
-     */
     public function __construct()
     {
         parent::__construct(DoNothingLogger::class, self::LEVEL_DEFAULT, [], [], null);
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return new NoopHandler();
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new PlainProcessor();
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new PlainFormatter();

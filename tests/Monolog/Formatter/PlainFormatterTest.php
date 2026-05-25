@@ -20,9 +20,9 @@ class PlainFormatterTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var PlainFormatter */
-    protected $o2t;
+    protected PlainFormatter $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

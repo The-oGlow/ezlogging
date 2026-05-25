@@ -17,9 +17,9 @@ use PHPUnit\Framework\TestCase;
 
 class CsvHandlerTest extends TestCase
 {
-    /** @var CsvHandler */
-    protected $o2t;
+    protected CsvHandler $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

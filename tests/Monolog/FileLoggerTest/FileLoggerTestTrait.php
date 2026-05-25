@@ -26,44 +26,32 @@ trait FileLoggerTestTrait
 {
     use ImplodeTrait;
 
-    /** @var bool */
-    public $silentIsExists = false;
+    public bool $silentIsExists = false;
 
-    /** @var string */
-    private $MESSAGE_EMPTY = '';
+    private string $MESSAGE_EMPTY = '';
 
-    /** @var string */
-    private $MESSAGE_1 = '-message_1';
+    private string $MESSAGE_1 = '-message_1';
 
-    /** @var string */
-    private $MESSAGE_2 = 'message_2';
+    private string $MESSAGE_2 = 'message_2';
 
-    /** @var string */
-    private $CONTEXT_1 = 'context_1';
+    private string $CONTEXT_1 = 'context_1';
 
-    /** @var string */
-    private $CONTEXT_2 = 'context_2';
+    private string $CONTEXT_2 = 'context_2';
 
     /** @var array<mixed,mixed> */
-    private $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
+    private array $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
 
-    /** @var string */
-    private $PH_CNTX = '#CNTX#';
+    private string $PH_CNTX = '#CNTX#';
 
-    /** @var string */
-    private $PH_MSG = '#MSG#';
+    private string $PH_MSG = '#MSG#';
 
-    /** @var string */
-    private $REGEX_MSG = '/.*^("|)#MSG#("|)$.*/m';
+    private string $REGEX_MSG = '/.*^("|)#MSG#("|)$.*/m';
 
-    /** @var string */
-    private $REGEX_MSG_N_CNTX = '/.*^("|)#MSG#("|);("|)#CNTX#("|)$.*/m';
+    private string $REGEX_MSG_N_CNTX = '/.*^("|)#MSG#("|);("|)#CNTX#("|)$.*/m';
 
-    /** @var string */
-    private $methodName = 'out';
+    private string $methodName = 'out';
 
-    /** @var string */
-    private static $fileName;
+    private static string $fileName;
 
     public static function tearDownAfterClass(): void
     {
@@ -76,23 +64,20 @@ trait FileLoggerTestTrait
     public function tearDown(): void
     {
         if (file_exists(self::$fileName)) {
-            echo "\n\nAfter running '" . $this->currentTestMethod() . "', the content of '" . self::$fileName . "'\n";
-            echo file_get_contents(self::$fileName);
+            echo "\ntearDown()\nAfter running '" . $this->currentTestMethod() . "', the content of '" . self::$fileName . "'\n";
+            echo $this->currentFileContent(self::$fileName);
             echo "\n";
         }
         self::tearDownAfterClass();
         parent::tearDown();
     }
 
-    /**
-     * var FL $this->o2t.
-     */
     public function testFileCreated(): void
     {
         tCase::assertNotEmpty(self::$fileName);
         tCase::assertFileDoesNotExist(self::$fileName);
         if ($this->isExists('info')) {
-            $this->o2t->info('Write a log line');
+            $this->o2t->info('Write text into:', [self::$fileName]);
         }
         tCase::assertFileExists(self::$fileName);
     }
@@ -110,12 +95,12 @@ trait FileLoggerTestTrait
 
             $expectedMsg = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG);
 
-            $this->expectOutputRegex($expectedMsg);
+            $this->verifyFileContent($expectedMsg, self::$fileName);
         }
     }
 
     /**
-     * @psalm-suppress UndefinedMethod,DocblockTypeContradiction,RedundantConditionGivenDocblockType
+     * @psalm-suppress UndefinedMethod
      */
     public function testWriteOneMessageOneContext(): void
     {
@@ -127,9 +112,9 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = (is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context);
+            $expectedContext = (is_array($context) ? self::implode_recursive(self::DEFAULT_ITEM_SEP, $context) : $context);
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
@@ -147,14 +132,14 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context, $context2);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = $this->implode_recursive($this->DEFAULT_ITEM_SEP(), [$context, $context2]);
+            $expectedContext = self::implode_recursive(self::DEFAULT_ITEM_SEP, [$context, $context2]);
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
     /**
-     * @psalm-suppress DocblockTypeContradiction,UndefinedMethod,RedundantCondition
+     * @psalm-suppress UndefinedMethod,RedundantCondition
      */
     public function testWriteEmptyMessageSimpleContext(): void
     {
@@ -166,9 +151,9 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = (is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context);
+            $expectedContext = (is_array($context) ? self::implode_recursive(self::DEFAULT_ITEM_SEP, $context) : $context);
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
@@ -187,14 +172,14 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context, $context2, $context3);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = $this->implode_recursive($this->DEFAULT_ITEM_SEP(), [$context, $context2, $context3]);
+            $expectedContext = self::implode_recursive(self::DEFAULT_ITEM_SEP, [$context, $context2, $context3]);
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
     /**
-     * @psalm-suppress UndefinedMethod,RedundantConditionGivenDocblockType,DocblockTypeContradiction
+     * @psalm-suppress UndefinedMethod
      */
     public function testWriteMessageComplexContext(): void
     {
@@ -206,9 +191,9 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = is_array($context) ? str_replace(['[', ']'], '', $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context)) : $context;
+            $expectedContext = is_array($context) ? str_replace(['[', ']'], '', self::implode_recursive(self::DEFAULT_ITEM_SEP, $context)) : $context;
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
@@ -225,9 +210,9 @@ trait FileLoggerTestTrait
             $this->o2t->out($renderMessage, $context);
 
             $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context;
+            $expectedContext = is_array($context) ? self::implode_recursive(self::DEFAULT_ITEM_SEP, $context) : $context;
 
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
@@ -248,7 +233,27 @@ trait FileLoggerTestTrait
 
     protected function currentTestMethod(): string
     {
-        return $this->getName();
+        return $this->name();
+    }
+
+    protected function currentFileContent(string $fileName): string
+    {
+        $content = '';
+        if (file_exists($fileName)) {
+            $content = file_get_contents($fileName);
+        }
+        if ($content == false) {
+            $content = '';
+        }
+
+        return $content;
+    }
+
+    protected function verifyFileContent(string $expected, string $fileName): void
+    {
+        $actual = $this->currentFileContent($fileName);
+
+        self::assertMatchesRegularExpression($expected, $actual);
     }
 
     /**
@@ -257,9 +262,9 @@ trait FileLoggerTestTrait
      *
      * @return bool
      */
-    private function isExists(?string $methodName = null, LoggerInterface $logger = null): bool
+    private function isExists(?string $methodName = null, ?LoggerInterface $logger = null): bool
     {
-        $methodName = $methodName ?? $this->methodName;
+        $methodName ??= $this->methodName;
         $exists     = method_exists($this->o2t, $methodName);
 
         if (!$exists) {

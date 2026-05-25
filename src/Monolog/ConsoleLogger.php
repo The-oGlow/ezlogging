@@ -28,25 +28,19 @@ use Monolog\Processor\ProcessorInterface;
  */
 class ConsoleLogger extends AbstractEasyGoingLogger
 {
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new PaddingProcessor();
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new EasyGoingFormatter();

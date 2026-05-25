@@ -20,6 +20,7 @@ use Monolog\Processor\ProcessorInterface;
  */
 class AbstractEasyGoingLoggerTestProcessorDummyClazz implements ProcessorInterface
 {
+    #[\Override]
     public function __invoke(array $record)
     {
         return $record;

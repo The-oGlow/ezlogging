@@ -15,22 +15,19 @@ namespace Monolog;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class PlainLoggerTest.
- */
 class PlainLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
-    /** @var PlainLogger */
-    protected $o2t;
+    protected PlainLogger $o2t;
 
-    /** @var string[] */
-    private $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
+    /** @var array<string> */
+    private array $logMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
 
     /** @var array<mixed,mixed> */
-    private $context = ['value 1', 2 => 'value 2', 3];
+    private array $context = ['value 1', 2 => 'value 2', 3];
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -80,7 +77,7 @@ class PlainLoggerTest extends TestCase
     }
 
     /**
-     * @param string[]           $levels
+     * @param array<string>      $levels
      * @param array<mixed,mixed> $context
      *
      * @return bool
@@ -92,6 +89,10 @@ class PlainLoggerTest extends TestCase
         try {
             foreach ($levels as $level) {
                 $msg = "logging with log & '$level'" . (empty($context) ? '' : ' & a context');
+                /**
+                 * @psalm-suppress ArgumentTypeCoercion
+                 * @phpstan-ignore argument.type
+                 */
                 $this->o2t->log($level, $msg, $context);
                 $result = true;
             }
@@ -103,7 +104,7 @@ class PlainLoggerTest extends TestCase
     }
 
     /**
-     * @param string[]           $logMethods
+     * @param array<string>      $logMethods
      * @param array<mixed,mixed> $context
      *
      * @return bool

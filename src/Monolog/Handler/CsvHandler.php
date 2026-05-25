@@ -29,32 +29,32 @@ class CsvHandler extends FileHandler
     use PhpVersionTrait;
     use ImplodeTrait;
 
-    /** @var string Fallback filename */
-    public const    STANDARD_FILENAME = 'noCSVName';
+    /** Fallback filename */
+    public const string STANDARD_FILENAME = 'noCSVName';
 
-    /** @var string Default file extension */
-    public const    STANDARD_FILEEXT     = '.csv';
+    /** Default file extension */
+    public const string STANDARD_FILEEXT     = '.csv';
 
-    /** @var string Default separator char for each column */
-    public const    STANDARD_ITEM_SEP    = ';';
+    /** Default separator char for each column */
+    public const string STANDARD_ITEM_SEP    = ';';
 
-    /** @var string Default char enclosing each column value */
-    public const    STANDARD_TEXT_SEP    = '"';
+    /** Default char enclosing each column value */
+    public const string STANDARD_TEXT_SEP    = '"';
 
-    /** @var string Default char for escaping char */
-    public const    STANDARD_ESCAPE_CHAR = '\\';
+    /** Default char for escaping char */
+    public const string STANDARD_ESCAPE_CHAR = '\\';
 
-    /** var string Relevant PHP version */
-    protected const CHECKVERSION = '5.5.4';
+    /** Relevant PHP version */
+    protected const string CHECKVERSION = '5.5.4';
 
-    /** @var string Key of the formatted in the output record */
-    protected const KEY_FORMATTED        = 'formatted';
+    /** Key of the formatted in the output record */
+    protected const string KEY_FORMATTED        = 'formatted';
 
-    /** @var string The separator char for each column */
-    private $itemSeparator;
+    /** The separator char for each column */
+    private string $itemSeparator;
 
-    /** @var string The char enclosing each column value */
-    private $itemEnclosure;
+    /** The char enclosing each column value */
+    private string $itemEnclosure;
 
     /**
      * CsvHandler constructor.
@@ -74,7 +74,7 @@ class CsvHandler extends FileHandler
         ?string $fileName = null,
         string $itemSeparator = self::STANDARD_ITEM_SEP,
         string $itemEnclosure = self::STANDARD_TEXT_SEP,
-        $level = self::LEVEL_DEFAULT
+        mixed $level = self::LEVEL_DEFAULT
     ) {
         parent::__construct($pathToFile, $fileName, $level);
         $this->itemSeparator = $itemSeparator;
@@ -82,8 +82,9 @@ class CsvHandler extends FileHandler
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
+    #[\Override]
     protected function streamWrite($stream, array $record): void
     {
         $output = [];

@@ -29,35 +29,32 @@ use Monolog\Logger;
  */
 class PaddingProcessor implements ProcessorInterface
 {
-    /** @var int */
-    private $level;
+    private int $level;
 
-    /** @var string[] */
-    private $skipClassesPartials;
+    /** @var array<string> */
+    private array $skipClassesPartials;
 
-    /** @var int */
-    private $skipStackFramesCount;
+    private int $skipStackFramesCount;
 
-    /** @var string[] */
-    private $skipFunctions = [
+    /** @var array<string> */
+    private array $skipFunctions = [
         'call_user_func',
-        'call_user_func_array'
+        'call_user_func_array',
     ];
 
     /**
-     * @param mixed    $level
-     *                                       The minimum logging level at which this Processor will be triggered
-     * @param string[] $skipClassesPartials
-     * @param int      $skipStackFramesCount
+     * @param mixed         $level                The minimum logging level at which this Processor will be triggered
+     * @param array<string> $skipClassesPartials
+     * @param int           $skipStackFramesCount
      *
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
-    public function __construct($level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
+    public function __construct(mixed $level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
         $this->level                = Logger::toMonologLevel($level);
         $this->skipClassesPartials  = array_merge(
             [
-                'Monolog\\'
+                'Monolog\\',
             ],
             $skipClassesPartials
         );
@@ -75,7 +72,8 @@ class PaddingProcessor implements ProcessorInterface
      *
      * @phpstan-ignore method.childReturnType
      */
-    public function __invoke(array $record)
+    #[\Override]
+    public function __invoke(array $record): array
     {
         $record                   = $this->__invokeIntrospection($record);
         $record['level_name_pad'] = str_pad($record['level_name'], 8, ' ', STR_PAD_RIGHT);
@@ -84,9 +82,9 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param mixed[] $record
+     * @param array<mixed,mixed> $record
      *
-     * @return mixed[]
+     * @return array<mixed,mixed>
      */
     private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
     {
@@ -107,7 +105,7 @@ class PaddingProcessor implements ProcessorInterface
         while ($this->isTraceClassOrSkippedFunction($trace, $index)) {
             if (isset($trace[$index]['class'])) {
                 foreach ($this->skipClassesPartials as $part) {
-                    if (strpos($trace[$index]['class'], $part) !== false) {
+                    if (str_contains($trace[$index]['class'], $part)) {
                         $index++;
 
                         continue 2;
@@ -134,7 +132,7 @@ class PaddingProcessor implements ProcessorInterface
                 'xLine'     => $prevTrace['line'] ?? null,
                 'xClass'    => $curTrace['class'] ?? null,
                 'xCallType' => $curTrace['type'] ?? null,
-                'xFunction' => $curTrace['function']
+                'xFunction' => $curTrace['function'],
             ];
             $record    = array_merge($record, $xDetails);
         }
@@ -143,8 +141,8 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param mixed[] $trace
-     * @param int     $index
+     * @param array<mixed,mixed> $trace
+     * @param int                $index
      *
      * @return bool
      */

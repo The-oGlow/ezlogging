@@ -24,24 +24,33 @@ use Monolog\Processor\ProcessorInterface;
 class AbstractEasyGoingLoggerTestDummyClazz extends AbstractEasyGoingLogger
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return new AbstractEasyGoingLoggerTestHandlerDummyClazz();
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new AbstractEasyGoingLoggerTestProcessorDummyClazz();
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new AbstractEasyGoingLoggerTestFormatterDummyClazz();

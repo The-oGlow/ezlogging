@@ -15,7 +15,6 @@ namespace Monolog\FileLoggerTest;
 
 use Monolog\AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 use Monolog\FileLogger;
-use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\FileHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -27,9 +26,9 @@ class FileLoggerTest extends TestCase
     use AbstractEasyGoingLoggerTestTrait;
     use FileLoggerTestTrait;
 
-    /** @var FileLogger */
-    protected $o2t;
+    protected FileLogger $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -41,15 +40,15 @@ class FileLoggerTest extends TestCase
 
     public function testConfiguration(): void
     {
-        $expectedCount = 2;
+        $expectedCount = 1;
+
         self::assertInstanceOf(FileLogger::class, $this->o2t);
 
         $handlers = $this->o2t->getHandlers();
 
-        self::assertNotEmpty($handlers, var_export($handlers, true));
-        self::assertCount($expectedCount, $handlers, var_export($handlers, true));
-        self::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
-        self::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
+        self::assertNotEmpty($handlers, print_r($handlers, true));
+        self::assertCount($expectedCount, $handlers, print_r($handlers, true));
+        self::assertInstanceOf(FileHandler::class, $handlers[0], print_r($handlers, true));
     }
 
     public function testFileCreated(): void
@@ -64,18 +63,17 @@ class FileLoggerTest extends TestCase
 
     public function testCreateWithCustomHandler(): void
     {
-        $expectedCount = 3;
+        $expectedCount = 2;
 
         $o2tB = new FileLogger(uniqid(self::class, true), sys_get_temp_dir(), [new FileLoggerTestHandlerDummyClazz()]);
         self::assertInstanceOf(FileLogger::class, $o2tB);
 
         $handlers = $o2tB->getHandlers();
 
-        self::assertNotEmpty($handlers, var_export($handlers, true));
-        self::assertCount($expectedCount, $handlers, var_export($handlers, true));
-        self::assertInstanceOf(ConsoleHandler::class, $handlers[0], var_export($handlers, true));
-        self::assertInstanceOf(FileHandler::class, $handlers[1], var_export($handlers, true));
-        self::assertInstanceOf(FileLoggerTestHandlerDummyClazz::class, $handlers[2], var_export($handlers, true));
+        self::assertNotEmpty($handlers, print_r($handlers, true));
+        self::assertCount($expectedCount, $handlers, print_r($handlers, true));
+        self::assertInstanceOf(FileHandler::class, $handlers[0], print_r($handlers, true));
+        self::assertInstanceOf(FileLoggerTestHandlerDummyClazz::class, $handlers[1], print_r($handlers, true));
     }
 
     public function testGetFileNameEmpty(): void

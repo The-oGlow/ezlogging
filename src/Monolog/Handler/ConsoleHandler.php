@@ -23,11 +23,11 @@ use Psr\Log\LogLevel;
  */
 class ConsoleHandler extends StreamHandler
 {
-    /** @var string Standard output stream */
-    public const HANDLER_STDOUT = "php://stdout";
+    /** Standard output stream */
+    public const string HANDLER_STDOUT = "php://stdout";
 
-    /** @var string Default output level (INFO) */
-    public const LEVEL_DEFAULT =  LogLevel::INFO;
+    /** Default output level (INFO) */
+    public const string LEVEL_DEFAULT =  LogLevel::INFO;
 
     /**
      * ConsoleHandler constructor.
@@ -37,7 +37,7 @@ class ConsoleHandler extends StreamHandler
      * @see ConsoleHandler::LEVEL_DEFAULT;
      * @see ConsoleHandler::HANDLER_STDOUT;
      */
-    public function __construct($level = self::LEVEL_DEFAULT)
+    public function __construct(mixed $level = self::LEVEL_DEFAULT)
     {
         parent::__construct(self::HANDLER_STDOUT, $level);
     }

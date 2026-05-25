@@ -27,27 +27,22 @@ class AbstractEasyGoingLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTestTrait;
 
-    /** @var LoggerInterface */
-    private static $logger;
+    private static LoggerInterface $logger;
 
-    /** @var AbstractEasyGoingLoggerTestDummyClazz */
-    protected $o2t;
+    protected AbstractEasyGoingLoggerTestDummyClazz $o2t;
 
-    /**
-     * @param mixed              $name
-     * @param array<mixed,mixed> $data
-     * @param string             $dataName
-     */
-    public function __construct($name = null, $data = [], $dataName = '')
+    #[\Override]
+    public static function setUpBeforeClass(): void
     {
         self::$logger = new Logger(AbstractEasyGoingLoggerTest::class);
         self::$logger->debug('START');
 
-        parent::__construct($name, $data, $dataName);
+        parent::setUpBeforeClass();
 
         self::$logger->debug('END');
     }
 
+    #[\Override]
     public function setUp(): void
     {
         self::$logger->debug('START');

@@ -20,11 +20,11 @@ namespace Monolog\Formatter;
  */
 class EasyGoingFormatter extends LineFormatter
 {
-    /** @var string Default output format */
-    public const FORMATTER_OUTPUT = "\n%datetime% [%level_name_pad%] %channel%->%xFunction%() - %message% %context% %extra%";
+    /** Default output format */
+    public const string FORMATTER_OUTPUT = "\n%datetime% [%level_name_pad%] %channel%->%xFunction%() - %message% %context% %extra%";
 
-    /** @var string Default datetime format */
-    public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
+    /** Default datetime format */
+    public const string FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
      * EasyGoingFormatter constructor.
@@ -43,11 +43,11 @@ class EasyGoingFormatter extends LineFormatter
      * @SuppressWarnings("PHPMD.LongVariable")
      */
     public function __construct(
-        $format = self::FORMATTER_OUTPUT,
-        $dateFormat = self::FORMATTER_DATEFORMAT,
-        $allowInlineLineBreaks = true,
-        $ignoreEmptyContextAndExtra = true,
-        $includeStacktraces = false
+        ?string $format = self::FORMATTER_OUTPUT,
+        ?string $dateFormat = self::FORMATTER_DATEFORMAT,
+        bool $allowInlineLineBreaks = true,
+        bool $ignoreEmptyContextAndExtra = true,
+        bool $includeStacktraces = false
     ) {
         parent::__construct(
             self::FORMATTER_OUTPUT,
