@@ -23,6 +23,7 @@ use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\CsvHandler;
 use Monolog\Handler\FileHandler;
 use Monolog\Handler\NoopHandler;
+use Monolog\Handler\TestHandler;
 use Monolog\PlainLogger;
 use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\PlainProcessor;
@@ -52,11 +53,19 @@ trait AbstractEasyGoingLoggerTestTrait
 
         $handlers = $this->callMethodOnO2t('getHandlers');
         self::assertNotEmpty($handlers);
-        self::assertCount(
-            1,
-            $handlers,
-            sprintf('Has unexptected number of handlers: \'%s\' => %s', $actualClazz, print_r($handlers, true))
-        );
+        if (count($handlers) == 2) {
+            self::assertInstanceOf(
+                TestHandler::class,
+                $handlers[0],
+                sprintf('When having two handler, the first handler must be the Monolog/Handler/TestHandler: \'%s\'', $actualClazz)
+            );
+        } else {
+            self::assertCount(
+                1,
+                $handlers,
+                sprintf('Has unexptected number of handlers: \'%s\' => %s', $actualClazz, print_r($handlers, true))
+            );
+        }
         /**
          * @psalm-suppress RedundantPropertyInitializationCheck
          */
@@ -73,6 +82,7 @@ trait AbstractEasyGoingLoggerTestTrait
             ConsoleHandler::class,
             CsvHandler::class,
             FileHandler::class,
+            TestHandler::class,
             ];
 
         $actualResult = $this->callMethodOnO2t('getDefaultHandler');

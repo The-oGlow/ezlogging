@@ -20,14 +20,6 @@ parameters:
     ignoreErrors:
         # Too strict -> disabled
         -
-            identifier: function.alreadyNarrowedType
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: function.impossibleType
-            paths:
-                - tests/*/*TestTrait.php
-        -
             identifier: method.dynamicName
             paths:
                 - tests/*/*TestTrait.php
