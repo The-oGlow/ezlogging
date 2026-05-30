@@ -363,86 +363,76 @@ endif::[]
 
 :source-highlighter: highlight.js
 
-= {pj_gh_repo}
-:toc: preamble
+= {pj_gh_repo} - Analysis
+:toc:
 :toclevels: 2
 
-{pj_ps_license_img}
-{pj_ps_release_img}
-{pj_ps_langtop_img}
-{pj_ps_langcount_img}
-{pj_ps_issues_img}
+== Quality Analysis
 
-{cm_shlds_tool_phpunit_img}
-{cm_shlds_tool_sonarcloud_img}
-{cm_shlds_tool_cdcy_img}
-{cm_shlds_tool_cvrlls_img}
+=== Project Status
+.Project Status
+[%header,frame=ends,valign=top,halign=center,width=200px]
+|===
+^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
+3+|link:{pj_gh_vcsid_url}[Github]
+|Checks
+^|image:{pj_bs_brnch1_checkruns_url}[]
+^|image:{pj_bs_brnch2_checkruns_url}[]
+|Status
+^|image:{pj_bs_brnch1_status_url}[]
+^|image:{pj_bs_brnch2_status_url}[]
+|===
 
-image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
-image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
-image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
-image:{cm_shlds_tool_phpcs_url}[title="PHP CodeSniffer Ruleset""]
-image:{cm_shlds_tool_phpmd_url}[title="PHP Mess Detector Ruleset"]
+=== Quality Information
+.Quality Information
+[%header,frame=ends,valign=top,halign=center]
+|===
+^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
+3+|link:{pj_snr_dash_url}[Sonarcloud]
+|Quality Gate
+2+^|image:{pj_qi_snr_qgate_url}[]
+|Details
+^|image:{pj_qi_snr_brnch1_qgate_url}[]
+^|image:{pj_qi_snr_brnch2_qgate_url}[]
+3+|link:{pj_cdcy_vcsid_url}[Codacy]
+|Code Quality
+2+^|image:{pj_qi_cdcy_badge_grade_url}[]
+3+|link:{pj_opnssf_dash_url}[Open SSF]
+|Status
+2+^|image:{pj_qi_opnssf_status_url}[]
+|===
 
-== Description
+=== Test Information
+.Test Information
+[%header,frame=ends,valign=top,halign=center]
+|===
+^| ^|Branch '{brnch1}' ^|Branch '{brnch2}'
+3+|link:{pj_snr_dash_url}[Sonarcloud]
+|Tests %
+^|image:{pj_ti_snr_brnch1_tsd_url}[]
+^|image:{pj_ti_snr_brnch2_tsd_url}[]
+|Tests Count
+^|image:{pj_ti_snr_brnch1_tests_url}[]
+^|image:{pj_ti_snr_brnch2_tests_url}[]
+|Coverage
+^|image:{pj_ti_snr_brnch1_coverage_url}[]
+^|image:{pj_ti_snr_brnch2_coverage_url}[]
+|Violations
+^|image:{pj_ti_snr_brnch1_violations_url}[]
+^|image:{pj_ti_snr_brnch2_violations_url}[]
+3+|link:{pj_cdcy_vcsid_url}[Codacy]
+|Coverage
+2+^|image:{pj_ti_cdcy_badge_coverage_url}[]
+|Details
+^|image:{pj_ti_cdcy_brnch1_coverage_url}[]
+^|image:{pj_ti_cdcy_brnch2_coverage_url}[]
+3+|link:{pj_cvrlls_dash_gh_url}[Coveralls]
+|Coverage
+^|image:{pj_ti_cvrlls_brnch1_coverage_url}[]
+^|image:{pj_ti_cvrlls_brnch2_coverage_url}[]
+|Details
+^|image:{pj_ti_cvrlls_brnch1_status_url}[]
+^|image:{pj_ti_cvrlls_brnch2_status_url}[]
+|===
 
-Simplify the usage of
-
-* Logging with Monolog
-
-== Configuration
-
-Please read the link:docu-config.adoc[configuration].
-
-== Usage
-
-There are several classes which can be used for your development.
-
-=== Monolog
-
-*Logger*
-
-* link:src/Monolog/AbstractEasyGoingLogger.php[AbstractEasyGoingLogger] - Base class for all the logger
-* link:src/Monolog/ConsoleLogger.php[ConsoleLogger] - Logging to console
-** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
-* link:src/Monolog/CsvLogger.php[CsvLogger] - Writing to a file in CSV format
-* link:src/Monolog/DoNothingLogger.php[DoNothingLogger] - Replace any other logger with this and logging is disabled
-* link:src/Monolog/FileLogger.php[FileLogger] - Writing to a file
-* link:src/Monolog/PlainLogger.php[PlainLogger] - Sending the output "as it is" to the console (raw)
-
-*Formatter*
-
-* link:src/Monolog/Formatter/EasyGoingFormatter.php[Formatter/EasyGoingFormatter] - Formatter for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Formatter/PlainFormatter.php[Formatter/PlainFormatter] - Formatter for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
-
-*Handler*
-
-* link:src/Monolog/Handler/ConsoleHandler.php[Handler/ConsoleHandler] - Handler for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Handler/CsvHandler.php[Handler/CsvHandler] - Handler for the link:src/Monolog/CsvLogger.php[Monolog/CsvLogger]
-* link:src/Monolog/Handler/FileHandler.php[Handler/FileHandler] - Handler for the link:src/Monolog/FileLogger.php[Monolog/FileLogger]
-
-*Processor*
-
-* link:src/Monolog/Processor/PaddingProcessor.php[Processor/PaddingProcessor] - Processor for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Processor/PlainProcessor.php[Processor/PlainProcessor] - Processor for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
-
-== Examples
-
-Please read some link:docu-examples.adoc[examples].
-
-== Project Status
-
-Please read the link:docu-analysis.adoc[project status].
-
-== Additional Information
-
-* link:docu-commands.adoc[Composer Commands] - New commands for composer
-
-== Notice
-
-link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
-
-== Reference
-* link:https://www.php-fig.org/psr/psr-3/[PSR-3 Logger Interface]
-* link:https://seldaek.github.io/monolog[Monolog]
 _{pj_cright_author}_

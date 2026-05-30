@@ -1,0 +1,29 @@
+There are several classes which can be used for your development.
+
+=== Monolog
+
+*Logger*
+
+* link:src/Monolog/AbstractEasyGoingLogger.php[AbstractEasyGoingLogger] - Base class for all the logger
+* link:src/Monolog/ConsoleLogger.php[ConsoleLogger] - Logging to console
+** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
+* link:src/Monolog/CsvLogger.php[CsvLogger] - Writing to a file in CSV format
+* link:src/Monolog/DoNothingLogger.php[DoNothingLogger] - Replace any other logger with this and logging is disabled
+* link:src/Monolog/FileLogger.php[FileLogger] - Writing to a file
+* link:src/Monolog/PlainLogger.php[PlainLogger] - Sending the output "as it is" to the console (raw)
+
+*Formatter*
+
+* link:src/Monolog/Formatter/EasyGoingFormatter.php[Formatter/EasyGoingFormatter] - Formatter for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Formatter/PlainFormatter.php[Formatter/PlainFormatter] - Formatter for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
+
+*Handler*
+
+* link:src/Monolog/Handler/ConsoleHandler.php[Handler/ConsoleHandler] - Handler for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Handler/CsvHandler.php[Handler/CsvHandler] - Handler for the link:src/Monolog/CsvLogger.php[Monolog/CsvLogger]
+* link:src/Monolog/Handler/FileHandler.php[Handler/FileHandler] - Handler for the link:src/Monolog/FileLogger.php[Monolog/FileLogger]
+
+*Processor*
+
+* link:src/Monolog/Processor/PaddingProcessor.php[Processor/PaddingProcessor] - Processor for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
+* link:src/Monolog/Processor/PlainProcessor.php[Processor/PlainProcessor] - Processor for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
