@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
 /**
  * Class PaddingProcessor.
@@ -22,14 +24,22 @@ use Monolog\Logger;
  *
  * @see     IntrospectionProcessor
  *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
- *
- * @phpstan-type Record array<mixed,mixed>
  */
 class PaddingProcessor implements ProcessorInterface
 {
-    private int $level;
+    public const string OFFSET_EXTRA = 'extra';
+
+    public const string OFFSET_LEVEL_NAME_PAD = 'level_name_pad';
+
+    public const string OFFSET_LEVEL_NAME = 'level_name';
+
+    public const string OFFSET_LEVEL = 'level';
+
+    public const int LEVEL_WIDTH = 8;
+
+    public const string LEVEL_CHAR = ' ';
+
+    private Level $level;
 
     /** @var array<string> */
     private array $skipClassesPartials;
@@ -62,34 +72,29 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param array $record A record
+     * @param LogRecord $record A record
      *
-     * @phpstan-param Record $record A record
-     *
-     * @return array The processed record
-     *
-     * @phpstan-return Record
-     *
-     * @phpstan-ignore method.childReturnType
+     * @return LogRecord The processed record
      */
     #[\Override]
-    public function __invoke(array $record): array
+    public function __invoke(LogRecord $record): LogRecord
     {
-        $record                   = $this->__invokeIntrospection($record);
-        $record['level_name_pad'] = str_pad($record['level_name'], 8, ' ', STR_PAD_RIGHT);
+        /** @var array<mixed,mixed> */
+        $extra = $record->offsetGet(self::OFFSET_EXTRA);
+
+        /** @var string $levelName */
+        $levelName = $record->offsetGet(self::OFFSET_LEVEL_NAME);
+        $extra[self::OFFSET_LEVEL_NAME_PAD] = str_pad($levelName, self::LEVEL_WIDTH, self::LEVEL_CHAR, STR_PAD_RIGHT);
+
+        $record->offsetSet(self::OFFSET_EXTRA, $extra);
 
         return $record;
     }
 
-    /**
-     * @param array<mixed,mixed> $record
-     *
-     * @return array<mixed,mixed>
-     */
-    private function __invokeIntrospection(array $record): array // NOSONAR: php:S100
+    public function __invokeIntrospection(LogRecord $record): LogRecord
     {
         // return if the level is not high enough
-        if ($record['level'] < $this->level) {
+        if ($record->level->isLowerThan($this->level)) {
             return $record;
         }
 
@@ -134,7 +139,7 @@ class PaddingProcessor implements ProcessorInterface
                 'xCallType' => $curTrace['type'] ?? null,
                 'xFunction' => $curTrace['function'],
             ];
-            $record    = array_merge($record, $xDetails);
+            $record->offsetSet('details', $xDetails);
         }
 
         return $record;

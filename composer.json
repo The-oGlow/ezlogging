@@ -16,12 +16,6 @@
             "email": "426229+ollily@users.noreply.github.com",
             "homepage": "https://github.com/ollily",
             "role": "Project Owner, Developer"
-        },
-        {
-            "name": "oglowa",
-            "email": "36665428+oglowa@users.noreply.github.com",
-            "homepage": "https://github.com/The-oGlow",
-            "role": "Developer"
         }
     ],
     "support": {
@@ -33,11 +27,11 @@
         "php": ">=8.4.1",
         "php-ds/php-ds": "^1.0",
         "ollily/ezkoding": "^8.4",
-        "monolog/monolog": "^2.10",
-        "psr/log": "^1.0||^2.0||^3.0"
+        "psr/log": "^2.0||^3.0",
+        "monolog/monolog": "^3.0"
     },
     "provide": {
-        "psr/log-implementation": "^1.0||^2.0||^3.0"
+        "psr/log-implementation": "^2.0||^3.0"
     },
     "suggest": {
     },

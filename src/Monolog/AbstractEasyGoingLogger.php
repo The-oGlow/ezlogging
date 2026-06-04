@@ -40,9 +40,9 @@ abstract class AbstractEasyGoingLogger extends Logger
     /**
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
      * @param mixed              $level      The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
-     * @param HandlerInterface[] $handlers   optional stack of handlers, the first one in the array is called first, etc
+     * @param list<HandlerInterface> $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors Optional array of processors
-     * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param DateTimeZone|null  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */

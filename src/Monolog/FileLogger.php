@@ -31,7 +31,7 @@ class FileLogger extends ConsoleLogger
     /**
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
      * @param string             $pathToFile The full path to the output folder
-     * @param handlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc
+     * @param list<handlerInterface> $handlers   Optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]         $processors Optional array of processors
      * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      * @param mixed              $level      The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})

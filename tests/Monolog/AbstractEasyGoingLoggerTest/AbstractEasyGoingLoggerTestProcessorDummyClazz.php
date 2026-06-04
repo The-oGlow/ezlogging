@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog\AbstractEasyGoingLoggerTest;
 
+use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
 /**
@@ -21,7 +22,7 @@ use Monolog\Processor\ProcessorInterface;
 class AbstractEasyGoingLoggerTestProcessorDummyClazz implements ProcessorInterface
 {
     #[\Override]
-    public function __invoke(array $record)
+    public function __invoke(LogRecord $record)
     {
         return $record;
     }

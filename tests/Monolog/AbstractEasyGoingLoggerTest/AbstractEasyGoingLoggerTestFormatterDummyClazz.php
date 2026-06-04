@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use Monolog\Formatter\FormatterInterface;
+use Monolog\LogRecord;
 
 /**
  * A simple clazz which will be tested by the test clazz.
@@ -21,13 +22,13 @@ use Monolog\Formatter\FormatterInterface;
 class AbstractEasyGoingLoggerTestFormatterDummyClazz implements FormatterInterface
 {
     #[\Override]
-    public function format(array $record)
+    public function format(LogRecord $record): mixed
     {
         return $record;
     }
 
     #[\Override]
-    public function formatBatch(array $records)
+    public function formatBatch(array $records): mixed
     {
         return $records;
     }

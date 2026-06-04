@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
+use Monolog\LogRecord;
 use ollily\Tools\PhpVersionTrait;
 use ollily\Tools\String\ImplodeTrait;
 
@@ -85,26 +86,15 @@ class CsvHandler extends FileHandler
      * @inheritDoc
      */
     #[\Override]
-    protected function streamWrite($stream, array $record): void
+    protected function streamWrite($stream, LogRecord $record): void
     {
         $output = [];
-        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
             array_push($output, $record[self::KEY_MESSAGE]);
         }
 
-        // @phpstan-ignore isset.offset
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
-            /**
-             * @psalm-suppress RedundantCondition
-             * @phpstan-ignore if.alwaysTrue
-             */
-            if (is_array($record[self::KEY_CONTEXT])) {
-                $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
-            } else {
-                /** @psalm-suppress NoValue */
-                $implodeContext = $record[self::KEY_CONTEXT];
-            }
+            $implodeContext = $this->array_flatten($record->offsetGet(self::KEY_CONTEXT)); // @phpstan-ignore argument.type
             $output = array_merge($output, $implodeContext);
         }
         if ($this->isPhpGreater(self::CHECKVERSION)) {

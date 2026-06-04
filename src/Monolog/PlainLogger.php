@@ -23,9 +23,6 @@ use Monolog\Processor\ProcessorInterface;
  * Class PlainLogger.
  *
  * @see AbstractEasyGoingLogger
- *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
  */
 class PlainLogger extends AbstractEasyGoingLogger
 {
