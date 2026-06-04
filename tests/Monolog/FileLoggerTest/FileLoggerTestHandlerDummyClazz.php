@@ -21,29 +21,39 @@ use Monolog\Handler\HandlerInterface;
 class FileLoggerTestHandlerDummyClazz implements HandlerInterface
 {
     /**
+     * @inheritDoc
+     *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     public function isHandling(array $record): bool
     {
         return true;
     }
 
     /**
+     * @inheritDoc
+     *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     public function handle(array $record): bool
     {
         return true;
     }
 
     /**
+     * @inheritDoc
+     *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
+    #[\Override]
     public function handleBatch(array $records): void
     {
         // nothing2do
     }
 
+    #[\Override]
     public function close(): void
     {
         // nothing2do

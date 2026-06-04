@@ -26,14 +26,16 @@ use Psr\Log\LogLevel;
  *
  * @see Logger
  * @see ConsoleHandler
+ *
+ * @phpstan-type LevelEnum 100|200|250|300|400|500|550|600|'ALERT'|'alert'|'CRITICAL'|'critical'|'DEBUG'|'debug'|'EMERGENCY'|'emergency'|'ERROR'|'error'|'INFO'|'info'|'NOTICE'|'notice'|'WARNING'|'warning'
  */
 abstract class AbstractEasyGoingLogger extends Logger
 {
-    /** @var string Fallback timezone */
-    public const STANDARD_TIMEZONE = "Europe/Berlin";
+    /** Fallback timezone */
+    public const string STANDARD_TIMEZONE = "Europe/Berlin";
 
-    /** @var string Default output level (INFO) */
-    public const LEVEL_DEFAULT = LogLevel::INFO;
+    /** Default output level (INFO) */
+    public const string LEVEL_DEFAULT = LogLevel::INFO;
 
     /**
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
@@ -44,7 +46,7 @@ abstract class AbstractEasyGoingLogger extends Logger
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
-    public function __construct(string $name, $level = self::LEVEL_DEFAULT, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
+    public function __construct(string $name, mixed $level = self::LEVEL_DEFAULT, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
         if (empty($timezone)) {
             /**
@@ -54,7 +56,9 @@ abstract class AbstractEasyGoingLogger extends Logger
             $timezone = new DateTimeZone(date_default_timezone_get() ?? self::STANDARD_TIMEZONE);
         }
         parent::__construct($name, $handlers, $processors, $timezone);
+
         $this->pushHandler($this->getDefaultHandler($level));
+
         $this->pushProcessor($this->getDefaultProcessor());
     }
 
@@ -67,7 +71,7 @@ abstract class AbstractEasyGoingLogger extends Logger
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
-    abstract protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface;
+    abstract protected function getDefaultHandler(mixed $level = self::LEVEL_DEFAULT): HandlerInterface;
 
     /**
      * @return ProcessorInterface
@@ -86,7 +90,7 @@ abstract class AbstractEasyGoingLogger extends Logger
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
-    protected function getConsoleHandler($level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getConsoleHandler(mixed $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $consoleHandler = new ConsoleHandler($level);
         $consoleHandler->setFormatter($this->getDefaultFormatter());

@@ -20,9 +20,9 @@ class EasyGoingFormatterTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var EasyGoingFormatter */
-    protected $o2t;
+    protected EasyGoingFormatter $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

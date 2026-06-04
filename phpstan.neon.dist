@@ -20,34 +20,6 @@ parameters:
     ignoreErrors:
         # Too strict -> disabled
         -
-            identifier: booleanAnd.alwaysFalse
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: booleanAnd.alwaysTrue
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: function.alreadyNarrowedType
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: function.impossibleType
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: instanceof.alwaysFalse
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: instanceof.alwaysTrue
-            paths:
-                - tests/*/*TestTrait.php
-        -
-            identifier: isset.property
-            paths:
-                - tests/*/*TestTrait.php
-        -
             identifier: method.dynamicName
             paths:
                 - tests/*/*TestTrait.php

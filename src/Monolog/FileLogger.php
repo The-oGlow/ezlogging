@@ -26,6 +26,8 @@ use Monolog\Handler\StreamHandler;
  */
 class FileLogger extends ConsoleLogger
 {
+    private HandlerInterface $fileHandler;
+
     /**
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
      * @param string             $pathToFile The full path to the output folder
@@ -42,14 +44,22 @@ class FileLogger extends ConsoleLogger
         array $handlers = [],
         array $processors = [],
         ?DateTimeZone $timezone = null,
-        $level = self::LEVEL_DEFAULT
+        mixed $level = self::LEVEL_DEFAULT
     ) {
-        if (empty($handlers)) {
-            $handlers = [$this->getFileHandler($pathToFile, $name)];
-        } else {
-            array_unshift($handlers, $this->getFileHandler($pathToFile, $name));
-        }
+        $this->fileHandler = $this->getFileHandler($pathToFile, $name);
+        //        if (empty($handlers)) {
+        //            $handlers = [$this->getFileHandler($pathToFile, $name)];
+        //        } else {
+        //            array_unshift($handlers, $this->getFileHandler($pathToFile, $name));
+        //        }
+
         parent::__construct($name, $level, $handlers, $processors, $timezone);
+    }
+
+    #[\Override]
+    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
+    {
+        return $this->fileHandler;
     }
 
     /**
@@ -59,7 +69,7 @@ class FileLogger extends ConsoleLogger
      *
      * @return StreamHandler the stream handler for the file
      */
-    protected function getFileHandler(string $pathToFile, string $fileName, $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getFileHandler(string $pathToFile, string $fileName, mixed $level = self::LEVEL_DEFAULT): StreamHandler
     {
         return new FileHandler($pathToFile, $fileName, $level);
     }

@@ -23,32 +23,32 @@ use Psr\Log\LogLevel;
  */
 class FileHandler extends StreamHandler
 {
-    /** @var string Fallback filename */
-    public const STANDARD_FILENAME = 'noFilename';
+    /** Fallback filename */
+    public const string STANDARD_FILENAME = 'noFilename';
 
-    /** @var string Default file extension */
-    public const STANDARD_FILEEXT  = '.log';
+    /** Default file extension */
+    public const string STANDARD_FILEEXT  = '.log';
 
-    /** @var string Default output level (DEBUG) */
-    public const LEVEL_DEFAULT =  LogLevel::DEBUG;
+    /** Default output level (DEBUG) */
+    public const string LEVEL_DEFAULT =  LogLevel::DEBUG;
 
-    /** @var string Default separator char for namespace (Default) */
-    public const C_NS_SEP  = "\\";
+    /** Default separator char for namespace (Default) */
+    public const string C_NS_SEP  = "\\";
 
-    /** @var string Default separator char for namespace (Filesystem) */
-    public const        C_NS_FS_SEP = '_';
+    /** Default separator char for namespace (Filesystem) */
+    public const string C_NS_FS_SEP = '_';
 
-    /** @var string Key of the message in the output record */
-    protected const KEY_MESSAGE = 'message';
+    /** Key of the message in the output record */
+    protected const string KEY_MESSAGE = 'message';
 
-    /** @var string Key of the contect in the output record */
-    protected const KEY_CONTEXT = 'context';
+    /** Key of the contect in the output record */
+    protected const string KEY_CONTEXT = 'context';
 
-    /** @var string Temporary folder */
-    private static $tmpDir;
+    /** Temporary folder */
+    private static string $tmpDir;
 
-    /** @var string The full filename (with path) of the output file */
-    private $fileName;
+    /** The full filename (with path) of the output file */
+    private string $fileName;
 
     /**
      * @param null|string $pathToFile The full path to the output folder
@@ -77,7 +77,7 @@ class FileHandler extends StreamHandler
      *
      * @see FileHandler::LEVEL_DEFAULT
      */
-    public function __construct(?string $pathToFile = null, ?string $fileName = null, $level = self::LEVEL_DEFAULT)
+    public function __construct(?string $pathToFile = null, ?string $fileName = null, mixed $level = self::LEVEL_DEFAULT)
     {
         self::$tmpDir   = sys_get_temp_dir();
         $this->fileName = static::prepareFileName($pathToFile, $fileName);

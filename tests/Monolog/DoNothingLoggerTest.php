@@ -19,9 +19,9 @@ class DoNothingLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
-    /** @var DoNothingLogger */
-    protected $o2t;
+    protected DoNothingLogger $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

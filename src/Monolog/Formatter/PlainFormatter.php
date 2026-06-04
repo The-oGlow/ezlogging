@@ -20,11 +20,11 @@ namespace Monolog\Formatter;
  */
 class PlainFormatter extends LineFormatter
 {
-    /** @var string Default output format */
-    public const FORMATTER_OUTPUT = "\n%message%";
+    /** Default output format */
+    public const string FORMATTER_OUTPUT = "\n%message%";
 
-    /** @var string Default datetime format */
-    public const FORMATTER_DATEFORMAT = "Ymd-Gis.v";
+    /** Default datetime format */
+    public const string FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
      * PlainFormatter constructor.
@@ -43,11 +43,11 @@ class PlainFormatter extends LineFormatter
      * @SuppressWarnings("PHPMD.LongVariable")
      */
     public function __construct(
-        $format = self::FORMATTER_OUTPUT,
-        $dateFormat = self::FORMATTER_DATEFORMAT,
-        $allowInlineLineBreaks = true,
-        $ignoreEmptyContextAndExtra = true,
-        $includeStacktraces = false
+        ?string $format = self::FORMATTER_OUTPUT,
+        ?string $dateFormat = self::FORMATTER_DATEFORMAT,
+        bool $allowInlineLineBreaks = true,
+        bool $ignoreEmptyContextAndExtra = true,
+        bool $includeStacktraces = false
     ) {
         parent::__construct(
             self::FORMATTER_OUTPUT,

@@ -21,9 +21,9 @@ class PaddingProcessorTest extends TestCase
 {
     use UnavailableFieldsTrait;
 
-    /** @var PaddingProcessor */
-    protected $o2t;
+    protected PaddingProcessor $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -57,7 +57,7 @@ class PaddingProcessorTest extends TestCase
             'xLine',
             'xClass',
             'xCallType',
-            'xFunction'
+            'xFunction',
         ];
 
         $testArray = [
@@ -68,7 +68,7 @@ class PaddingProcessorTest extends TestCase
             'level_name_pad' => '',
             'channel'        => '',
             'datetime'       => new \DateTimeImmutable(),
-            'extra'          => []
+            'extra'          => [],
         ];
 
         $arrayResult = $this->o2t->__invoke($testArray);

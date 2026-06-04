@@ -15,6 +15,7 @@ namespace Monolog\FileLoggerTest;
 
 use Monolog\Test\TestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,44 +27,32 @@ trait FileLoggerTestTrait
 {
     use ImplodeTrait;
 
-    /** @var bool */
-    public $silentIsExists = false;
+    public bool $silentIsExists = false;
 
-    /** @var string */
-    private $MESSAGE_EMPTY = '';
+    private static string $MESSAGE_EMPTY = '';
 
-    /** @var string */
-    private $MESSAGE_1 = '-message_1';
+    private static string $MESSAGE_1 = '-message_1';
 
-    /** @var string */
-    private $MESSAGE_2 = 'message_2';
+    private static string $MESSAGE_2 = 'message_2';
 
-    /** @var string */
-    private $CONTEXT_1 = 'context_1';
+    private static string $CONTEXT_1 = 'context_1';
 
-    /** @var string */
-    private $CONTEXT_2 = 'context_2';
+    private static string $CONTEXT_2 = 'context_2';
 
     /** @var array<mixed,mixed> */
-    private $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
+    private static array $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
 
-    /** @var string */
-    private $PH_CNTX = '#CNTX#';
+    private static string $PH_CNTX = '#CNTX#';
 
-    /** @var string */
-    private $PH_MSG = '#MSG#';
+    private static string $PH_MSG = '#MSG#';
 
-    /** @var string */
-    private $REGEX_MSG = '/.*^("|)#MSG#("|)$.*/m';
+    private static string $REGEX_MSG = '/.*^("|)#MSG#("|)$.*/m';
 
-    /** @var string */
-    private $REGEX_MSG_N_CNTX = '/.*^("|)#MSG#("|);("|)#CNTX#("|)$.*/m';
+    private static string $REGEX_MSG_N_CNTX = '/.*^("|)#MSG#("|);("|)#CNTX#("|)$.*/m';
 
-    /** @var string */
-    private $methodName = 'out';
+    private static string $methodName = 'out';
 
-    /** @var string */
-    private static $fileName;
+    private static string $fileName;
 
     public static function tearDownAfterClass(): void
     {
@@ -76,23 +65,20 @@ trait FileLoggerTestTrait
     public function tearDown(): void
     {
         if (file_exists(self::$fileName)) {
-            echo "\n\nAfter running '" . $this->currentTestMethod() . "', the content of '" . self::$fileName . "'\n";
-            echo file_get_contents(self::$fileName);
-            echo "\n";
+            echo "\ntearDown()\nAfter running '" . $this->currentTestMethod() . "', the content of '" . self::$fileName . "':\n\"\n";
+            echo $this->currentFileContent(self::$fileName);
+            echo "\n\"\n";
         }
         self::tearDownAfterClass();
         parent::tearDown();
     }
 
-    /**
-     * var FL $this->o2t.
-     */
     public function testFileCreated(): void
     {
         tCase::assertNotEmpty(self::$fileName);
         tCase::assertFileDoesNotExist(self::$fileName);
         if ($this->isExists('info')) {
-            $this->o2t->info('Write a log line');
+            $this->o2t->info('Write text into:', [self::$fileName]);
         }
         tCase::assertFileExists(self::$fileName);
     }
@@ -102,133 +88,87 @@ trait FileLoggerTestTrait
      */
     public function testWriteOneMessage(): void
     {
-        $message = $this->MESSAGE_1;
+        $message = self::$MESSAGE_1;
 
         if ($this->isExists()) {
             $renderMessage = $this->currentTestMethod() . $message;
             $this->o2t->out($renderMessage);
 
-            $expectedMsg = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG);
+            $expectedMsg = str_replace(self::$PH_MSG, $renderMessage, self::$REGEX_MSG);
 
-            $this->expectOutputRegex($expectedMsg);
+            $this->verifyFileContent($expectedMsg, self::$fileName);
         }
     }
 
     /**
-     * @psalm-suppress UndefinedMethod,DocblockTypeContradiction,RedundantConditionGivenDocblockType
-     */
-    public function testWriteOneMessageOneContext(): void
-    {
-        $message = $this->MESSAGE_1;
-        $context = $this->CONTEXT_1;
-
-        if ($this->isExists()) {
-            $renderMessage = $this->currentTestMethod() . $message;
-            $this->o2t->out($renderMessage, $context);
-
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = (is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context);
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
-        }
-    }
-
-    /**
+     * @param string $expectedMsg
+     * @param string $expectedContext
+     * @param mixed  $message
+     * @param mixed  $context
+     *
      * @psalm-suppress UndefinedMethod
      */
-    public function testWriteOneMessageTWoContexts(): void
+    #[DataProvider('providerWriteMessageWithContext')]
+    public function testWriteMessageWithContext(string $expectedMsg, string $expectedContext, mixed $message, mixed $context): void
     {
-        $message  = $this->MESSAGE_1;
-        $context  = $this->CONTEXT_1;
-        $context2 = $this->CONTEXT_2;
-
         if ($this->isExists()) {
             $renderMessage = $this->currentTestMethod() . $message;
-            $this->o2t->out($renderMessage, $context, $context2);
 
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = $this->implode_recursive($this->DEFAULT_ITEM_SEP(), [$context, $context2]);
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
-        }
-    }
-
-    /**
-     * @psalm-suppress DocblockTypeContradiction,UndefinedMethod,RedundantCondition
-     */
-    public function testWriteEmptyMessageSimpleContext(): void
-    {
-        $message = $this->MESSAGE_EMPTY;
-        $context = $this->CONTEXT_1;
-
-        if ($this->isExists()) {
-            $renderMessage = $this->currentTestMethod() . $message;
             $this->o2t->out($renderMessage, $context);
 
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = (is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context);
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
+            $this->verifyFileContent(str_replace(self::$PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
         }
     }
 
     /**
-     * @psalm-suppress UndefinedMethod
+     * @return array<mixed,mixed>
      */
-    public function testWriteEmptyMessageMultipleContext(): void
+    public static function providerWriteMessageWithContext(): array
     {
-        $message  = $this->MESSAGE_EMPTY;
-        $context  = $this->MESSAGE_1;
-        $context2 = $this->CONTEXT_1;
-        $context3 = $this->CONTEXT_2;
+        $testMethod = 'testWriteMessageWithContext';
+        $renderMessage = $testMethod . self::$MESSAGE_1;
+        $expectedMsg = str_replace(self::$PH_MSG, $renderMessage, self::$REGEX_MSG_N_CNTX);
+        $renderEmptyMessage = $testMethod . self::$MESSAGE_EMPTY;
+        $expectedEmptyMsg = str_replace(self::$PH_MSG, $renderEmptyMessage, self::$REGEX_MSG_N_CNTX);
 
-        if ($this->isExists()) {
-            $renderMessage = $this->currentTestMethod() . $message;
-            $this->o2t->out($renderMessage, $context, $context2, $context3);
-
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = $this->implode_recursive($this->DEFAULT_ITEM_SEP(), [$context, $context2, $context3]);
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
-        }
-    }
-
-    /**
-     * @psalm-suppress UndefinedMethod,RedundantConditionGivenDocblockType,DocblockTypeContradiction
-     */
-    public function testWriteMessageComplexContext(): void
-    {
-        $message = $this->MESSAGE_1;
-        $context = $this->COMPLEX_CONTEXT;
-
-        if ($this->isExists()) {
-            $renderMessage = $this->currentTestMethod() . $message;
-            $this->o2t->out($renderMessage, $context);
-
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = is_array($context) ? str_replace(['[', ']'], '', $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context)) : $context;
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
-        }
-    }
-
-    /**
-     * @psalm-suppress UndefinedMethod,RedundantCondition,TypeDoesNotContainType
-     */
-    public function testWriteMessageAndContext(): void
-    {
-        $message = $this->MESSAGE_1;
-        $context = [$this->CONTEXT_1, $this->CONTEXT_2];
-
-        if ($this->isExists()) {
-            $renderMessage = $this->currentTestMethod() . $message;
-            $this->o2t->out($renderMessage, $context);
-
-            $expectedMsg     = str_replace($this->PH_MSG, $renderMessage, $this->REGEX_MSG_N_CNTX);
-            $expectedContext = is_array($context) ? $this->implode_recursive($this->DEFAULT_ITEM_SEP(), $context) : $context;
-
-            $this->expectOutputRegex(str_replace($this->PH_CNTX, $expectedContext, $expectedMsg));
-        }
+        return [
+            'oneMessageOneContext' => [
+                $expectedMsg,
+                self::implode_recursive(self::DEFAULT_ITEM_SEP, self::$CONTEXT_1),
+                self::$MESSAGE_1,
+                self::$CONTEXT_1,
+            ],
+            'oneMessageTwoContexts' => [
+                $expectedMsg,
+                self::implode_recursive(self::DEFAULT_ITEM_SEP, [self::$CONTEXT_1, self::$CONTEXT_2]),
+                self::$MESSAGE_1,
+                [self::$CONTEXT_1,self::$CONTEXT_2],
+            ],
+            'emptyMessageSimpleContext' => [
+                $expectedEmptyMsg,
+                 self::implode_recursive(self::DEFAULT_ITEM_SEP, self::$CONTEXT_1),
+                self::$MESSAGE_EMPTY,
+                self::$CONTEXT_1,
+            ],
+            'emptyMessageMultipleContext' => [
+                $expectedEmptyMsg,
+                self::implode_recursive(self::DEFAULT_ITEM_SEP, [self::$MESSAGE_1, self::$CONTEXT_1, self::$CONTEXT_2]),
+                self::$MESSAGE_EMPTY,
+                [self::$MESSAGE_1, self::$CONTEXT_1, self::$CONTEXT_2],
+            ],
+            'messageComplexContext' => [
+                $expectedEmptyMsg,
+                str_replace(['[', ']'], '', self::implode_recursive(self::DEFAULT_ITEM_SEP, self::$COMPLEX_CONTEXT)),
+                self::$MESSAGE_EMPTY,
+                self::$COMPLEX_CONTEXT,
+            ],
+            'messageAndContext' => [
+                $expectedMsg,
+                self::implode_recursive(self::DEFAULT_ITEM_SEP, [self::$CONTEXT_1, self::$CONTEXT_2]),
+                self::$MESSAGE_1,
+                [self::$CONTEXT_1, self::$CONTEXT_2],
+            ],
+        ];
     }
 
     public function testLoggerMethods(): void
@@ -237,18 +177,38 @@ trait FileLoggerTestTrait
 
         foreach ($loggerMethods as $loggerMethod) {
             if ($this->isExists($loggerMethod)) {
-                $this->o2t->$loggerMethod($this->currentTestMethod() . $this->MESSAGE_1 . '-' . $loggerMethod, $this->COMPLEX_CONTEXT);
+                $this->o2t->$loggerMethod($this->currentTestMethod() . self::$MESSAGE_1 . '-' . $loggerMethod, self::$COMPLEX_CONTEXT);
             }
         }
         if ($this->isExists('log')) {
-            $this->o2t->log($this->o2t::INFO, $this->currentTestMethod() . $this->MESSAGE_1 . '-log', $this->COMPLEX_CONTEXT);
+            $this->o2t->log($this->o2t::INFO, $this->currentTestMethod() . self::$MESSAGE_1 . '-log', self::$COMPLEX_CONTEXT);
         }
         tCase::assertTrue(true);
     }
 
     protected function currentTestMethod(): string
     {
-        return $this->getName();
+        return $this->name();
+    }
+
+    protected function currentFileContent(string $fileName): string
+    {
+        $content = '';
+        if (file_exists($fileName)) {
+            $content = file_get_contents($fileName);
+        }
+        if ($content == false) {
+            $content = '';
+        }
+
+        return $content;
+    }
+
+    protected function verifyFileContent(string $expected, string $fileName): void
+    {
+        $actual = $this->currentFileContent($fileName);
+
+        self::assertMatchesRegularExpression($expected, $actual);
     }
 
     /**
@@ -257,17 +217,17 @@ trait FileLoggerTestTrait
      *
      * @return bool
      */
-    private function isExists(?string $methodName = null, LoggerInterface $logger = null): bool
+    private function isExists(?string $methodName = null, ?LoggerInterface $logger = null): bool
     {
-        $methodName = $methodName ?? $this->methodName;
+        $methodName ??= self::$methodName;
         $exists     = method_exists($this->o2t, $methodName);
 
         if (!$exists) {
             if (isset($logger)) {
-                $logger->warning('Method not exists: ', [$this->methodName]);
+                $logger->warning('Method not exists: ', [$methodName]);
             }
             if ($this->silentIsExists) {
-                self::fail('Method not exists: ' . $this->methodName);
+                self::fail('Method not exists: ' . $methodName);
             } else {
                 self::assertTrue(true);
             }

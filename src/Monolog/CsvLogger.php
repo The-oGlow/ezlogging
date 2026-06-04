@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\CsvHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PlainProcessor;
-use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
 
 /**
@@ -30,14 +30,14 @@ use Monolog\Processor\ProcessorInterface;
  */
 class CsvLogger extends FileLogger
 {
-    /** @var string The separator char for each column */
-    private $itemSeparator;
+    /** The separator char for each column */
+    private string $itemSeparator;
 
-    /** @var string The char enclosing each column value */
-    private $itemEnclosure;
+    /** The char enclosing each column value */
+    private string $itemEnclosure;
 
     /** @var array<string> The column header */
-    private $header;
+    private array $header;
 
     /**
      * @param string        $name          The logging channel, a simple descriptive name that is attached to all log records
@@ -56,12 +56,14 @@ class CsvLogger extends FileLogger
         array $header = [],
         string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
         string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP,
-        $level = self::LEVEL_DEFAULT
+        mixed $level = self::LEVEL_DEFAULT
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
         $this->header        = $header;
+
         parent::__construct($name, $pathToFile, [], [], null, $level);
+
         $this->writeHeader($this->header);
     }
 
@@ -100,25 +102,19 @@ class CsvLogger extends FileLogger
         return $this->itemEnclosure;
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultProcessor(): ProcessorInterface
     {
         return new PlainProcessor();
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new PlainFormatter();
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\Override]
     protected function getFileHandler(string $pathToFile, string $fileName, $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure, $level);

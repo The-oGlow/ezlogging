@@ -363,86 +363,72 @@ endif::[]
 
 :source-highlighter: highlight.js
 
-= {pj_gh_repo}
-:toc: preamble
+= {pj_gh_repo} - Configuration
+:toc:
 :toclevels: 2
 
-{pj_ps_license_img}
-{pj_ps_release_img}
-{pj_ps_langtop_img}
-{pj_ps_langcount_img}
-{pj_ps_issues_img}
+== Requirements
 
-{cm_shlds_tool_phpunit_img}
-{cm_shlds_tool_sonarcloud_img}
-{cm_shlds_tool_cdcy_img}
-{cm_shlds_tool_cvrlls_img}
-
-image:{cm_shlds_tool_phpcsfixer_url}[title="PHP CS Fixer Ruleset"]
-image:{cm_shlds_tool_phpstan_url}[title="PHPStan Level"]
-image:{cm_shlds_tool_psalm_url}[title="Psalm Level"]
-image:{cm_shlds_tool_phpcs_url}[title="PHP CodeSniffer Ruleset""]
-image:{cm_shlds_tool_phpmd_url}[title="PHP Mess Detector Ruleset"]
-
-== Description
-
-Simplify the usage of
-
-* Logging with Monolog
+* link:https://www.php.net[PHP]
+* link:https://getcomposer.org/[Composer]
+* Commandline / Shell (opt.)
+** Linux / Unix Shell or
+** Windows Shell
 
 == Configuration
 
-Please read the link:docu-config.adoc[configuration].
+=== Unix / Linux
 
-== Usage
+There is nothing to configure. You can use this library ootb.
 
-There are several classes which can be used for your development.
+=== Windows
 
-=== Monolog
+There is nothing to configure. You can use this library ootb.
 
-*Logger*
+== Development
 
-* link:src/Monolog/AbstractEasyGoingLogger.php[AbstractEasyGoingLogger] - Base class for all the logger
-* link:src/Monolog/ConsoleLogger.php[ConsoleLogger] - Logging to console
-** Log format: `%datetime% [%level%] %class%->%function%() - %message% %context% %extra%`
-* link:src/Monolog/CsvLogger.php[CsvLogger] - Writing to a file in CSV format
-* link:src/Monolog/DoNothingLogger.php[DoNothingLogger] - Replace any other logger with this and logging is disabled
-* link:src/Monolog/FileLogger.php[FileLogger] - Writing to a file
-* link:src/Monolog/PlainLogger.php[PlainLogger] - Sending the output "as it is" to the console (raw)
+Some infos, in case you want to fork and extend this library,
 
-*Formatter*
+=== Build & Test
 
-* link:src/Monolog/Formatter/EasyGoingFormatter.php[Formatter/EasyGoingFormatter] - Formatter for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Formatter/PlainFormatter.php[Formatter/PlainFormatter] - Formatter for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
+Start the whole build (run composer with c-fix, c-phpstan, c-psalm, c-test)
 
-*Handler*
+    composer c-all
 
-* link:src/Monolog/Handler/ConsoleHandler.php[Handler/ConsoleHandler] - Handler for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Handler/CsvHandler.php[Handler/CsvHandler] - Handler for the link:src/Monolog/CsvLogger.php[Monolog/CsvLogger]
-* link:src/Monolog/Handler/FileHandler.php[Handler/FileHandler] - Handler for the link:src/Monolog/FileLogger.php[Monolog/FileLogger]
+=== UNIT Tests
 
-*Processor*
+Starting the unit tests with PHPUnit
 
-* link:src/Monolog/Processor/PaddingProcessor.php[Processor/PaddingProcessor] - Processor for the link:src/Monolog/ConsoleLogger.php[Monolog/ConsoleLogger]
-* link:src/Monolog/Processor/PlainProcessor.php[Processor/PlainProcessor] - Processor for the link:src/Monolog/PlainLogger.php[Monolog/PlainLogger]
+    composer c-test
 
-== Examples
+or
 
-Please read some link:docu-examples.adoc[examples].
+    composer c-test tests/Monolog/ConsoleLoggerTest.php
 
-== Project Status
+=== Structure
 
-Please read the link:docu-analysis.adoc[project status].
+Relevant files and folders
 
-== Additional Information
+    <project-root>
+    |--src
+    |  |-- Monolog
+    |
+    |--tests
+    |  |-- Monolog
+    |
+    |--vendor
+    |  |- *
+    |
+    |-.php-cs-fixer.dist.php
+	|-.phpcs.xml.dist
+	|-.phpmd.xml.dist
+    |-composer.json
+    |-composer.lock
+    |-LICENSE
+    |-phpstan.neon.dist
+    |-phpunit.xml.dist
+    |-psalm.xml.dist
+    |-README.md
+    |-sonar-project.properties
 
-* link:docu-commands.adoc[Composer Commands] - New commands for composer
-
-== Notice
-
-link:{pj_snr_dash_url}[image:{cm_snr_tool_sonarcloud_url}[title="Sonarcloud Logo"]]
-
-== Reference
-* link:https://www.php-fig.org/psr/psr-3/[PSR-3 Logger Interface]
-* link:https://seldaek.github.io/monolog[Monolog]
 _{pj_cright_author}_

@@ -23,9 +23,9 @@ class ConsoleLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
 
-    /** @var ConsoleLogger */
-    protected $o2t;
+    protected ConsoleLogger $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();

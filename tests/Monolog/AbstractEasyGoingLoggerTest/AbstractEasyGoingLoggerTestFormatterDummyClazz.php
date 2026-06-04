@@ -20,11 +20,13 @@ use Monolog\Formatter\FormatterInterface;
  */
 class AbstractEasyGoingLoggerTestFormatterDummyClazz implements FormatterInterface
 {
+    #[\Override]
     public function format(array $record)
     {
         return $record;
     }
 
+    #[\Override]
     public function formatBatch(array $records)
     {
         return $records;

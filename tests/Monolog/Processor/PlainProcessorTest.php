@@ -18,9 +18,9 @@ use PHPUnit\Framework\TestCase;
 
 class PlainProcessorTest extends TestCase
 {
-    /** @var PlainProcessor */
-    protected $o2t;
+    protected PlainProcessor $o2t;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -43,7 +43,7 @@ class PlainProcessorTest extends TestCase
             'level_name_pad' => '',
             'channel'        => '',
             'datetime'       => new \DateTimeImmutable(),
-            'extra'          => []
+            'extra'          => [],
         ];
 
         $result    = $this->o2t->__invoke($testArray);

@@ -32,7 +32,8 @@ class PlainProcessor implements ProcessorInterface
      *
      * @phpstan-ignore method.childReturnType
      */
-    public function __invoke(array $record)
+    #[\Override]
+    public function __invoke(array $record): array
     {
         return $record;
     }
