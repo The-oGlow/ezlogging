@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace Monolog\Handler;
 
 use Monolog\Level;
-use Psr\Log\LogLevel;
 
 /**
  * Class ConsoleHandler.
  *
  * @see StreamHandler
+ *
+ * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
  */
 class ConsoleHandler extends StreamHandler
 {
@@ -27,17 +28,18 @@ class ConsoleHandler extends StreamHandler
     public const string HANDLER_STDOUT = "php://stdout";
 
     /** Default output level (INFO) */
-    public const string LEVEL_DEFAULT =  LogLevel::INFO;
+    public const Level LEVEL_DEFAULT =  Level::Info;
 
     /**
      * ConsoleHandler constructor.
      *
-     * @param mixed $level The output level (Default: {@link ConsoleHandler::LEVEL_DEFAULT})
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level The minimum logging level at which this handler will be triggered (Default: {@link ConsoleHandler::LEVEL_DEFAULT})
+     *
+     * @phpstan-param LoggingLevel $level
      *
      * @see ConsoleHandler::LEVEL_DEFAULT;
-     * @see ConsoleHandler::HANDLER_STDOUT;
      */
-    public function __construct(mixed $level = self::LEVEL_DEFAULT)
+    public function __construct(int|string|Level $level = self::LEVEL_DEFAULT)
     {
         parent::__construct(self::HANDLER_STDOUT, $level);
     }

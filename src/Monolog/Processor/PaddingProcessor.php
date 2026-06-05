@@ -22,8 +22,9 @@ use Monolog\LogRecord;
  *
  * Use Introspection from @see IntrospectionProcessor.
  *
- * @see     IntrospectionProcessor
+ * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
  *
+ * @see     IntrospectionProcessor
  */
 class PaddingProcessor implements ProcessorInterface
 {
@@ -35,9 +36,22 @@ class PaddingProcessor implements ProcessorInterface
 
     public const string OFFSET_LEVEL = 'level';
 
+    public const string OFFSET_XDETAILS = 'xdetails';
+
     public const int LEVEL_WIDTH = 8;
 
     public const string LEVEL_CHAR = ' ';
+
+    /** @var array<string> */
+    protected const array SKIP_FUNCTIONS = [
+        'call_user_func',
+        'call_user_func_array',
+    ];
+
+    /** @var array<string> */
+    protected const array SKIP_CLASSES = [
+        'Monolog\\',
+    ];
 
     private Level $level;
 
@@ -46,28 +60,20 @@ class PaddingProcessor implements ProcessorInterface
 
     private int $skipStackFramesCount;
 
-    /** @var array<string> */
-    private array $skipFunctions = [
-        'call_user_func',
-        'call_user_func_array',
-    ];
-
     /**
-     * @param mixed         $level                The minimum logging level at which this Processor will be triggered
-     * @param array<string> $skipClassesPartials
-     * @param int           $skipStackFramesCount
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level                The minimum logging level at which this handler will be triggered
+     * @param string[]                                       $skipClassesPartials
+     * @param int                                            $skipStackFramesCount
+     *
+     * @phpstan-param LoggingLevel $level
      *
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
-    public function __construct(mixed $level = Logger::DEBUG, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
+    public function __construct(int|string|Level $level = Level::Debug, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
-        $this->level                = Logger::toMonologLevel($level);
-        $this->skipClassesPartials  = array_merge(
-            [
-                'Monolog\\',
-            ],
-            $skipClassesPartials
-        );
+        /** @psalm-suppress PossiblyInvalidArgument  */
+        $this->level = Logger::toMonologLevel($level);
+        $this->skipClassesPartials = array_merge(static::SKIP_CLASSES, $skipClassesPartials);
         $this->skipStackFramesCount = $skipStackFramesCount;
     }
 
@@ -79,19 +85,23 @@ class PaddingProcessor implements ProcessorInterface
     #[\Override]
     public function __invoke(LogRecord $record): LogRecord
     {
+        // return if the level is not high enough
+        if ($record->level->isLowerThan($this->level)) {
+            return $record;
+        }
+
         /** @var array<mixed,mixed> */
-        $extra = $record->offsetGet(self::OFFSET_EXTRA);
+        $extra = $record[self::OFFSET_EXTRA];
 
         /** @var string $levelName */
-        $levelName = $record->offsetGet(self::OFFSET_LEVEL_NAME);
+        $levelName = $record[self::OFFSET_LEVEL_NAME];
         $extra[self::OFFSET_LEVEL_NAME_PAD] = str_pad($levelName, self::LEVEL_WIDTH, self::LEVEL_CHAR, STR_PAD_RIGHT);
-
         $record->offsetSet(self::OFFSET_EXTRA, $extra);
 
-        return $record;
+        return $this->__invokeIntrospection($record);
     }
 
-    public function __invokeIntrospection(LogRecord $record): LogRecord
+    private function __invokeIntrospection(LogRecord $record): LogRecord
     {
         // return if the level is not high enough
         if ($record->level->isLowerThan($this->level)) {
@@ -116,7 +126,7 @@ class PaddingProcessor implements ProcessorInterface
                         continue 2;
                     }
                 }
-            } elseif (in_array($trace[$index]['function'], $this->skipFunctions, true)) {
+            } elseif (in_array($trace[$index]['function'], static::SKIP_FUNCTIONS, true)) {
                 $index++;
 
                 continue;
@@ -132,14 +142,17 @@ class PaddingProcessor implements ProcessorInterface
         if ($index > 0 && $index < count($trace)) {
             $curTrace  = $trace[$index];
             $prevTrace = $trace[$index - 1];
-            $xDetails  = [
-                'xFile'     => $prevTrace['file'] ?? null,
-                'xLine'     => $prevTrace['line'] ?? null,
-                'xClass'    => $curTrace['class'] ?? null,
-                'xCallType' => $curTrace['type'] ?? null,
-                'xFunction' => $curTrace['function'],
-            ];
-            $record->offsetSet('details', $xDetails);
+
+            $record->extra = array_merge(
+                $record->extra,
+                [
+                    'xFile'     => $prevTrace['file'] ?? null,
+                    'xLine'     => $prevTrace['line'] ?? null,
+                    'xClass'    => $curTrace['class'] ?? null,
+                    'xCallType' => $curTrace['type'] ?? null,
+                    'xFunction' => $curTrace['function'],
+                ]
+            );
         }
 
         return $record;
@@ -157,6 +170,6 @@ class PaddingProcessor implements ProcessorInterface
             return false;
         }
 
-        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], $this->skipFunctions, true);
+        return isset($trace[$index]['class']) || \in_array($trace[$index]['function'], static::SKIP_FUNCTIONS, true);
     }
 }

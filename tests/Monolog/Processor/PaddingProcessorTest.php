@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Monolog\Processor;
 
 use Monolog\Level;
-use Monolog\Logger;
 use Monolog\LogRecord;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
@@ -62,7 +61,7 @@ class PaddingProcessorTest extends TestCase
         $testArray = [
             'message'        => '',
             'context'        => [],
-            'level'          => Logger::INFO,
+            'level'          => Level::Info,
             'level_name'     => 'INFO',
             'level_name_pad' => '',
             'channel'        => '',
@@ -80,24 +79,32 @@ class PaddingProcessorTest extends TestCase
             formatted: ''
         );
 
+        /** @var LogRecord */
         $result = $this->o2t->__invoke($record);
 
         self::assertNotEmpty($result);
         self::assertCount($expectedCount, $result->toArray());
 
-        self::assertStringContainsString(
-            $testArray['level_name'], 
-            $result->offsetGet($this->o2t::OFFSET_EXTRA)[$this->o2t::OFFSET_LEVEL_NAME_PAD]
+        /** @var null|array<mixed,mixed>|\DateTimeImmutable|int|string */
+        $extra = $result[$this->o2t::OFFSET_EXTRA];
+
+        if (is_array($extra)) {
+            self::assertStringContainsString(
+                $testArray['level_name'],
+                $extra[$this->o2t::OFFSET_LEVEL_NAME_PAD]
             );
-        self::assertGreaterThan(
-            strlen($testArray['level_name']), 
-            strlen($result->offsetGet($this->o2t::OFFSET_EXTRA)[$this->o2t::OFFSET_LEVEL_NAME_PAD])
+            self::assertGreaterThan(
+                strlen($testArray['level_name']),
+                strlen($extra[$this->o2t::OFFSET_LEVEL_NAME_PAD])
             );
-        foreach ($expectedKeys as $key) {
-            self::assertArrayHasKey($key, $result);
-        }
-        foreach ($expectedExtraKeys as $key) {
-            self::assertArrayHasKey($key, $result->offsetGet($this->o2t::OFFSET_EXTRA));
+            foreach ($expectedKeys as $key) {
+                self::assertArrayHasKey($key, $result->toArray());
+            }
+            foreach ($expectedExtraKeys as $key) {
+                self::assertArrayHasKey($key, $extra);
+            }
+        } else {
+            self::fail(sprintf('\'%s\' is not an array: \'%s\'', 'extra', gettype($extra)));
         }
     }
 }

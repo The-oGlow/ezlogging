@@ -14,23 +14,24 @@ declare(strict_types=1);
 namespace Monolog\Handler;
 
 use Monolog\Level;
-use Psr\Log\LogLevel;
 
 /**
  * Class FileHandler.
  *
  * @see StreamHandler
+ *
+ * @phpstan-import-type LoggingLevel from \Monolog\Handler\ConsoleHandler
  */
 class FileHandler extends StreamHandler
 {
     /** Fallback filename */
-    public const string STANDARD_FILENAME = 'noFilename';
+    public const string STANDARD_FILENAME = 'File';
 
     /** Default file extension */
     public const string STANDARD_FILEEXT  = '.log';
 
-    /** Default output level (DEBUG) */
-    public const string LEVEL_DEFAULT =  LogLevel::DEBUG;
+    /** @var int|Level|string Default output level (DEBUG) */
+    public const mixed LEVEL_DEFAULT =  Level::Debug;
 
     /** Default separator char for namespace (Default) */
     public const string C_NS_SEP  = "\\";
@@ -71,14 +72,19 @@ class FileHandler extends StreamHandler
     /**
      * FileHandler constructor.
      *
-     * @param null|string $pathToFile The full path to the output folder
-     * @param null|string $fileName   The name of the output file
-     * @param mixed       $level      The output level (Default: {@link FileHandler::LEVEL_DEFAULT})
+     * @param null|string                                    $pathToFile The full path to the output folder
+     * @param null|string                                    $fileName   The name of the output file
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: {@link ConsoleHandler::LEVEL_DEFAULT})
+     *
+     * @phpstan-param LoggingLevel $level
      *
      * @see FileHandler::LEVEL_DEFAULT
      */
-    public function __construct(?string $pathToFile = null, ?string $fileName = null, mixed $level = self::LEVEL_DEFAULT)
-    {
+    public function __construct(
+        ?string $pathToFile = null,
+        ?string $fileName = null,
+        int|string|Level $level = self::LEVEL_DEFAULT
+    ) {
         self::$tmpDir   = sys_get_temp_dir();
         $this->fileName = static::prepareFileName($pathToFile, $fileName);
         parent::__construct($this->fileName, $level);

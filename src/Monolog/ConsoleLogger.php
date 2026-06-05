@@ -29,7 +29,7 @@ use Monolog\Processor\ProcessorInterface;
 class ConsoleLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }

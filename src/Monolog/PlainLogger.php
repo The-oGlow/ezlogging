@@ -23,11 +23,13 @@ use Monolog\Processor\ProcessorInterface;
  * Class PlainLogger.
  *
  * @see AbstractEasyGoingLogger
+ *
+ * @psalm-suppress InvalidExtendClass
  */
 class PlainLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }
@@ -57,6 +59,7 @@ class PlainLogger extends AbstractEasyGoingLogger
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      *
+     * @psalm-suppress MethodSignatureMismatch
      * @phpstan-ignore method.childParameterType
      */
     #[\Override]
@@ -69,6 +72,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function emergency($message, array $context = []): void
@@ -80,6 +85,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function alert($message, array $context = []): void
@@ -91,6 +98,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function warning($message, array $context = []): void
@@ -102,6 +111,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function notice($message, array $context = []): void
@@ -113,6 +124,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function info($message, array $context = []): void
@@ -124,6 +137,8 @@ class PlainLogger extends AbstractEasyGoingLogger
      * @inheritDoc
      *
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
+     * @psalm-suppress MethodSignatureMismatch
      */
     #[\Override]
     public function debug($message, array $context = []): void

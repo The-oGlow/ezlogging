@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog\FileLoggerTest;
 
-use Monolog\Test\TestCase as tCase;
+use Monolog\Test\MonologTestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;

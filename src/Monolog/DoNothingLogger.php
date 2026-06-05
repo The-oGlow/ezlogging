@@ -32,6 +32,9 @@ use Monolog\Processor\ProcessorInterface;
  */
 class DoNothingLogger extends AbstractEasyGoingLogger
 {
+    /**
+     * @psalm-suppress MethodSignatureMismatch
+     */
     public function __construct()
     {
         parent::__construct(DoNothingLogger::class, self::LEVEL_DEFAULT, [], [], null);
