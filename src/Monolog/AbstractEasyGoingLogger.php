@@ -43,19 +43,19 @@ abstract class AbstractEasyGoingLogger extends Logger
 
     /**
      * @param string                                         $name       The logging channel, a simple descriptive name that is attached to all log records
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      * @param list<HandlerInterface>                         $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]                                     $processors Optional array of processors
      * @param null|DateTimeZone                              $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
-     * @psalm-suppress MethodSignatureMismatch,ConstructorSignatureMismatch,ParamNameMismatch,MoreSpecificImplementedParamType,ImplementedParamTypeMismatch
+     * @psalm-suppress MethodSignatureMismatch
      *
      * @phpstan-param LoggingLevel      $level
      * @phpstan-param ProcessorCallable $processors
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
-    public function __construct(string $name, int|string|Level $level = self::LEVEL_DEFAULT, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
+    public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null, int|string|Level $level = self::LEVEL_DEFAULT)
     {
         if (empty($timezone)) {
             /**

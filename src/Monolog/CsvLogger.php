@@ -23,6 +23,8 @@ use Monolog\Processor\ProcessorInterface;
 /**
  * Class CsvLogger.
  *
+ * @psalm-suppress InvalidExtendClass
+ *
  * @see FileLogger
  * @see CsvHandler
  * @see PlainProcessor
@@ -43,10 +45,10 @@ class CsvLogger extends FileLogger
 
     /**
      * @param string                                         $name          The logging channel, a simple descriptive name that is attached to all log records
-     * @param string                                         $pathToFile    The full path to the output folder
      * @param array<string>                                  $header        The column header (Default: empty)
      * @param string                                         $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
      * @param string                                         $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param null|string                                    $pathToFile    The full path to the output folder
      * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level         The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
      * @psalm-suppress MethodSignatureMismatch,ConstructorSignatureMismatch,ParamNameMismatch,ImplementedParamTypeMismatch
@@ -58,17 +60,17 @@ class CsvLogger extends FileLogger
      */
     public function __construct(
         string $name,
-        string $pathToFile,
         array $header = [],
         string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
         string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP,
+        ?string $pathToFile = null,
         int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
         $this->header        = $header;
 
-        parent::__construct($name, $pathToFile, [], [], null, $level);
+        parent::__construct($name, [], [], null, $pathToFile, $level);
 
         $this->writeHeader($this->header);
     }
@@ -121,7 +123,7 @@ class CsvLogger extends FileLogger
     }
 
     #[\Override]
-    protected function getFileHandler(string $pathToFile, string $fileName, int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getFileHandler(?string $pathToFile, string $fileName, int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure, $level);
         $handler->setFormatter($this->getDefaultFormatter());

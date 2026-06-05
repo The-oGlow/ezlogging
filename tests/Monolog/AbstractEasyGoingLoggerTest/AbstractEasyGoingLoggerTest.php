@@ -64,7 +64,7 @@ class AbstractEasyGoingLoggerTest extends TestCase
     public function testCreateWithDifferentTimezone(): void
     {
         $customDTZ = new DateTimeZone("America/Los_Angeles");
-        $o2tb      = new AbstractEasyGoingLoggerTestDummyClazz(AbstractEasyGoingLoggerTest::class, AbstractEasyGoingLogger::LEVEL_DEFAULT, [], [], $customDTZ);
+        $o2tb      = new AbstractEasyGoingLoggerTestDummyClazz(AbstractEasyGoingLoggerTest::class, [], [], $customDTZ, AbstractEasyGoingLogger::LEVEL_DEFAULT);
 
         self::assertInstanceOf(AbstractEasyGoingLoggerTestDummyClazz::class, $o2tb);
         self::assertEquals($customDTZ, $o2tb->getTimezone());

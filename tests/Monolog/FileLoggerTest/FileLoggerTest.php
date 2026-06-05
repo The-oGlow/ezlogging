@@ -33,7 +33,7 @@ class FileLoggerTest extends TestCase
     {
         parent::setUp();
 
-        $this->o2t      = new FileLogger(uniqid(self::class, true), sys_get_temp_dir());
+        $this->o2t      = new FileLogger(name:uniqid(self::class, true), pathToFile: sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
         $this->silentIsExists = false;
     }
@@ -65,7 +65,7 @@ class FileLoggerTest extends TestCase
     {
         $expectedCount = 2;
 
-        $o2tB = new FileLogger(uniqid(self::class, true), sys_get_temp_dir(), [new FileLoggerTestHandlerDummyClazz()]);
+        $o2tB = new FileLogger(name:uniqid(self::class, true), pathToFile: sys_get_temp_dir(), handlers: [new FileLoggerTestHandlerDummyClazz()]);
         self::assertInstanceOf(FileLogger::class, $o2tB);
 
         $handlers = $o2tB->getHandlers();
@@ -81,7 +81,7 @@ class FileLoggerTest extends TestCase
         $targetFolder = sys_get_temp_dir();
         $targetFilename = str_replace(FileHandler::C_NS_SEP, FileHandler::C_NS_FS_SEP, uniqid(self::class, true));
 
-        $o2tc = new FileLogger($targetFilename, $targetFolder, [new FileLoggerTestHandlerDummyClazz()]);
+        $o2tc = new FileLogger(name: $targetFilename, pathToFile: $targetFolder, handlers: [new FileLoggerTestHandlerDummyClazz()]);
         self::assertInstanceOf(FileLogger::class, $o2tc);
 
         $fileName = $o2tc->getFileName();
