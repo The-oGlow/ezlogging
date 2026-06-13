@@ -17,12 +17,12 @@ use Closure;
 use DateTimeZone;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
-use Psr\Log\LoggerInterface;
+use Psr\Log\AbstractLogger;
 
 /**
  * @phpstan-import-type LoggingLevel from AbstractEasyGoingLogger
  */
-class LoggerAdapter implements LoggerInterface, ResettableInterface
+class LoggerAdapter extends AbstractLogger implements ResettableInterface
 {
     /** The real monolog logger */
     private Logger $monologLogger;
