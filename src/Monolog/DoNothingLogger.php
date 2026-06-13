@@ -25,8 +25,6 @@ use Monolog\Processor\ProcessorInterface;
  *
  * This logger does exactly: <strong>nothing</strong>!
  *
- * @psalm-suppress InvalidExtendClass
- *
  * @see AbstractEasyGoingLogger
  * @see NoopHandler
  * @see PlainProcessor
@@ -34,9 +32,6 @@ use Monolog\Processor\ProcessorInterface;
  */
 class DoNothingLogger extends AbstractEasyGoingLogger
 {
-    /**
-     * @psalm-suppress MethodSignatureMismatch
-     */
     public function __construct()
     {
         parent::__construct(DoNothingLogger::class, [], [], null, self::LEVEL_DEFAULT);

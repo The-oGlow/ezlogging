@@ -38,9 +38,7 @@ class EasyGoingFormatter extends LineFormatter
      * @see EasyGoingFormatter::FORMATTER_OUTPUT
      * @see EasyGoingFormatter::FORMATTER_DATEFORMAT
      *
-     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     * @SuppressWarnings("PHPMD.LongVariable")
      */
     public function __construct(
         ?string $format = self::FORMATTER_OUTPUT,

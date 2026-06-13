@@ -23,7 +23,6 @@ parameters:
             identifier: method.dynamicName
             paths:
                 - tests/*/*TestTrait.php
-                - tests/*/*Test.php
         -
             identifier: method.notFound
             paths:

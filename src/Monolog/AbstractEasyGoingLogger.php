@@ -29,11 +29,8 @@ use Psr\Log\LogLevel;
  *
  * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
  * @phpstan-type ProcessorCallable array<(callable(\Monolog\LogRecord):\Monolog\LogRecord)|\Monolog\Processor\ProcessorInterface>
- *
- * @psalm-suppress InvalidExtendClass
- * @phpstan-ignore class.extendsFinalByPhpDoc
  */
-abstract class AbstractEasyGoingLogger extends Logger
+abstract class AbstractEasyGoingLogger extends LoggerAdapter
 {
     /** Fallback timezone */
     public const string STANDARD_TIMEZONE = "Europe/Berlin";
@@ -47,8 +44,6 @@ abstract class AbstractEasyGoingLogger extends Logger
      * @param callable[]                                     $processors Optional array of processors
      * @param null|DateTimeZone                              $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
-     *
-     * @psalm-suppress MethodSignatureMismatch
      *
      * @phpstan-param LoggingLevel      $level
      * @phpstan-param ProcessorCallable $processors
@@ -64,11 +59,10 @@ abstract class AbstractEasyGoingLogger extends Logger
              */
             $timezone = new DateTimeZone(date_default_timezone_get() ?? self::STANDARD_TIMEZONE);
         }
+
         parent::__construct($name, $handlers, $processors, $timezone);
-
-        $this->pushHandler($this->getDefaultHandler($level));
-
-        $this->pushProcessor($this->getDefaultProcessor());
+        parent::pushHandler($this->getDefaultHandler($level));
+        parent::pushProcessor($this->getDefaultProcessor());
     }
 
     /**

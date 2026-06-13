@@ -23,8 +23,6 @@ use Monolog\Processor\ProcessorInterface;
 /**
  * Class CsvLogger.
  *
- * @psalm-suppress InvalidExtendClass
- *
  * @see FileLogger
  * @see CsvHandler
  * @see PlainProcessor
@@ -50,8 +48,6 @@ class CsvLogger extends FileLogger
      * @param string                                         $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
      * @param null|string                                    $pathToFile    The full path to the output folder
      * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level         The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
-     *
-     * @psalm-suppress MethodSignatureMismatch,ConstructorSignatureMismatch,ParamNameMismatch,ImplementedParamTypeMismatch
      *
      * @phpstan-param LoggingLevel $level
      *

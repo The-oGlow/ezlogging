@@ -24,8 +24,6 @@ use Monolog\Handler\StreamHandler;
  * @see ConsoleLogger
  * @see FileHandler
  *
- * @psalm-suppress InvalidExtendClass
- *
  * @phpstan-import-type LoggingLevel from \Monolog\AbstractEasyGoingLogger
  * @phpstan-import-type ProcessorCallable from \Monolog\AbstractEasyGoingLogger
  */
@@ -40,8 +38,6 @@ class FileLogger extends ConsoleLogger
      * @param null|DateTimeZone                              $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      * @param null|string                                    $pathToFile The full path to the output folder
      * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
-     *
-     * @psalm-suppress MethodSignatureMismatch,ConstructorSignatureMismatch,ParamNameMismatch,ImplementedParamTypeMismatch
      *
      * @phpstan-param LoggingLevel      $level
      * @phpstan-param ProcessorCallable $processors
@@ -63,8 +59,6 @@ class FileLogger extends ConsoleLogger
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface

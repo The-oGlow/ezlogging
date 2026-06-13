@@ -25,8 +25,6 @@ class AbstractEasyGoingLoggerTestDummyClazz extends AbstractEasyGoingLogger
 {
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
@@ -36,8 +34,6 @@ class AbstractEasyGoingLoggerTestDummyClazz extends AbstractEasyGoingLogger
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     protected function getDefaultProcessor(): ProcessorInterface
@@ -47,8 +43,6 @@ class AbstractEasyGoingLoggerTestDummyClazz extends AbstractEasyGoingLogger
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     protected function getDefaultFormatter(): FormatterInterface

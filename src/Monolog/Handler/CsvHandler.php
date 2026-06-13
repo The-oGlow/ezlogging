@@ -89,17 +89,18 @@ class CsvHandler extends FileHandler
 
     /**
      * @inheritDoc
-     *
-     * @psalm-suppress RiskyTruthyFalsyComparison
      */
     #[\Override]
     protected function streamWrite($stream, LogRecord $record): void
     {
         $output = [];
+
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
             array_push($output, $record[self::KEY_MESSAGE]);
         }
 
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
             $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]); // @phpstan-ignore argument.type
             $output = array_merge($output, $implodeContext);

@@ -23,8 +23,6 @@ class AbstractEasyGoingLoggerTestHandlerDummyClazz implements HandlerInterface
 {
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     public function isHandling(LogRecord $record): bool
@@ -34,8 +32,6 @@ class AbstractEasyGoingLoggerTestHandlerDummyClazz implements HandlerInterface
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     public function handle(LogRecord $record): bool
@@ -45,8 +41,6 @@ class AbstractEasyGoingLoggerTestHandlerDummyClazz implements HandlerInterface
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     public function handleBatch(array $records): void

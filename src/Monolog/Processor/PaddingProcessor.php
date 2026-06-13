@@ -66,8 +66,6 @@ class PaddingProcessor implements ProcessorInterface
      * @param int                                            $skipStackFramesCount
      *
      * @phpstan-param LoggingLevel $level
-     *
-     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function __construct(int|string|Level $level = Level::Debug, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
