@@ -31,7 +31,6 @@
         "monolog/monolog": "^3.0"
     },
     "provide": {
-        "psr/log-implementation": "^2.0||^3.0"
     },
     "suggest": {
     },
