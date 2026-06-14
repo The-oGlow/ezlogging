@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
-use Monolog\Logger;
+use Monolog\Level;
+use Monolog\LogRecord;
 use PHPUnit\Framework\TestCase;
 
 class PlainProcessorTest extends TestCase
@@ -35,28 +36,33 @@ class PlainProcessorTest extends TestCase
 
     public function testInvokeWithRecord(): void
     {
-        $testArray = [
-            'message'        => '',
-            'context'        => [],
-            'level'          => Logger::INFO,
-            'level_name'     => 'INFO',
-            'level_name_pad' => '',
-            'channel'        => '',
-            'datetime'       => new \DateTimeImmutable(),
-            'extra'          => [],
-        ];
+        $record = new LogRecord(
+            datetime: new \DateTimeImmutable(),
+            channel: '',
+            level: Level::Info,
+            message: '',
+            context:[],
+            extra:[],
+            formatted:''
+        );
 
-        $result    = $this->o2t->__invoke($testArray);
+        $result    = $this->o2t->__invoke($record);
 
-        self::assertEquals($testArray, $result);
+        self::assertEquals($record, $result);
     }
 
     public function testInvokeWithPlain(): void
     {
-        $testArray = [1, 2, 'hello'];
+        $record = new LogRecord(
+            datetime: new \DateTimeImmutable(),
+            channel: '',
+            level: Level::Info,
+            message:'hello',
+            context: [1,2]
+        );
 
-        $result    = $this->o2t->__invoke($testArray);
+        $result    = $this->o2t->__invoke($record);
 
-        self::assertEquals($testArray, $result);
+        self::assertEquals($record, $result);
     }
 }

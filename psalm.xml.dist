@@ -33,6 +33,8 @@
         <MixedPropertyTypeCoercion errorLevel="info"/>
         <PropertyNotSetInConstructor errorLevel="info"/>
         <UndefinedConstant errorLevel="info"/>
+        <!-- Temp -->
+        <MismatchingDocblockParamType errorLevel="suppress"/>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

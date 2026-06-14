@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Monolog\FileLoggerTest;
 
-use Monolog\Test\TestCase as tCase;
+use Monolog\Test\MonologTestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
@@ -83,15 +83,13 @@ trait FileLoggerTestTrait
         tCase::assertFileExists(self::$fileName);
     }
 
-    /**
-     * @psalm-suppress UndefinedMethod
-     */
     public function testWriteOneMessage(): void
     {
         $message = self::$MESSAGE_1;
 
         if ($this->isExists()) {
             $renderMessage = $this->currentTestMethod() . $message;
+            /** @psalm-suppress UndefinedMethod */
             $this->o2t->out($renderMessage);
 
             $expectedMsg = str_replace(self::$PH_MSG, $renderMessage, self::$REGEX_MSG);
@@ -181,7 +179,7 @@ trait FileLoggerTestTrait
             }
         }
         if ($this->isExists('log')) {
-            $this->o2t->log($this->o2t::INFO, $this->currentTestMethod() . self::$MESSAGE_1 . '-log', self::$COMPLEX_CONTEXT);
+            $this->o2t->log($this->o2t::LEVEL_DEFAULT, $this->currentTestMethod() . self::$MESSAGE_1 . '-log', self::$COMPLEX_CONTEXT);
         }
         tCase::assertTrue(true);
     }

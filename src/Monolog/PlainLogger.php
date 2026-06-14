@@ -18,19 +18,17 @@ use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Class PlainLogger.
  *
  * @see AbstractEasyGoingLogger
- *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
  */
 class PlainLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }
@@ -49,88 +47,73 @@ class PlainLogger extends AbstractEasyGoingLogger
 
     /**
      * @param string|\Stringable $message The log message
+     * @param mixed              $level
      */
-    public function out($message): void
+    public function out(string|\Stringable $message, $level = self::LEVEL_DEFAULT): void
     {
-        parent::info($message);
+        parent::log($level, $message);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     *
-     * @phpstan-ignore method.childParameterType
      */
     #[\Override]
-    public function log($level, $message, array $context = []): void
+    public function log($level, string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, $level);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function emergency($message, array $context = []): void
+    public function emergency(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::EMERGENCY);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function alert($message, array $context = []): void
+    public function alert(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::ALERT);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function warning($message, array $context = []): void
+    public function warning(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::WARNING);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function notice($message, array $context = []): void
+    public function notice(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::NOTICE);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function info($message, array $context = []): void
+    public function info(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::INFO);
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function debug($message, array $context = []): void
+    public function debug(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message);
+        $this->out($message, LogLevel::DEBUG);
     }
 }

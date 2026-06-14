@@ -36,7 +36,7 @@ class CsvLoggerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->o2t      = new CsvLogger(uniqid(self::class, true) . '-', sys_get_temp_dir());
+        $this->o2t      = new CsvLogger(name:uniqid(self::class, true) . '-', pathToFile: sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
     }
 
@@ -53,7 +53,7 @@ class CsvLoggerTest extends TestCase
     {
         $expectedHeader = ['col1', 'col2', 'col3'];
 
-        $csvLogger         = new CsvLogger('LoggerWithHeader', sys_get_temp_dir(), $expectedHeader);
+        $csvLogger         = new CsvLogger(name:'LoggerWithHeader', pathToFile: sys_get_temp_dir(), header:$expectedHeader);
         $csvLoggerFileName = $csvLogger->getFileName();
 
         if (file_exists($csvLoggerFileName)) {

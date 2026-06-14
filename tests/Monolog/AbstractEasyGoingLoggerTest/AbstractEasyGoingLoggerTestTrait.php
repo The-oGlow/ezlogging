@@ -24,6 +24,7 @@ use Monolog\Handler\CsvHandler;
 use Monolog\Handler\FileHandler;
 use Monolog\Handler\NoopHandler;
 use Monolog\Handler\TestHandler;
+use Monolog\LoggerAdapter;
 use Monolog\PlainLogger;
 use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\PlainProcessor;
@@ -43,6 +44,7 @@ trait AbstractEasyGoingLoggerTestTrait
             CsvLogger::class,
             AbstractEasyGoingLoggerTestDummyClazz::class,
             ConsoleLogger::class,
+            LoggerAdapter::class,
         ];
 
         $actualClazz = get_class($this->o2t);

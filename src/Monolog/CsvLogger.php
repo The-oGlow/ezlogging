@@ -27,6 +27,8 @@ use Monolog\Processor\ProcessorInterface;
  * @see CsvHandler
  * @see PlainProcessor
  * @see PlainFormatter
+ *
+ * @phpstan-import-type LoggingLevel from \Monolog\AbstractEasyGoingLogger
  */
 class CsvLogger extends FileLogger
 {
@@ -40,29 +42,31 @@ class CsvLogger extends FileLogger
     private array $header;
 
     /**
-     * @param string        $name          The logging channel, a simple descriptive name that is attached to all log records
-     * @param string        $pathToFile    The full path to the output folder
-     * @param array<string> $header        The column header (Default: empty)
-     * @param string        $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
-     * @param string        $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
-     * @param mixed         $level         The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param string                                         $name          The logging channel, a simple descriptive name that is attached to all log records
+     * @param array<string>                                  $header        The column header (Default: empty)
+     * @param string                                         $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string                                         $itemEnclosure The char enclosing each column value (Default: {@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param null|string                                    $pathToFile    The full path to the output folder
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level         The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     *
+     * @phpstan-param LoggingLevel $level
      *
      * @see CsvHandler::STANDARD_ITEM_SEP
      * @see CsvHandler::STANDARD_TEXT_SEP
      */
     public function __construct(
         string $name,
-        string $pathToFile,
         array $header = [],
         string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
         string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP,
-        mixed $level = self::LEVEL_DEFAULT
+        ?string $pathToFile = null,
+        int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
         $this->header        = $header;
 
-        parent::__construct($name, $pathToFile, [], [], null, $level);
+        parent::__construct($name, [], [], null, $pathToFile, $level);
 
         $this->writeHeader($this->header);
     }
@@ -115,7 +119,7 @@ class CsvLogger extends FileLogger
     }
 
     #[\Override]
-    protected function getFileHandler(string $pathToFile, string $fileName, $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getFileHandler(?string $pathToFile, string $fileName, int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure, $level);
         $handler->setFormatter($this->getDefaultFormatter());

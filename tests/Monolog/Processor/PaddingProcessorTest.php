@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Monolog\Processor;
 
-use Monolog\Logger;
+use Monolog\Level;
+use Monolog\LogRecord;
 use ollily\Tools\Reflection\UnavailableFieldsTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,7 @@ class PaddingProcessorTest extends TestCase
     public function testConfiguration(): void
     {
         self::assertInstanceOf(PaddingProcessor::class, $this->o2t);
-        self::assertEquals(Logger::DEBUG, $this->getFieldFromO2t('level'));
+        self::assertEquals(Level::Debug, $this->getFieldFromO2t('level'));
         $arrayResult = $this->getFieldFromO2t('skipClassesPartials');
         self::assertIsArray($arrayResult);
         self::assertCount(1, $arrayResult);
@@ -44,26 +45,23 @@ class PaddingProcessorTest extends TestCase
 
     public function testInvoke(): void
     {
-        $expectedCount = 13;
+        $expectedCount = 7;
         $expectedKeys  = [
             'message',
             'context',
             'level',
             'level_name',
-            'level_name_pad',
             'channel',
             'datetime',
-            'xFile',
-            'xLine',
-            'xClass',
-            'xCallType',
-            'xFunction',
+        ];
+        $expectedExtraKeys = [
+            'level_name_pad',
         ];
 
         $testArray = [
             'message'        => '',
             'context'        => [],
-            'level'          => Logger::INFO,
+            'level'          => Level::Info,
             'level_name'     => 'INFO',
             'level_name_pad' => '',
             'channel'        => '',
@@ -71,14 +69,42 @@ class PaddingProcessorTest extends TestCase
             'extra'          => [],
         ];
 
-        $arrayResult = $this->o2t->__invoke($testArray);
+        $record = new LogRecord(
+            datetime: new \DateTimeImmutable(),
+            channel: '',
+            level: Level::Info,
+            message: '',
+            context: [],
+            extra: [],
+            formatted: ''
+        );
 
-        self::assertNotEmpty($arrayResult);
-        self::assertCount($expectedCount, $arrayResult);
-        self::assertStringContainsString($testArray['level_name'], $arrayResult['level_name_pad']);
-        self::assertGreaterThan(strlen($testArray['level_name']), strlen($arrayResult['level_name_pad']));
-        foreach ($expectedKeys as $key) {
-            self::assertArrayHasKey($key, $arrayResult);
+        /** @var LogRecord */
+        $result = $this->o2t->__invoke($record);
+
+        self::assertNotEmpty($result);
+        self::assertCount($expectedCount, $result->toArray());
+
+        /** @var null|array<mixed,mixed>|\DateTimeImmutable|int|string */
+        $extra = $result[$this->o2t::OFFSET_EXTRA];
+
+        if (is_array($extra)) {
+            self::assertStringContainsString(
+                $testArray['level_name'],
+                $extra[$this->o2t::OFFSET_LEVEL_NAME_PAD]
+            );
+            self::assertGreaterThan(
+                strlen($testArray['level_name']),
+                strlen($extra[$this->o2t::OFFSET_LEVEL_NAME_PAD])
+            );
+            foreach ($expectedKeys as $key) {
+                self::assertArrayHasKey($key, $result->toArray());
+            }
+            foreach ($expectedExtraKeys as $key) {
+                self::assertArrayHasKey($key, $extra);
+            }
+        } else {
+            self::fail(sprintf('\'%s\' is not an array: \'%s\'', 'extra', gettype($extra)));
         }
     }
 }

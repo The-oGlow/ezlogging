@@ -23,53 +23,59 @@ use Monolog\Handler\StreamHandler;
  *
  * @see ConsoleLogger
  * @see FileHandler
+ *
+ * @phpstan-import-type LoggingLevel from \Monolog\AbstractEasyGoingLogger
+ * @phpstan-import-type ProcessorCallable from \Monolog\AbstractEasyGoingLogger
  */
 class FileLogger extends ConsoleLogger
 {
     private HandlerInterface $fileHandler;
 
     /**
-     * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
-     * @param string             $pathToFile The full path to the output folder
-     * @param handlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc
-     * @param callable[]         $processors Optional array of processors
-     * @param null|DateTimeZone  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
-     * @param mixed              $level      The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param string                                         $name       The logging channel, a simple descriptive name that is attached to all log records
+     * @param list<handlerInterface>                         $handlers   Optional stack of handlers, the first one in the array is called first, etc
+     * @param callable[]                                     $processors Optional array of processors
+     * @param null|DateTimeZone                              $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param null|string                                    $pathToFile The full path to the output folder
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     *
+     * @phpstan-param LoggingLevel      $level
+     * @phpstan-param ProcessorCallable $processors
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
     public function __construct(
         string $name,
-        string $pathToFile,
         array $handlers = [],
         array $processors = [],
         ?DateTimeZone $timezone = null,
-        mixed $level = self::LEVEL_DEFAULT
+        ?string $pathToFile = null,
+        int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         $this->fileHandler = $this->getFileHandler($pathToFile, $name);
-        //        if (empty($handlers)) {
-        //            $handlers = [$this->getFileHandler($pathToFile, $name)];
-        //        } else {
-        //            array_unshift($handlers, $this->getFileHandler($pathToFile, $name));
-        //        }
 
-        parent::__construct($name, $level, $handlers, $processors, $timezone);
+        parent::__construct($name, $handlers, $processors, $timezone, $level);
     }
 
+    /**
+     * @inheritDoc
+     */
     #[\Override]
-    protected function getDefaultHandler($level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->fileHandler;
     }
 
     /**
-     * @param string $pathToFile The full path to the output folder
-     * @param string $fileName   The name of the output file
-     * @param mixed  $level      The output level (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param null|string                                    $pathToFile The full path to the output folder
+     * @param string                                         $fileName   The name of the output file
+     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered (Default: (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     *
+     * @phpstan-param LoggingLevel $level
      *
      * @return StreamHandler the stream handler for the file
      */
-    protected function getFileHandler(string $pathToFile, string $fileName, mixed $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getFileHandler(?string $pathToFile, string $fileName, int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
     {
         return new FileHandler($pathToFile, $fileName, $level);
     }

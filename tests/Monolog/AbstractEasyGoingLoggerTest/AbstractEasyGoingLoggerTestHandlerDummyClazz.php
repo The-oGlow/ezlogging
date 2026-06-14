@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Monolog\AbstractEasyGoingLoggerTest;
 
 use Monolog\Handler\HandlerInterface;
+use Monolog\LogRecord;
 
 /**
  * A simple clazz which will be tested by the test clazz.
@@ -22,30 +23,24 @@ class AbstractEasyGoingLoggerTestHandlerDummyClazz implements HandlerInterface
 {
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function isHandling(array $record): bool
+    public function isHandling(LogRecord $record): bool
     {
         return true;
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
-    public function handle(array $record): bool
+    public function handle(LogRecord $record): bool
     {
         return true;
     }
 
     /**
      * @inheritDoc
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\Override]
     public function handleBatch(array $records): void

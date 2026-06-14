@@ -38,9 +38,7 @@ class PlainFormatter extends LineFormatter
      * @see PlainFormatter::FORMATTER_OUTPUT
      * @see PlainFormatter::FORMATTER_DATEFORMAT
      *
-     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     * @SuppressWarnings("PHPMD.LongVariable")
      */
     public function __construct(
         ?string $format = self::FORMATTER_OUTPUT,
