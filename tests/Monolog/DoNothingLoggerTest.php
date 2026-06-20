@@ -13,11 +13,15 @@ declare(strict_types=1);
 
 namespace Monolog;
 
+use Monolog\Handler\TestHandler;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DoNothingLoggerTest extends TestCase
 {
     use AbstractEasyGoingLoggerTest\AbstractEasyGoingLoggerTestTrait;
+
+    protected TestHandler $testHandler;
 
     protected DoNothingLogger $o2t;
 
@@ -25,16 +29,39 @@ class DoNothingLoggerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->testHandler = new TestHandler();
         $this->o2t = new DoNothingLogger();
     }
 
-    public function testNothingHappens(): void
+    /**
+     * @param string $methodName
+     */
+    #[DataProvider('providerMethods')]
+    public function testNothingHappens(string $methodName): void
     {
-        $message  = 'Write a log entry';
-        $expected = '/^$/m';
+        $expectedCount = 0;
+        $expectedRegex = '/^$/';
 
-        $this->o2t->info($message);
+        $message = 'Write a log entry';
 
-        self::expectOutputRegex($expected);
+        $this->o2t->$methodName($message);
+
+        self::expectOutputRegex($expectedRegex);
+        self::assertCount($expectedCount, $this->testHandler->getRecords());
+    }
+
+    /**
+     * @return array<mixed,mixed>
+     */
+    public static function providerMethods(): array
+    {
+        return [
+            'debug' => ['Debug'],
+            'info' => ['Info'],
+            'notice' => ['Notice'],
+            'warning' => ['Warning'],
+            'alert' => ['Alert'],
+            'emergency' => ['Emergency'],
+        ];
     }
 }
