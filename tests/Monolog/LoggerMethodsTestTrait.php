@@ -16,9 +16,6 @@ namespace Monolog;
 use Monolog\Handler\TestHandler;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * @author postm
- */
 trait LoggerMethodsTestTrait
 {
     protected TestHandler $testHandler;
