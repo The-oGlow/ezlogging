@@ -51,7 +51,7 @@ class DoNothingLoggerTest extends TestCase
     }
 
     /**
-     * @return array<mixed,mixed>
+     * @return array<mixed>
      */
     public static function providerMethods(): array
     {

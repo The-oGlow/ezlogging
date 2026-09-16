@@ -89,7 +89,7 @@ class PaddingProcessor implements ProcessorInterface
             return $record;
         }
 
-        /** @var array<mixed,mixed> */
+        /** @var array<mixed> */
         $extra = $record[self::OFFSET_EXTRA];
 
         /** @var string $levelName */
@@ -158,7 +158,7 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param array<mixed,mixed> $trace
+     * @param array<mixed> $trace
      * @param int                $index
      *
      * @return bool
