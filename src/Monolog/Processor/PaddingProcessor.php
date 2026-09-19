@@ -159,7 +159,7 @@ class PaddingProcessor implements ProcessorInterface
 
     /**
      * @param array<mixed> $trace
-     * @param int                $index
+     * @param int          $index
      *
      * @return bool
      */

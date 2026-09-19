@@ -103,7 +103,7 @@ trait LoggerMethodsTestTrait
     }
 
     /**
-     * @param string             $level
+     * @param string       $level
      * @param array<mixed> $context
      *
      * @return bool
@@ -124,7 +124,7 @@ trait LoggerMethodsTestTrait
     }
 
     /**
-     * @param string             $logMethod
+     * @param string       $logMethod
      * @param array<mixed> $context
      *
      * @return bool
