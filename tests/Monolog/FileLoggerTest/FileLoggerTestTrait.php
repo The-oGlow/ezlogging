@@ -17,6 +17,7 @@ use Monolog\Test\MonologTestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * This trait tests the FileLogger.
@@ -77,7 +78,7 @@ trait FileLoggerTestTrait
     {
         tCase::assertNotEmpty(self::$fileName);
         tCase::assertFileDoesNotExist(self::$fileName);
-        if ($this->isExists('info')) {
+        if ($this->isExists(LogLevel::INFO)) {
             $this->o2t->info('Write text into:', [self::$fileName]);
         }
         tCase::assertFileExists(self::$fileName);
