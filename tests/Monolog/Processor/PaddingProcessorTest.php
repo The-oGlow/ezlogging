@@ -85,7 +85,7 @@ class PaddingProcessorTest extends TestCase
         self::assertNotEmpty($result);
         self::assertCount($expectedCount, $result->toArray());
 
-        /** @var null|array<mixed,mixed>|\DateTimeImmutable|int|string */
+        /** @var null|array<mixed>|\DateTimeImmutable|int|string */
         $extra = $result[$this->o2t::OFFSET_EXTRA];
 
         if (is_array($extra)) {

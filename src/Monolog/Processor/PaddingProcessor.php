@@ -62,6 +62,7 @@ class PaddingProcessor implements ProcessorInterface
 
     /**
      * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level                The minimum logging level at which this handler will be triggered
+     *                                                                             (Default: {@link Level::Debug})
      * @param string[]                                       $skipClassesPartials
      * @param int                                            $skipStackFramesCount
      *
@@ -88,7 +89,7 @@ class PaddingProcessor implements ProcessorInterface
             return $record;
         }
 
-        /** @var array<mixed,mixed> */
+        /** @var array<mixed> */
         $extra = $record[self::OFFSET_EXTRA];
 
         /** @var string $levelName */
@@ -99,7 +100,7 @@ class PaddingProcessor implements ProcessorInterface
         return $this->__invokeIntrospection($record);
     }
 
-    private function __invokeIntrospection(LogRecord $record): LogRecord
+    private function __invokeIntrospection(LogRecord $record): LogRecord // NOSONAR: php:S100
     {
         // return if the level is not high enough
         if ($record->level->isLowerThan($this->level)) {
@@ -157,8 +158,8 @@ class PaddingProcessor implements ProcessorInterface
     }
 
     /**
-     * @param array<mixed,mixed> $trace
-     * @param int                $index
+     * @param array<mixed> $trace
+     * @param int          $index
      *
      * @return bool
      */

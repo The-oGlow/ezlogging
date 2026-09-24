@@ -25,7 +25,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.4.1",
-        "php-ds/php-ds": "^1.0",
+        "ext-ds": "^1.0",
         "ollily/ezkoding": "^8.4",
         "psr/log": "^2.0||^3.0",
         "monolog/monolog": "^3.0"
@@ -35,6 +35,7 @@
     "suggest": {
     },
     "require-dev": {
+        "php-ds/php-ds": "^1.0",
         "phpunit/phpunit": "^13.1",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
@@ -50,8 +51,26 @@
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "php-http/discovery": true
-        }
+        },
+        "policy": {
+            "advisories": {
+                "block": true,
+                "audit": "report"
+            },
+            "abandoned": {
+                "block": true,
+                "audit": "report"
+            },
+            "malware": {
+                "block": true,
+                "block-scope": "all",
+                "audit": "fail"
+            }
+        }                        
     },
+    "archive": {
+        "exclude": ["/target", "/nbproject/private"]
+    },        
     "autoload": {
         "psr-4": {
             "Monolog\\": "src/Monolog"

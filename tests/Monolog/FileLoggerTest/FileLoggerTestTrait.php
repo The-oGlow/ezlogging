@@ -17,6 +17,7 @@ use Monolog\Test\MonologTestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * This trait tests the FileLogger.
@@ -39,7 +40,7 @@ trait FileLoggerTestTrait
 
     private static string $CONTEXT_2 = 'context_2';
 
-    /** @var array<mixed,mixed> */
+    /** @var array<mixed> */
     private static array $COMPLEX_CONTEXT = ['id1' => 'val1', 'id2' => 'val2', 3 => 3, 4 => [40, 41, ['idx400' => 'sub400', 'sub401']]];
 
     private static string $PH_CNTX = '#CNTX#';
@@ -77,7 +78,7 @@ trait FileLoggerTestTrait
     {
         tCase::assertNotEmpty(self::$fileName);
         tCase::assertFileDoesNotExist(self::$fileName);
-        if ($this->isExists('info')) {
+        if ($this->isExists(LogLevel::INFO)) {
             $this->o2t->info('Write text into:', [self::$fileName]);
         }
         tCase::assertFileExists(self::$fileName);
@@ -119,7 +120,7 @@ trait FileLoggerTestTrait
     }
 
     /**
-     * @return array<mixed,mixed>
+     * @return array<mixed>
      */
     public static function providerWriteMessageWithContext(): array
     {
@@ -181,7 +182,7 @@ trait FileLoggerTestTrait
         if ($this->isExists('log')) {
             $this->o2t->log($this->o2t::LEVEL_DEFAULT, $this->currentTestMethod() . self::$MESSAGE_1 . '-log', self::$COMPLEX_CONTEXT);
         }
-        tCase::assertTrue(true);
+        tCase::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
     }
 
     protected function currentTestMethod(): string
@@ -227,7 +228,7 @@ trait FileLoggerTestTrait
             if ($this->silentIsExists) {
                 self::fail('Method not exists: ' . $methodName);
             } else {
-                self::assertTrue(true);
+                self::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
             }
         }
 

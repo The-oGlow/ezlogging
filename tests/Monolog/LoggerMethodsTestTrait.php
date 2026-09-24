@@ -20,7 +20,7 @@ trait LoggerMethodsTestTrait
 {
     protected TestHandler $testHandler;
 
-    /** @var array<mixed,mixed> */
+    /** @var array<mixed> */
     private array $context = ['value 1', 2 => 'value 2', 3];
 
     protected function initLoggerMethodsTestTrait(mixed &$o2t): void
@@ -103,8 +103,8 @@ trait LoggerMethodsTestTrait
     }
 
     /**
-     * @param string             $level
-     * @param array<mixed,mixed> $context
+     * @param string       $level
+     * @param array<mixed> $context
      *
      * @return bool
      */
@@ -124,8 +124,8 @@ trait LoggerMethodsTestTrait
     }
 
     /**
-     * @param string             $logMethod
-     * @param array<mixed,mixed> $context
+     * @param string       $logMethod
+     * @param array<mixed> $context
      *
      * @return bool
      */
@@ -145,7 +145,7 @@ trait LoggerMethodsTestTrait
     }
 
     /**
-     * @return array<mixed,mixed>
+     * @return array<mixed>
      */
     public static function providerMethods(): array
     {
