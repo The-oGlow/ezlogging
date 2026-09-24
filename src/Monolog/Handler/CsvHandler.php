@@ -15,7 +15,7 @@ namespace Monolog\Handler;
 
 use Monolog\Level;
 use Monolog\LogRecord;
-use ollily\Tools\PhpVersionTrait;
+use ollily\Tools\EnvironmentHelper;
 use ollily\Tools\String\ImplodeTrait;
 
 /**
@@ -30,7 +30,6 @@ use ollily\Tools\String\ImplodeTrait;
  */
 class CsvHandler extends FileHandler
 {
-    use PhpVersionTrait;
     use ImplodeTrait;
 
     /** Fallback filename */
@@ -106,7 +105,7 @@ class CsvHandler extends FileHandler
             $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]); // @phpstan-ignore argument.type
             $output = array_merge($output, $implodeContext);
         }
-        if ($this->isPhpGreater(self::CHECKVERSION)) {
+        if (EnvironmentHelper::isPhpGreater(self::CHECKVERSION)) {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure, static::STANDARD_ESCAPE_CHAR);
         } else {
             fputcsv($stream, $output, $this->itemSeparator, $this->itemEnclosure);
