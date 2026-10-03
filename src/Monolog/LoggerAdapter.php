@@ -15,25 +15,25 @@ namespace Monolog;
 
 use Closure;
 use DateTimeZone;
+use LogicException;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
+use Stringable;
 
 /**
  * @author ollily
- *
- * @phpstan-import-type LoggingLevel from AbstractEasyGoingLogger
  */
 class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NOSONAR: php:S1448
 {
-    /** Fallback timezone */
+    /** @var string Fallback timezone */
     public const string STANDARD_TIMEZONE = "Europe/Berlin";
 
-    /** Default output level */
+    /** @var string Default output level */
     public const string LEVEL_DEFAULT = LogLevel::INFO;
 
-    /** The real monolog logger */
+    /** @var Logger The real monolog logger */
     private Logger $monologLogger;
 
     /**
@@ -41,6 +41,8 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
      * @param list<HandlerInterface> $handlers   optional stack of handlers, the first one in the array is called first, etc
      * @param callable[]             $processors Optional array of processors
      * @param null|DateTimeZone      $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     *
+     * @phpstan-param array<(callable(LogRecord): LogRecord)|ProcessorInterface> $processors
      */
     public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
@@ -50,55 +52,55 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     // LoggerInterface
 
     #[\Override]
-    public function alert(string|\Stringable $message, mixed $context = []): void
+    public function alert(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->alert($message, $context);
     }
 
     #[\Override]
-    public function critical(string|\Stringable $message, mixed $context = []): void
+    public function critical(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->critical($message, $context);
     }
 
     #[\Override]
-    public function debug(string|\Stringable $message, mixed $context = []): void
+    public function debug(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->debug($message, $context);
     }
 
     #[\Override]
-    public function emergency(string|\Stringable $message, mixed $context = []): void
+    public function emergency(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->emergency($message, $context);
     }
 
     #[\Override]
-    public function error(string|\Stringable $message, mixed $context = []): void
+    public function error(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->error($message, $context);
     }
 
     #[\Override]
-    public function info(string|\Stringable $message, mixed $context = []): void
+    public function info(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->info($message, $context);
     }
 
     #[\Override]
-    public function log($level, string|\Stringable $message, mixed $context = []): void
+    public function log($level, string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->log($level, $message, $context);
     }
 
     #[\Override]
-    public function notice(string|\Stringable $message, mixed $context = []): void
+    public function notice(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->notice($message, $context);
     }
 
     #[\Override]
-    public function warning(string|\Stringable $message, mixed $context = []): void
+    public function warning(string|Stringable $message, mixed $context = []): void
     {
         $this->monologLogger->warning($message, $context);
     }
@@ -114,16 +116,16 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     // Logger methods
 
     /**
-     * @param int                                    $level    The logging level (a Monolog or RFC 5424 level)
+     * @param int|Level                              $level    The logging level (a Monolog or RFC 5424 level)
      * @param string                                 $message  The log message
      * @param mixed[]                                $context  The log context
      * @param null|JsonSerializableDateTimeImmutable $datetime Optional log date to log into the past or future
      *
-     * @psalm-suppress UnresolvableConstant
-     *
      * @phpstan-param value-of<Level::VALUES>|Level $level
      *
      * @return bool Whether the record has been processed
+     *
+     * @psalm-suppress UnresolvableConstant
      */
     public function addRecord(int|Level $level, string $message, array $context = [], JsonSerializableDateTimeImmutable|null $datetime = null): bool
     {
@@ -171,9 +173,9 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /**
      * @param int|Level|string $level
      *
-     * @psalm-suppress UnresolvableConstant
+     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      *
-     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|\Psr\Log\LogLevel::* $level
+     * @psalm-suppress UnresolvableConstant
      */
     public function isHandling(int|string|Level $level): bool
     {
@@ -181,7 +183,7 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     }
 
     /**
-     * @throws \LogicException If empty handler stack
+     * @throws LogicException If empty handler stack
      */
     public function popHandler(): HandlerInterface
     {
@@ -191,7 +193,7 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /**
      * @phpstan-return ProcessorInterface|(callable(LogRecord): LogRecord)
      *
-     * @throws \LogicException If empty processor stack
+     * @throws LogicException If empty processor stack
      */
     public function popProcessor(): callable
     {
@@ -213,7 +215,7 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /**
      * @param callable|ProcessorInterface $callback
      *
-     * @phpstan-param ProcessorInterface|(callable(LogRecord): LogRecord) $callback
+     * @phpstan-param (callable(LogRecord): LogRecord)|ProcessorInterface $callback
      *
      * @return $this
      */

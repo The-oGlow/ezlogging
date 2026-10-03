@@ -14,34 +14,35 @@ declare(strict_types=1);
 namespace Monolog\Handler;
 
 use Monolog\Level;
+use Psr\Log\LogLevel;
 
 /**
  * Class ConsoleHandler.
  *
  * @see StreamHandler
- *
- * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
  */
 class ConsoleHandler extends StreamHandler
 {
-    /** Standard output stream */
+    /** @var string Standard output stream */
     public const string HANDLER_STDOUT = "php://stdout";
 
-    /** Default output level */
-    public const Level LEVEL_DEFAULT =  Level::Info;
+    /** @var string Default output level */
+    public const string LEVEL_DEFAULT = LogLevel::INFO;
 
     /**
      * ConsoleHandler constructor.
      *
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level The minimum logging level at which this handler will be triggered
-     *                                                              (Default: {@link self::LEVEL_DEFAULT})
+     * @param int|Level|LogLevel|string $level The minimum logging level at which this handler will be triggered
+     *                                         (Default: {@link self::LEVEL_DEFAULT})
      *
-     * @phpstan-param LoggingLevel $level
+     * @throws \InvalidArgumentException If stream is not a resource or string
      *
      * @see ConsoleHandler::LEVEL_DEFAULT;
      */
-    public function __construct(int|string|Level $level = self::LEVEL_DEFAULT)
+    public function __construct(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT)
     {
+        /** @psalm-suppress PossiblyInvalidArgument
+         * @phpstan-ignore argument.type */
         parent::__construct(self::HANDLER_STDOUT, $level);
     }
 }

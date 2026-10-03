@@ -20,10 +20,10 @@ namespace Monolog\Formatter;
  */
 class EasyGoingFormatter extends LineFormatter
 {
-    /** Default output format */
+    /** @var string Default output format */
     public const string FORMATTER_OUTPUT = "\n%datetime% [%extra.level_name_pad%] %channel%->%extra.xFunction%() - %message% %context%";
 
-    /** Default datetime format */
+    /** @var string Default datetime format */
     public const string FORMATTER_DATEFORMAT = "Ymd-Gis.v";
 
     /**
