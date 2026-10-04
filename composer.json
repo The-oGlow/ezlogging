@@ -29,7 +29,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.4.1",
-        "ext-ds": "^1.0",
         "psr/log": "^2.0||^3.0",
         "ollily/ezkoding": "^8.4",
         "monolog/monolog": "^3.0"
@@ -39,7 +38,6 @@
     "suggest": {
     },
     "require-dev": {
-        "php-ds/php-ds": "^1.0",
         "phpunit/phpunit": "^13.1",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
