@@ -121,6 +121,8 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
      * @param mixed[]                                $context  The log context
      * @param null|JsonSerializableDateTimeImmutable $datetime Optional log date to log into the past or future
      *
+     * @psalm-suppress MismatchingDocblockParamType
+     *
      * @phpstan-param value-of<Level::VALUES>|Level $level
      *
      * @return bool Whether the record has been processed
@@ -173,9 +175,9 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /**
      * @param int|Level|string $level
      *
-     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
+     * @psalm-suppress UnresolvableConstant,MismatchingDocblockParamType
      *
-     * @psalm-suppress UnresolvableConstant
+     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
     public function isHandling(int|string|Level $level): bool
     {
