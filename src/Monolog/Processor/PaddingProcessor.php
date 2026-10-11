@@ -16,13 +16,12 @@ namespace Monolog\Processor;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\LogRecord;
+use Psr\Log\LogLevel;
 
 /**
  * Class PaddingProcessor.
  *
  * Use Introspection from @see IntrospectionProcessor.
- *
- * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
  *
  * @see     IntrospectionProcessor
  */
@@ -61,16 +60,15 @@ class PaddingProcessor implements ProcessorInterface
     private int $skipStackFramesCount;
 
     /**
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level                The minimum logging level at which this handler will be triggered
-     *                                                                             (Default: {@link Level::Debug})
-     * @param string[]                                       $skipClassesPartials
-     * @param int                                            $skipStackFramesCount
-     *
-     * @phpstan-param LoggingLevel $level
+     * @param int|Level|LogLevel|string $level                The minimum logging level at which this handler will be triggered
+     *                                                        (Default: {@link Level::Debug})
+     * @param string[]                  $skipClassesPartials
+     * @param int                       $skipStackFramesCount
      */
-    public function __construct(int|string|Level $level = Level::Debug, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
+    public function __construct(int|string|Level|LogLevel $level = Level::Debug, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
-        /** @psalm-suppress PossiblyInvalidArgument  */
+        /** @psalm-suppress PossiblyInvalidArgument
+         * @phpstan-ignore argument.type */
         $this->level = Logger::toMonologLevel($level);
         $this->skipClassesPartials = array_merge(static::SKIP_CLASSES, $skipClassesPartials);
         $this->skipStackFramesCount = $skipStackFramesCount;

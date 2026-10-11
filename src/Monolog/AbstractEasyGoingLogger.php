@@ -19,28 +19,25 @@ use Monolog\Handler\ConsoleHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\ProcessorInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Class AbstractEasyGoingLogger.
  *
  * @see Logger
  * @see ConsoleHandler
- *
- * @phpstan-type LoggingLevel value-of<\Monolog\Level>|\Monolog\Level|\Psr\Log\LogLevel::*
- * @phpstan-type ProcessorCallable array<(callable(\Monolog\LogRecord):\Monolog\LogRecord)|\Monolog\Processor\ProcessorInterface>
  */
 abstract class AbstractEasyGoingLogger extends LoggerAdapter
 {
     /**
-     * @param string                                         $name       The logging channel, a simple descriptive name that is attached to all log records
-     * @param list<HandlerInterface>                         $handlers   optional stack of handlers, the first one in the array is called first, etc
-     * @param callable[]                                     $processors Optional array of processors
-     * @param null|DateTimeZone                              $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level      The minimum logging level at which this handler will be triggered
-     *                                                                   (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param string                    $name       The logging channel, a simple descriptive name that is attached to all log records
+     * @param list<HandlerInterface>    $handlers   optional stack of handlers, the first one in the array is called first, etc
+     * @param callable[]                $processors Optional array of processors
+     * @param null|DateTimeZone         $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param int|Level|LogLevel|string $level      The minimum logging level at which this handler will be triggered
+     *                                              (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
-     * @phpstan-param LoggingLevel      $level
-     * @phpstan-param ProcessorCallable $processors
+     * @phpstan-param array<(callable(LogRecord): LogRecord)|ProcessorInterface> $processors
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      */
@@ -60,16 +57,14 @@ abstract class AbstractEasyGoingLogger extends LoggerAdapter
     }
 
     /**
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level The minimum logging level at which this handler will be triggered
-     *                                                              (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param int|Level|LogLevel|string $level The minimum logging level at which this handler will be triggered
+     *                                         (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      *
-     * @phpstan-param LoggingLevel $level
-     *
      * @return HandlerInterface
      */
-    abstract protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface;
+    abstract protected function getDefaultHandler(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): HandlerInterface;
 
     /**
      * @return ProcessorInterface
@@ -82,16 +77,14 @@ abstract class AbstractEasyGoingLogger extends LoggerAdapter
     abstract protected function getDefaultFormatter(): FormatterInterface;
 
     /**
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level The minimum logging level at which this handler will be triggered
-     *                                                              (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
+     * @param int|Level|LogLevel|string $level The minimum logging level at which this handler will be triggered
+     *                                         (Default: {@link AbstractEasyGoingLogger::LEVEL_DEFAULT})
      *
      * @see AbstractEasyGoingLogger::LEVEL_DEFAULT
      *
-     * @phpstan-param LoggingLevel $level
-     *
      * @return StreamHandler the stream handler for the file
      */
-    protected function getConsoleHandler(int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getConsoleHandler(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $consoleHandler = new ConsoleHandler($level);
         $consoleHandler->setFormatter($this->getDefaultFormatter());

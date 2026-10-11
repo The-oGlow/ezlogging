@@ -9,6 +9,7 @@
         "monolog"
     ],
     "homepage": "https://github.com/ollily/ezlogging",
+    "readme": "README.adoc",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -19,15 +20,17 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ollily/ezlogging/issues"
+        "issues": "https://github.com/ollily/ezlogging/issues",
+        "docs": "https://github.com/ollily/ezlogging/wiki",
+        "wiki": "https://github.com/ollily/ezlogging/wiki",
+        "source": "https://github.com/ollily/ezlogging"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
         "php": ">=8.4.1",
-        "ext-ds": "^1.0",
-        "ollily/ezkoding": "^8.4",
         "psr/log": "^2.0||^3.0",
+        "ollily/ezkoding": "^8.4",
         "monolog/monolog": "^3.0"
     },
     "provide": {
@@ -35,7 +38,6 @@
     "suggest": {
     },
     "require-dev": {
-        "php-ds/php-ds": "^1.0",
         "phpunit/phpunit": "^13.1",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
@@ -46,7 +48,8 @@
         "phpmd/phpmd": "^2.0"
     },
     "config": {
-        "optimize-autoloader": false,
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
         "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true,

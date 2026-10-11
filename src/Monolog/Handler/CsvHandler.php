@@ -17,6 +17,7 @@ use Monolog\Level;
 use Monolog\LogRecord;
 use ollily\Tools\EnvironmentHelper;
 use ollily\Tools\String\ImplodeTrait;
+use Psr\Log\LogLevel;
 
 /**
  * Stores any data (given as array) to a csv file.
@@ -25,8 +26,6 @@ use ollily\Tools\String\ImplodeTrait;
  * Original by @author Jay MOULIN <jay@femtopixel.com>
  *
  * @see FileHandler
- *
- * @phpstan-import-type LoggingLevel from \Monolog\Handler\ConsoleHandler
  */
 class CsvHandler extends FileHandler
 {
@@ -62,14 +61,14 @@ class CsvHandler extends FileHandler
     /**
      * CsvHandler constructor.
      *
-     * @param null|string                                    $pathToFile    The full path to the output folder
-     * @param null|string                                    $fileName      The name of the output file
-     * @param string                                         $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
-     * @param string                                         $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
-     * @param int|\Monolog\Level|\Psr\Log\LogLevel::*|string $level         The minimum logging level at which this handler will be triggered
-     *                                                                      (Default: {@link self::LEVEL_DEFAULT})
+     * @param null|string               $pathToFile    The full path to the output folder
+     * @param null|string               $fileName      The name of the output file
+     * @param string                    $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string                    $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param int|Level|LogLevel|string $level         The minimum logging level at which this handler will be triggered
+     *                                                 (Default: {@link self::LEVEL_DEFAULT})
      *
-     * @phpstan-param LoggingLevel $level
+     * @throws \InvalidArgumentException If stream is not a resource or string
      *
      * @see CsvHandler::STANDARD_ITEM_SEP
      * @see CsvHandler::STANDARD_TEXT_SEP
@@ -80,7 +79,7 @@ class CsvHandler extends FileHandler
         ?string $fileName = null,
         string $itemSeparator = self::STANDARD_ITEM_SEP,
         string $itemEnclosure = self::STANDARD_TEXT_SEP,
-        int|string|Level $level = self::LEVEL_DEFAULT
+        int|string|Level|LogLevel $level = self::LEVEL_DEFAULT
     ) {
         parent::__construct($pathToFile, $fileName, $level);
         $this->itemSeparator = $itemSeparator;

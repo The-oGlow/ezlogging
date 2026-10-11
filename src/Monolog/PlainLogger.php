@@ -28,7 +28,7 @@ use Psr\Log\LogLevel;
 class PlainLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }

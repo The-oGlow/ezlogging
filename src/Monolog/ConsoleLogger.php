@@ -18,6 +18,7 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\PaddingProcessor;
 use Monolog\Processor\ProcessorInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Class ConsoleLogger.
@@ -29,7 +30,7 @@ use Monolog\Processor\ProcessorInterface;
 class ConsoleLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }
