@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d8c4789966e65d2ac3bff584647763c",
+    "content-hash": "4da4d26e1f620a06483b729f8623b06a",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -867,28 +867,28 @@
         },
         {
             "name": "ollily/ezkoding",
-            "version": "8.4.004",
+            "version": "8.4.007",
             "source": {
                 "type": "git",
                 "url": "https://github.com/The-oGlow/ezkoding.git",
-                "reference": "cbe8072d30857d7aa1cd386a3ebe62ef83c9215e"
+                "reference": "5603d567a340bf27e7d3d1e32c1718d1957881c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/The-oGlow/ezkoding/zipball/cbe8072d30857d7aa1cd386a3ebe62ef83c9215e",
-                "reference": "cbe8072d30857d7aa1cd386a3ebe62ef83c9215e",
+                "url": "https://api.github.com/repos/The-oGlow/ezkoding/zipball/5603d567a340bf27e7d3d1e32c1718d1957881c2",
+                "reference": "5603d567a340bf27e7d3d1e32c1718d1957881c2",
                 "shasum": ""
             },
             "require": {
                 "composer/composer": "^2.0",
-                "ext-ds": "^1.0",
+                "ext-ds": "^2.0",
                 "php": ">=8.4.1",
                 "psr/log": "^2.0||^3.0",
                 "twig/twig": "^3.27"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
-                "php-ds/php-ds": "^1.0",
+                "php-ds/php-ds": "^2.0",
                 "phpmd/phpmd": "^2.0",
                 "phpstan/phpstan": "^2.1",
                 "phpstan/phpstan-strict-rules": "^2.0",
@@ -928,65 +928,12 @@
                 "testcase"
             ],
             "support": {
+                "docs": "https://github.com/ollily/ezkoding/wiki",
                 "issues": "https://github.com/ollily/ezkoding/issues",
-                "source": "https://github.com/The-oGlow/ezkoding/tree/8.4.004"
+                "source": "https://github.com/ollily/ezkoding",
+                "wiki": "https://github.com/ollily/ezkoding/wiki"
             },
-            "time": "2026-09-21T13:56:27+00:00"
-        },
-        {
-            "name": "php-ds/php-ds",
-            "version": "v1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-ds/polyfill.git",
-                "reference": "2e1c133b99aaa1a5fa2318257a6e2501b9082b55"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/2e1c133b99aaa1a5fa2318257a6e2501b9082b55",
-                "reference": "2e1c133b99aaa1a5fa2318257a6e2501b9082b55",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "provide": {
-                "ext-ds": "1.5.0"
-            },
-            "require-dev": {
-                "php-ds/tests": "^1.8"
-            },
-            "suggest": {
-                "ext-ds": "to improve performance and reduce memory usage"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ds\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rudi Theunissen",
-                    "email": "rudolf.theunissen@gmail.com"
-                }
-            ],
-            "description": "Specialized data structures as alternatives to the PHP array",
-            "keywords": [
-                "data structures",
-                "ds",
-                "php",
-                "polyfill"
-            ],
-            "support": {
-                "issues": "https://github.com/php-ds/polyfill/issues",
-                "source": "https://github.com/php-ds/polyfill/tree/v1.8.0"
-            },
-            "time": "2026-04-10T23:35:50+00:00"
+            "time": "2026-10-25T15:08:36+00:00"
         },
         {
             "name": "psr/container",
@@ -8439,7 +8386,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.4.1"
+        "php": ">=8.4.1",
+        "ext-ds": "^2.0"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"
