@@ -17,7 +17,6 @@ use Monolog\Level;
 use Monolog\LogRecord;
 use ollily\Tools\EnvironmentHelper;
 use ollily\Tools\String\ImplodeTrait;
-use Psr\Log\LogLevel;
 
 /**
  * Stores any data (given as array) to a csv file.
@@ -61,12 +60,12 @@ class CsvHandler extends FileHandler
     /**
      * CsvHandler constructor.
      *
-     * @param null|string               $pathToFile    The full path to the output folder
-     * @param null|string               $fileName      The name of the output file
-     * @param string                    $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
-     * @param string                    $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
-     * @param int|Level|LogLevel|string $level         The minimum logging level at which this handler will be triggered
-     *                                                 (Default: {@link self::LEVEL_DEFAULT})
+     * @param null|string      $pathToFile    The full path to the output folder
+     * @param null|string      $fileName      The name of the output file
+     * @param string           $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string           $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param int|Level|string $level         The minimum logging level at which this handler will be triggered
+     *                                        (Default: {@link self::LEVEL_DEFAULT})
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      *
@@ -79,7 +78,7 @@ class CsvHandler extends FileHandler
         ?string $fileName = null,
         string $itemSeparator = self::STANDARD_ITEM_SEP,
         string $itemEnclosure = self::STANDARD_TEXT_SEP,
-        int|string|Level|LogLevel $level = self::LEVEL_DEFAULT
+        int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         parent::__construct($pathToFile, $fileName, $level);
         $this->itemSeparator = $itemSeparator;
@@ -94,14 +93,16 @@ class CsvHandler extends FileHandler
     {
         $output = [];
 
-        /** @psalm-suppress RiskyTruthyFalsyComparison */
-        if (isset($record[self::KEY_MESSAGE]) && !empty($record[self::KEY_MESSAGE])) {
+        if (isset($record[self::KEY_MESSAGE]) && ($record[self::KEY_MESSAGE] !== '')) {
             array_push($output, $record[self::KEY_MESSAGE]);
         }
 
-        /** @psalm-suppress RiskyTruthyFalsyComparison */
-        if (isset($record[self::KEY_CONTEXT]) && !empty($record[self::KEY_CONTEXT])) {
-            $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]); // @phpstan-ignore argument.type
+        if (isset($record[self::KEY_CONTEXT])) {
+            if (is_array($record[self::KEY_CONTEXT])) {
+                $implodeContext = $this->array_flatten($record[self::KEY_CONTEXT]);
+            } else {
+                $implodeContext = [$record[self::KEY_CONTEXT]];
+            }
             $output = array_merge($output, $implodeContext);
         }
         if (EnvironmentHelper::isPhpGreater(self::CHECKVERSION)) {

@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Monolog\FileLoggerTest;
 
+use Monolog\Level;
 use Monolog\Test\MonologTestCase as tCase;
 use ollily\Tools\String\ImplodeTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 
 /**
  * This trait tests the FileLogger.
@@ -78,7 +78,7 @@ trait FileLoggerTestTrait
     {
         tCase::assertNotEmpty(self::$fileName);
         tCase::assertFileDoesNotExist(self::$fileName);
-        if ($this->isExists(LogLevel::INFO)) {
+        if ($this->isExists(Level::Info->name)) {
             $this->o2t->info('Write text into:', [self::$fileName]);
         }
         tCase::assertFileExists(self::$fileName);
@@ -90,7 +90,11 @@ trait FileLoggerTestTrait
 
         if ($this->isExists()) {
             $renderMessage = $this->currentTestMethod() . $message;
-            /** @psalm-suppress UndefinedMethod */
+            /**
+             * The trait does not know where it is used.
+             *
+             * @psalm-suppress UndefinedMethod
+             */
             $this->o2t->out($renderMessage);
 
             $expectedMsg = str_replace(self::$PH_MSG, $renderMessage, self::$REGEX_MSG);
@@ -104,15 +108,17 @@ trait FileLoggerTestTrait
      * @param string $expectedContext
      * @param mixed  $message
      * @param mixed  $context
-     *
-     * @psalm-suppress UndefinedMethod
      */
     #[DataProvider('providerWriteMessageWithContext')]
     public function testWriteMessageWithContext(string $expectedMsg, string $expectedContext, mixed $message, mixed $context): void
     {
         if ($this->isExists()) {
             $renderMessage = $this->currentTestMethod() . $message;
-
+            /**
+             * The trait does not know where it is used.
+             *
+             * @psalm-suppress UndefinedMethod
+             */
             $this->o2t->out($renderMessage, $context);
 
             $this->verifyFileContent(str_replace(self::$PH_CNTX, $expectedContext, $expectedMsg), self::$fileName);
@@ -172,17 +178,23 @@ trait FileLoggerTestTrait
 
     public function testLoggerMethods(): void
     {
+        $success = false;
+
         $loggerMethods = ['debug', 'info', 'notice', 'warning', 'alert', 'emergency'];
 
         foreach ($loggerMethods as $loggerMethod) {
             if ($this->isExists($loggerMethod)) {
                 $this->o2t->$loggerMethod($this->currentTestMethod() . self::$MESSAGE_1 . '-' . $loggerMethod, self::$COMPLEX_CONTEXT);
+                $success = true;
             }
         }
         if ($this->isExists('log')) {
             $this->o2t->log($this->o2t::LEVEL_DEFAULT, $this->currentTestMethod() . self::$MESSAGE_1 . '-log', self::$COMPLEX_CONTEXT);
+            $success = true;
+        } else {
+            $success = false;
         }
-        tCase::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        tCase::assertTrue($success);
     }
 
     protected function currentTestMethod(): string
@@ -211,10 +223,12 @@ trait FileLoggerTestTrait
     }
 
     /**
-     * @param null|string          $methodName
-     * @param null|LoggerInterface $logger
+     * Checks, if a method exists. If no method name given, {@link FileLoggerTetstTrait::$methodName} is used.
      *
-     * @return bool
+     * @param null|string          $methodName The method name to check (Default: null)
+     * @param null|LoggerInterface $logger     A logger to write an information into (Default: null)
+     *
+     * @return bool TRUE=methodname exists, else FALSE
      */
     private function isExists(?string $methodName = null, ?LoggerInterface $logger = null): bool
     {
@@ -228,7 +242,12 @@ trait FileLoggerTestTrait
             if ($this->silentIsExists) {
                 self::fail('Method not exists: ' . $methodName);
             } else {
-                self::assertTrue(true); // @phpstan-ignore staticMethod.alreadyNarrowedType
+                /**
+                 * Needs a positive assert.
+                 *
+                 * @phpstan-ignore staticMethod.alreadyNarrowedType
+                 */
+                self::assertTrue(true);
             }
         }
 

@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace Monolog\Handler;
 
 use Monolog\Level;
-use Monolog\Logger;
-use Psr\Log\LogLevel;
 
 /**
  * Class FileHandler.
@@ -30,8 +28,8 @@ class FileHandler extends StreamHandler
     /** Default file extension */
     public const string STANDARD_FILEEXT  = '.log';
 
-    /** @var string Default output level (DEBUG) */
-    public const string LEVEL_DEFAULT =  LogLevel::DEBUG;
+    /** @var Level Default output level */
+    public const Level LEVEL_DEFAULT = Level::Debug;
 
     /** Default separator char for namespace (Default) */
     public const string C_NS_SEP  = "\\";
@@ -72,10 +70,10 @@ class FileHandler extends StreamHandler
     /**
      * FileHandler constructor.
      *
-     * @param null|string               $pathToFile The full path to the output folder
-     * @param null|string               $fileName   The name of the output file
-     * @param int|Level|LogLevel|string $level      The minimum logging level at which this handler will be triggered
-     *                                              (Default: {@link self::LEVEL_DEFAULT})
+     * @param null|string      $pathToFile The full path to the output folder
+     * @param null|string      $fileName   The name of the output file
+     * @param int|Level|string $level      The minimum logging level at which this handler will be triggered
+     *                                     (Default: {@link self::LEVEL_DEFAULT})
      *
      * @throws \InvalidArgumentException If stream is not a resource or string
      *
@@ -84,13 +82,15 @@ class FileHandler extends StreamHandler
     public function __construct(
         ?string $pathToFile = null,
         ?string $fileName = null,
-        int|string|Level|LogLevel $level = self::LEVEL_DEFAULT
+        int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         self::$tmpDir   = sys_get_temp_dir();
         $this->fileName = static::prepareFileName($pathToFile, $fileName);
-        /** @psalm-suppress PossiblyInvalidArgument
-         * @phpstan-ignore argument.type */
-        $level = Logger::toMonologLevel($level);
+        /**
+         * Function has too strict parameters.
+         *
+         * @phpstan-ignore argument.type
+         */
         parent::__construct($this->fileName, $level);
     }
 

@@ -49,8 +49,6 @@ trait AbstractEasyGoingLoggerTestTrait
 
         $actualClazz = get_class($this->o2t);
 
-        /** @psalm-suppress RedundantCondition */
-        self::assertNotFalse($actualClazz);
         self::assertContains($actualClazz, $expectedClazz);
 
         $handlers = $this->callMethodOnO2t('getHandlers');
@@ -68,9 +66,6 @@ trait AbstractEasyGoingLoggerTestTrait
                 sprintf('Has unexptected number of handlers: \'%s\' => %s', $actualClazz, print_r($handlers, true))
             );
         }
-        /**
-         * @psalm-suppress RedundantPropertyInitializationCheck
-         */
         if (isset($this->o2t)) {
             self::assertInstanceOf(LoggerInterface::class, $this->o2t);
         }

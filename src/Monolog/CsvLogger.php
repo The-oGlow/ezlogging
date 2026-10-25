@@ -19,7 +19,6 @@ use Monolog\Handler\CsvHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
-use Psr\Log\LogLevel;
 
 /**
  * Class CsvLogger.
@@ -31,7 +30,7 @@ use Psr\Log\LogLevel;
  */
 class CsvLogger extends FileLogger
 {
-    /** The separator char for each column */
+    /** @var non-empty-string The separator char for each column */
     private string $itemSeparator;
 
     /** The char enclosing each column value */
@@ -41,13 +40,13 @@ class CsvLogger extends FileLogger
     private array $header;
 
     /**
-     * @param string                    $name          The logging channel, a simple descriptive name that is attached to all log records
-     * @param array<string>             $header        The column header (Default: empty)
-     * @param string                    $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
-     * @param string                    $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
-     * @param null|string               $pathToFile    The full path to the output folder
-     * @param int|Level|LogLevel|string $level         The minimum logging level at which this handler will be triggered
-     *                                                 (Default: {@link self::LEVEL_DEFAULT})
+     * @param string           $name          The logging channel, a simple descriptive name that is attached to all log records
+     * @param array<string>    $header        The column header (Default: empty)
+     * @param non-empty-string $itemSeparator The separator char for each column (Default: {@link CsvHandler::STANDARD_ITEM_SEP})
+     * @param string           $itemEnclosure The char enclosing each column value (Default:{@link CsvHandler::STANDARD_TEXT_SEP})
+     * @param null|string      $pathToFile    The full path to the output folder
+     * @param int|Level|string $level         The minimum logging level at which this handler will be triggered
+     *                                        (Default: {@link self::LEVEL_DEFAULT})
      *
      * @see CsvHandler::STANDARD_ITEM_SEP
      * @see CsvHandler::STANDARD_TEXT_SEP
@@ -58,7 +57,7 @@ class CsvLogger extends FileLogger
         string $itemSeparator = CsvHandler::STANDARD_ITEM_SEP,
         string $itemEnclosure = CsvHandler::STANDARD_TEXT_SEP,
         ?string $pathToFile = null,
-        int|string|Level|LogLevel $level = self::LEVEL_DEFAULT
+        int|string|Level $level = self::LEVEL_DEFAULT
     ) {
         $this->itemSeparator = $itemSeparator;
         $this->itemEnclosure = $itemEnclosure;
@@ -89,7 +88,7 @@ class CsvLogger extends FileLogger
     }
 
     /**
-     * @return string The separator char for each column
+     * @return non-empty-string The separator char for each column
      */
     public function getItemSeparator(): string
     {
@@ -117,7 +116,7 @@ class CsvLogger extends FileLogger
     }
 
     #[\Override]
-    protected function getFileHandler(?string $pathToFile, string $fileName, int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): StreamHandler
+    protected function getFileHandler(?string $pathToFile, string $fileName, int|string|Level $level = self::LEVEL_DEFAULT): StreamHandler
     {
         $handler = new CsvHandler($pathToFile, $fileName, $this->itemSeparator, $this->itemEnclosure, $level);
         $handler->setFormatter($this->getDefaultFormatter());

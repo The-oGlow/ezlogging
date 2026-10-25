@@ -18,7 +18,6 @@ use Monolog\Formatter\PlainFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\PlainProcessor;
 use Monolog\Processor\ProcessorInterface;
-use Psr\Log\LogLevel;
 
 /**
  * Class PlainLogger.
@@ -28,7 +27,7 @@ use Psr\Log\LogLevel;
 class PlainLogger extends AbstractEasyGoingLogger
 {
     #[\Override]
-    protected function getDefaultHandler(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT): HandlerInterface
+    protected function getDefaultHandler(int|string|Level $level = self::LEVEL_DEFAULT): HandlerInterface
     {
         return $this->getConsoleHandler($level);
     }
@@ -69,7 +68,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function emergency(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::EMERGENCY);
+        $this->out($message, Level::Emergency);
     }
 
     /**
@@ -78,7 +77,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function alert(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::ALERT);
+        $this->out($message, Level::Alert);
     }
 
     /**
@@ -87,7 +86,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function warning(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::WARNING);
+        $this->out($message, Level::Warning);
     }
 
     /**
@@ -96,7 +95,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function notice(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::NOTICE);
+        $this->out($message, Level::Notice);
     }
 
     /**
@@ -105,7 +104,7 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function info(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::INFO);
+        $this->out($message, Level::Info);
     }
 
     /**
@@ -114,6 +113,6 @@ class PlainLogger extends AbstractEasyGoingLogger
     #[\Override]
     public function debug(string|\Stringable $message, mixed $context = []): void
     {
-        $this->out($message, LogLevel::DEBUG);
+        $this->out($message, Level::Debug);
     }
 }
