@@ -55,19 +55,19 @@ jobs:
         run: asciidoctor-reducer --preserve-conditionals -o README.adoc ${{ env.DOCU_SRC_DIR }}/pj-readme.adoc
 
       - name: assembly config.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-config.adoc ${{ env.DOCU_SRC_DIR }} /${{ env.DOCU_DEST_DIR }}/pj-config.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-config.adoc ${{ env.DOCU_SRC_DIR }}/${{ env.DOCU_DEST_DIR }}/pj-config.adoc
 
       - name: assembly analysis.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-analysis.adoc ${{ env.DOCU_SRC_DIR }} /${{ env.DOCU_DEST_DIR }}/pj-analysis.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-analysis.adoc ${{ env.DOCU_SRC_DIR }}/${{ env.DOCU_DEST_DIR }}/pj-analysis.adoc
 
       - name: assembly commmands.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-commands.adoc ${{ env.DOCU_SRC_DIR }} /${{ env.DOCU_DEST_DIR }}/pj-commands.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-commands.adoc ${{ env.DOCU_SRC_DIR }}/${{ env.DOCU_DEST_DIR }}/pj-commands.adoc
 
       - name: assembly examples.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-examples.adoc ${{ env.DOCU_SRC_DIR }} /${{ env.DOCU_DEST_DIR }}/pj-examples.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-examples.adoc ${{ env.DOCU_SRC_DIR }}/${{ env.DOCU_DEST_DIR }}/pj-examples.adoc
 
       - name: assembly usage.adoc
-        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-usage.adoc ${{ env.DOCU_SRC_DIR }} /${{ env.DOCU_DEST_DIR }}/pj-usage.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o ${{ env.DOCU_DEST_DIR }}/docu-usage.adoc ${{ env.DOCU_SRC_DIR }}/${{ env.DOCU_DEST_DIR }}/pj-usage.adoc
 
       - name: commit and push documents
         uses: EndBug/add-and-commit@v11
