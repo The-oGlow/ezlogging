@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Monolog\Handler;
 
+use InvalidArgumentException;
 use Monolog\Level;
-use Psr\Log\LogLevel;
 
 /**
  * Class ConsoleHandler.
@@ -26,23 +26,26 @@ class ConsoleHandler extends StreamHandler
     /** @var string Standard output stream */
     public const string HANDLER_STDOUT = "php://stdout";
 
-    /** @var string Default output level */
-    public const string LEVEL_DEFAULT = LogLevel::INFO;
+    /** @var Level Default output level */
+    public const Level LEVEL_DEFAULT = Level::Info;
 
     /**
      * ConsoleHandler constructor.
      *
-     * @param int|Level|LogLevel|string $level The minimum logging level at which this handler will be triggered
-     *                                         (Default: {@link self::LEVEL_DEFAULT})
+     * @param int|Level|string $level The minimum logging level at which this handler will be triggered
+     *                                (Default: {@link self::LEVEL_DEFAULT})
      *
-     * @throws \InvalidArgumentException If stream is not a resource or string
+     * @throws InvalidArgumentException If stream is not a resource or string
      *
      * @see ConsoleHandler::LEVEL_DEFAULT;
      */
-    public function __construct(int|string|Level|LogLevel $level = self::LEVEL_DEFAULT)
+    public function __construct(int|string|Level $level = self::LEVEL_DEFAULT)
     {
-        /** @psalm-suppress PossiblyInvalidArgument
-         * @phpstan-ignore argument.type */
+        /**
+         * Function has too strict parameters.
+         *
+         * @phpstan-ignore argument.type
+         */
         parent::__construct(self::HANDLER_STDOUT, $level);
     }
 }

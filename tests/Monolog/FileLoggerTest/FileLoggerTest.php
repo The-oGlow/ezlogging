@@ -35,7 +35,6 @@ class FileLoggerTest extends TestCase
 
         $this->o2t      = new FileLogger(name:uniqid(self::class, true), pathToFile: sys_get_temp_dir());
         self::$fileName = $this->o2t->getFileName();
-        $this->silentIsExists = false;
     }
 
     public function testConfiguration(): void

@@ -19,7 +19,6 @@ use LogicException;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
 use Psr\Log\AbstractLogger;
-use Psr\Log\LogLevel;
 use Stringable;
 
 /**
@@ -30,8 +29,8 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /** @var string Fallback timezone */
     public const string STANDARD_TIMEZONE = "Europe/Berlin";
 
-    /** @var string Default output level */
-    public const string LEVEL_DEFAULT = LogLevel::INFO;
+    /** @var Level Default output level */
+    public const Level LEVEL_DEFAULT = Level::Info;
 
     /** @var Logger The real monolog logger */
     private Logger $monologLogger;
@@ -42,7 +41,7 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
      * @param callable[]             $processors Optional array of processors
      * @param null|DateTimeZone      $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
      *
-     * @phpstan-param array<(callable(LogRecord): LogRecord)|ProcessorInterface> $processors
+     * @phpstan-param array<(callable(\Monolog\LogRecord): \Monolog\LogRecord)|\Monolog\Processor\ProcessorInterface> $processors
      */
     public function __construct(string $name, array $handlers = [], array $processors = [], ?DateTimeZone $timezone = null)
     {
@@ -121,16 +120,16 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
      * @param mixed[]                                $context  The log context
      * @param null|JsonSerializableDateTimeImmutable $datetime Optional log date to log into the past or future
      *
-     * @psalm-suppress MismatchingDocblockParamType
-     *
-     * @phpstan-param value-of<Level::VALUES>|Level $level
-     *
      * @return bool Whether the record has been processed
-     *
-     * @psalm-suppress UnresolvableConstant
      */
     public function addRecord(int|Level $level, string $message, array $context = [], JsonSerializableDateTimeImmutable|null $datetime = null): bool
     {
+        /**
+         * Function has too strict parameters.
+         *
+         * @psalm-suppress PossiblyInvalidArgument
+         * @phpstan-ignore argument.type
+         */
         return $this->monologLogger->addRecord($level, $message, $context, $datetime);
     }
 
@@ -158,9 +157,9 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     }
 
     /**
-     * @return callable[]
+     * @return array<callable>
      *
-     * @phpstan-return array<ProcessorInterface|(callable(LogRecord): LogRecord)>
+     * @phpstan-return array<\Monolog\Processor\ProcessorInterface|(callable(\Monolog\LogRecord): \Monolog\LogRecord)>
      */
     public function getProcessors(): array
     {
@@ -174,13 +173,15 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
 
     /**
      * @param int|Level|string $level
-     *
-     * @psalm-suppress UnresolvableConstant,MismatchingDocblockParamType
-     *
-     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
     public function isHandling(int|string|Level $level): bool
     {
+        /**
+         * Function has too strict parameters.
+         *
+         * @psalm-suppress PossiblyInvalidArgument
+         * @phpstan-ignore argument.type
+         */
         return $this->monologLogger->isHandling($level);
     }
 
@@ -193,7 +194,9 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     }
 
     /**
-     * @phpstan-return ProcessorInterface|(callable(LogRecord): LogRecord)
+     * @return callable
+     *
+     * @phpstan-return \Monolog\Processor\ProcessorInterface|(callable(\Monolog\LogRecord): \Monolog\LogRecord)
      *
      * @throws LogicException If empty processor stack
      */
@@ -217,11 +220,11 @@ class LoggerAdapter extends AbstractLogger implements ResettableInterface  // NO
     /**
      * @param callable|ProcessorInterface $callback
      *
-     * @phpstan-param (callable(LogRecord): LogRecord)|ProcessorInterface $callback
+     * @phpstan-param (callable(\Monolog\LogRecord): \Monolog\LogRecord)|\Monolog\Processor\ProcessorInterface $callback
      *
      * @return $this
      */
-    public function pushProcessor(ProcessorInterface|callable $callback): self
+    public function pushProcessor(callable|ProcessorInterface $callback): self
     {
         $this->monologLogger->pushProcessor($callback);
 

@@ -36,23 +36,23 @@ Simplify the usage of
 
 == Configuration
 
-Please read the link:docu-config.adoc[configuration].
+Please read the link:site/docu-config.adoc[configuration].
 
 == Usage
 
-include::{site_resource}/pj-usage.adoc[opts=optional]
+include::{site_resource}/site/pj-usage.adoc[opts=optional]
 
 == Examples
 
-Please read some link:docu-examples.adoc[examples].
+Please read some link:site/docu-examples.adoc[examples].
 
 == Project Status
 
-Please read the link:docu-analysis.adoc[project status].
+Please read the link:site/docu-analysis.adoc[project status].
 
 == Additional Information
 
-* link:docu-commands.adoc[Composer Commands] - New commands for composer
+* link:site/docu-commands.adoc[Composer Commands] - New commands for composer
 
 == Notice
 

@@ -58,10 +58,6 @@ class CsvLoggerTest extends TestCase
 
         if (file_exists($csvLoggerFileName)) {
             $csvLoggerContent = str_replace("\n", '', (string) file_get_contents($csvLoggerFileName));
-            /**
-             * @psalm-suppress ArgumentTypeCoercion
-             * @phpstan-ignore argument.type
-             */
             $actualHeader = explode($csvLogger->getItemSeparator(), $csvLoggerContent);
             unlink($csvLoggerFileName);
             self::assertEquals($expectedHeader, $actualHeader);
