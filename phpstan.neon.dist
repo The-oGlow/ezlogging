@@ -34,11 +34,6 @@ parameters:
                 - tests/*/*Test.php
 
         # Custom
-        -
-            identifier: constructor.unusedParameter
-            paths:
-                - src\Monolog\Formatter\EasyGoingFormatter.php
-                - src\Monolog\Formatter\PlainFormatter.php
 
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
